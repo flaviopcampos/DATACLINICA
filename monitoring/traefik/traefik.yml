@@ -1,0 +1,448 @@
+# =============================================================================
+# Configuração do Traefik - DataClinica
+# Proxy Reverso e Load Balancer
+# =============================================================================
+
+# =============================================================================
+# Configurações Globais
+# =============================================================================
+global:
+  # Verificar por novas versões
+  checkNewVersion: false
+  
+  # Enviar estatísticas anônimas
+  sendAnonymousUsage: false
+
+# =============================================================================
+# Configurações da API e Dashboard
+# =============================================================================
+api:
+  # Habilitar API
+  dashboard: true
+  
+  # Habilitar modo debug
+  debug: true
+  
+  # Habilitar modo inseguro (apenas para desenvolvimento)
+  insecure: true
+
+# =============================================================================
+# Configurações de Entry Points
+# =============================================================================
+entryPoints:
+  # HTTP (porta 80)
+  web:
+    address: ":80"
+    # Redirecionamento automático para HTTPS
+    http:
+      redirections:
+        entrypoint:
+          to: websecure
+          scheme: https
+          permanent: true
+  
+  # HTTPS (porta 443)
+  websecure:
+    address: ":443"
+    http:
+      tls:
+        # Configurações de TLS
+        options: default
+        certResolver: letsencrypt
+  
+  # Traefik Dashboard (porta 8080)
+  traefik:
+    address: ":8080"
+  
+  # Métricas (porta 8082)
+  metrics:
+    address: ":8082"
+  
+  # Ping/Health Check (porta 8083)
+  ping:
+    address: ":8083"
+
+# =============================================================================
+# Configurações de Providers
+# =============================================================================
+providers:
+  # Docker Provider
+  docker:
+    # Endpoint do Docker
+    endpoint: "unix:///var/run/docker.sock"
+    
+    # Expor containers por padrão
+    exposedByDefault: false
+    
+    # Rede padrão
+    network: dataclinica_monitoring
+    
+    # Watch para mudanças
+    watch: true
+    
+    # Configurações de polling
+    pollInterval: "5s"
+    
+    # Usar bind port IP
+    useBindPortIP: false
+    
+    # Configurações de TLS
+    # tls:
+    #   cert: "/path/to/cert.pem"
+    #   key: "/path/to/key.pem"
+    #   ca: "/path/to/ca.pem"
+    #   insecureSkipVerify: true
+  
+  # File Provider (configurações estáticas)
+  file:
+    # Diretório de configurações
+    directory: /etc/traefik/dynamic
+    
+    # Watch para mudanças
+    watch: true
+  
+  # Consul Provider (opcional)
+  # consul:
+  #   endpoints:
+  #     - "consul:8500"
+  #   watch: true
+  #   prefix: traefik
+
+# =============================================================================
+# Configurações de Certificados SSL
+# =============================================================================
+certificatesResolvers:
+  # Let's Encrypt
+  letsencrypt:
+    acme:
+      # Email para notificações
+      email: admin@dataclinica.com
+      
+      # Armazenamento de certificados
+      storage: /etc/traefik/acme/acme.json
+      
+      # Servidor ACME (produção)
+      caServer: https://acme-v02.api.letsencrypt.org/directory
+      
+      # Servidor ACME (staging - para testes)
+      # caServer: https://acme-staging-v02.api.letsencrypt.org/directory
+      
+      # Configurações de DNS Challenge
+      dnsChallenge:
+        provider: cloudflare
+        delayBeforeCheck: 60
+        resolvers:
+          - "1.1.1.1:53"
+          - "8.8.8.8:53"
+      
+      # Configurações de HTTP Challenge (alternativa)
+      # httpChallenge:
+      #   entryPoint: web
+      
+      # Configurações de TLS Challenge (alternativa)
+      # tlsChallenge: {}
+  
+  # Certificado auto-assinado (desenvolvimento)
+  selfsigned:
+    acme:
+      email: dev@dataclinica.com
+      storage: /etc/traefik/acme/selfsigned.json
+      caServer: https://acme-staging-v02.api.letsencrypt.org/directory
+      httpChallenge:
+        entryPoint: web
+
+# =============================================================================
+# Configurações de TLS
+# =============================================================================
+tls:
+  # Opções padrão de TLS
+  options:
+    default:
+      minVersion: "VersionTLS12"
+      maxVersion: "VersionTLS13"
+      cipherSuites:
+        - "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
+        - "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305"
+        - "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"
+        - "TLS_RSA_WITH_AES_256_GCM_SHA384"
+        - "TLS_RSA_WITH_AES_128_GCM_SHA256"
+      curvePreferences:
+        - CurveP521
+        - CurveP384
+      sniStrict: false
+    
+    # Opções de TLS mais restritivas
+    strict:
+      minVersion: "VersionTLS13"
+      maxVersion: "VersionTLS13"
+      sniStrict: true
+  
+  # Certificados estáticos
+  certificates:
+    - certFile: /etc/traefik/certs/dataclinica.crt
+      keyFile: /etc/traefik/certs/dataclinica.key
+      stores:
+        - default
+
+# =============================================================================
+# Configurações de Métricas
+# =============================================================================
+metrics:
+  # Prometheus
+  prometheus:
+    # Habilitar métricas
+    addEntryPointsLabels: true
+    addServicesLabels: true
+    addRoutersLabels: true
+    
+    # Buckets para histogramas
+    buckets:
+      - 0.1
+      - 0.3
+      - 1.2
+      - 5.0
+      - 10.0
+      - 30.0
+      - 60.0
+      - 120.0
+    
+    # Endpoint de métricas
+    entryPoint: metrics
+  
+  # InfluxDB (opcional)
+  # influxdb:
+  #   address: influxdb:8086
+  #   protocol: http
+  #   database: traefik
+  #   retentionPolicy: autogen
+  #   username: traefik
+  #   password: secret
+  #   addEntryPointsLabels: true
+  #   addServicesLabels: true
+  #   pushInterval: 10s
+  
+  # StatsD (opcional)
+  # statsd:
+  #   address: statsd:8125
+  #   pushInterval: 10s
+  #   addEntryPointsLabels: true
+  #   addServicesLabels: true
+
+# =============================================================================
+# Configurações de Tracing
+# =============================================================================
+tracing:
+  # Jaeger
+  jaeger:
+    # Endpoint do Jaeger
+    samplingServerURL: http://jaeger:5778/sampling
+    samplingType: const
+    samplingParam: 1.0
+    localAgentHostPort: jaeger:6831
+    
+    # Configurações de propagação
+    propagation: jaeger
+    
+    # Tags de trace
+    traceContextHeaderName: uber-trace-id
+    
+    # Configurações de coleta
+    collector:
+      endpoint: http://jaeger:14268/api/traces
+      user: ""
+      password: ""
+  
+  # Zipkin (alternativa)
+  # zipkin:
+  #   httpEndpoint: http://zipkin:9411/api/v2/spans
+  #   sameSpan: false
+  #   id128Bit: true
+  #   sampleRate: 1.0
+  
+  # OpenTelemetry (alternativa)
+  # openTelemetry:
+  #   address: otel-collector:4317
+  #   insecure: true
+  #   headers:
+  #     authorization: Bearer token
+
+# =============================================================================
+# Configurações de Access Logs
+# =============================================================================
+accessLog:
+  # Arquivo de log
+  filePath: "/var/log/traefik/access.log"
+  
+  # Formato de log
+  format: json
+  
+  # Bufferização
+  bufferingSize: 100
+  
+  # Filtros
+  filters:
+    # Status codes para logar
+    statusCodes:
+      - "400-499"
+      - "500-599"
+    
+    # Retry attempts
+    retryAttempts: true
+    
+    # Duração mínima
+    minDuration: "10ms"
+  
+  # Campos customizados
+  fields:
+    defaultMode: keep
+    names:
+      ClientUsername: drop
+    headers:
+      defaultMode: keep
+      names:
+        User-Agent: keep
+        Authorization: drop
+        Content-Type: keep
+        X-Forwarded-For: keep
+        X-Real-IP: keep
+
+# =============================================================================
+# Configurações de Logs
+# =============================================================================
+log:
+  # Nível de log
+  level: INFO
+  
+  # Arquivo de log
+  filePath: "/var/log/traefik/traefik.log"
+  
+  # Formato de log
+  format: json
+
+# =============================================================================
+# Configurações de Ping
+# =============================================================================
+ping:
+  # Endpoint de ping
+  entryPoint: ping
+
+# =============================================================================
+# Configurações de Middlewares Globais
+# =============================================================================
+# Nota: Middlewares específicos são definidos via labels do Docker
+# ou em arquivos de configuração dinâmica
+
+# =============================================================================
+# Configurações de Pilot (Traefik Cloud)
+# =============================================================================
+# pilot:
+#   token: "your-pilot-token"
+#   dashboard: true
+
+# =============================================================================
+# Configurações de Cluster
+# =============================================================================
+# cluster:
+#   store: consul
+#   prefix: traefik
+
+# =============================================================================
+# Configurações de Rate Limiting Global
+# =============================================================================
+# Nota: Rate limiting específico é configurado via middlewares
+
+# =============================================================================
+# Configurações de Retry Global
+# =============================================================================
+# Nota: Retry específico é configurado via middlewares
+
+# =============================================================================
+# Configurações de Circuit Breaker Global
+# =============================================================================
+# Nota: Circuit breaker específico é configurado via middlewares
+
+# =============================================================================
+# Configurações de Health Check Global
+# =============================================================================
+# Nota: Health checks específicos são configurados por serviço
+
+# =============================================================================
+# Configurações de Load Balancing Global
+# =============================================================================
+# Nota: Load balancing específico é configurado por serviço
+
+# =============================================================================
+# Configurações de Timeout Global
+# =============================================================================
+# Nota: Timeouts específicos são configurados por serviço
+
+# =============================================================================
+# Configurações de Compressão Global
+# =============================================================================
+# Nota: Compressão específica é configurada via middlewares
+
+# =============================================================================
+# Configurações de CORS Global
+# =============================================================================
+# Nota: CORS específico é configurado via middlewares
+
+# =============================================================================
+# Configurações de Autenticação Global
+# =============================================================================
+# Nota: Autenticação específica é configurada via middlewares
+
+# =============================================================================
+# Configurações de IP Whitelisting Global
+# =============================================================================
+# Nota: IP whitelisting específico é configurado via middlewares
+
+# =============================================================================
+# Configurações de Redirecionamento Global
+# =============================================================================
+# Nota: Redirecionamentos específicos são configurados via middlewares
+
+# =============================================================================
+# Configurações de Headers Global
+# =============================================================================
+# Nota: Headers específicos são configurados via middlewares
+
+# =============================================================================
+# Configurações de Buffering Global
+# =============================================================================
+# Nota: Buffering específico é configurado por serviço
+
+# =============================================================================
+# Configurações de Sticky Sessions Global
+# =============================================================================
+# Nota: Sticky sessions específicas são configuradas por serviço
+
+# =============================================================================
+# Configurações de Service Discovery
+# =============================================================================
+# Nota: Service discovery é configurado via providers (Docker, Consul, etc.)
+
+# =============================================================================
+# Configurações de Observabilidade
+# =============================================================================
+# Todas as configurações de observabilidade (métricas, tracing, logs)
+# já foram definidas nas seções específicas acima
+
+# =============================================================================
+# Configurações de Segurança
+# =============================================================================
+# Configurações de segurança são aplicadas via middlewares e
+# configurações específicas de TLS definidas acima
+
+# =============================================================================
+# Configurações de Performance
+# =============================================================================
+# Configurações de performance são aplicadas via middlewares e
+# configurações específicas de cada serviço
+
+# =============================================================================
+# Configurações de Desenvolvimento
+# =============================================================================
+# Para desenvolvimento, algumas configurações podem ser ajustadas:
+# - api.insecure: true (já configurado)
+# - log.level: DEBUG (pode ser alterado conforme necessário)
+# - certificatesResolvers usando staging do Let's Encrypt

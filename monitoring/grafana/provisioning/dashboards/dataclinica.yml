@@ -1,0 +1,161 @@
+# =============================================================================
+# Configuração de Dashboards do Grafana - DataClinica
+# Provisionamento automático de dashboards
+# =============================================================================
+
+apiVersion: 1
+
+providers:
+  # =============================================================================
+  # Dashboards Principais do DataClinica
+  # =============================================================================
+  - name: 'dataclinica-main'
+    orgId: 1
+    folder: 'DataClinica'
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards/main
+      foldersFromFilesStructure: true
+  
+  # =============================================================================
+  # Dashboards de Infraestrutura
+  # =============================================================================
+  - name: 'dataclinica-infrastructure'
+    orgId: 1
+    folder: 'Infrastructure'
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards/infrastructure
+      foldersFromFilesStructure: true
+  
+  # =============================================================================
+  # Dashboards de Aplicação
+  # =============================================================================
+  - name: 'dataclinica-application'
+    orgId: 1
+    folder: 'Application'
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards/application
+      foldersFromFilesStructure: true
+  
+  # =============================================================================
+  # Dashboards de Business
+  # =============================================================================
+  - name: 'dataclinica-business'
+    orgId: 1
+    folder: 'Business'
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards/business
+      foldersFromFilesStructure: true
+  
+  # =============================================================================
+  # Dashboards de Segurança
+  # =============================================================================
+  - name: 'dataclinica-security'
+    orgId: 1
+    folder: 'Security'
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards/security
+      foldersFromFilesStructure: true
+  
+  # =============================================================================
+  # Dashboards de Alertas
+  # =============================================================================
+  - name: 'dataclinica-alerts'
+    orgId: 1
+    folder: 'Alerts'
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards/alerts
+      foldersFromFilesStructure: true
+  
+  # =============================================================================
+  # Dashboards de Logs
+  # =============================================================================
+  - name: 'dataclinica-logs'
+    orgId: 1
+    folder: 'Logs'
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards/logs
+      foldersFromFilesStructure: true
+  
+  # =============================================================================
+  # Dashboards de Performance
+  # =============================================================================
+  - name: 'dataclinica-performance'
+    orgId: 1
+    folder: 'Performance'
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards/performance
+      foldersFromFilesStructure: true
+  
+  # =============================================================================
+  # Dashboards de Desenvolvimento
+  # =============================================================================
+  - name: 'dataclinica-development'
+    orgId: 1
+    folder: 'Development'
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards/development
+      foldersFromFilesStructure: true
+  
+  # =============================================================================
+  # Dashboards Externos/Importados
+  # =============================================================================
+  - name: 'external-dashboards'
+    orgId: 1
+    folder: 'External'
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 60
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards/external
+      foldersFromFilesStructure: false
+  
+  # =============================================================================
+  # Dashboards de Teste
+  # =============================================================================
+  - name: 'dataclinica-testing'
+    orgId: 1
+    folder: 'Testing'
+    type: file
+    disableDeletion: true
+    updateIntervalSeconds: 30
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards/testing
+      foldersFromFilesStructure: true

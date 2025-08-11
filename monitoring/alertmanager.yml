@@ -1,0 +1,574 @@
+# =============================================================================
+# Configuração do Alertmanager - DataClinica
+# Gerenciamento e roteamento de alertas
+# =============================================================================
+
+global:
+  # Configurações SMTP para notificações por e-mail
+  smtp_smarthost: '${SMTP_HOST:-smtp.gmail.com}:${SMTP_PORT:-587}'
+  smtp_from: '${SMTP_FROM:-alerts@dataclinica.com.br}'
+  smtp_auth_username: '${SMTP_USERNAME}'
+  smtp_auth_password: '${SMTP_PASSWORD}'
+  smtp_require_tls: true
+  
+  # Configurações globais de resolução
+  resolve_timeout: 5m
+  
+  # URLs externas
+  http_config:
+    tls_config:
+      insecure_skip_verify: false
+  
+  # Configurações de template
+  templates:
+    - '/etc/alertmanager/templates/*.tmpl'
+
+# =============================================================================
+# Configuração de Rotas
+# =============================================================================
+route:
+  # Configurações padrão
+  group_by: ['alertname', 'cluster', 'service']
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 12h
+  receiver: 'default'
+  
+  # Rotas específicas
+  routes:
+    # =============================================================================
+    # Alertas Críticos - Notificação Imediata
+    # =============================================================================
+    - match:
+        severity: critical
+      receiver: 'critical-alerts'
+      group_wait: 0s
+      group_interval: 5m
+      repeat_interval: 30m
+      routes:
+        # Alertas de infraestrutura crítica
+        - match:
+            service: database
+          receiver: 'database-critical'
+          group_wait: 0s
+          repeat_interval: 15m
+        
+        # Alertas de aplicação crítica
+        - match:
+            service: backend
+          receiver: 'backend-critical'
+          group_wait: 0s
+          repeat_interval: 15m
+        
+        # Alertas de segurança
+        - match:
+            category: security
+          receiver: 'security-alerts'
+          group_wait: 0s
+          repeat_interval: 10m
+    
+    # =============================================================================
+    # Alertas de Warning - Notificação Moderada
+    # =============================================================================
+    - match:
+        severity: warning
+      receiver: 'warning-alerts'
+      group_wait: 5m
+      group_interval: 10m
+      repeat_interval: 2h
+      routes:
+        # Performance warnings
+        - match:
+            category: performance
+          receiver: 'performance-alerts'
+          repeat_interval: 1h
+        
+        # Capacity warnings
+        - match:
+            category: capacity
+          receiver: 'capacity-alerts'
+          repeat_interval: 4h
+    
+    # =============================================================================
+    # Alertas de Info - Notificação Baixa Prioridade
+    # =============================================================================
+    - match:
+        severity: info
+      receiver: 'info-alerts'
+      group_wait: 15m
+      group_interval: 30m
+      repeat_interval: 24h
+    
+    # =============================================================================
+    # Alertas de Manutenção - Silenciados durante janelas de manutenção
+    # =============================================================================
+    - match:
+        category: maintenance
+      receiver: 'maintenance-alerts'
+      group_wait: 30m
+      repeat_interval: 6h
+    
+    # =============================================================================
+    # Alertas de Desenvolvimento - Apenas para ambiente dev
+    # =============================================================================
+    - match:
+        environment: development
+      receiver: 'dev-alerts'
+      group_wait: 10m
+      repeat_interval: 4h
+    
+    # =============================================================================
+    # Alertas de Staging - Para ambiente de teste
+    # =============================================================================
+    - match:
+        environment: staging
+      receiver: 'staging-alerts'
+      group_wait: 5m
+      repeat_interval: 2h
+    
+    # =============================================================================
+    # Alertas de Produção - Máxima prioridade
+    # =============================================================================
+    - match:
+        environment: production
+      receiver: 'production-alerts'
+      group_wait: 0s
+      repeat_interval: 30m
+
+# =============================================================================
+# Configuração de Receivers
+# =============================================================================
+receivers:
+  # =============================================================================
+  # Receiver Padrão
+  # =============================================================================
+  - name: 'default'
+    slack_configs:
+      - api_url: '${SLACK_WEBHOOK_URL}'
+        channel: '#dataclinica-alerts'
+        title: 'DataClinica - Alerta Geral'
+        text: |
+          {{ range .Alerts }}
+          *Alerta:* {{ .Annotations.summary }}
+          *Descrição:* {{ .Annotations.description }}
+          *Severidade:* {{ .Labels.severity }}
+          *Serviço:* {{ .Labels.service }}
+          *Ambiente:* {{ .Labels.environment }}
+          *Status:* {{ .Status }}
+          {{ end }}
+        send_resolved: true
+        color: '{{ if eq .Status "firing" }}danger{{ else }}good{{ end }}'
+  
+  # =============================================================================
+  # Alertas Críticos
+  # =============================================================================
+  - name: 'critical-alerts'
+    email_configs:
+      - to: '${CRITICAL_EMAIL_LIST:-admin@dataclinica.com.br,devops@dataclinica.com.br}'
+        subject: '🚨 CRÍTICO - DataClinica - {{ .GroupLabels.alertname }}'
+        body: |
+          ALERTA CRÍTICO DETECTADO!
+          
+          {{ range .Alerts }}
+          Alerta: {{ .Annotations.summary }}
+          Descrição: {{ .Annotations.description }}
+          Severidade: {{ .Labels.severity }}
+          Serviço: {{ .Labels.service }}
+          Ambiente: {{ .Labels.environment }}
+          Horário: {{ .StartsAt.Format "2006-01-02 15:04:05" }}
+          
+          {{ if .Annotations.runbook_url }}
+          Runbook: {{ .Annotations.runbook_url }}
+          {{ end }}
+          
+          {{ if .GeneratorURL }}
+          Prometheus: {{ .GeneratorURL }}
+          {{ end }}
+          {{ end }}
+        headers:
+          Priority: 'high'
+    
+    slack_configs:
+      - api_url: '${SLACK_WEBHOOK_URL}'
+        channel: '#dataclinica-critical'
+        title: '🚨 CRÍTICO - DataClinica'
+        text: |
+          <!channel> ALERTA CRÍTICO!
+          {{ range .Alerts }}
+          *Alerta:* {{ .Annotations.summary }}
+          *Descrição:* {{ .Annotations.description }}
+          *Severidade:* {{ .Labels.severity }}
+          *Serviço:* {{ .Labels.service }}
+          *Ambiente:* {{ .Labels.environment }}
+          {{ if .Annotations.runbook_url }}
+          *Runbook:* <{{ .Annotations.runbook_url }}|Procedimentos>
+          {{ end }}
+          {{ end }}
+        send_resolved: true
+        color: 'danger'
+    
+    webhook_configs:
+      - url: '${TEAMS_WEBHOOK_URL}'
+        send_resolved: true
+        http_config:
+          basic_auth:
+            username: '${TEAMS_USERNAME}'
+            password: '${TEAMS_PASSWORD}'
+  
+  # =============================================================================
+  # Alertas de Banco de Dados Críticos
+  # =============================================================================
+  - name: 'database-critical'
+    email_configs:
+      - to: '${DBA_EMAIL_LIST:-dba@dataclinica.com.br,admin@dataclinica.com.br}'
+        subject: '🔥 CRÍTICO DB - DataClinica - {{ .GroupLabels.alertname }}'
+        body: |
+          PROBLEMA CRÍTICO NO BANCO DE DADOS!
+          
+          {{ range .Alerts }}
+          Alerta: {{ .Annotations.summary }}
+          Descrição: {{ .Annotations.description }}
+          Banco: {{ .Labels.database | default "PostgreSQL" }}
+          Instância: {{ .Labels.instance }}
+          Horário: {{ .StartsAt.Format "2006-01-02 15:04:05" }}
+          
+          AÇÃO IMEDIATA NECESSÁRIA!
+          {{ end }}
+    
+    slack_configs:
+      - api_url: '${SLACK_WEBHOOK_URL}'
+        channel: '#dataclinica-database'
+        title: '🔥 CRÍTICO - Banco de Dados'
+        text: |
+          <!channel> PROBLEMA CRÍTICO NO BANCO!
+          {{ range .Alerts }}
+          *Alerta:* {{ .Annotations.summary }}
+          *Banco:* {{ .Labels.database | default "PostgreSQL" }}
+          *Instância:* {{ .Labels.instance }}
+          {{ end }}
+        color: 'danger'
+  
+  # =============================================================================
+  # Alertas de Backend Críticos
+  # =============================================================================
+  - name: 'backend-critical'
+    email_configs:
+      - to: '${DEV_EMAIL_LIST:-dev@dataclinica.com.br,admin@dataclinica.com.br}'
+        subject: '⚠️ CRÍTICO API - DataClinica - {{ .GroupLabels.alertname }}'
+        body: |
+          PROBLEMA CRÍTICO NA API!
+          
+          {{ range .Alerts }}
+          Alerta: {{ .Annotations.summary }}
+          Descrição: {{ .Annotations.description }}
+          Endpoint: {{ .Labels.endpoint | default "N/A" }}
+          Método: {{ .Labels.method | default "N/A" }}
+          Status Code: {{ .Labels.status_code | default "N/A" }}
+          Horário: {{ .StartsAt.Format "2006-01-02 15:04:05" }}
+          {{ end }}
+    
+    slack_configs:
+      - api_url: '${SLACK_WEBHOOK_URL}'
+        channel: '#dataclinica-backend'
+        title: '⚠️ CRÍTICO - API Backend'
+        text: |
+          <!here> PROBLEMA CRÍTICO NA API!
+          {{ range .Alerts }}
+          *Alerta:* {{ .Annotations.summary }}
+          *Endpoint:* {{ .Labels.endpoint | default "N/A" }}
+          *Método:* {{ .Labels.method | default "N/A" }}
+          {{ end }}
+        color: 'danger'
+  
+  # =============================================================================
+  # Alertas de Segurança
+  # =============================================================================
+  - name: 'security-alerts'
+    email_configs:
+      - to: '${SECURITY_EMAIL_LIST:-security@dataclinica.com.br,admin@dataclinica.com.br}'
+        subject: '🛡️ SEGURANÇA - DataClinica - {{ .GroupLabels.alertname }}'
+        body: |
+          ALERTA DE SEGURANÇA DETECTADO!
+          
+          {{ range .Alerts }}
+          Alerta: {{ .Annotations.summary }}
+          Descrição: {{ .Annotations.description }}
+          Tipo: {{ .Labels.attack_type | default "Desconhecido" }}
+          IP Origem: {{ .Labels.source_ip | default "N/A" }}
+          Horário: {{ .StartsAt.Format "2006-01-02 15:04:05" }}
+          
+          INVESTIGAÇÃO IMEDIATA NECESSÁRIA!
+          {{ end }}
+        headers:
+          Priority: 'urgent'
+    
+    slack_configs:
+      - api_url: '${SLACK_WEBHOOK_URL}'
+        channel: '#dataclinica-security'
+        title: '🛡️ ALERTA DE SEGURANÇA'
+        text: |
+          <!channel> ALERTA DE SEGURANÇA!
+          {{ range .Alerts }}
+          *Alerta:* {{ .Annotations.summary }}
+          *Tipo:* {{ .Labels.attack_type | default "Desconhecido" }}
+          *IP:* {{ .Labels.source_ip | default "N/A" }}
+          {{ end }}
+        color: 'warning'
+  
+  # =============================================================================
+  # Alertas de Warning
+  # =============================================================================
+  - name: 'warning-alerts'
+    slack_configs:
+      - api_url: '${SLACK_WEBHOOK_URL}'
+        channel: '#dataclinica-warnings'
+        title: '⚠️ Warning - DataClinica'
+        text: |
+          {{ range .Alerts }}
+          *Alerta:* {{ .Annotations.summary }}
+          *Descrição:* {{ .Annotations.description }}
+          *Serviço:* {{ .Labels.service }}
+          {{ end }}
+        send_resolved: true
+        color: 'warning'
+  
+  # =============================================================================
+  # Alertas de Performance
+  # =============================================================================
+  - name: 'performance-alerts'
+    email_configs:
+      - to: '${PERFORMANCE_EMAIL_LIST:-performance@dataclinica.com.br}'
+        subject: '📊 Performance - DataClinica - {{ .GroupLabels.alertname }}'
+        body: |
+          Alerta de Performance Detectado
+          
+          {{ range .Alerts }}
+          Alerta: {{ .Annotations.summary }}
+          Métrica: {{ .Labels.metric_name | default "N/A" }}
+          Valor Atual: {{ .Labels.current_value | default "N/A" }}
+          Threshold: {{ .Labels.threshold | default "N/A" }}
+          Serviço: {{ .Labels.service }}
+          {{ end }}
+    
+    slack_configs:
+      - api_url: '${SLACK_WEBHOOK_URL}'
+        channel: '#dataclinica-performance'
+        title: '📊 Performance Alert'
+        text: |
+          {{ range .Alerts }}
+          *Métrica:* {{ .Labels.metric_name | default "N/A" }}
+          *Valor:* {{ .Labels.current_value | default "N/A" }}
+          *Limite:* {{ .Labels.threshold | default "N/A" }}
+          {{ end }}
+        color: 'warning'
+  
+  # =============================================================================
+  # Alertas de Capacidade
+  # =============================================================================
+  - name: 'capacity-alerts'
+    email_configs:
+      - to: '${CAPACITY_EMAIL_LIST:-ops@dataclinica.com.br}'
+        subject: '💾 Capacidade - DataClinica - {{ .GroupLabels.alertname }}'
+        body: |
+          Alerta de Capacidade
+          
+          {{ range .Alerts }}
+          Recurso: {{ .Labels.resource | default "N/A" }}
+          Uso Atual: {{ .Labels.usage_percent | default "N/A" }}%
+          Limite: {{ .Labels.threshold | default "N/A" }}%
+          Serviço: {{ .Labels.service }}
+          {{ end }}
+  
+  # =============================================================================
+  # Alertas de Info
+  # =============================================================================
+  - name: 'info-alerts'
+    slack_configs:
+      - api_url: '${SLACK_WEBHOOK_URL}'
+        channel: '#dataclinica-info'
+        title: 'ℹ️ Info - DataClinica'
+        text: |
+          {{ range .Alerts }}
+          *Info:* {{ .Annotations.summary }}
+          *Serviço:* {{ .Labels.service }}
+          {{ end }}
+        send_resolved: true
+        color: 'good'
+  
+  # =============================================================================
+  # Alertas de Manutenção
+  # =============================================================================
+  - name: 'maintenance-alerts'
+    slack_configs:
+      - api_url: '${SLACK_WEBHOOK_URL}'
+        channel: '#dataclinica-maintenance'
+        title: '🔧 Manutenção - DataClinica'
+        text: |
+          {{ range .Alerts }}
+          *Manutenção:* {{ .Annotations.summary }}
+          *Serviço:* {{ .Labels.service }}
+          {{ end }}
+        color: '#439FE0'
+  
+  # =============================================================================
+  # Alertas de Desenvolvimento
+  # =============================================================================
+  - name: 'dev-alerts'
+    slack_configs:
+      - api_url: '${SLACK_DEV_WEBHOOK_URL:-${SLACK_WEBHOOK_URL}}'
+        channel: '#dataclinica-dev'
+        title: '🔨 Dev - DataClinica'
+        text: |
+          {{ range .Alerts }}
+          *Dev Alert:* {{ .Annotations.summary }}
+          *Serviço:* {{ .Labels.service }}
+          {{ end }}
+        color: '#36a64f'
+  
+  # =============================================================================
+  # Alertas de Staging
+  # =============================================================================
+  - name: 'staging-alerts'
+    slack_configs:
+      - api_url: '${SLACK_WEBHOOK_URL}'
+        channel: '#dataclinica-staging'
+        title: '🧪 Staging - DataClinica'
+        text: |
+          {{ range .Alerts }}
+          *Staging Alert:* {{ .Annotations.summary }}
+          *Serviço:* {{ .Labels.service }}
+          {{ end }}
+        color: '#ff9900'
+  
+  # =============================================================================
+  # Alertas de Produção
+  # =============================================================================
+  - name: 'production-alerts'
+    email_configs:
+      - to: '${PRODUCTION_EMAIL_LIST:-admin@dataclinica.com.br,ops@dataclinica.com.br}'
+        subject: '🚀 PRODUÇÃO - DataClinica - {{ .GroupLabels.alertname }}'
+        body: |
+          ALERTA DE PRODUÇÃO!
+          
+          {{ range .Alerts }}
+          Alerta: {{ .Annotations.summary }}
+          Descrição: {{ .Annotations.description }}
+          Severidade: {{ .Labels.severity }}
+          Serviço: {{ .Labels.service }}
+          Horário: {{ .StartsAt.Format "2006-01-02 15:04:05" }}
+          {{ end }}
+        headers:
+          Priority: 'high'
+    
+    slack_configs:
+      - api_url: '${SLACK_WEBHOOK_URL}'
+        channel: '#dataclinica-production'
+        title: '🚀 PRODUÇÃO - DataClinica'
+        text: |
+          <!here> ALERTA DE PRODUÇÃO!
+          {{ range .Alerts }}
+          *Alerta:* {{ .Annotations.summary }}
+          *Severidade:* {{ .Labels.severity }}
+          *Serviço:* {{ .Labels.service }}
+          {{ end }}
+        send_resolved: true
+        color: '{{ if eq .Status "firing" }}danger{{ else }}good{{ end }}'
+
+# =============================================================================
+# Configurações de Inibição
+# =============================================================================
+inhibit_rules:
+  # Inibir alertas de warning quando há alertas críticos do mesmo serviço
+  - source_match:
+      severity: 'critical'
+    target_match:
+      severity: 'warning'
+    equal: ['service', 'instance']
+  
+  # Inibir alertas de info quando há alertas de warning do mesmo serviço
+  - source_match:
+      severity: 'warning'
+    target_match:
+      severity: 'info'
+    equal: ['service', 'instance']
+  
+  # Inibir alertas de instância quando o serviço inteiro está down
+  - source_match:
+      alertname: 'ServiceDown'
+    target_match_re:
+      alertname: '.*Instance.*'
+    equal: ['service']
+  
+  # Inibir alertas de conectividade quando há problemas de rede
+  - source_match:
+      category: 'network'
+    target_match:
+      category: 'connectivity'
+    equal: ['instance']
+
+# =============================================================================
+# Configurações de Templates
+# =============================================================================
+templates:
+  - '/etc/alertmanager/templates/default.tmpl'
+  - '/etc/alertmanager/templates/slack.tmpl'
+  - '/etc/alertmanager/templates/email.tmpl'
+
+# =============================================================================
+# Configurações de Tempo
+# =============================================================================
+time_intervals:
+  - name: 'business-hours'
+    time_intervals:
+      - times:
+          - start_time: '09:00'
+            end_time: '18:00'
+        weekdays: ['monday:friday']
+        location: 'America/Sao_Paulo'
+  
+  - name: 'weekend'
+    time_intervals:
+      - weekdays: ['saturday', 'sunday']
+        location: 'America/Sao_Paulo'
+  
+  - name: 'maintenance-window'
+    time_intervals:
+      - times:
+          - start_time: '02:00'
+            end_time: '04:00'
+        weekdays: ['sunday']
+        location: 'America/Sao_Paulo'
+
+# =============================================================================
+# Configurações de Mute
+# =============================================================================
+mute_time_intervals:
+  - name: 'maintenance-mute'
+    time_intervals:
+      - 'maintenance-window'
+
+# =============================================================================
+# Configurações de Cluster (para HA)
+# =============================================================================
+# cluster:
+#   listen-address: "0.0.0.0:9094"
+#   peer: ["alertmanager-1:9094", "alertmanager-2:9094"]
+#   gossip-interval: "200ms"
+#   pushpull-interval: "60s"
+
+# =============================================================================
+# Configurações de API
+# =============================================================================
+api:
+  v2:
+    cors:
+      allowed_origins: ["*"]
+      allowed_methods: ["GET", "POST", "PUT", "DELETE"]
+      allowed_headers: ["*"]
+
+# =============================================================================
+# Configurações de Log
+# =============================================================================
+log:
+  level: info
+  format: json

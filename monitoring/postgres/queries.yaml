@@ -1,0 +1,499 @@
+# =============================================================================
+# Queries Customizadas para PostgreSQL Exporter - DataClinica
+# Métricas específicas do banco de dados da aplicação
+# =============================================================================
+
+# =============================================================================
+# Métricas de Performance de Queries
+# =============================================================================
+pg_stat_statements:
+  query: |
+    SELECT 
+      schemaname,
+      tablename,
+      calls,
+      total_time,
+      mean_time,
+      stddev_time,
+      rows,
+      100.0 * shared_blks_hit / nullif(shared_blks_hit + shared_blks_read, 0) AS hit_percent
+    FROM pg_stat_statements 
+    JOIN pg_stat_user_tables ON pg_stat_statements.userid = pg_stat_user_tables.schemaname::regrole
+    WHERE calls > 100
+    ORDER BY total_time DESC
+    LIMIT 20
+  master: true
+  cache_seconds: 30
+  metrics:
+    - schemaname:
+        usage: "LABEL"
+        description: "Schema name"
+    - tablename:
+        usage: "LABEL"
+        description: "Table name"
+    - calls:
+        usage: "COUNTER"
+        description: "Number of times executed"
+    - total_time:
+        usage: "COUNTER"
+        description: "Total time spent in the statement, in milliseconds"
+    - mean_time:
+        usage: "GAUGE"
+        description: "Mean time spent in the statement, in milliseconds"
+    - stddev_time:
+        usage: "GAUGE"
+        description: "Population standard deviation of time spent in the statement, in milliseconds"
+    - rows:
+        usage: "COUNTER"
+        description: "Total number of rows retrieved or affected by the statement"
+    - hit_percent:
+        usage: "GAUGE"
+        description: "Percentage of shared block hits"
+
+# =============================================================================
+# Métricas de Tabelas Específicas do DataClinica
+# =============================================================================
+dataclinica_tables_stats:
+  query: |
+    SELECT 
+      schemaname,
+      tablename,
+      n_tup_ins as inserts,
+      n_tup_upd as updates,
+      n_tup_del as deletes,
+      n_tup_hot_upd as hot_updates,
+      n_live_tup as live_tuples,
+      n_dead_tup as dead_tuples,
+      n_mod_since_analyze as modifications_since_analyze,
+      last_vacuum,
+      last_autovacuum,
+      last_analyze,
+      last_autoanalyze,
+      vacuum_count,
+      autovacuum_count,
+      analyze_count,
+      autoanalyze_count
+    FROM pg_stat_user_tables 
+    WHERE schemaname = 'public'
+      AND tablename IN ('users', 'patients', 'appointments', 'medical_records', 'payments', 'audit_logs')
+  master: true
+  cache_seconds: 60
+  metrics:
+    - schemaname:
+        usage: "LABEL"
+        description: "Schema name"
+    - tablename:
+        usage: "LABEL"
+        description: "Table name"
+    - inserts:
+        usage: "COUNTER"
+        description: "Number of rows inserted"
+    - updates:
+        usage: "COUNTER"
+        description: "Number of rows updated"
+    - deletes:
+        usage: "COUNTER"
+        description: "Number of rows deleted"
+    - hot_updates:
+        usage: "COUNTER"
+        description: "Number of rows HOT updated"
+    - live_tuples:
+        usage: "GAUGE"
+        description: "Estimated number of live rows"
+    - dead_tuples:
+        usage: "GAUGE"
+        description: "Estimated number of dead rows"
+    - modifications_since_analyze:
+        usage: "GAUGE"
+        description: "Estimated number of rows modified since this table was last analyzed"
+    - vacuum_count:
+        usage: "COUNTER"
+        description: "Number of times this table has been manually vacuumed"
+    - autovacuum_count:
+        usage: "COUNTER"
+        description: "Number of times this table has been vacuumed by the autovacuum daemon"
+    - analyze_count:
+        usage: "COUNTER"
+        description: "Number of times this table has been manually analyzed"
+    - autoanalyze_count:
+        usage: "COUNTER"
+        description: "Number of times this table has been analyzed by the autovacuum daemon"
+
+# =============================================================================
+# Métricas de Índices
+# =============================================================================
+dataclinica_index_stats:
+  query: |
+    SELECT 
+      schemaname,
+      tablename,
+      indexname,
+      idx_tup_read,
+      idx_tup_fetch,
+      idx_scan,
+      pg_size_pretty(pg_relation_size(indexrelid)) as index_size,
+      pg_relation_size(indexrelid) as index_size_bytes
+    FROM pg_stat_user_indexes 
+    WHERE schemaname = 'public'
+      AND tablename IN ('users', 'patients', 'appointments', 'medical_records', 'payments', 'audit_logs')
+    ORDER BY idx_scan DESC
+  master: true
+  cache_seconds: 300
+  metrics:
+    - schemaname:
+        usage: "LABEL"
+        description: "Schema name"
+    - tablename:
+        usage: "LABEL"
+        description: "Table name"
+    - indexname:
+        usage: "LABEL"
+        description: "Index name"
+    - idx_tup_read:
+        usage: "COUNTER"
+        description: "Number of index entries returned by scans on this index"
+    - idx_tup_fetch:
+        usage: "COUNTER"
+        description: "Number of live table rows fetched by simple index scans using this index"
+    - idx_scan:
+        usage: "COUNTER"
+        description: "Number of index scans initiated on this index"
+    - index_size_bytes:
+        usage: "GAUGE"
+        description: "Size of the index in bytes"
+
+# =============================================================================
+# Métricas de Conexões por Usuário
+# =============================================================================
+connections_by_user:
+  query: |
+    SELECT 
+      usename as username,
+      application_name,
+      client_addr,
+      state,
+      COUNT(*) as connection_count
+    FROM pg_stat_activity 
+    WHERE state IS NOT NULL
+    GROUP BY usename, application_name, client_addr, state
+  master: true
+  cache_seconds: 30
+  metrics:
+    - username:
+        usage: "LABEL"
+        description: "Database username"
+    - application_name:
+        usage: "LABEL"
+        description: "Application name"
+    - client_addr:
+        usage: "LABEL"
+        description: "Client IP address"
+    - state:
+        usage: "LABEL"
+        description: "Connection state"
+    - connection_count:
+        usage: "GAUGE"
+        description: "Number of connections"
+
+# =============================================================================
+# Métricas de Locks
+# =============================================================================
+locks_by_mode:
+  query: |
+    SELECT 
+      mode,
+      locktype,
+      granted,
+      COUNT(*) as lock_count
+    FROM pg_locks 
+    GROUP BY mode, locktype, granted
+  master: true
+  cache_seconds: 30
+  metrics:
+    - mode:
+        usage: "LABEL"
+        description: "Lock mode"
+    - locktype:
+        usage: "LABEL"
+        description: "Lock type"
+    - granted:
+        usage: "LABEL"
+        description: "Whether lock is granted"
+    - lock_count:
+        usage: "GAUGE"
+        description: "Number of locks"
+
+# =============================================================================
+# Métricas de Replicação
+# =============================================================================
+replication_lag:
+  query: |
+    SELECT 
+      client_addr,
+      application_name,
+      state,
+      sent_lsn,
+      write_lsn,
+      flush_lsn,
+      replay_lsn,
+      write_lag,
+      flush_lag,
+      replay_lag,
+      sync_priority,
+      sync_state
+    FROM pg_stat_replication
+  master: true
+  cache_seconds: 30
+  metrics:
+    - client_addr:
+        usage: "LABEL"
+        description: "Client IP address"
+    - application_name:
+        usage: "LABEL"
+        description: "Application name"
+    - state:
+        usage: "LABEL"
+        description: "Replication state"
+    - sync_priority:
+        usage: "GAUGE"
+        description: "Priority of this standby server for being chosen as the synchronous standby"
+    - sync_state:
+        usage: "LABEL"
+        description: "Synchronous state of this standby server"
+
+# =============================================================================
+# Métricas de Tamanho de Banco de Dados
+# =============================================================================
+database_sizes:
+  query: |
+    SELECT 
+      datname as database_name,
+      pg_database_size(datname) as size_bytes,
+      pg_size_pretty(pg_database_size(datname)) as size_pretty
+    FROM pg_database 
+    WHERE datname NOT IN ('template0', 'template1', 'postgres')
+  master: true
+  cache_seconds: 300
+  metrics:
+    - database_name:
+        usage: "LABEL"
+        description: "Database name"
+    - size_bytes:
+        usage: "GAUGE"
+        description: "Database size in bytes"
+
+# =============================================================================
+# Métricas de Checkpoints
+# =============================================================================
+checkpoint_stats:
+  query: |
+    SELECT 
+      checkpoints_timed,
+      checkpoints_req,
+      checkpoint_write_time,
+      checkpoint_sync_time,
+      buffers_checkpoint,
+      buffers_clean,
+      maxwritten_clean,
+      buffers_backend,
+      buffers_backend_fsync,
+      buffers_alloc,
+      stats_reset
+    FROM pg_stat_bgwriter
+  master: true
+  cache_seconds: 60
+  metrics:
+    - checkpoints_timed:
+        usage: "COUNTER"
+        description: "Number of scheduled checkpoints that have been performed"
+    - checkpoints_req:
+        usage: "COUNTER"
+        description: "Number of requested checkpoints that have been performed"
+    - checkpoint_write_time:
+        usage: "COUNTER"
+        description: "Total amount of time that has been spent in the portion of checkpoint processing where files are written to disk, in milliseconds"
+    - checkpoint_sync_time:
+        usage: "COUNTER"
+        description: "Total amount of time that has been spent in the portion of checkpoint processing where files are synchronized to disk, in milliseconds"
+    - buffers_checkpoint:
+        usage: "COUNTER"
+        description: "Number of buffers written during checkpoints"
+    - buffers_clean:
+        usage: "COUNTER"
+        description: "Number of buffers written by the background writer"
+    - maxwritten_clean:
+        usage: "COUNTER"
+        description: "Number of times the background writer stopped a cleaning scan because it had written too many buffers"
+    - buffers_backend:
+        usage: "COUNTER"
+        description: "Number of buffers written directly by a backend"
+    - buffers_backend_fsync:
+        usage: "COUNTER"
+        description: "Number of times a backend had to execute its own fsync call"
+    - buffers_alloc:
+        usage: "COUNTER"
+        description: "Number of buffers allocated"
+
+# =============================================================================
+# Métricas de WAL (Write-Ahead Logging)
+# =============================================================================
+wal_stats:
+  query: |
+    SELECT 
+      wal_records,
+      wal_fpi,
+      wal_bytes,
+      wal_buffers_full,
+      wal_write,
+      wal_sync,
+      wal_write_time,
+      wal_sync_time,
+      stats_reset
+    FROM pg_stat_wal
+  master: true
+  cache_seconds: 60
+  metrics:
+    - wal_records:
+        usage: "COUNTER"
+        description: "Total number of WAL records generated"
+    - wal_fpi:
+        usage: "COUNTER"
+        description: "Total number of WAL full page images generated"
+    - wal_bytes:
+        usage: "COUNTER"
+        description: "Total amount of WAL generated in bytes"
+    - wal_buffers_full:
+        usage: "COUNTER"
+        description: "Number of times WAL data was written to disk because WAL buffers became full"
+    - wal_write:
+        usage: "COUNTER"
+        description: "Number of times WAL buffers were written out to disk via XLogWrite request"
+    - wal_sync:
+        usage: "COUNTER"
+        description: "Number of times WAL files were synced to disk via issue_xlog_fsync request"
+    - wal_write_time:
+        usage: "COUNTER"
+        description: "Total amount of time spent writing WAL buffers to disk via XLogWrite request, in milliseconds"
+    - wal_sync_time:
+        usage: "COUNTER"
+        description: "Total amount of time spent syncing WAL files to disk via issue_xlog_fsync request, in milliseconds"
+
+# =============================================================================
+# Métricas Específicas do DataClinica
+# =============================================================================
+dataclinica_business_metrics:
+  query: |
+    SELECT 
+      'patients' as metric_type,
+      COUNT(*) as total_count,
+      COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE) as today_count,
+      COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE - INTERVAL '7 days') as week_count,
+      COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE - INTERVAL '30 days') as month_count
+    FROM patients
+    UNION ALL
+    SELECT 
+      'appointments' as metric_type,
+      COUNT(*) as total_count,
+      COUNT(*) FILTER (WHERE appointment_date >= CURRENT_DATE) as today_count,
+      COUNT(*) FILTER (WHERE appointment_date >= CURRENT_DATE AND appointment_date < CURRENT_DATE + INTERVAL '7 days') as week_count,
+      COUNT(*) FILTER (WHERE appointment_date >= CURRENT_DATE AND appointment_date < CURRENT_DATE + INTERVAL '30 days') as month_count
+    FROM appointments
+    UNION ALL
+    SELECT 
+      'medical_records' as metric_type,
+      COUNT(*) as total_count,
+      COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE) as today_count,
+      COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE - INTERVAL '7 days') as week_count,
+      COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE - INTERVAL '30 days') as month_count
+    FROM medical_records
+    UNION ALL
+    SELECT 
+      'payments' as metric_type,
+      COUNT(*) as total_count,
+      COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE) as today_count,
+      COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE - INTERVAL '7 days') as week_count,
+      COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE - INTERVAL '30 days') as month_count
+    FROM payments
+  master: true
+  cache_seconds: 300
+  metrics:
+    - metric_type:
+        usage: "LABEL"
+        description: "Type of business metric"
+    - total_count:
+        usage: "GAUGE"
+        description: "Total count of records"
+    - today_count:
+        usage: "GAUGE"
+        description: "Count of records for today"
+    - week_count:
+        usage: "GAUGE"
+        description: "Count of records for this week"
+    - month_count:
+        usage: "GAUGE"
+        description: "Count of records for this month"
+
+# =============================================================================
+# Métricas de Status de Agendamentos
+# =============================================================================
+appointment_status_metrics:
+  query: |
+    SELECT 
+      status,
+      COUNT(*) as count,
+      COUNT(*) FILTER (WHERE appointment_date >= CURRENT_DATE) as future_count,
+      COUNT(*) FILTER (WHERE appointment_date < CURRENT_DATE) as past_count
+    FROM appointments 
+    GROUP BY status
+  master: true
+  cache_seconds: 300
+  metrics:
+    - status:
+        usage: "LABEL"
+        description: "Appointment status"
+    - count:
+        usage: "GAUGE"
+        description: "Total count of appointments with this status"
+    - future_count:
+        usage: "GAUGE"
+        description: "Count of future appointments with this status"
+    - past_count:
+        usage: "GAUGE"
+        description: "Count of past appointments with this status"
+
+# =============================================================================
+# Métricas de Auditoria
+# =============================================================================
+audit_log_metrics:
+  query: |
+    SELECT 
+      event_type,
+      action,
+      result,
+      COUNT(*) as count,
+      COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE) as today_count,
+      COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE - INTERVAL '1 hour') as last_hour_count
+    FROM audit_logs 
+    WHERE created_at >= CURRENT_DATE - INTERVAL '7 days'
+    GROUP BY event_type, action, result
+  master: true
+  cache_seconds: 60
+  metrics:
+    - event_type:
+        usage: "LABEL"
+        description: "Type of audit event"
+    - action:
+        usage: "LABEL"
+        description: "Action performed"
+    - result:
+        usage: "LABEL"
+        description: "Result of the action"
+    - count:
+        usage: "GAUGE"
+        description: "Total count of audit events"
+    - today_count:
+        usage: "GAUGE"
+        description: "Count of audit events today"
+    - last_hour_count:
+        usage: "GAUGE"
+        description: "Count of audit events in the last hour"

@@ -1,0 +1,477 @@
+# =============================================================================
+# Configuração do Blackbox Exporter - DataClinica
+# Monitoramento de endpoints HTTP, HTTPS, DNS, TCP e ICMP
+# =============================================================================
+
+modules:
+  # =============================================================================
+  # Módulos HTTP
+  # =============================================================================
+  
+  # HTTP básico - verificação de disponibilidade
+  http_2xx:
+    prober: http
+    timeout: 5s
+    http:
+      valid_http_versions: ["HTTP/1.1", "HTTP/2.0"]
+      valid_status_codes: [200, 201, 202, 204]
+      method: GET
+      headers:
+        Host: dataclinica.com.br
+        User-Agent: "Blackbox Exporter/DataClinica"
+      no_follow_redirects: false
+      fail_if_ssl: false
+      fail_if_not_ssl: false
+      tls_config:
+        insecure_skip_verify: false
+      preferred_ip_protocol: "ip4"
+      ip_protocol_fallback: true
+
+  # HTTP com autenticação básica
+  http_2xx_basic_auth:
+    prober: http
+    timeout: 5s
+    http:
+      valid_http_versions: ["HTTP/1.1", "HTTP/2.0"]
+      valid_status_codes: [200, 201, 202, 204]
+      method: GET
+      headers:
+        Host: dataclinica.com.br
+        User-Agent: "Blackbox Exporter/DataClinica"
+      basic_auth:
+        username: "monitor"
+        password: "${MONITOR_PASSWORD}"
+      no_follow_redirects: false
+      fail_if_ssl: false
+      fail_if_not_ssl: false
+      tls_config:
+        insecure_skip_verify: false
+      preferred_ip_protocol: "ip4"
+      ip_protocol_fallback: true
+
+  # HTTP POST para APIs
+  http_post_2xx:
+    prober: http
+    timeout: 10s
+    http:
+      valid_http_versions: ["HTTP/1.1", "HTTP/2.0"]
+      valid_status_codes: [200, 201, 202, 204]
+      method: POST
+      headers:
+        Content-Type: "application/json"
+        User-Agent: "Blackbox Exporter/DataClinica"
+      body: '{"health_check": true}'
+      no_follow_redirects: false
+      fail_if_ssl: false
+      fail_if_not_ssl: false
+      tls_config:
+        insecure_skip_verify: false
+      preferred_ip_protocol: "ip4"
+      ip_protocol_fallback: true
+
+  # HTTP com verificação de conteúdo
+  http_2xx_content_check:
+    prober: http
+    timeout: 10s
+    http:
+      valid_http_versions: ["HTTP/1.1", "HTTP/2.0"]
+      valid_status_codes: [200]
+      method: GET
+      headers:
+        Host: dataclinica.com.br
+        User-Agent: "Blackbox Exporter/DataClinica"
+      fail_if_body_not_matches_regexp:
+        - "DataClinica"
+        - "status.*ok"
+      fail_if_body_matches_regexp:
+        - "error"
+        - "exception"
+        - "Internal Server Error"
+      no_follow_redirects: false
+      fail_if_ssl: false
+      fail_if_not_ssl: false
+      tls_config:
+        insecure_skip_verify: false
+      preferred_ip_protocol: "ip4"
+      ip_protocol_fallback: true
+
+  # HTTP para health checks
+  http_health_check:
+    prober: http
+    timeout: 5s
+    http:
+      valid_http_versions: ["HTTP/1.1", "HTTP/2.0"]
+      valid_status_codes: [200]
+      method: GET
+      headers:
+        User-Agent: "Blackbox Exporter/DataClinica Health Check"
+      fail_if_body_not_matches_regexp:
+        - '"status":\s*"healthy"'
+        - '"database":\s*"connected"'
+      no_follow_redirects: true
+      fail_if_ssl: false
+      fail_if_not_ssl: false
+      tls_config:
+        insecure_skip_verify: false
+      preferred_ip_protocol: "ip4"
+      ip_protocol_fallback: true
+
+  # =============================================================================
+  # Módulos HTTPS
+  # =============================================================================
+  
+  # HTTPS básico
+  https_2xx:
+    prober: http
+    timeout: 10s
+    http:
+      valid_http_versions: ["HTTP/1.1", "HTTP/2.0"]
+      valid_status_codes: [200, 201, 202, 204]
+      method: GET
+      headers:
+        Host: dataclinica.com.br
+        User-Agent: "Blackbox Exporter/DataClinica"
+      no_follow_redirects: false
+      fail_if_ssl: false
+      fail_if_not_ssl: true
+      tls_config:
+        insecure_skip_verify: false
+        ca_file: "/etc/ssl/certs/ca-certificates.crt"
+      preferred_ip_protocol: "ip4"
+      ip_protocol_fallback: true
+
+  # HTTPS com verificação de certificado
+  https_cert_check:
+    prober: http
+    timeout: 10s
+    http:
+      valid_http_versions: ["HTTP/1.1", "HTTP/2.0"]
+      valid_status_codes: [200, 201, 202, 204]
+      method: GET
+      headers:
+        Host: dataclinica.com.br
+        User-Agent: "Blackbox Exporter/DataClinica"
+      no_follow_redirects: false
+      fail_if_ssl: false
+      fail_if_not_ssl: true
+      tls_config:
+        insecure_skip_verify: false
+        ca_file: "/etc/ssl/certs/ca-certificates.crt"
+        cert_file: "/etc/ssl/certs/dataclinica.crt"
+        key_file: "/etc/ssl/private/dataclinica.key"
+        server_name: "dataclinica.com.br"
+      preferred_ip_protocol: "ip4"
+      ip_protocol_fallback: true
+
+  # =============================================================================
+  # Módulos TCP
+  # =============================================================================
+  
+  # TCP básico
+  tcp_connect:
+    prober: tcp
+    timeout: 5s
+    tcp:
+      preferred_ip_protocol: "ip4"
+      ip_protocol_fallback: true
+
+  # TCP com query/response
+  tcp_query_response:
+    prober: tcp
+    timeout: 5s
+    tcp:
+      query_response:
+        - expect: "^SSH-2.0-"
+        - send: "SSH-2.0-blackbox-ssh-check"
+        - expect: "^SSH-2.0-"
+      preferred_ip_protocol: "ip4"
+      ip_protocol_fallback: true
+
+  # PostgreSQL TCP check
+  postgres_tcp:
+    prober: tcp
+    timeout: 5s
+    tcp:
+      query_response:
+        - send: "\x00\x00\x00\x17\x00\x03\x00\x00user\x00postgres\x00\x00"
+        - expect: "^."
+      preferred_ip_protocol: "ip4"
+      ip_protocol_fallback: true
+
+  # Redis TCP check
+  redis_tcp:
+    prober: tcp
+    timeout: 5s
+    tcp:
+      query_response:
+        - send: "PING\r\n"
+        - expect: "^\+PONG"
+      preferred_ip_protocol: "ip4"
+      ip_protocol_fallback: true
+
+  # =============================================================================
+  # Módulos DNS
+  # =============================================================================
+  
+  # DNS A record
+  dns_a:
+    prober: dns
+    timeout: 5s
+    dns:
+      query_name: "dataclinica.com.br"
+      query_type: "A"
+      valid_rcodes:
+        - NOERROR
+      validate_answer_rrs:
+        fail_if_matches_regexp:
+          - ".*127\.0\.0\.1"
+        fail_if_not_matches_regexp:
+          - ".*"
+      preferred_ip_protocol: "ip4"
+      ip_protocol_fallback: true
+
+  # DNS AAAA record (IPv6)
+  dns_aaaa:
+    prober: dns
+    timeout: 5s
+    dns:
+      query_name: "dataclinica.com.br"
+      query_type: "AAAA"
+      valid_rcodes:
+        - NOERROR
+        - NXDOMAIN
+      preferred_ip_protocol: "ip6"
+      ip_protocol_fallback: true
+
+  # DNS MX record
+  dns_mx:
+    prober: dns
+    timeout: 5s
+    dns:
+      query_name: "dataclinica.com.br"
+      query_type: "MX"
+      valid_rcodes:
+        - NOERROR
+      validate_answer_rrs:
+        fail_if_not_matches_regexp:
+          - ".*"
+      preferred_ip_protocol: "ip4"
+      ip_protocol_fallback: true
+
+  # DNS TXT record
+  dns_txt:
+    prober: dns
+    timeout: 5s
+    dns:
+      query_name: "dataclinica.com.br"
+      query_type: "TXT"
+      valid_rcodes:
+        - NOERROR
+        - NXDOMAIN
+      preferred_ip_protocol: "ip4"
+      ip_protocol_fallback: true
+
+  # DNS SOA record
+  dns_soa:
+    prober: dns
+    timeout: 5s
+    dns:
+      query_name: "dataclinica.com.br"
+      query_type: "SOA"
+      valid_rcodes:
+        - NOERROR
+      preferred_ip_protocol: "ip4"
+      ip_protocol_fallback: true
+
+  # =============================================================================
+  # Módulos ICMP
+  # =============================================================================
+  
+  # ICMP ping IPv4
+  icmp_ipv4:
+    prober: icmp
+    timeout: 5s
+    icmp:
+      preferred_ip_protocol: "ip4"
+      dont_fragment: false
+
+  # ICMP ping IPv6
+  icmp_ipv6:
+    prober: icmp
+    timeout: 5s
+    icmp:
+      preferred_ip_protocol: "ip6"
+
+  # =============================================================================
+  # Módulos Customizados para DataClinica
+  # =============================================================================
+  
+  # API DataClinica - Health Check
+  dataclinica_api_health:
+    prober: http
+    timeout: 10s
+    http:
+      valid_http_versions: ["HTTP/1.1", "HTTP/2.0"]
+      valid_status_codes: [200]
+      method: GET
+      headers:
+        User-Agent: "Blackbox Exporter/DataClinica API Health"
+        Accept: "application/json"
+      fail_if_body_not_matches_regexp:
+        - '"status":\s*"healthy"'
+        - '"database":\s*"connected"'
+        - '"redis":\s*"connected"'
+      fail_if_body_matches_regexp:
+        - '"status":\s*"unhealthy"'
+        - '"error"'
+      no_follow_redirects: true
+      fail_if_ssl: false
+      fail_if_not_ssl: false
+      tls_config:
+        insecure_skip_verify: false
+      preferred_ip_protocol: "ip4"
+      ip_protocol_fallback: true
+
+  # API DataClinica - Login
+  dataclinica_api_login:
+    prober: http
+    timeout: 15s
+    http:
+      valid_http_versions: ["HTTP/1.1", "HTTP/2.0"]
+      valid_status_codes: [200, 401]  # 401 é esperado sem credenciais
+      method: POST
+      headers:
+        Content-Type: "application/json"
+        User-Agent: "Blackbox Exporter/DataClinica API Login"
+      body: '{"email": "test@example.com", "password": "invalid"}'
+      fail_if_body_not_matches_regexp:
+        - '"message"'
+      no_follow_redirects: true
+      fail_if_ssl: false
+      fail_if_not_ssl: false
+      tls_config:
+        insecure_skip_verify: false
+      preferred_ip_protocol: "ip4"
+      ip_protocol_fallback: true
+
+  # Frontend DataClinica
+  dataclinica_frontend:
+    prober: http
+    timeout: 10s
+    http:
+      valid_http_versions: ["HTTP/1.1", "HTTP/2.0"]
+      valid_status_codes: [200]
+      method: GET
+      headers:
+        User-Agent: "Blackbox Exporter/DataClinica Frontend"
+        Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+      fail_if_body_not_matches_regexp:
+        - "DataClinica"
+        - "<title>"
+        - "<html"
+      fail_if_body_matches_regexp:
+        - "Error 404"
+        - "Error 500"
+        - "Internal Server Error"
+      no_follow_redirects: false
+      fail_if_ssl: false
+      fail_if_not_ssl: false
+      tls_config:
+        insecure_skip_verify: false
+      preferred_ip_protocol: "ip4"
+      ip_protocol_fallback: true
+
+  # Grafana Dashboard
+  grafana_dashboard:
+    prober: http
+    timeout: 10s
+    http:
+      valid_http_versions: ["HTTP/1.1", "HTTP/2.0"]
+      valid_status_codes: [200, 302]  # 302 para redirect de login
+      method: GET
+      headers:
+        User-Agent: "Blackbox Exporter/DataClinica Grafana"
+      fail_if_body_not_matches_regexp:
+        - "Grafana"
+      no_follow_redirects: false
+      fail_if_ssl: false
+      fail_if_not_ssl: false
+      tls_config:
+        insecure_skip_verify: false
+      preferred_ip_protocol: "ip4"
+      ip_protocol_fallback: true
+
+  # Prometheus Metrics
+  prometheus_metrics:
+    prober: http
+    timeout: 10s
+    http:
+      valid_http_versions: ["HTTP/1.1", "HTTP/2.0"]
+      valid_status_codes: [200]
+      method: GET
+      headers:
+        User-Agent: "Blackbox Exporter/DataClinica Prometheus"
+      fail_if_body_not_matches_regexp:
+        - "# HELP"
+        - "# TYPE"
+      no_follow_redirects: true
+      fail_if_ssl: false
+      fail_if_not_ssl: false
+      tls_config:
+        insecure_skip_verify: false
+      preferred_ip_protocol: "ip4"
+      ip_protocol_fallback: true
+
+  # =============================================================================
+  # Módulos de Teste de Performance
+  # =============================================================================
+  
+  # HTTP com timeout longo para teste de performance
+  http_performance_test:
+    prober: http
+    timeout: 30s
+    http:
+      valid_http_versions: ["HTTP/1.1", "HTTP/2.0"]
+      valid_status_codes: [200, 201, 202, 204]
+      method: GET
+      headers:
+        User-Agent: "Blackbox Exporter/DataClinica Performance Test"
+      no_follow_redirects: false
+      fail_if_ssl: false
+      fail_if_not_ssl: false
+      tls_config:
+        insecure_skip_verify: false
+      preferred_ip_protocol: "ip4"
+      ip_protocol_fallback: true
+
+  # HTTP com múltiplas verificações
+  http_comprehensive_check:
+    prober: http
+    timeout: 20s
+    http:
+      valid_http_versions: ["HTTP/1.1", "HTTP/2.0"]
+      valid_status_codes: [200]
+      method: GET
+      headers:
+        User-Agent: "Blackbox Exporter/DataClinica Comprehensive"
+        Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+        Accept-Language: "pt-BR,pt;q=0.9,en;q=0.8"
+        Cache-Control: "no-cache"
+      fail_if_body_not_matches_regexp:
+        - "DataClinica"
+        - "<title>"
+      fail_if_body_matches_regexp:
+        - "Error"
+        - "Exception"
+        - "Internal Server Error"
+        - "Service Unavailable"
+      fail_if_header_not_matches_regexp:
+        - header: "Content-Type"
+          regexp: "text/html|application/json"
+      no_follow_redirects: false
+      fail_if_ssl: false
+      fail_if_not_ssl: false
+      tls_config:
+        insecure_skip_verify: false
+      preferred_ip_protocol: "ip4"
+      ip_protocol_fallback: true

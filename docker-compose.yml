@@ -1,25 +1,178 @@
+# Docker Compose para DataClinica - Ambiente de Desenvolvimento
 version: '3.8'
 
 services:
+  # Banco de dados PostgreSQL
+  postgres:
+    image: postgres:15-alpine
+    container_name: dataclinica_postgres
+    environment:
+      POSTGRES_DB: dataclinica
+      POSTGRES_USER: dataclinica_user
+      POSTGRES_PASSWORD: dataclinica_pass
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --lc-collate=pt_BR.UTF-8 --lc-ctype=pt_BR.UTF-8"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - dataclinica_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dataclinica_user -d dataclinica"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # Redis para cache
+  redis:
+    image: redis:7-alpine
+    container_name: dataclinica_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - dataclinica_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # Backend FastAPI
   backend:
-    build: ./backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: dataclinica_backend
+    environment:
+      # Banco de dados
+      DATABASE_URL: postgresql://dataclinica_user:dataclinica_pass@postgres:5432/dataclinica
+      
+      # Redis
+      REDIS_URL: redis://redis:6379/0
+      
+      # Configurações da aplicação
+      SECRET_KEY: dev-secret-key-change-in-production
+      JWT_SECRET_KEY: dev-jwt-secret-change-in-production
+      JWT_ALGORITHM: HS256
+      JWT_EXPIRE_MINUTES: 30
+      
+      # Ambiente
+      ENVIRONMENT: development
+      DEBUG: "true"
+      
+      # CORS
+      CORS_ORIGINS: "http://localhost:3000,http://127.0.0.1:3000"
+      
+      # APIs externas (desenvolvimento)
+      MEMED_API_URL: https://api.memed.com.br
+      MEMED_API_KEY: dev-key
+      CLICKSIGN_API_URL: https://api.clicksign.com
+      CLICKSIGN_API_KEY: dev-key
+      VIACEP_API_URL: https://viacep.com.br/ws
+      
+      # Email (desenvolvimento)
+      SMTP_SERVER: localhost
+      SMTP_PORT: 1025
+      SMTP_USERNAME: ""
+      SMTP_PASSWORD: ""
+      FROM_EMAIL: noreply@dataclinica.com
+      
+      # SaaS
+      SAAS_MODE: "true"
+      DEFAULT_PLAN: basic
+      
+      # Logs
+      LOG_LEVEL: DEBUG
     ports:
       - "8000:8000"
     volumes:
       - ./backend:/app
+      - backend_uploads:/app/uploads
     depends_on:
-      - db
-    environment:
-      DATABASE_URL: postgresql://user:password@db:5432/mydatabase
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - dataclinica_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
 
-  db:
-    image: postgres:13
+  # Frontend React
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: dataclinica_frontend
+    environment:
+      REACT_APP_API_URL: http://localhost:8000/api
+      REACT_APP_ENVIRONMENT: development
+      REACT_APP_VERSION: 1.0.0
+      GENERATE_SOURCEMAP: "true"
+    ports:
+      - "3000:3000"
     volumes:
-      - pg_data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_DB: mydatabase
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - dataclinica_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
 
+  # Adminer para administração do banco
+  adminer:
+    image: adminer:latest
+    container_name: dataclinica_adminer
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres
+      ADMINER_DESIGN: pepa-linha
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      - dataclinica_network
+    restart: unless-stopped
+    profiles:
+      - tools
+
+  # Mailhog para capturar emails em desenvolvimento
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: dataclinica_mailhog
+    ports:
+      - "1025:1025"  # SMTP
+      - "8025:8025"  # Web UI
+    networks:
+      - dataclinica_network
+    restart: unless-stopped
+    profiles:
+      - tools
+
+# Volumes persistentes
 volumes:
-  pg_data:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  backend_uploads:
+    driver: local
+
+# Rede personalizada
+networks:
+  dataclinica_network:
+    driver: bridge

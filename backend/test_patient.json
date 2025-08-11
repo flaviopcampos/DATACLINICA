@@ -1,0 +1,9 @@
+{
+  "name": "João Silva",
+  "cpf": "12345678901",
+  "birth_date": "1990-01-01",
+  "gender": "M",
+  "phone": "11999999999",
+  "email": "joao@email.com",
+  "clinic_id": 1
+}

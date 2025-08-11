@@ -1,0 +1,562 @@
+# =============================================================================
+# Regras de Alertas - DataClinica
+# Definições de alertas para monitoramento da aplicação
+# =============================================================================
+
+groups:
+  # =============================================================================
+  # Alertas de Infraestrutura
+  # =============================================================================
+  - name: infrastructure
+    interval: 30s
+    rules:
+      # Instância Down
+      - alert: InstanceDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+          category: infrastructure
+        annotations:
+          summary: "Instância {{ $labels.instance }} está down"
+          description: "A instância {{ $labels.instance }} do job {{ $labels.job }} está down há mais de 1 minuto."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/instance-down"
+      
+      # Alto uso de CPU
+      - alert: HighCPUUsage
+        expr: 100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
+        for: 5m
+        labels:
+          severity: warning
+          category: performance
+        annotations:
+          summary: "Alto uso de CPU na instância {{ $labels.instance }}"
+          description: "CPU usage está em {{ $value }}% na instância {{ $labels.instance }}."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/high-cpu"
+      
+      # CPU Crítico
+      - alert: CriticalCPUUsage
+        expr: 100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 95
+        for: 2m
+        labels:
+          severity: critical
+          category: performance
+        annotations:
+          summary: "Uso crítico de CPU na instância {{ $labels.instance }}"
+          description: "CPU usage está em {{ $value }}% na instância {{ $labels.instance }}."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/critical-cpu"
+      
+      # Alto uso de Memória
+      - alert: HighMemoryUsage
+        expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+          category: performance
+        annotations:
+          summary: "Alto uso de memória na instância {{ $labels.instance }}"
+          description: "Memory usage está em {{ $value }}% na instância {{ $labels.instance }}."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/high-memory"
+      
+      # Memória Crítica
+      - alert: CriticalMemoryUsage
+        expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100 > 95
+        for: 2m
+        labels:
+          severity: critical
+          category: performance
+        annotations:
+          summary: "Uso crítico de memória na instância {{ $labels.instance }}"
+          description: "Memory usage está em {{ $value }}% na instância {{ $labels.instance }}."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/critical-memory"
+      
+      # Pouco espaço em disco
+      - alert: LowDiskSpace
+        expr: (1 - (node_filesystem_avail_bytes{fstype!="tmpfs"} / node_filesystem_size_bytes{fstype!="tmpfs"})) * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+          category: capacity
+        annotations:
+          summary: "Pouco espaço em disco na instância {{ $labels.instance }}"
+          description: "Disk usage está em {{ $value }}% no filesystem {{ $labels.mountpoint }} da instância {{ $labels.instance }}."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/low-disk-space"
+      
+      # Espaço em disco crítico
+      - alert: CriticalDiskSpace
+        expr: (1 - (node_filesystem_avail_bytes{fstype!="tmpfs"} / node_filesystem_size_bytes{fstype!="tmpfs"})) * 100 > 95
+        for: 2m
+        labels:
+          severity: critical
+          category: capacity
+        annotations:
+          summary: "Espaço crítico em disco na instância {{ $labels.instance }}"
+          description: "Disk usage está em {{ $value }}% no filesystem {{ $labels.mountpoint }} da instância {{ $labels.instance }}."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/critical-disk-space"
+      
+      # Alto Load Average
+      - alert: HighLoadAverage
+        expr: node_load15 / count by(instance) (node_cpu_seconds_total{mode="idle"}) > 1.5
+        for: 10m
+        labels:
+          severity: warning
+          category: performance
+        annotations:
+          summary: "Alto load average na instância {{ $labels.instance }}"
+          description: "Load average (15min) está em {{ $value }} na instância {{ $labels.instance }}."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/high-load"
+
+  # =============================================================================
+  # Alertas de Aplicação Backend
+  # =============================================================================
+  - name: backend
+    interval: 15s
+    rules:
+      # Serviço Backend Down
+      - alert: BackendDown
+        expr: up{job="dataclinica-backend"} == 0
+        for: 30s
+        labels:
+          severity: critical
+          service: backend
+          category: availability
+        annotations:
+          summary: "Serviço Backend está down"
+          description: "O serviço backend do DataClinica está inacessível há mais de 30 segundos."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/backend-down"
+      
+      # Alto tempo de resposta da API
+      - alert: HighAPIResponseTime
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket{job="dataclinica-backend"}[5m])) > 2
+        for: 5m
+        labels:
+          severity: warning
+          service: backend
+          category: performance
+        annotations:
+          summary: "Alto tempo de resposta da API"
+          description: "95% das requisições estão levando mais de {{ $value }}s para responder."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/high-api-response-time"
+      
+      # Tempo de resposta crítico da API
+      - alert: CriticalAPIResponseTime
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket{job="dataclinica-backend"}[5m])) > 5
+        for: 2m
+        labels:
+          severity: critical
+          service: backend
+          category: performance
+        annotations:
+          summary: "Tempo de resposta crítico da API"
+          description: "95% das requisições estão levando mais de {{ $value }}s para responder."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/critical-api-response-time"
+      
+      # Alta taxa de erro HTTP
+      - alert: HighHTTPErrorRate
+        expr: rate(http_requests_total{job="dataclinica-backend",status=~"5.."}[5m]) / rate(http_requests_total{job="dataclinica-backend"}[5m]) * 100 > 5
+        for: 5m
+        labels:
+          severity: warning
+          service: backend
+          category: reliability
+        annotations:
+          summary: "Alta taxa de erros HTTP 5xx"
+          description: "{{ $value }}% das requisições estão retornando erro 5xx."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/high-http-error-rate"
+      
+      # Taxa crítica de erro HTTP
+      - alert: CriticalHTTPErrorRate
+        expr: rate(http_requests_total{job="dataclinica-backend",status=~"5.."}[5m]) / rate(http_requests_total{job="dataclinica-backend"}[5m]) * 100 > 20
+        for: 2m
+        labels:
+          severity: critical
+          service: backend
+          category: reliability
+        annotations:
+          summary: "Taxa crítica de erros HTTP 5xx"
+          description: "{{ $value }}% das requisições estão retornando erro 5xx."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/critical-http-error-rate"
+      
+      # Muitas conexões ativas
+      - alert: HighActiveConnections
+        expr: fastapi_active_requests{job="dataclinica-backend"} > 100
+        for: 5m
+        labels:
+          severity: warning
+          service: backend
+          category: performance
+        annotations:
+          summary: "Muitas conexões ativas no backend"
+          description: "{{ $value }} conexões ativas no backend."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/high-active-connections"
+      
+      # Falha no Health Check
+      - alert: BackendHealthCheckFailed
+        expr: probe_success{job="blackbox-http",instance=~".*backend.*"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: backend
+          category: availability
+        annotations:
+          summary: "Health check do backend falhando"
+          description: "O health check do backend está falhando há mais de 1 minuto."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/backend-health-check-failed"
+
+  # =============================================================================
+  # Alertas de Banco de Dados
+  # =============================================================================
+  - name: database
+    interval: 30s
+    rules:
+      # PostgreSQL Down
+      - alert: PostgreSQLDown
+        expr: up{job="dataclinica-database"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: database
+          category: availability
+        annotations:
+          summary: "PostgreSQL está down"
+          description: "O banco de dados PostgreSQL está inacessível há mais de 1 minuto."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/postgresql-down"
+      
+      # Muitas conexões ativas
+      - alert: HighDatabaseConnections
+        expr: pg_stat_activity_count{job="dataclinica-database"} > 80
+        for: 5m
+        labels:
+          severity: warning
+          service: database
+          category: performance
+        annotations:
+          summary: "Muitas conexões ativas no PostgreSQL"
+          description: "{{ $value }} conexões ativas no PostgreSQL."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/high-database-connections"
+      
+      # Conexões críticas
+      - alert: CriticalDatabaseConnections
+        expr: pg_stat_activity_count{job="dataclinica-database"} > 95
+        for: 2m
+        labels:
+          severity: critical
+          service: database
+          category: performance
+        annotations:
+          summary: "Número crítico de conexões no PostgreSQL"
+          description: "{{ $value }} conexões ativas no PostgreSQL (próximo do limite)."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/critical-database-connections"
+      
+      # Queries lentas
+      - alert: SlowQueries
+        expr: pg_stat_activity_max_tx_duration{job="dataclinica-database"} > 300
+        for: 5m
+        labels:
+          severity: warning
+          service: database
+          category: performance
+        annotations:
+          summary: "Queries lentas detectadas no PostgreSQL"
+          description: "Query mais longa está rodando há {{ $value }} segundos."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/slow-queries"
+      
+      # Deadlocks
+      - alert: DatabaseDeadlocks
+        expr: increase(pg_stat_database_deadlocks{job="dataclinica-database"}[5m]) > 0
+        for: 1m
+        labels:
+          severity: warning
+          service: database
+          category: reliability
+        annotations:
+          summary: "Deadlocks detectados no PostgreSQL"
+          description: "{{ $value }} deadlocks detectados nos últimos 5 minutos."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/database-deadlocks"
+      
+      # Replicação atrasada
+      - alert: ReplicationLag
+        expr: pg_replication_lag{job="dataclinica-database"} > 60
+        for: 5m
+        labels:
+          severity: warning
+          service: database
+          category: reliability
+        annotations:
+          summary: "Replicação do PostgreSQL atrasada"
+          description: "Replicação está {{ $value }} segundos atrasada."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/replication-lag"
+
+  # =============================================================================
+  # Alertas de Redis
+  # =============================================================================
+  - name: redis
+    interval: 30s
+    rules:
+      # Redis Down
+      - alert: RedisDown
+        expr: up{job="dataclinica-redis"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: redis
+          category: availability
+        annotations:
+          summary: "Redis está down"
+          description: "O Redis está inacessível há mais de 1 minuto."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/redis-down"
+      
+      # Alto uso de memória no Redis
+      - alert: HighRedisMemoryUsage
+        expr: redis_memory_used_bytes{job="dataclinica-redis"} / redis_memory_max_bytes{job="dataclinica-redis"} * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+          service: redis
+          category: capacity
+        annotations:
+          summary: "Alto uso de memória no Redis"
+          description: "Redis está usando {{ $value }}% da memória disponível."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/high-redis-memory"
+      
+      # Muitas conexões no Redis
+      - alert: HighRedisConnections
+        expr: redis_connected_clients{job="dataclinica-redis"} > 100
+        for: 5m
+        labels:
+          severity: warning
+          service: redis
+          category: performance
+        annotations:
+          summary: "Muitas conexões no Redis"
+          description: "{{ $value }} clientes conectados no Redis."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/high-redis-connections"
+      
+      # Redis rejeitando conexões
+      - alert: RedisRejectedConnections
+        expr: increase(redis_rejected_connections_total{job="dataclinica-redis"}[5m]) > 0
+        for: 1m
+        labels:
+          severity: critical
+          service: redis
+          category: availability
+        annotations:
+          summary: "Redis rejeitando conexões"
+          description: "{{ $value }} conexões rejeitadas nos últimos 5 minutos."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/redis-rejected-connections"
+
+  # =============================================================================
+  # Alertas de Frontend/Nginx
+  # =============================================================================
+  - name: frontend
+    interval: 30s
+    rules:
+      # Frontend Down
+      - alert: FrontendDown
+        expr: up{job="dataclinica-frontend"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: frontend
+          category: availability
+        annotations:
+          summary: "Frontend está down"
+          description: "O frontend (Nginx) está inacessível há mais de 1 minuto."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/frontend-down"
+      
+      # Health check do frontend falhando
+      - alert: FrontendHealthCheckFailed
+        expr: probe_success{job="blackbox-http",instance=~".*frontend.*"} == 0
+        for: 2m
+        labels:
+          severity: critical
+          service: frontend
+          category: availability
+        annotations:
+          summary: "Health check do frontend falhando"
+          description: "O health check do frontend está falhando há mais de 2 minutos."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/frontend-health-check-failed"
+      
+      # Alto número de erros 4xx
+      - alert: HighNginx4xxErrors
+        expr: rate(nginx_http_requests_total{status=~"4.."}[5m]) > 10
+        for: 5m
+        labels:
+          severity: warning
+          service: frontend
+          category: reliability
+        annotations:
+          summary: "Alto número de erros 4xx no Nginx"
+          description: "{{ $value }} erros 4xx por segundo no Nginx."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/high-nginx-4xx-errors"
+      
+      # Alto número de erros 5xx
+      - alert: HighNginx5xxErrors
+        expr: rate(nginx_http_requests_total{status=~"5.."}[5m]) > 1
+        for: 2m
+        labels:
+          severity: critical
+          service: frontend
+          category: reliability
+        annotations:
+          summary: "Alto número de erros 5xx no Nginx"
+          description: "{{ $value }} erros 5xx por segundo no Nginx."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/high-nginx-5xx-errors"
+
+  # =============================================================================
+  # Alertas de Segurança
+  # =============================================================================
+  - name: security
+    interval: 60s
+    rules:
+      # Muitas tentativas de login falhadas
+      - alert: HighFailedLogins
+        expr: increase(http_requests_total{endpoint="/api/auth/login",status="401"}[5m]) > 10
+        for: 2m
+        labels:
+          severity: warning
+          service: backend
+          category: security
+          attack_type: brute_force
+        annotations:
+          summary: "Muitas tentativas de login falhadas"
+          description: "{{ $value }} tentativas de login falhadas nos últimos 5 minutos."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/high-failed-logins"
+      
+      # Possível ataque DDoS
+      - alert: PossibleDDoSAttack
+        expr: rate(nginx_http_requests_total[1m]) > 1000
+        for: 2m
+        labels:
+          severity: critical
+          service: frontend
+          category: security
+          attack_type: ddos
+        annotations:
+          summary: "Possível ataque DDoS detectado"
+          description: "{{ $value }} requisições por segundo - possível DDoS."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/possible-ddos-attack"
+      
+      # Certificado SSL expirando
+      - alert: SSLCertificateExpiring
+        expr: probe_ssl_earliest_cert_expiry{job="blackbox-ssl"} - time() < 7 * 24 * 3600
+        for: 1h
+        labels:
+          severity: warning
+          category: security
+        annotations:
+          summary: "Certificado SSL expirando em breve"
+          description: "Certificado SSL para {{ $labels.instance }} expira em {{ $value | humanizeDuration }}."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/ssl-certificate-expiring"
+      
+      # Certificado SSL expirado
+      - alert: SSLCertificateExpired
+        expr: probe_ssl_earliest_cert_expiry{job="blackbox-ssl"} - time() <= 0
+        for: 1m
+        labels:
+          severity: critical
+          category: security
+        annotations:
+          summary: "Certificado SSL expirado"
+          description: "Certificado SSL para {{ $labels.instance }} expirou."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/ssl-certificate-expired"
+
+  # =============================================================================
+  # Alertas de Business Logic
+  # =============================================================================
+  - name: business
+    interval: 60s
+    rules:
+      # Muitos agendamentos cancelados
+      - alert: HighAppointmentCancellations
+        expr: increase(dataclinica_appointments_cancelled_total[1h]) > 10
+        for: 5m
+        labels:
+          severity: warning
+          service: backend
+          category: business
+        annotations:
+          summary: "Alto número de cancelamentos de agendamentos"
+          description: "{{ $value }} agendamentos cancelados na última hora."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/high-appointment-cancellations"
+      
+      # Falha no envio de e-mails
+      - alert: EmailDeliveryFailure
+        expr: increase(dataclinica_emails_failed_total[5m]) > 5
+        for: 2m
+        labels:
+          severity: warning
+          service: backend
+          category: business
+        annotations:
+          summary: "Falhas no envio de e-mails"
+          description: "{{ $value }} e-mails falharam nos últimos 5 minutos."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/email-delivery-failure"
+      
+      # Backup do banco falhando
+      - alert: DatabaseBackupFailed
+        expr: time() - dataclinica_last_backup_timestamp > 24 * 3600
+        for: 1h
+        labels:
+          severity: critical
+          service: database
+          category: business
+        annotations:
+          summary: "Backup do banco de dados falhando"
+          description: "Último backup foi há {{ $value | humanizeDuration }}."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/database-backup-failed"
+      
+      # Processamento de pagamentos lento
+      - alert: SlowPaymentProcessing
+        expr: histogram_quantile(0.95, rate(dataclinica_payment_duration_seconds_bucket[5m])) > 10
+        for: 5m
+        labels:
+          severity: warning
+          service: backend
+          category: business
+        annotations:
+          summary: "Processamento de pagamentos lento"
+          description: "95% dos pagamentos estão levando mais de {{ $value }}s para processar."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/slow-payment-processing"
+
+  # =============================================================================
+  # Alertas de Containers
+  # =============================================================================
+  - name: containers
+    interval: 30s
+    rules:
+      # Container reiniciando frequentemente
+      - alert: ContainerRestartingFrequently
+        expr: increase(container_restart_count[1h]) > 3
+        for: 5m
+        labels:
+          severity: warning
+          category: containers
+        annotations:
+          summary: "Container reiniciando frequentemente"
+          description: "Container {{ $labels.name }} reiniciou {{ $value }} vezes na última hora."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/container-restarting-frequently"
+      
+      # Container usando muita CPU
+      - alert: ContainerHighCPU
+        expr: rate(container_cpu_usage_seconds_total[5m]) * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+          category: containers
+        annotations:
+          summary: "Container usando muita CPU"
+          description: "Container {{ $labels.name }} está usando {{ $value }}% de CPU."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/container-high-cpu"
+      
+      # Container usando muita memória
+      - alert: ContainerHighMemory
+        expr: container_memory_usage_bytes / container_spec_memory_limit_bytes * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+          category: containers
+        annotations:
+          summary: "Container usando muita memória"
+          description: "Container {{ $labels.name }} está usando {{ $value }}% da memória limite."
+          runbook_url: "https://docs.dataclinica.com.br/runbooks/container-high-memory"

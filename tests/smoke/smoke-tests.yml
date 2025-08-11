@@ -1,0 +1,308 @@
+# =============================================================================
+# Configuração de Smoke Tests - DataClinica
+# Testes básicos para validar deploy em produção
+# =============================================================================
+
+config:
+  target: '{{ $processEnvironment.TARGET_URL || "http://localhost:8000" }}'
+  phases:
+    - duration: 60
+      arrivalRate: 1
+      name: "Smoke Test - Validação Básica"
+  defaults:
+    headers:
+      'Content-Type': 'application/json'
+      'User-Agent': 'DataClinica-SmokeTest/1.0'
+  processor: './processors/smoke-processor.js'
+  plugins:
+    expect: {}
+    metrics-by-endpoint: {}
+  environments:
+    staging:
+      target: 'https://staging.dataclinica.com.br'
+      phases:
+        - duration: 30
+          arrivalRate: 1
+    production:
+      target: 'https://dataclinica.com.br'
+      phases:
+        - duration: 60
+          arrivalRate: 1
+
+scenarios:
+  # =============================================================================
+  # Teste 1: Health Check e Status da Aplicação
+  # =============================================================================
+  - name: "Health Check"
+    weight: 30
+    flow:
+      - get:
+          url: "/health"
+          expect:
+            - statusCode: 200
+            - hasProperty: "status"
+            - equals:
+                - "{{ status }}"
+                - "healthy"
+          capture:
+            - json: "$.status"
+              as: "health_status"
+            - json: "$.timestamp"
+              as: "health_timestamp"
+            - json: "$.version"
+              as: "app_version"
+      
+      - get:
+          url: "/api/health"
+          expect:
+            - statusCode: 200
+            - hasProperty: "database"
+            - hasProperty: "redis"
+          capture:
+            - json: "$.database.status"
+              as: "db_status"
+            - json: "$.redis.status"
+              as: "redis_status"
+      
+      - function: "validateHealthCheck"
+
+  # =============================================================================
+  # Teste 2: Frontend e Assets Estáticos
+  # =============================================================================
+  - name: "Frontend Assets"
+    weight: 20
+    flow:
+      - get:
+          url: "/"
+          expect:
+            - statusCode: 200
+            - contentType: "text/html"
+          capture:
+            - regex: "<title>(.*?)</title>"
+              as: "page_title"
+      
+      - get:
+          url: "/static/css/main.css"
+          expect:
+            - statusCode: 200
+            - contentType: "text/css"
+      
+      - get:
+          url: "/static/js/main.js"
+          expect:
+            - statusCode: 200
+            - contentType: "application/javascript"
+      
+      - get:
+          url: "/favicon.ico"
+          expect:
+            - statusCode: 200
+      
+      - function: "validateFrontendAssets"
+
+  # =============================================================================
+  # Teste 3: Autenticação Básica
+  # =============================================================================
+  - name: "Authentication Flow"
+    weight: 25
+    flow:
+      - post:
+          url: "/api/auth/login"
+          json:
+            email: "{{ $processEnvironment.SMOKE_TEST_EMAIL || 'admin@dataclinica.com.br' }}"
+            password: "{{ $processEnvironment.SMOKE_TEST_PASSWORD || 'Admin123!' }}"
+          expect:
+            - statusCode: 200
+            - hasProperty: "access_token"
+            - hasProperty: "user"
+          capture:
+            - json: "$.access_token"
+              as: "auth_token"
+            - json: "$.user.id"
+              as: "user_id"
+            - json: "$.user.email"
+              as: "user_email"
+      
+      - get:
+          url: "/api/auth/me"
+          headers:
+            Authorization: "Bearer {{ auth_token }}"
+          expect:
+            - statusCode: 200
+            - hasProperty: "id"
+            - equals:
+                - "{{ id }}"
+                - "{{ user_id }}"
+      
+      - function: "validateAuthentication"
+
+  # =============================================================================
+  # Teste 4: APIs Principais
+  # =============================================================================
+  - name: "Core APIs"
+    weight: 20
+    flow:
+      # Login para obter token
+      - post:
+          url: "/api/auth/login"
+          json:
+            email: "{{ $processEnvironment.SMOKE_TEST_EMAIL || 'admin@dataclinica.com.br' }}"
+            password: "{{ $processEnvironment.SMOKE_TEST_PASSWORD || 'Admin123!' }}"
+          capture:
+            - json: "$.access_token"
+              as: "auth_token"
+      
+      # Testar API de pacientes
+      - get:
+          url: "/api/patients"
+          headers:
+            Authorization: "Bearer {{ auth_token }}"
+          qs:
+            limit: 5
+          expect:
+            - statusCode: 200
+            - hasProperty: "data"
+            - hasProperty: "total"
+          capture:
+            - json: "$.total"
+              as: "patients_count"
+      
+      # Testar API de agendamentos
+      - get:
+          url: "/api/appointments"
+          headers:
+            Authorization: "Bearer {{ auth_token }}"
+          qs:
+            limit: 5
+            status: "scheduled"
+          expect:
+            - statusCode: 200
+            - hasProperty: "data"
+          capture:
+            - json: "$.data.length"
+              as: "appointments_count"
+      
+      # Testar API de relatórios
+      - get:
+          url: "/api/reports/dashboard"
+          headers:
+            Authorization: "Bearer {{ auth_token }}"
+          expect:
+            - statusCode: 200
+            - hasProperty: "patients_total"
+            - hasProperty: "appointments_today"
+          capture:
+            - json: "$.patients_total"
+              as: "dashboard_patients"
+            - json: "$.appointments_today"
+              as: "dashboard_appointments"
+      
+      - function: "validateCoreAPIs"
+
+  # =============================================================================
+  # Teste 5: Performance e Limites
+  # =============================================================================
+  - name: "Performance Check"
+    weight: 5
+    flow:
+      # Teste de resposta rápida
+      - get:
+          url: "/health"
+          expect:
+            - statusCode: 200
+          afterResponse: "checkResponseTime"
+      
+      # Teste de rate limiting
+      - loop:
+          count: 5
+          over:
+            - get:
+                url: "/api/auth/login"
+                json:
+                  email: "invalid@test.com"
+                  password: "invalid"
+                expect:
+                  - statusCode: [401, 429]
+      
+      - function: "validatePerformance"
+
+# =============================================================================
+# Configurações de Monitoramento
+# =============================================================================
+ensure:
+  # Thresholds de performance
+  thresholds:
+    - http.response_time:
+        p95: 2000  # 95% das respostas em menos de 2s
+        p99: 5000  # 99% das respostas em menos de 5s
+    - http.response_time.health:
+        p95: 500   # Health check deve ser muito rápido
+    - http.codes.200:
+        min: 95    # Pelo menos 95% de sucesso
+    - http.codes.4xx:
+        max: 5     # Máximo 5% de erros 4xx
+    - http.codes.5xx:
+        max: 0     # Zero erros 5xx
+
+  # Condições de falha
+  conditions:
+    - expression: "http.codes.5xx > 0"
+      strict: true
+      message: "Erro 5xx detectado - falha crítica"
+    
+    - expression: "http.response_time.p95 > 3000"
+      strict: false
+      message: "Performance degradada - P95 > 3s"
+    
+    - expression: "http.codes.200 < 90"
+      strict: true
+      message: "Taxa de sucesso muito baixa"
+
+# =============================================================================
+# Configurações de Relatório
+# =============================================================================
+reporting:
+  # Formato de saída
+  format: ['json', 'html']
+  
+  # Arquivo de saída
+  output:
+    json: './reports/smoke-test-results.json'
+    html: './reports/smoke-test-results.html'
+  
+  # Métricas customizadas
+  custom_metrics:
+    - name: "health_check_time"
+      description: "Tempo de resposta do health check"
+    - name: "auth_success_rate"
+      description: "Taxa de sucesso da autenticação"
+    - name: "api_availability"
+      description: "Disponibilidade das APIs principais"
+
+# =============================================================================
+# Configurações de Notificação
+# =============================================================================
+notifications:
+  slack:
+    webhook_url: "{{ $processEnvironment.SLACK_WEBHOOK_URL }}"
+    channel: "#dataclinica-alerts"
+    on_failure: true
+    on_success: false
+  
+  email:
+    smtp_host: "{{ $processEnvironment.SMTP_HOST }}"
+    smtp_port: 587
+    smtp_user: "{{ $processEnvironment.SMTP_USER }}"
+    smtp_pass: "{{ $processEnvironment.SMTP_PASS }}"
+    to: ["devops@dataclinica.com.br"]
+    on_failure: true
+    on_success: false
+
+# =============================================================================
+# Configurações de Retry
+# =============================================================================
+retry:
+  max_attempts: 3
+  delay: 1000  # 1 segundo entre tentativas
+  backoff: 2   # Multiplicador exponencial
+  on_status_codes: [500, 502, 503, 504]

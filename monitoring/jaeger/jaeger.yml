@@ -1,0 +1,540 @@
+# =============================================================================
+# Configuração do Jaeger - DataClinica
+# Sistema de Tracing Distribuído
+# =============================================================================
+
+# =============================================================================
+# Configurações do Collector
+# =============================================================================
+collector:
+  # Configurações de recebimento de traces
+  receivers:
+    # Receptor OTLP (OpenTelemetry Protocol)
+    otlp:
+      protocols:
+        grpc:
+          endpoint: 0.0.0.0:4317
+        http:
+          endpoint: 0.0.0.0:4318
+    
+    # Receptor Jaeger (formato nativo)
+    jaeger:
+      protocols:
+        grpc:
+          endpoint: 0.0.0.0:14250
+        thrift_http:
+          endpoint: 0.0.0.0:14268
+        thrift_compact:
+          endpoint: 0.0.0.0:6831
+        thrift_binary:
+          endpoint: 0.0.0.0:6832
+    
+    # Receptor Zipkin
+    zipkin:
+      endpoint: 0.0.0.0:9411
+  
+  # Processadores de traces
+  processors:
+    # Processamento em lote para melhor performance
+    batch:
+      timeout: 1s
+      send_batch_size: 1024
+      send_batch_max_size: 2048
+    
+    # Amostragem de traces
+    probabilistic_sampler:
+      sampling_percentage: 10.0
+    
+    # Filtragem de spans
+    span:
+      name:
+        # Renomear spans para melhor organização
+        to_attributes:
+          rules:
+            - pattern: "^/api/v1/(.*)$"
+              name: "api_endpoint"
+    
+    # Atributos de recursos
+    resource:
+      attributes:
+        - key: service.namespace
+          value: dataclinica
+          action: upsert
+        - key: deployment.environment
+          value: ${ENVIRONMENT:development}
+          action: upsert
+  
+  # Exportadores de traces
+  exporters:
+    # Exportar para Elasticsearch
+    elasticsearch:
+      endpoints:
+        - http://elasticsearch:9200
+      index: jaeger-traces
+      mapping:
+        template_name: jaeger-template
+        index_patterns:
+          - jaeger-traces-*
+      bulk:
+        actions: 1000
+        bytes: 5MB
+        flush_interval: 5s
+      retry:
+        max_requests: 3
+        initial_interval: 100ms
+        max_interval: 1s
+    
+    # Exportar para arquivo (backup/debug)
+    file:
+      path: /var/log/jaeger/traces.json
+      rotation:
+        max_megabytes: 100
+        max_days: 7
+        max_backups: 3
+    
+    # Exportar para Kafka (opcional)
+    kafka:
+      brokers:
+        - kafka:9092
+      topic: jaeger-traces
+      producer:
+        max_message_bytes: 1000000
+        required_acks: 1
+        compression: gzip
+  
+  # Pipeline de processamento
+  service:
+    pipelines:
+      traces:
+        receivers: [otlp, jaeger, zipkin]
+        processors: [batch, probabilistic_sampler, span, resource]
+        exporters: [elasticsearch, file]
+    
+    # Configurações de telemetria
+    telemetry:
+      logs:
+        level: info
+        development: false
+        encoding: json
+        output_paths:
+          - stdout
+          - /var/log/jaeger/collector.log
+      metrics:
+        address: 0.0.0.0:8888
+        level: detailed
+      
+    # Extensões
+    extensions:
+      health_check:
+        endpoint: 0.0.0.0:13133
+      pprof:
+        endpoint: 0.0.0.0:1777
+      zpages:
+        endpoint: 0.0.0.0:55679
+
+# =============================================================================
+# Configurações do Query Service
+# =============================================================================
+query:
+  # Configurações do servidor HTTP
+  http:
+    host_port: 0.0.0.0:16686
+    
+  # Configurações do servidor gRPC
+  grpc:
+    host_port: 0.0.0.0:16685
+  
+  # Configurações de armazenamento
+  storage:
+    type: elasticsearch
+    elasticsearch:
+      server_urls:
+        - http://elasticsearch:9200
+      index_prefix: jaeger
+      username: ${ES_USERNAME:}
+      password: ${ES_PASSWORD:}
+      sniffer: false
+      max_span_age: 72h
+      num_shards: 5
+      num_replicas: 1
+      bulk:
+        actions: 1000
+        size: 5MB
+        workers: 1
+        flush_interval: 200ms
+      tags_as_fields:
+        all: false
+        include: "http.method,http.status_code,error"
+      create_index_templates: true
+  
+  # Configurações de UI
+  ui:
+    config_file: /etc/jaeger/ui-config.json
+    
+  # Configurações de log
+  log_level: info
+  
+  # Configurações de métricas
+  metrics:
+    backend: prometheus
+    http_route: /metrics
+    
+  # Configurações de CORS
+  query:
+    additional_headers:
+      - "Access-Control-Allow-Origin: *"
+      - "Access-Control-Allow-Methods: GET, POST, OPTIONS"
+      - "Access-Control-Allow-Headers: Content-Type, Authorization"
+
+# =============================================================================
+# Configurações do Agent
+# =============================================================================
+agent:
+  # Configurações de recebimento
+  processors:
+    jaeger_compact:
+      server_host_port: 0.0.0.0:6831
+    jaeger_binary:
+      server_host_port: 0.0.0.0:6832
+    zipkin_compact:
+      server_host_port: 0.0.0.0:5775
+  
+  # Configurações de envio para collector
+  reporter:
+    type: grpc
+    grpc:
+      host_port: jaeger-collector:14250
+      retry:
+        max_backoff: 5s
+      discovery:
+        min_peers: 3
+        conn_check_timeout: 250ms
+  
+  # Configurações de amostragem
+  sampling:
+    type: adaptive
+    max_traces_per_second: 100
+    strategies_file: /etc/jaeger/sampling_strategies.json
+    
+  # Configurações de log
+  log_level: info
+  
+  # Configurações de métricas
+  metrics:
+    backend: prometheus
+    http_route: /metrics
+
+# =============================================================================
+# Configurações de Amostragem
+# =============================================================================
+sampling:
+  # Estratégias padrão
+  default_strategy:
+    type: probabilistic
+    param: 0.1  # 10% de amostragem
+  
+  # Estratégias por serviço
+  per_service_strategies:
+    - service: dataclinica-backend
+      type: probabilistic
+      param: 0.2  # 20% para backend
+      max_traces_per_second: 50
+      
+    - service: dataclinica-frontend
+      type: probabilistic
+      param: 0.1  # 10% para frontend
+      max_traces_per_second: 30
+      
+    - service: dataclinica-api
+      type: probabilistic
+      param: 0.3  # 30% para API
+      max_traces_per_second: 100
+      
+    - service: dataclinica-auth
+      type: probabilistic
+      param: 0.5  # 50% para autenticação
+      max_traces_per_second: 20
+      
+    - service: dataclinica-payments
+      type: probabilistic
+      param: 1.0  # 100% para pagamentos
+      max_traces_per_second: 10
+      
+    - service: dataclinica-notifications
+      type: probabilistic
+      param: 0.1  # 10% para notificações
+      max_traces_per_second: 25
+  
+  # Estratégias por operação
+  per_operation_strategies:
+    - service: dataclinica-backend
+      operation: "POST /api/v1/patients"
+      type: probabilistic
+      param: 1.0  # 100% para criação de pacientes
+      
+    - service: dataclinica-backend
+      operation: "POST /api/v1/appointments"
+      type: probabilistic
+      param: 1.0  # 100% para agendamentos
+      
+    - service: dataclinica-backend
+      operation: "GET /api/v1/health"
+      type: probabilistic
+      param: 0.01  # 1% para health checks
+      
+    - service: dataclinica-api
+      operation: "POST /api/v1/auth/login"
+      type: probabilistic
+      param: 1.0  # 100% para login
+      
+    - service: dataclinica-api
+      operation: "POST /api/v1/payments"
+      type: probabilistic
+      param: 1.0  # 100% para pagamentos
+
+# =============================================================================
+# Configurações de UI
+# =============================================================================
+ui:
+  # Configurações de dependências
+  dependencies:
+    dag_max_num_services: 200
+    
+  # Configurações de busca
+  search:
+    max_look_back: 168h  # 7 dias
+    
+  # Configurações de arquivamento
+  archiveEnabled: true
+  
+  # Configurações de monitoramento
+  monitor:
+    menuEnabled: true
+    
+  # Configurações de tracking
+  tracking:
+    gaID: ${GOOGLE_ANALYTICS_ID:}
+    trackErrors: true
+    
+  # Configurações de deep links
+  deepDependencies:
+    menuEnabled: true
+    
+  # Configurações customizadas
+  menu:
+    - label: "DataClinica Docs"
+      url: "https://docs.dataclinica.com"
+      newWindow: true
+    - label: "Grafana"
+      url: "http://grafana:3000"
+      newWindow: true
+    - label: "Prometheus"
+      url: "http://prometheus:9090"
+      newWindow: true
+      
+  # Configurações de links externos
+  linkPatterns:
+    - type: "logs"
+      key: "trace_id"
+      url: "http://grafana:3000/explore?left=%5B%22now-1h%22,%22now%22,%22Loki%22,%7B%22expr%22:%22%7Btrace_id%3D%5C%22#{trace_id}%5C%22%7D%22%7D%5D"
+      text: "View Logs"
+      
+    - type: "metrics"
+      key: "service_name"
+      url: "http://grafana:3000/d/dataclinica-service/service-overview?var-service=#{service_name}"
+      text: "View Metrics"
+
+# =============================================================================
+# Configurações de Storage
+# =============================================================================
+storage:
+  # Configurações do Elasticsearch
+  elasticsearch:
+    # Configurações de conexão
+    server_urls:
+      - http://elasticsearch:9200
+    username: ${ES_USERNAME:}
+    password: ${ES_PASSWORD:}
+    
+    # Configurações de índices
+    index_prefix: jaeger
+    create_index_templates: true
+    version: 7
+    
+    # Configurações de sharding
+    num_shards: 5
+    num_replicas: 1
+    
+    # Configurações de retenção
+    max_span_age: 168h  # 7 dias
+    
+    # Configurações de bulk
+    bulk:
+      actions: 1000
+      size: 5MB
+      workers: 1
+      flush_interval: 200ms
+      
+    # Configurações de timeout
+    timeout: 0s
+    
+    # Configurações de tags
+    tags_as_fields:
+      all: false
+      include: "http.method,http.status_code,error,user.id,session.id"
+      
+    # Configurações de mapeamento
+    use_aliases: true
+    
+    # Configurações de TLS
+    tls:
+      enabled: false
+      cert: ""
+      key: ""
+      ca: ""
+      server_name: ""
+      insecure_skip_verify: false
+
+# =============================================================================
+# Configurações de Métricas
+# =============================================================================
+metrics:
+  # Backend de métricas
+  backend: prometheus
+  
+  # Configurações do Prometheus
+  prometheus:
+    namespace: jaeger
+    
+  # Configurações HTTP
+  http_route: /metrics
+  
+  # Configurações de labels
+  labels:
+    - key: "environment"
+      value: "${ENVIRONMENT:development}"
+    - key: "cluster"
+      value: "dataclinica"
+
+# =============================================================================
+# Configurações de Log
+# =============================================================================
+logging:
+  # Nível de log
+  level: info
+  
+  # Formato de log
+  format: json
+  
+  # Saída de log
+  output:
+    - stdout
+    - /var/log/jaeger/jaeger.log
+    
+  # Configurações de rotação
+  rotation:
+    max_size: 100MB
+    max_age: 7
+    max_backups: 3
+    compress: true
+
+# =============================================================================
+# Configurações de Health Check
+# =============================================================================
+health_check:
+  # Endpoint de health check
+  http_port: 14269
+  
+  # Configurações de timeout
+  timeout: 5s
+  
+  # Configurações de intervalo
+  interval: 30s
+
+# =============================================================================
+# Configurações de Segurança
+# =============================================================================
+security:
+  # Configurações de autenticação
+  authentication:
+    enabled: false
+    type: "bearer"
+    
+  # Configurações de autorização
+  authorization:
+    enabled: false
+    
+  # Configurações de TLS
+  tls:
+    enabled: false
+    cert_file: ""
+    key_file: ""
+    ca_file: ""
+    
+  # Configurações de CORS
+  cors:
+    allowed_origins:
+      - "*"
+    allowed_methods:
+      - GET
+      - POST
+      - OPTIONS
+    allowed_headers:
+      - Content-Type
+      - Authorization
+      - X-Requested-With
+    
+  # Configurações de rate limiting
+  rate_limiting:
+    enabled: false
+    requests_per_second: 100
+    burst: 200
+
+# =============================================================================
+# Configurações de Performance
+# =============================================================================
+performance:
+  # Configurações de cache
+  cache:
+    enabled: true
+    ttl: 1h
+    max_size: 1000
+    
+  # Configurações de pool de conexões
+  connection_pool:
+    max_idle_conns: 100
+    max_open_conns: 200
+    conn_max_lifetime: 1h
+    
+  # Configurações de timeout
+  timeouts:
+    read: 30s
+    write: 30s
+    idle: 90s
+    
+  # Configurações de buffer
+  buffer:
+    size: 1000
+    flush_interval: 1s
+
+# =============================================================================
+# Configurações de Desenvolvimento
+# =============================================================================
+development:
+  # Habilitar modo debug
+  debug: ${DEBUG:false}
+  
+  # Habilitar profiling
+  profiling:
+    enabled: ${PROFILING_ENABLED:false}
+    port: 6060
+    
+  # Configurações de teste
+  testing:
+    enabled: ${TESTING_ENABLED:false}
+    mock_data: false
+    
+  # Configurações de desenvolvimento local
+  local:
+    hot_reload: ${HOT_RELOAD:false}
+    verbose_logging: ${VERBOSE_LOGGING:false}

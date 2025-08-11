@@ -1,0 +1,356 @@
+# =============================================================================
+# Configuração de Datasources do Grafana - DataClinica
+# Configuração do Prometheus como fonte de dados
+# =============================================================================
+
+apiVersion: 1
+
+datasources:
+  # =============================================================================
+  # Prometheus Principal
+  # =============================================================================
+  - name: Prometheus
+    type: prometheus
+    access: proxy
+    url: http://prometheus:9090
+    isDefault: true
+    editable: true
+    
+    # Configurações de autenticação
+    basicAuth: false
+    withCredentials: false
+    
+    # Configurações de timeout
+    timeout: 60
+    
+    # Configurações de query
+    jsonData:
+      httpMethod: POST
+      queryTimeout: 60s
+      timeInterval: 15s
+      
+      # Configurações de exemplars
+      exemplarTraceIdDestinations:
+        - name: trace_id
+          datasourceUid: jaeger
+      
+      # Configurações de alertas
+      manageAlerts: true
+      alertmanagerUid: alertmanager
+      
+      # Configurações de cache
+      incrementalQuerying: true
+      incrementalQueryOverlapWindow: 10m
+      
+      # Configurações de custom query parameters
+      customQueryParameters: ''
+      
+      # Configurações de TLS
+      tlsSkipVerify: false
+      
+      # Configurações de rate limiting
+      prometheusType: Prometheus
+      prometheusVersion: 2.40.0
+      
+      # Configurações de scrape interval
+      scrapeInterval: 15s
+    
+    # Configurações de segurança
+    secureJsonData: {}
+    
+    # Configurações de versão
+    version: 1
+    
+    # Configurações de UID
+    uid: prometheus
+    
+    # Configurações de organização
+    orgId: 1
+    
+    # Configurações de acesso
+    readOnly: false
+
+  # =============================================================================
+  # Loki para Logs (se configurado)
+  # =============================================================================
+  - name: Loki
+    type: loki
+    access: proxy
+    url: http://loki:3100
+    isDefault: false
+    editable: true
+    
+    # Configurações básicas
+    basicAuth: false
+    withCredentials: false
+    
+    # Configurações de timeout
+    timeout: 60
+    
+    # Configurações específicas do Loki
+    jsonData:
+      maxLines: 1000
+      derivedFields:
+        - datasourceUid: jaeger
+          matcherRegex: "trace_id=(\\w+)"
+          name: TraceID
+          url: "$${__value.raw}"
+      
+      # Configurações de timeout
+      timeout: 60s
+      
+      # Configurações de query
+      queryTimeout: 300s
+      
+      # Configurações de TLS
+      tlsSkipVerify: false
+    
+    # Configurações de UID
+    uid: loki
+    
+    # Configurações de organização
+    orgId: 1
+    
+    # Configurações de acesso
+    readOnly: false
+
+  # =============================================================================
+  # Jaeger para Tracing (se configurado)
+  # =============================================================================
+  - name: Jaeger
+    type: jaeger
+    access: proxy
+    url: http://jaeger:16686
+    isDefault: false
+    editable: true
+    
+    # Configurações básicas
+    basicAuth: false
+    withCredentials: false
+    
+    # Configurações de timeout
+    timeout: 60
+    
+    # Configurações específicas do Jaeger
+    jsonData:
+      tracesToLogs:
+        datasourceUid: loki
+        tags: ['job', 'instance', 'pod', 'namespace']
+        mappedTags: [{ key: 'service.name', value: 'service' }]
+        mapTagNamesEnabled: false
+        spanStartTimeShift: '1h'
+        spanEndTimeShift: '1h'
+        filterByTraceID: false
+        filterBySpanID: false
+      
+      tracesToMetrics:
+        datasourceUid: prometheus
+        tags: [{ key: 'service.name', value: 'service' }, { key: 'job' }]
+        queries:
+          - name: 'Sample query'
+            query: 'sum(rate(traces_spanmetrics_latency_bucket{$$__tags}[5m]))'
+      
+      # Configurações de timeout
+      timeout: 60s
+      
+      # Configurações de query
+      queryTimeout: 300s
+      
+      # Configurações de TLS
+      tlsSkipVerify: false
+    
+    # Configurações de UID
+    uid: jaeger
+    
+    # Configurações de organização
+    orgId: 1
+    
+    # Configurações de acesso
+    readOnly: false
+
+  # =============================================================================
+  # Alertmanager
+  # =============================================================================
+  - name: Alertmanager
+    type: alertmanager
+    access: proxy
+    url: http://alertmanager:9093
+    isDefault: false
+    editable: true
+    
+    # Configurações básicas
+    basicAuth: false
+    withCredentials: false
+    
+    # Configurações de timeout
+    timeout: 60
+    
+    # Configurações específicas do Alertmanager
+    jsonData:
+      # Configurações de implementação
+      implementation: prometheus
+      
+      # Configurações de timeout
+      timeout: 60s
+      
+      # Configurações de TLS
+      tlsSkipVerify: false
+      
+      # Configurações de handling
+      handleGrafanaManagedAlerts: false
+    
+    # Configurações de UID
+    uid: alertmanager
+    
+    # Configurações de organização
+    orgId: 1
+    
+    # Configurações de acesso
+    readOnly: false
+
+  # =============================================================================
+  # CloudWatch (se configurado para AWS)
+  # =============================================================================
+  # - name: CloudWatch
+  #   type: cloudwatch
+  #   access: proxy
+  #   isDefault: false
+  #   editable: true
+  #   
+  #   # Configurações específicas do CloudWatch
+  #   jsonData:
+  #     authType: keys
+  #     defaultRegion: us-east-1
+  #     customMetricsNamespaces: 'DataClinica/Application,DataClinica/Infrastructure'
+  #     assumeRoleArn: ''
+  #     externalId: ''
+  #     profile: ''
+  #     endpoint: ''
+  #     
+  #     # Configurações de timeout
+  #     timeout: 60s
+  #     
+  #     # Configurações de query
+  #     queryTimeout: 300s
+  #   
+  #   # Configurações de segurança (definir via variáveis de ambiente)
+  #   secureJsonData:
+  #     accessKey: '${AWS_ACCESS_KEY_ID}'
+  #     secretKey: '${AWS_SECRET_ACCESS_KEY}'
+  #   
+  #   # Configurações de UID
+  #   uid: cloudwatch
+  #   
+  #   # Configurações de organização
+  #   orgId: 1
+  #   
+  #   # Configurações de acesso
+  #   readOnly: false
+
+  # =============================================================================
+  # PostgreSQL (para queries diretas no banco)
+  # =============================================================================
+  - name: PostgreSQL
+    type: postgres
+    access: proxy
+    url: postgres:5432
+    database: dataclinica
+    user: ${POSTGRES_USER:-dataclinica}
+    isDefault: false
+    editable: true
+    
+    # Configurações básicas
+    basicAuth: false
+    withCredentials: false
+    
+    # Configurações de timeout
+    timeout: 60
+    
+    # Configurações específicas do PostgreSQL
+    jsonData:
+      sslmode: disable
+      maxOpenConns: 10
+      maxIdleConns: 2
+      connMaxLifetime: 14400
+      
+      # Configurações de timeout
+      timeout: 60s
+      
+      # Configurações de query
+      queryTimeout: 300s
+      
+      # Configurações de TLS
+      tlsConfigurationMethod: file-path
+      tlsSkipVerify: true
+      
+      # Configurações de timezone
+      timescaledb: false
+      
+      # Configurações de postgresVersion
+      postgresVersion: 1500
+    
+    # Configurações de segurança
+    secureJsonData:
+      password: '${POSTGRES_PASSWORD}'
+    
+    # Configurações de UID
+    uid: postgresql
+    
+    # Configurações de organização
+    orgId: 1
+    
+    # Configurações de acesso
+    readOnly: true
+
+  # =============================================================================
+  # Redis (via RedisInsight ou exporter)
+  # =============================================================================
+  # - name: Redis
+  #   type: redis-datasource
+  #   access: proxy
+  #   url: redis://redis:6379
+  #   isDefault: false
+  #   editable: true
+  #   
+  #   # Configurações básicas
+  #   basicAuth: false
+  #   withCredentials: false
+  #   
+  #   # Configurações de timeout
+  #   timeout: 60
+  #   
+  #   # Configurações específicas do Redis
+  #   jsonData:
+  #     client: standalone
+  #     poolSize: 5
+  #     timeout: 10
+  #     pingInterval: 0
+  #     pipelineWindow: 0
+  #     
+  #     # Configurações de TLS
+  #     tlsSkipVerify: true
+  #     
+  #     # Configurações de ACL
+  #     acl: false
+  #   
+  #   # Configurações de segurança
+  #   secureJsonData:
+  #     password: '${REDIS_PASSWORD}'
+  #   
+  #   # Configurações de UID
+  #   uid: redis
+  #   
+  #   # Configurações de organização
+  #   orgId: 1
+  #   
+  #   # Configurações de acesso
+  #   readOnly: true
+
+# =============================================================================
+# Configurações de Deletar Datasources
+# =============================================================================
+deleteDatasources:
+  - name: TestData DB
+    orgId: 1
+  - name: Prometheus (old)
+    orgId: 1

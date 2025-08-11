@@ -1,0 +1,618 @@
+# =============================================================================
+# Configuração Dinâmica do Traefik - DataClinica
+# Middlewares, Rotas e Serviços
+# =============================================================================
+
+# =============================================================================
+# Middlewares
+# =============================================================================
+http:
+  middlewares:
+    # =============================================================================
+    # Middleware de Autenticação Básica
+    # =============================================================================
+    auth-basic:
+      basicAuth:
+        users:
+          # admin:admin (use htpasswd para gerar senhas mais seguras)
+          - "admin:$2y$10$2b2cu/biJqO/vjhT0ZJke.6Jz.7pCqt3jNjP7SgJkPKWKaKTbKm6e"
+          # monitor:monitor123
+          - "monitor:$2y$10$8K1p/a/ba3laVGqyPpLAu.Rb.hw.1ufg5t0/T7mcT0iWlgdg15Z3G"
+    
+    # =============================================================================
+    # Middleware de Rate Limiting
+    # =============================================================================
+    rate-limit-api:
+      rateLimit:
+        average: 100  # 100 requests per second
+        burst: 200    # burst of 200 requests
+        period: 1s
+        sourceCriterion:
+          ipStrategy:
+            depth: 1
+    
+    rate-limit-strict:
+      rateLimit:
+        average: 10   # 10 requests per second
+        burst: 20     # burst of 20 requests
+        period: 1s
+        sourceCriterion:
+          ipStrategy:
+            depth: 1
+    
+    rate-limit-dashboard:
+      rateLimit:
+        average: 50   # 50 requests per second
+        burst: 100    # burst of 100 requests
+        period: 1s
+        sourceCriterion:
+          ipStrategy:
+            depth: 1
+    
+    # =============================================================================
+    # Middleware de CORS
+    # =============================================================================
+    cors-api:
+      headers:
+        accessControlAllowMethods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - PATCH
+          - OPTIONS
+        accessControlAllowOriginList:
+          - "https://dataclinica.com"
+          - "https://app.dataclinica.com"
+          - "https://admin.dataclinica.com"
+          - "http://localhost:3000"
+          - "http://localhost:3001"
+        accessControlAllowHeaders:
+          - "Content-Type"
+          - "Authorization"
+          - "X-Requested-With"
+          - "X-API-Key"
+          - "X-Trace-Id"
+        accessControlExposeHeaders:
+          - "X-Total-Count"
+          - "X-Rate-Limit-Remaining"
+          - "X-Trace-Id"
+        accessControlAllowCredentials: true
+        accessControlMaxAge: 86400
+    
+    cors-monitoring:
+      headers:
+        accessControlAllowMethods:
+          - GET
+          - POST
+          - OPTIONS
+        accessControlAllowOriginList:
+          - "*"
+        accessControlAllowHeaders:
+          - "Content-Type"
+          - "Authorization"
+        accessControlAllowCredentials: false
+    
+    # =============================================================================
+    # Middleware de Compressão
+    # =============================================================================
+    compression:
+      compress:
+        excludedContentTypes:
+          - "text/event-stream"
+          - "application/grpc"
+        minResponseBodyBytes: 1024
+    
+    # =============================================================================
+    # Middleware de Headers de Segurança
+    # =============================================================================
+    security-headers:
+      headers:
+        frameDeny: true
+        contentTypeNosniff: true
+        browserXssFilter: true
+        referrerPolicy: "strict-origin-when-cross-origin"
+        forceSTSHeader: true
+        stsIncludeSubdomains: true
+        stsPreload: true
+        stsSeconds: 31536000
+        contentSecurityPolicy: |
+          default-src 'self';
+          script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com;
+          style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+          font-src 'self' https://fonts.gstatic.com;
+          img-src 'self' data: https:;
+          connect-src 'self' wss: https:;
+          frame-ancestors 'none';
+          base-uri 'self';
+          form-action 'self';
+        customRequestHeaders:
+          X-Forwarded-Proto: "https"
+          X-Forwarded-Port: "443"
+    
+    # =============================================================================
+    # Middleware de IP Whitelist
+    # =============================================================================
+    ip-whitelist-admin:
+      ipWhiteList:
+        sourceRange:
+          - "127.0.0.1/32"
+          - "10.0.0.0/8"
+          - "172.16.0.0/12"
+          - "192.168.0.0/16"
+          # Adicione IPs específicos da sua organização
+          # - "203.0.113.0/24"
+        ipStrategy:
+          depth: 1
+    
+    ip-whitelist-monitoring:
+      ipWhiteList:
+        sourceRange:
+          - "127.0.0.1/32"
+          - "10.0.0.0/8"
+          - "172.16.0.0/12"
+          - "192.168.0.0/16"
+        ipStrategy:
+          depth: 1
+    
+    # =============================================================================
+    # Middleware de Retry
+    # =============================================================================
+    retry:
+      retry:
+        attempts: 3
+        initialInterval: 100ms
+    
+    # =============================================================================
+    # Middleware de Circuit Breaker
+    # =============================================================================
+    circuit-breaker:
+      circuitBreaker:
+        expression: "NetworkErrorRatio() > 0.3 || ResponseCodeRatio(500, 600, 0, 600) > 0.3"
+        checkPeriod: 10s
+        fallbackDuration: 30s
+        recoveryDuration: 10s
+    
+    # =============================================================================
+    # Middleware de Buffering
+    # =============================================================================
+    buffering:
+      buffering:
+        maxRequestBodyBytes: 10485760  # 10MB
+        memRequestBodyBytes: 2097152   # 2MB
+        maxResponseBodyBytes: 10485760 # 10MB
+        memResponseBodyBytes: 2097152  # 2MB
+        retryExpression: "IsNetworkError() && Attempts() < 3"
+    
+    # =============================================================================
+    # Middleware de Redirecionamento
+    # =============================================================================
+    redirect-to-https:
+      redirectScheme:
+        scheme: https
+        permanent: true
+    
+    redirect-www:
+      redirectRegex:
+        regex: "^https://www\\.(.*)"
+        replacement: "https://${1}"
+        permanent: true
+    
+    # =============================================================================
+    # Middleware de Path Prefix
+    # =============================================================================
+    strip-api-prefix:
+      stripPrefix:
+        prefixes:
+          - "/api/v1"
+    
+    strip-admin-prefix:
+      stripPrefix:
+        prefixes:
+          - "/admin"
+    
+    # =============================================================================
+    # Middleware de Forward Auth
+    # =============================================================================
+    forward-auth:
+      forwardAuth:
+        address: "http://dataclinica-auth:8080/auth/verify"
+        trustForwardHeader: true
+        authResponseHeaders:
+          - "X-User-Id"
+          - "X-User-Email"
+          - "X-User-Role"
+          - "X-Session-Id"
+    
+    # =============================================================================
+    # Middleware de Error Pages
+    # =============================================================================
+    error-pages:
+      errors:
+        status:
+          - "400-599"
+        service: error-pages-service
+        query: "/{status}.html"
+    
+    # =============================================================================
+    # Middleware de Request/Response Modification
+    # =============================================================================
+    add-request-headers:
+      headers:
+        customRequestHeaders:
+          X-Forwarded-Proto: "https"
+          X-Forwarded-Port: "443"
+          X-Dataclinica-Version: "1.0.0"
+          X-Request-Start: "{{ .StartUTC.Unix }}"
+    
+    add-response-headers:
+      headers:
+        customResponseHeaders:
+          X-Dataclinica-Version: "1.0.0"
+          X-Response-Time: "{{ .Duration }}"
+          X-Served-By: "traefik"
+    
+    # =============================================================================
+    # Middleware de Health Check
+    # =============================================================================
+    health-check:
+      plugin:
+        healthcheck:
+          path: "/health"
+          interval: "30s"
+          timeout: "5s"
+          scheme: "http"
+          port: 8080
+
+  # =============================================================================
+  # Serviços
+  # =============================================================================
+  services:
+    # =============================================================================
+    # Serviço de Error Pages
+    # =============================================================================
+    error-pages-service:
+      loadBalancer:
+        servers:
+          - url: "http://error-pages:8080"
+        healthCheck:
+          path: "/health"
+          interval: "30s"
+          timeout: "5s"
+    
+    # =============================================================================
+    # Serviços do DataClinica
+    # =============================================================================
+    dataclinica-backend:
+      loadBalancer:
+        servers:
+          - url: "http://dataclinica-backend:8000"
+        healthCheck:
+          path: "/health"
+          interval: "30s"
+          timeout: "5s"
+          scheme: "http"
+        sticky:
+          cookie:
+            name: "dataclinica-backend"
+            secure: true
+            httpOnly: true
+            sameSite: "strict"
+    
+    dataclinica-frontend:
+      loadBalancer:
+        servers:
+          - url: "http://dataclinica-frontend:3000"
+        healthCheck:
+          path: "/health"
+          interval: "30s"
+          timeout: "5s"
+    
+    dataclinica-api:
+      loadBalancer:
+        servers:
+          - url: "http://dataclinica-api:8080"
+        healthCheck:
+          path: "/api/health"
+          interval: "30s"
+          timeout: "5s"
+        passHostHeader: true
+    
+    # =============================================================================
+    # Serviços de Monitoramento
+    # =============================================================================
+    prometheus:
+      loadBalancer:
+        servers:
+          - url: "http://prometheus:9090"
+        healthCheck:
+          path: "/-/healthy"
+          interval: "30s"
+          timeout: "5s"
+    
+    grafana:
+      loadBalancer:
+        servers:
+          - url: "http://grafana:3000"
+        healthCheck:
+          path: "/api/health"
+          interval: "30s"
+          timeout: "5s"
+    
+    alertmanager:
+      loadBalancer:
+        servers:
+          - url: "http://alertmanager:9093"
+        healthCheck:
+          path: "/-/healthy"
+          interval: "30s"
+          timeout: "5s"
+    
+    jaeger:
+      loadBalancer:
+        servers:
+          - url: "http://jaeger:16686"
+        healthCheck:
+          path: "/"
+          interval: "30s"
+          timeout: "5s"
+    
+    loki:
+      loadBalancer:
+        servers:
+          - url: "http://loki:3100"
+        healthCheck:
+          path: "/ready"
+          interval: "30s"
+          timeout: "5s"
+
+  # =============================================================================
+  # Rotas
+  # =============================================================================
+  routers:
+    # =============================================================================
+    # Rotas do DataClinica
+    # =============================================================================
+    dataclinica-frontend:
+      rule: "Host(`dataclinica.com`) || Host(`www.dataclinica.com`)"
+      service: dataclinica-frontend
+      entryPoints:
+        - websecure
+      middlewares:
+        - redirect-www
+        - security-headers
+        - compression
+        - rate-limit-api
+      tls:
+        certResolver: letsencrypt
+        domains:
+          - main: "dataclinica.com"
+            sans:
+              - "www.dataclinica.com"
+    
+    dataclinica-api:
+      rule: "Host(`api.dataclinica.com`)"
+      service: dataclinica-api
+      entryPoints:
+        - websecure
+      middlewares:
+        - cors-api
+        - security-headers
+        - compression
+        - rate-limit-api
+        - retry
+        - circuit-breaker
+        - add-request-headers
+        - add-response-headers
+      tls:
+        certResolver: letsencrypt
+    
+    dataclinica-backend:
+      rule: "Host(`backend.dataclinica.com`)"
+      service: dataclinica-backend
+      entryPoints:
+        - websecure
+      middlewares:
+        - forward-auth
+        - security-headers
+        - compression
+        - rate-limit-api
+        - retry
+        - buffering
+      tls:
+        certResolver: letsencrypt
+    
+    dataclinica-admin:
+      rule: "Host(`admin.dataclinica.com`)"
+      service: dataclinica-frontend
+      entryPoints:
+        - websecure
+      middlewares:
+        - ip-whitelist-admin
+        - forward-auth
+        - security-headers
+        - compression
+        - rate-limit-dashboard
+      tls:
+        certResolver: letsencrypt
+    
+    # =============================================================================
+    # Rotas de Monitoramento
+    # =============================================================================
+    prometheus:
+      rule: "Host(`prometheus.dataclinica.com`)"
+      service: prometheus
+      entryPoints:
+        - websecure
+      middlewares:
+        - ip-whitelist-monitoring
+        - auth-basic
+        - security-headers
+        - cors-monitoring
+        - rate-limit-dashboard
+      tls:
+        certResolver: letsencrypt
+    
+    grafana:
+      rule: "Host(`grafana.dataclinica.com`)"
+      service: grafana
+      entryPoints:
+        - websecure
+      middlewares:
+        - ip-whitelist-monitoring
+        - security-headers
+        - compression
+        - rate-limit-dashboard
+      tls:
+        certResolver: letsencrypt
+    
+    alertmanager:
+      rule: "Host(`alerts.dataclinica.com`)"
+      service: alertmanager
+      entryPoints:
+        - websecure
+      middlewares:
+        - ip-whitelist-monitoring
+        - auth-basic
+        - security-headers
+        - rate-limit-strict
+      tls:
+        certResolver: letsencrypt
+    
+    jaeger:
+      rule: "Host(`tracing.dataclinica.com`)"
+      service: jaeger
+      entryPoints:
+        - websecure
+      middlewares:
+        - ip-whitelist-monitoring
+        - auth-basic
+        - security-headers
+        - compression
+        - rate-limit-dashboard
+      tls:
+        certResolver: letsencrypt
+    
+    loki:
+      rule: "Host(`logs.dataclinica.com`)"
+      service: loki
+      entryPoints:
+        - websecure
+      middlewares:
+        - ip-whitelist-monitoring
+        - auth-basic
+        - security-headers
+        - rate-limit-api
+      tls:
+        certResolver: letsencrypt
+    
+    # =============================================================================
+    # Rota do Dashboard do Traefik
+    # =============================================================================
+    traefik-dashboard:
+      rule: "Host(`traefik.dataclinica.com`)"
+      service: api@internal
+      entryPoints:
+        - websecure
+      middlewares:
+        - ip-whitelist-admin
+        - auth-basic
+        - security-headers
+        - rate-limit-strict
+      tls:
+        certResolver: letsencrypt
+    
+    # =============================================================================
+    # Rotas de Redirecionamento HTTP para HTTPS
+    # =============================================================================
+    dataclinica-frontend-http:
+      rule: "Host(`dataclinica.com`) || Host(`www.dataclinica.com`)"
+      service: dataclinica-frontend
+      entryPoints:
+        - web
+      middlewares:
+        - redirect-to-https
+    
+    dataclinica-api-http:
+      rule: "Host(`api.dataclinica.com`)"
+      service: dataclinica-api
+      entryPoints:
+        - web
+      middlewares:
+        - redirect-to-https
+    
+    monitoring-http:
+      rule: "Host(`grafana.dataclinica.com`) || Host(`prometheus.dataclinica.com`) || Host(`alerts.dataclinica.com`) || Host(`tracing.dataclinica.com`) || Host(`logs.dataclinica.com`) || Host(`traefik.dataclinica.com`)"
+      service: grafana
+      entryPoints:
+        - web
+      middlewares:
+        - redirect-to-https
+
+# =============================================================================
+# Configurações de TLS
+# =============================================================================
+tls:
+  options:
+    # Opções de TLS para APIs
+    api:
+      minVersion: "VersionTLS12"
+      maxVersion: "VersionTLS13"
+      cipherSuites:
+        - "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
+        - "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305"
+        - "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"
+      curvePreferences:
+        - CurveP521
+        - CurveP384
+      sniStrict: false
+    
+    # Opções de TLS para monitoramento
+    monitoring:
+      minVersion: "VersionTLS12"
+      maxVersion: "VersionTLS13"
+      sniStrict: true
+  
+  # Certificados adicionais
+  certificates:
+    - certFile: /etc/traefik/certs/dataclinica-wildcard.crt
+      keyFile: /etc/traefik/certs/dataclinica-wildcard.key
+      stores:
+        - default
+
+# =============================================================================
+# Configurações TCP (se necessário)
+# =============================================================================
+tcp:
+  routers:
+    # Exemplo de rota TCP para PostgreSQL
+    postgres:
+      rule: "HostSNI(`db.dataclinica.com`)"
+      service: postgres
+      entryPoints:
+        - postgres
+      tls:
+        passthrough: true
+  
+  services:
+    postgres:
+      loadBalancer:
+        servers:
+          - address: "postgres:5432"
+
+# =============================================================================
+# Configurações UDP (se necessário)
+# =============================================================================
+udp:
+  routers:
+    # Exemplo de rota UDP para DNS
+    dns:
+      service: dns
+      entryPoints:
+        - dns
+  
+  services:
+    dns:
+      loadBalancer:
+        servers:
+          - address: "dns-server:53"

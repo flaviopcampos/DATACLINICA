@@ -1,0 +1,316 @@
+# Docker Compose para Desenvolvimento Local - DataClinica
+# Este arquivo é otimizado para desenvolvimento com hot reload e debugging
+
+version: '3.8'
+
+services:
+  # Banco de Dados PostgreSQL
+  postgres:
+    image: postgres:15-alpine
+    container_name: dataclinica_postgres_dev
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: dataclinica_dev
+      POSTGRES_USER: dataclinica
+      POSTGRES_PASSWORD: dataclinica123
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --lc-collate=pt_BR.UTF-8 --lc-ctype=pt_BR.UTF-8"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data_dev:/var/lib/postgresql/data
+      - ./scripts/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dataclinica -d dataclinica_dev"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - dataclinica_dev
+
+  # Cache Redis
+  redis:
+    image: redis:7-alpine
+    container_name: dataclinica_redis_dev
+    restart: unless-stopped
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data_dev:/data
+      - ./config/redis.conf:/usr/local/etc/redis/redis.conf:ro
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - dataclinica_dev
+
+  # Backend FastAPI (Desenvolvimento)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+      target: development
+    container_name: dataclinica_backend_dev
+    restart: unless-stopped
+    environment:
+      # Configurações básicas
+      ENVIRONMENT: development
+      DEBUG: "true"
+      LOG_LEVEL: DEBUG
+      
+      # Banco de dados
+      DATABASE_URL: postgresql://dataclinica:dataclinica123@postgres:5432/dataclinica_dev
+      DB_ECHO: "true"  # Log SQL queries
+      
+      # Redis
+      REDIS_URL: redis://redis:6379/0
+      CACHE_TTL: 300
+      
+      # Segurança (desenvolvimento)
+      SECRET_KEY: dev-secret-key-change-in-production
+      JWT_SECRET_KEY: dev-jwt-secret-key-change-in-production
+      JWT_ALGORITHM: HS256
+      ACCESS_TOKEN_EXPIRE_MINUTES: 30
+      
+      # CORS (permissivo para desenvolvimento)
+      CORS_ORIGINS: "http://localhost:3000,http://127.0.0.1:3000,http://localhost:8080"
+      CORS_ALLOW_CREDENTIALS: "true"
+      
+      # Email (Mailhog para desenvolvimento)
+      SMTP_HOST: mailhog
+      SMTP_PORT: 1025
+      SMTP_USER: ""
+      SMTP_PASSWORD: ""
+      SMTP_TLS: "false"
+      EMAIL_FROM: "noreply@dataclinica.local"
+      
+      # APIs Externas (mock/sandbox)
+      MEMED_API_URL: https://api.memed.com.br/v1
+      MEMED_API_KEY: sandbox_key
+      CLICKSIGN_API_URL: https://sandbox.clicksign.com/api/v1
+      CLICKSIGN_API_KEY: sandbox_key
+      VIACEP_API_URL: https://viacep.com.br/ws
+      
+      # AWS LocalStack (desenvolvimento)
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+      AWS_DEFAULT_REGION: us-east-1
+      AWS_ENDPOINT_URL: http://localstack:4566
+      S3_BUCKET_NAME: dataclinica-dev
+      
+      # SaaS
+      MULTI_TENANT: "true"
+      DEFAULT_TENANT: dataclinica
+      
+      # Desenvolvimento
+      RELOAD: "true"
+      WORKERS: 1
+      
+      # Monitoramento
+      SENTRY_DSN: ""
+      ENABLE_METRICS: "true"
+      
+      # Feature Flags
+      ENABLE_SWAGGER: "true"
+      ENABLE_REDOC: "true"
+      ENABLE_PROFILER: "true"
+    ports:
+      - "8000:8000"
+      - "5678:5678"  # Debugger port
+    volumes:
+      - ./backend:/app
+      - backend_logs_dev:/app/logs
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - dataclinica_dev
+    command: >
+      sh -c "pip install debugpy &&
+             python -m debugpy --listen 0.0.0.0:5678 --wait-for-client -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
+
+  # Frontend React (Desenvolvimento)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+      target: development
+    container_name: dataclinica_frontend_dev
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      REACT_APP_API_URL: http://localhost:8000/api
+      REACT_APP_WS_URL: ws://localhost:8000/ws
+      REACT_APP_ENVIRONMENT: development
+      REACT_APP_DEBUG: "true"
+      REACT_APP_SENTRY_DSN: ""
+      GENERATE_SOURCEMAP: "true"
+      FAST_REFRESH: "true"
+      WDS_SOCKET_HOST: localhost
+      WDS_SOCKET_PORT: 3000
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - dataclinica_dev
+    stdin_open: true
+    tty: true
+
+  # Adminer (Administração de Banco)
+  adminer:
+    image: adminer:4.8.1
+    container_name: dataclinica_adminer_dev
+    restart: unless-stopped
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres
+      ADMINER_DESIGN: pepa-linha
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      - dataclinica_dev
+
+  # Redis Commander (Administração Redis)
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: dataclinica_redis_commander_dev
+    restart: unless-stopped
+    environment:
+      REDIS_HOSTS: local:redis:6379
+      HTTP_USER: admin
+      HTTP_PASSWORD: admin123
+    ports:
+      - "8081:8081"
+    depends_on:
+      - redis
+    networks:
+      - dataclinica_dev
+
+  # Mailhog (Captura de Emails)
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: dataclinica_mailhog_dev
+    restart: unless-stopped
+    ports:
+      - "1025:1025"  # SMTP
+      - "8025:8025"  # Web UI
+    networks:
+      - dataclinica_dev
+
+  # LocalStack (AWS Local)
+  localstack:
+    image: localstack/localstack:latest
+    container_name: dataclinica_localstack_dev
+    restart: unless-stopped
+    environment:
+      SERVICES: s3,sns,sqs,lambda,cloudwatch
+      DEBUG: 1
+      DATA_DIR: /tmp/localstack/data
+      DOCKER_HOST: unix:///var/run/docker.sock
+      HOST_TMP_FOLDER: /tmp/localstack
+    ports:
+      - "4566:4566"  # LocalStack endpoint
+      - "4571:4571"  # LocalStack dashboard
+    volumes:
+      - localstack_data_dev:/tmp/localstack
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - dataclinica_dev
+
+  # Nginx (Proxy Reverso - Opcional)
+  nginx:
+    image: nginx:alpine
+    container_name: dataclinica_nginx_dev
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./config/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./config/ssl:/etc/nginx/ssl:ro
+      - nginx_logs_dev:/var/log/nginx
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - dataclinica_dev
+    profiles:
+      - nginx  # Use: docker-compose --profile nginx up
+
+  # Prometheus (Métricas - Opcional)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: dataclinica_prometheus_dev
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data_dev:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    networks:
+      - dataclinica_dev
+    profiles:
+      - monitoring
+
+  # Grafana (Dashboard - Opcional)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: dataclinica_grafana_dev
+    restart: unless-stopped
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin123
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    ports:
+      - "3001:3000"
+    volumes:
+      - grafana_data_dev:/var/lib/grafana
+      - ./config/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./config/grafana/datasources:/etc/grafana/provisioning/datasources:ro
+    depends_on:
+      - prometheus
+    networks:
+      - dataclinica_dev
+    profiles:
+      - monitoring
+
+# Volumes persistentes
+volumes:
+  postgres_data_dev:
+    driver: local
+  redis_data_dev:
+    driver: local
+  localstack_data_dev:
+    driver: local
+  backend_logs_dev:
+    driver: local
+  nginx_logs_dev:
+    driver: local
+  prometheus_data_dev:
+    driver: local
+  grafana_data_dev:
+    driver: local
+
+# Rede personalizada
+networks:
+  dataclinica_dev:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

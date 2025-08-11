@@ -1,0 +1,350 @@
+# =============================================================================
+# Configuração de Testes de Performance - Artillery
+# DataClinica - Testes de carga e stress
+# =============================================================================
+
+config:
+  # Configurações do teste
+  target: 'http://localhost'
+  phases:
+    # Fase 1: Warm-up - Aumentar gradualmente a carga
+    - duration: 60
+      arrivalRate: 1
+      name: "Warm-up phase"
+    
+    # Fase 2: Carga normal - Simular uso típico
+    - duration: 300
+      arrivalRate: 5
+      name: "Normal load phase"
+    
+    # Fase 3: Pico de carga - Simular horário de pico
+    - duration: 180
+      arrivalRate: 15
+      name: "Peak load phase"
+    
+    # Fase 4: Stress test - Testar limites
+    - duration: 120
+      arrivalRate: 25
+      name: "Stress test phase"
+    
+    # Fase 5: Cool-down - Reduzir carga gradualmente
+    - duration: 60
+      arrivalRate: 2
+      name: "Cool-down phase"
+  
+  # Configurações de payload
+  payload:
+    path: "./test-data.csv"
+    fields:
+      - "email"
+      - "password"
+      - "name"
+    order: sequence
+    skipHeader: true
+  
+  # Configurações de plugins
+  plugins:
+    metrics-by-endpoint:
+      useOnlyRequestNames: true
+    
+  # Configurações de timeout e retry
+  http:
+    timeout: 30
+    pool: 10
+  
+  # Configurações de relatório
+  processor: "./processors/auth-processor.js"
+  
+  # Variáveis de ambiente
+  variables:
+    api_base: "/api/v1"
+    frontend_base: "/"
+
+# =============================================================================
+# CENÁRIOS DE TESTE
+# =============================================================================
+
+scenarios:
+  # Cenário 1: Navegação básica no frontend
+  - name: "Frontend Navigation"
+    weight: 30
+    flow:
+      - get:
+          url: "{{ frontend_base }}"
+          name: "Load homepage"
+          capture:
+            - json: "$.title"
+              as: "page_title"
+      
+      - think: 2
+      
+      - get:
+          url: "{{ frontend_base }}login"
+          name: "Load login page"
+      
+      - think: 1
+      
+      - get:
+          url: "{{ frontend_base }}register"
+          name: "Load register page"
+
+  # Cenário 2: Autenticação de usuário
+  - name: "User Authentication"
+    weight: 25
+    flow:
+      # Health check
+      - get:
+          url: "{{ api_base }}/health"
+          name: "API health check"
+          expect:
+            - statusCode: 200
+      
+      - think: 1
+      
+      # Login
+      - post:
+          url: "{{ api_base }}/auth/login"
+          name: "User login"
+          json:
+            email: "{{ email }}"
+            password: "{{ password }}"
+          capture:
+            - json: "$.access_token"
+              as: "auth_token"
+          expect:
+            - statusCode: 200
+            - hasProperty: "access_token"
+      
+      - think: 2
+      
+      # Get user profile
+      - get:
+          url: "{{ api_base }}/users/me"
+          name: "Get user profile"
+          headers:
+            Authorization: "Bearer {{ auth_token }}"
+          expect:
+            - statusCode: 200
+      
+      - think: 1
+      
+      # Logout
+      - post:
+          url: "{{ api_base }}/auth/logout"
+          name: "User logout"
+          headers:
+            Authorization: "Bearer {{ auth_token }}"
+          expect:
+            - statusCode: 200
+
+  # Cenário 3: Operações CRUD de pacientes
+  - name: "Patient Management"
+    weight: 20
+    flow:
+      # Login primeiro
+      - post:
+          url: "{{ api_base }}/auth/login"
+          name: "Login for patient ops"
+          json:
+            email: "{{ email }}"
+            password: "{{ password }}"
+          capture:
+            - json: "$.access_token"
+              as: "auth_token"
+      
+      - think: 1
+      
+      # Listar pacientes
+      - get:
+          url: "{{ api_base }}/patients"
+          name: "List patients"
+          headers:
+            Authorization: "Bearer {{ auth_token }}"
+          qs:
+            page: 1
+            limit: 10
+          expect:
+            - statusCode: 200
+      
+      - think: 2
+      
+      # Criar novo paciente
+      - post:
+          url: "{{ api_base }}/patients"
+          name: "Create patient"
+          headers:
+            Authorization: "Bearer {{ auth_token }}"
+          json:
+            name: "{{ name }}"
+            email: "test+{{ $randomString() }}@example.com"
+            phone: "11999999999"
+            birth_date: "1990-01-01"
+            cpf: "{{ $randomInt(10000000000, 99999999999) }}"
+          capture:
+            - json: "$.id"
+              as: "patient_id"
+          expect:
+            - statusCode: 201
+      
+      - think: 1
+      
+      # Buscar paciente criado
+      - get:
+          url: "{{ api_base }}/patients/{{ patient_id }}"
+          name: "Get patient details"
+          headers:
+            Authorization: "Bearer {{ auth_token }}"
+          expect:
+            - statusCode: 200
+      
+      - think: 2
+      
+      # Atualizar paciente
+      - put:
+          url: "{{ api_base }}/patients/{{ patient_id }}"
+          name: "Update patient"
+          headers:
+            Authorization: "Bearer {{ auth_token }}"
+          json:
+            name: "{{ name }} Updated"
+            phone: "11888888888"
+          expect:
+            - statusCode: 200
+
+  # Cenário 4: Consultas e agendamentos
+  - name: "Appointments Management"
+    weight: 15
+    flow:
+      # Login
+      - post:
+          url: "{{ api_base }}/auth/login"
+          name: "Login for appointments"
+          json:
+            email: "{{ email }}"
+            password: "{{ password }}"
+          capture:
+            - json: "$.access_token"
+              as: "auth_token"
+      
+      - think: 1
+      
+      # Listar consultas
+      - get:
+          url: "{{ api_base }}/appointments"
+          name: "List appointments"
+          headers:
+            Authorization: "Bearer {{ auth_token }}"
+          qs:
+            date_from: "2024-01-01"
+            date_to: "2024-12-31"
+          expect:
+            - statusCode: 200
+      
+      - think: 2
+      
+      # Buscar horários disponíveis
+      - get:
+          url: "{{ api_base }}/appointments/available-slots"
+          name: "Get available slots"
+          headers:
+            Authorization: "Bearer {{ auth_token }}"
+          qs:
+            date: "2024-06-01"
+            doctor_id: 1
+          expect:
+            - statusCode: 200
+      
+      - think: 1
+      
+      # Criar agendamento
+      - post:
+          url: "{{ api_base }}/appointments"
+          name: "Create appointment"
+          headers:
+            Authorization: "Bearer {{ auth_token }}"
+          json:
+            patient_id: 1
+            doctor_id: 1
+            appointment_date: "2024-06-01T10:00:00"
+            notes: "Consulta de rotina"
+          expect:
+            - statusCode: 201
+
+  # Cenário 5: Relatórios e dashboards
+  - name: "Reports and Analytics"
+    weight: 10
+    flow:
+      # Login
+      - post:
+          url: "{{ api_base }}/auth/login"
+          name: "Login for reports"
+          json:
+            email: "{{ email }}"
+            password: "{{ password }}"
+          capture:
+            - json: "$.access_token"
+              as: "auth_token"
+      
+      - think: 1
+      
+      # Dashboard stats
+      - get:
+          url: "{{ api_base }}/dashboard/stats"
+          name: "Get dashboard stats"
+          headers:
+            Authorization: "Bearer {{ auth_token }}"
+          expect:
+            - statusCode: 200
+      
+      - think: 2
+      
+      # Relatório de pacientes
+      - get:
+          url: "{{ api_base }}/reports/patients"
+          name: "Get patients report"
+          headers:
+            Authorization: "Bearer {{ auth_token }}"
+          qs:
+            period: "monthly"
+            year: 2024
+          expect:
+            - statusCode: 200
+      
+      - think: 1
+      
+      # Relatório financeiro
+      - get:
+          url: "{{ api_base }}/reports/financial"
+          name: "Get financial report"
+          headers:
+            Authorization: "Bearer {{ auth_token }}"
+          qs:
+            start_date: "2024-01-01"
+            end_date: "2024-12-31"
+          expect:
+            - statusCode: 200
+
+# =============================================================================
+# CONFIGURAÇÕES DE MONITORAMENTO
+# =============================================================================
+
+# Métricas customizadas
+ensure:
+  # Performance requirements
+  - p95: 2000  # 95% das requisições devem ser < 2s
+  - p99: 5000  # 99% das requisições devem ser < 5s
+  - maxErrorRate: 5  # Taxa de erro máxima de 5%
+  
+  # Throughput requirements
+  - minRequestRate: 10  # Mínimo de 10 req/s
+
+# Configurações de alerta
+alerts:
+  - condition: "response.statusCode >= 400"
+    message: "HTTP error detected: {{ response.statusCode }}"
+  
+  - condition: "response.timings.response > 3000"
+    message: "Slow response detected: {{ response.timings.response }}ms"
+  
+  - condition: "stats.errors.rate > 0.1"
+    message: "High error rate detected: {{ stats.errors.rate }}"

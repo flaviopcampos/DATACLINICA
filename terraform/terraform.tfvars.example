@@ -1,0 +1,226 @@
+# Exemplo de configuração para DataClinica Terraform
+# Copie este arquivo para terraform.tfvars e ajuste os valores conforme necessário
+
+# Configuração Básica
+project_name = "dataclinica"
+environment  = "development"  # development, staging, production
+aws_region   = "us-east-1"
+
+# Configuração de Rede
+vpc_cidr               = "10.0.0.0/16"
+public_subnet_cidrs    = ["10.0.1.0/24", "10.0.2.0/24"]
+private_subnet_cidrs   = ["10.0.10.0/24", "10.0.20.0/24"]
+
+# Configuração do Banco de Dados
+db_instance_class           = "db.t3.micro"     # Para produção: db.t3.small ou maior
+db_allocated_storage        = 20                # GB
+db_max_allocated_storage    = 100               # GB
+db_name                     = "dataclinica"
+db_username                 = "dataclinica_user"
+db_backup_retention_period  = 7                 # dias
+
+# Configuração do Redis
+redis_node_type       = "cache.t3.micro"        # Para produção: cache.t3.small ou maior
+redis_num_cache_nodes = 1
+
+# Configuração do ECS
+ecs_cpu           = 256                         # Para produção: 512 ou maior
+ecs_memory        = 512                         # MB - Para produção: 1024 ou maior
+ecs_desired_count = 1                           # Para produção: 2 ou maior
+ecs_max_capacity  = 3
+ecs_min_capacity  = 1
+
+# Imagens da Aplicação
+backend_image  = "dataclinica/backend:latest"
+frontend_image = "dataclinica/frontend:latest"
+
+# Configuração de Domínio (opcional)
+# domain_name = "app.dataclinica.com"
+# ssl_certificate_arn = "arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012"
+
+# Configuração de Segurança
+allowed_cidr_blocks = ["0.0.0.0/0"]            # Para produção: restringir IPs específicos
+enable_deletion_protection = false              # Para produção: true
+
+# Configuração de Funcionalidades
+enable_backup     = true
+enable_monitoring = true
+enable_logging    = true
+
+# Otimização de Custos
+enable_spot_instances = false                   # Para desenvolvimento: true
+
+# Configuração de Scaling por Horário (opcional)
+schedule_scaling = {
+  enabled = false
+  scale_down = {
+    schedule         = "cron(0 22 * * ? *)"      # 22:00 UTC
+    min_capacity     = 0
+    max_capacity     = 1
+    desired_capacity = 0
+  }
+  scale_up = {
+    schedule         = "cron(0 6 * * ? *)"       # 06:00 UTC
+    min_capacity     = 1
+    max_capacity     = 3
+    desired_capacity = 1
+  }
+}
+
+# APIs Externas
+external_apis = {
+  memed = {
+    api_url = "https://api.memed.com.br"
+    enabled = true
+  }
+  clicksign = {
+    api_url = "https://api.clicksign.com"
+    enabled = true
+  }
+  viacep = {
+    api_url = "https://viacep.com.br/ws"
+    enabled = true
+  }
+}
+
+# Configuração de Notificações
+notification_config = {
+  email = {
+    enabled     = false
+    smtp_server = "smtp.gmail.com"
+    smtp_port   = 587
+    from_email  = "noreply@dataclinica.com"
+  }
+  slack = {
+    enabled     = false
+    webhook_url = "https://hooks.slack.com/services/..."
+  }
+  sns = {
+    enabled   = false
+    topic_arn = "arn:aws:sns:us-east-1:123456789012:dataclinica-alerts"
+  }
+}
+
+# Configuração de Backup
+backup_config = {
+  enabled             = true
+  retention_days      = 30
+  schedule           = "cron(0 2 * * ? *)"      # 02:00 UTC
+  cross_region_copy  = false
+  destination_region = "us-west-2"
+}
+
+# Configuração de Monitoramento
+monitoring_config = {
+  enabled             = true
+  retention_days      = 30
+  detailed_monitoring = true
+  custom_metrics      = true
+  alerting = {
+    enabled                    = true
+    cpu_threshold             = 80
+    memory_threshold          = 85
+    disk_threshold            = 90
+    response_time_threshold   = 2000
+  }
+}
+
+# Tags Adicionais
+additional_tags = {
+  Department = "TI"
+  Application = "DataClinica"
+  Backup = "Required"
+}
+
+cost_center     = "dataclinica"
+owner          = "DataClinica Team"
+contact_email  = "admin@dataclinica.com"
+
+# Feature Flags
+feature_flags = {
+  enable_waf              = false              # Para produção: considerar true
+  enable_cloudfront       = false              # Para produção com CDN: true
+  enable_elasticsearch    = false              # Para logs avançados: true
+  enable_kinesis         = false              # Para streaming de dados: true
+  enable_lambda_functions = false              # Para processamento serverless: true
+  enable_api_gateway     = false              # Para API management: true
+  enable_cognito         = false              # Para autenticação AWS: true
+}
+
+# ========================================
+# CONFIGURAÇÕES POR AMBIENTE
+# ========================================
+
+# DESENVOLVIMENTO
+# - Recursos mínimos para reduzir custos
+# - Sem proteção contra exclusão
+# - Backup reduzido
+# - Monitoramento básico
+
+# STAGING
+# - Recursos similares à produção
+# - Proteção contra exclusão habilitada
+# - Backup completo
+# - Monitoramento completo
+
+# PRODUÇÃO
+# - Recursos dimensionados para carga
+# - Alta disponibilidade
+# - Proteção contra exclusão
+# - Backup cross-region
+# - Monitoramento e alertas completos
+# - SSL/TLS obrigatório
+# - Restrições de acesso por IP
+
+# ========================================
+# EXEMPLO DE CONFIGURAÇÃO PARA PRODUÇÃO
+# ========================================
+
+# project_name = "dataclinica"
+# environment  = "production"
+# aws_region   = "us-east-1"
+
+# # Banco de dados para produção
+# db_instance_class           = "db.t3.small"
+# db_allocated_storage        = 100
+# db_max_allocated_storage    = 500
+# db_backup_retention_period  = 30
+
+# # Redis para produção
+# redis_node_type       = "cache.t3.small"
+# redis_num_cache_nodes = 2
+
+# # ECS para produção
+# ecs_cpu           = 512
+# ecs_memory        = 1024
+# ecs_desired_count = 2
+# ecs_max_capacity  = 10
+# ecs_min_capacity  = 2
+
+# # Segurança para produção
+# allowed_cidr_blocks = ["203.0.113.0/24", "198.51.100.0/24"]  # IPs específicos
+# enable_deletion_protection = true
+
+# # Domínio e SSL
+# domain_name = "app.dataclinica.com"
+# ssl_certificate_arn = "arn:aws:acm:us-east-1:123456789012:certificate/..."
+
+# # Backup cross-region
+# backup_config = {
+#   enabled             = true
+#   retention_days      = 90
+#   schedule           = "cron(0 2 * * ? *)"
+#   cross_region_copy  = true
+#   destination_region = "us-west-2"
+# }
+
+# # Features avançadas
+# feature_flags = {
+#   enable_waf              = true
+#   enable_cloudfront       = true
+#   enable_elasticsearch    = true
+#   enable_kinesis         = false
+#   enable_lambda_functions = true
+#   enable_api_gateway     = false
+#   enable_cognito         = false
+# }

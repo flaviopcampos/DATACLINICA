@@ -1,0 +1,141 @@
+services:
+  # Backend API Service
+  - type: web
+    name: dataclinica-backend
+    env: python
+    plan: starter
+    buildCommand: |
+      cd backend &&
+      pip install --upgrade pip &&
+      pip install -r requirements.txt
+    startCommand: |
+      cd backend &&
+      uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: dataclinica-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: ENVIRONMENT
+        value: production
+      - key: CORS_ORIGINS
+        value: https://dataclinica-frontend.onrender.com
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: dataclinica-redis
+          property: connectionString
+      - key: SENTRY_DSN
+        sync: false
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false
+      - key: AWS_S3_BUCKET
+        sync: false
+      - key: SMTP_SERVER
+        sync: false
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_USERNAME
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false
+      - key: MEMED_API_KEY
+        sync: false
+      - key: MEMED_API_URL
+        value: https://api.memed.com.br
+      - key: CLICKSIGN_API_KEY
+        sync: false
+      - key: CLICKSIGN_API_URL
+        value: https://api.clicksign.com
+      - key: VIACEP_API_URL
+        value: https://viacep.com.br/ws
+    healthCheckPath: /health
+    autoDeploy: true
+    
+  # Frontend Web Service
+  - type: web
+    name: dataclinica-frontend
+    env: static
+    plan: starter
+    buildCommand: |
+      cd frontend &&
+      npm ci &&
+      npm run build
+    staticPublishPath: frontend/dist
+    pullRequestPreviewsEnabled: true
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: Permissions-Policy
+        value: camera=(), microphone=(), geolocation=()
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        value: https://dataclinica-backend.onrender.com/api
+      - key: VITE_ENVIRONMENT
+        value: production
+
+databases:
+  # PostgreSQL Database
+  - name: dataclinica-db
+    databaseName: dataclinica
+    user: dataclinica_user
+    plan: starter
+    postgresMajorVersion: 15
+    
+  # Redis Cache
+  - name: dataclinica-redis
+    plan: starter
+    maxmemoryPolicy: allkeys-lru
+    
+# Environment Groups (opcional)
+envVarGroups:
+  - name: shared-config
+    envVars:
+      - key: TZ
+        value: America/Sao_Paulo
+      - key: PYTHONUNBUFFERED
+        value: "1"
+      - key: NODE_ENV
+        value: production
+        
+# Build Settings
+buildFilter:
+  paths:
+    - backend/**
+    - frontend/**
+    - requirements.txt
+    - package.json
+    - render.yaml
+  ignoredPaths:
+    - "*.md"
+    - ".git/**"
+    - ".github/**"
+    - "docs/**"
+    - "tests/**"
+    - "*.log"
+    - ".env*"
+    - "node_modules/**"
+    - "__pycache__/**"
+    - "*.pyc"
+    - ".pytest_cache/**"
+    - "coverage/**"
+    - ".coverage"
+    - "htmlcov/**"

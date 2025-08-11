@@ -1,0 +1,439 @@
+# Docker Compose para Produção - DataClinica
+# Este arquivo é otimizado para produção com foco em performance e segurança
+
+version: '3.8'
+
+services:
+  # Backend FastAPI (Produção)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: production
+    image: dataclinica/backend:${VERSION:-latest}
+    container_name: dataclinica_backend_prod
+    restart: always
+    environment:
+      # Configurações básicas
+      ENVIRONMENT: production
+      DEBUG: "false"
+      LOG_LEVEL: INFO
+      
+      # Banco de dados (usar RDS em produção)
+      DATABASE_URL: ${DATABASE_URL}
+      DB_POOL_SIZE: 20
+      DB_MAX_OVERFLOW: 30
+      DB_POOL_TIMEOUT: 30
+      DB_POOL_RECYCLE: 3600
+      
+      # Redis (usar ElastiCache em produção)
+      REDIS_URL: ${REDIS_URL}
+      CACHE_TTL: 3600
+      
+      # Segurança
+      SECRET_KEY: ${SECRET_KEY}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      JWT_ALGORITHM: HS256
+      ACCESS_TOKEN_EXPIRE_MINUTES: 60
+      
+      # CORS (restritivo para produção)
+      CORS_ORIGINS: ${CORS_ORIGINS}
+      CORS_ALLOW_CREDENTIALS: "true"
+      
+      # Email
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT}
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASSWORD: ${SMTP_PASSWORD}
+      SMTP_TLS: "true"
+      EMAIL_FROM: ${EMAIL_FROM}
+      
+      # APIs Externas
+      MEMED_API_URL: ${MEMED_API_URL}
+      MEMED_API_KEY: ${MEMED_API_KEY}
+      CLICKSIGN_API_URL: ${CLICKSIGN_API_URL}
+      CLICKSIGN_API_KEY: ${CLICKSIGN_API_KEY}
+      VIACEP_API_URL: ${VIACEP_API_URL}
+      
+      # AWS
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
+      S3_BUCKET_NAME: ${S3_BUCKET_NAME}
+      
+      # SaaS
+      MULTI_TENANT: "true"
+      DEFAULT_TENANT: ${DEFAULT_TENANT}
+      
+      # Produção
+      WORKERS: ${WORKERS:-4}
+      WORKER_CLASS: uvicorn.workers.UvicornWorker
+      WORKER_CONNECTIONS: 1000
+      MAX_REQUESTS: 1000
+      MAX_REQUESTS_JITTER: 100
+      PRELOAD_APP: "true"
+      
+      # Monitoramento
+      SENTRY_DSN: ${SENTRY_DSN}
+      ENABLE_METRICS: "true"
+      METRICS_PORT: 9000
+      
+      # Segurança adicional
+      ENABLE_SWAGGER: "false"
+      ENABLE_REDOC: "false"
+      ENABLE_PROFILER: "false"
+      
+      # Rate Limiting
+      RATE_LIMIT_ENABLED: "true"
+      RATE_LIMIT_REQUESTS: 100
+      RATE_LIMIT_WINDOW: 60
+      
+      # SSL/TLS
+      FORCE_HTTPS: "true"
+      SECURE_COOKIES: "true"
+      
+      # Backup
+      BACKUP_ENABLED: "true"
+      BACKUP_SCHEDULE: "0 2 * * *"  # Daily at 2 AM
+      BACKUP_RETENTION_DAYS: 30
+      
+      # Compliance
+      LGPD_ENABLED: "true"
+      AUDIT_ENABLED: "true"
+      DATA_ENCRYPTION: "true"
+    ports:
+      - "8000:8000"
+      - "9000:9000"  # Metrics
+    volumes:
+      - backend_logs_prod:/app/logs
+      - backend_uploads_prod:/app/uploads
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
+        reservations:
+          cpus: '1.0'
+          memory: 1G
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    networks:
+      - dataclinica_prod
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # Frontend React (Produção)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: production
+      args:
+        REACT_APP_API_URL: ${REACT_APP_API_URL}
+        REACT_APP_WS_URL: ${REACT_APP_WS_URL}
+        REACT_APP_ENVIRONMENT: production
+        REACT_APP_SENTRY_DSN: ${REACT_APP_SENTRY_DSN}
+    image: dataclinica/frontend:${VERSION:-latest}
+    container_name: dataclinica_frontend_prod
+    restart: always
+    ports:
+      - "3000:80"
+    volumes:
+      - frontend_logs_prod:/var/log/nginx
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+    networks:
+      - dataclinica_prod
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # Worker para tarefas assíncronas
+  worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: production
+    image: dataclinica/backend:${VERSION:-latest}
+    container_name: dataclinica_worker_prod
+    restart: always
+    environment:
+      # Herdar configurações do backend
+      ENVIRONMENT: production
+      DEBUG: "false"
+      LOG_LEVEL: INFO
+      DATABASE_URL: ${DATABASE_URL}
+      REDIS_URL: ${REDIS_URL}
+      SECRET_KEY: ${SECRET_KEY}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
+      S3_BUCKET_NAME: ${S3_BUCKET_NAME}
+      SENTRY_DSN: ${SENTRY_DSN}
+      
+      # Configurações específicas do worker
+      WORKER_TYPE: celery
+      CELERY_BROKER_URL: ${REDIS_URL}
+      CELERY_RESULT_BACKEND: ${REDIS_URL}
+      CELERY_CONCURRENCY: 4
+      CELERY_MAX_TASKS_PER_CHILD: 1000
+    volumes:
+      - worker_logs_prod:/app/logs
+    command: celery -A app.worker worker --loglevel=info --concurrency=4
+    healthcheck:
+      test: ["CMD", "celery", "-A", "app.worker", "inspect", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 1G
+        reservations:
+          cpus: '1.0'
+          memory: 512M
+    networks:
+      - dataclinica_prod
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # Scheduler para tarefas agendadas
+  scheduler:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: production
+    image: dataclinica/backend:${VERSION:-latest}
+    container_name: dataclinica_scheduler_prod
+    restart: always
+    environment:
+      # Herdar configurações do backend
+      ENVIRONMENT: production
+      DEBUG: "false"
+      LOG_LEVEL: INFO
+      DATABASE_URL: ${DATABASE_URL}
+      REDIS_URL: ${REDIS_URL}
+      SECRET_KEY: ${SECRET_KEY}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
+      S3_BUCKET_NAME: ${S3_BUCKET_NAME}
+      SENTRY_DSN: ${SENTRY_DSN}
+      
+      # Configurações específicas do scheduler
+      CELERY_BROKER_URL: ${REDIS_URL}
+      CELERY_RESULT_BACKEND: ${REDIS_URL}
+    volumes:
+      - scheduler_logs_prod:/app/logs
+    command: celery -A app.worker beat --loglevel=info
+    healthcheck:
+      test: ["CMD", "celery", "-A", "app.worker", "inspect", "active"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    networks:
+      - dataclinica_prod
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # Nginx (Load Balancer e SSL Termination)
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.prod
+    image: dataclinica/nginx:${VERSION:-latest}
+    container_name: dataclinica_nginx_prod
+    restart: always
+    environment:
+      DOMAIN_NAME: ${DOMAIN_NAME}
+      SSL_CERT_PATH: /etc/nginx/ssl/cert.pem
+      SSL_KEY_PATH: /etc/nginx/ssl/key.pem
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./config/nginx/nginx.prod.conf:/etc/nginx/nginx.conf:ro
+      - ./config/ssl:/etc/nginx/ssl:ro
+      - nginx_logs_prod:/var/log/nginx
+      - nginx_cache_prod:/var/cache/nginx
+    depends_on:
+      backend:
+        condition: service_healthy
+      frontend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+    networks:
+      - dataclinica_prod
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # Prometheus (Métricas)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: dataclinica_prometheus_prod
+    restart: always
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./config/prometheus/prometheus.prod.yml:/etc/prometheus/prometheus.yml:ro
+      - ./config/prometheus/rules:/etc/prometheus/rules:ro
+      - prometheus_data_prod:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=15d'
+      - '--web.enable-lifecycle'
+      - '--web.enable-admin-api'
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:9090/-/healthy"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    networks:
+      - dataclinica_prod
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # Grafana (Dashboard)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: dataclinica_grafana_prod
+    restart: always
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_SECURITY_ALLOW_EMBEDDING: "true"
+      GF_AUTH_ANONYMOUS_ENABLED: "false"
+      GF_INSTALL_PLUGINS: grafana-piechart-panel,grafana-worldmap-panel
+    ports:
+      - "3001:3000"
+    volumes:
+      - grafana_data_prod:/var/lib/grafana
+      - ./config/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./config/grafana/datasources:/etc/grafana/provisioning/datasources:ro
+    depends_on:
+      - prometheus
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000/api/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+    networks:
+      - dataclinica_prod
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+# Volumes persistentes
+volumes:
+  backend_logs_prod:
+    driver: local
+  backend_uploads_prod:
+    driver: local
+  frontend_logs_prod:
+    driver: local
+  nginx_logs_prod:
+    driver: local
+  nginx_cache_prod:
+    driver: local
+  worker_logs_prod:
+    driver: local
+  scheduler_logs_prod:
+    driver: local
+  prometheus_data_prod:
+    driver: local
+  grafana_data_prod:
+    driver: local
+
+# Rede de produção
+networks:
+  dataclinica_prod:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.21.0.0/16
+    driver_opts:
+      com.docker.network.bridge.name: dataclinica_prod
