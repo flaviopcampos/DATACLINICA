@@ -10080,6 +10080,216 @@
         "bytes_recv": 3467798099
       },
       "processes": 423
+    },
+    {
+      "timestamp": "2025-08-12T06:19:04.833794",
+      "cpu": {
+        "percent": 19.1,
+        "count": 8
+      },
+      "memory": {
+        "percent": 86.1,
+        "available_gb": 1.09,
+        "used_gb": 6.75
+      },
+      "disk": {
+        "percent": 87.64,
+        "free_gb": 29.33
+      },
+      "network": {
+        "bytes_sent": 698949164,
+        "bytes_recv": 3468000280
+      },
+      "processes": 425
+    },
+    {
+      "timestamp": "2025-08-12T06:20:10.909280",
+      "cpu": {
+        "percent": 20.0,
+        "count": 8
+      },
+      "memory": {
+        "percent": 86.0,
+        "available_gb": 1.09,
+        "used_gb": 6.74
+      },
+      "disk": {
+        "percent": 87.64,
+        "free_gb": 29.33
+      },
+      "network": {
+        "bytes_sent": 699189235,
+        "bytes_recv": 3468156818
+      },
+      "processes": 423
+    },
+    {
+      "timestamp": "2025-08-12T06:21:16.637155",
+      "cpu": {
+        "percent": 34.0,
+        "count": 8
+      },
+      "memory": {
+        "percent": 84.3,
+        "available_gb": 1.23,
+        "used_gb": 6.6
+      },
+      "disk": {
+        "percent": 87.63,
+        "free_gb": 29.34
+      },
+      "network": {
+        "bytes_sent": 699838863,
+        "bytes_recv": 3468838120
+      },
+      "processes": 427
+    },
+    {
+      "timestamp": "2025-08-12T06:22:23.090264",
+      "cpu": {
+        "percent": 46.1,
+        "count": 8
+      },
+      "memory": {
+        "percent": 87.3,
+        "available_gb": 0.99,
+        "used_gb": 6.85
+      },
+      "disk": {
+        "percent": 87.64,
+        "free_gb": 29.33
+      },
+      "network": {
+        "bytes_sent": 700301531,
+        "bytes_recv": 3469078328
+      },
+      "processes": 423
+    },
+    {
+      "timestamp": "2025-08-12T06:23:29.470485",
+      "cpu": {
+        "percent": 41.6,
+        "count": 8
+      },
+      "memory": {
+        "percent": 84.0,
+        "available_gb": 1.25,
+        "used_gb": 6.59
+      },
+      "disk": {
+        "percent": 87.64,
+        "free_gb": 29.33
+      },
+      "network": {
+        "bytes_sent": 700723303,
+        "bytes_recv": 3469433074
+      },
+      "processes": 429
+    },
+    {
+      "timestamp": "2025-08-12T06:24:34.985284",
+      "cpu": {
+        "percent": 13.9,
+        "count": 8
+      },
+      "memory": {
+        "percent": 83.5,
+        "available_gb": 1.29,
+        "used_gb": 6.55
+      },
+      "disk": {
+        "percent": 87.63,
+        "free_gb": 29.33
+      },
+      "network": {
+        "bytes_sent": 701014893,
+        "bytes_recv": 3469617834
+      },
+      "processes": 429
+    },
+    {
+      "timestamp": "2025-08-12T06:25:40.804511",
+      "cpu": {
+        "percent": 17.9,
+        "count": 8
+      },
+      "memory": {
+        "percent": 83.5,
+        "available_gb": 1.29,
+        "used_gb": 6.55
+      },
+      "disk": {
+        "percent": 87.64,
+        "free_gb": 29.33
+      },
+      "network": {
+        "bytes_sent": 701258918,
+        "bytes_recv": 3469760990
+      },
+      "processes": 429
+    },
+    {
+      "timestamp": "2025-08-12T06:26:46.516211",
+      "cpu": {
+        "percent": 42.9,
+        "count": 8
+      },
+      "memory": {
+        "percent": 85.3,
+        "available_gb": 1.15,
+        "used_gb": 6.68
+      },
+      "disk": {
+        "percent": 87.74,
+        "free_gb": 29.09
+      },
+      "network": {
+        "bytes_sent": 702100852,
+        "bytes_recv": 3473444325
+      },
+      "processes": 448
+    },
+    {
+      "timestamp": "2025-08-12T06:27:52.887202",
+      "cpu": {
+        "percent": 23.7,
+        "count": 8
+      },
+      "memory": {
+        "percent": 80.6,
+        "available_gb": 1.52,
+        "used_gb": 6.31
+      },
+      "disk": {
+        "percent": 87.73,
+        "free_gb": 29.1
+      },
+      "network": {
+        "bytes_sent": 702918223,
+        "bytes_recv": 3474056165
+      },
+      "processes": 441
+    },
+    {
+      "timestamp": "2025-08-12T06:28:59.245990",
+      "cpu": {
+        "percent": 40.0,
+        "count": 8
+      },
+      "memory": {
+        "percent": 87.3,
+        "available_gb": 0.99,
+        "used_gb": 6.85
+      },
+      "disk": {
+        "percent": 87.74,
+        "free_gb": 29.09
+      },
+      "network": {
+        "bytes_sent": 703438349,
+        "bytes_recv": 3474595445
+      },
+      "processes": 442
     }
   ],
   "alerts": [
@@ -10146,6 +10356,7 @@
     "Mem\u00f3ria alta: 88.9%",
     "Pouca mem\u00f3ria dispon\u00edvel: 0.87GB",
     "Mem\u00f3ria alta: 85.1%",
-    "Mem\u00f3ria alta: 85.4%"
+    "Mem\u00f3ria alta: 85.4%",
+    "Mem\u00f3ria alta: 87.3%"
   ]
 }
