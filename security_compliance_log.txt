@@ -1,0 +1,242 @@
+2025-08-11 21:27:27,685 - INFO - [START] Iniciando validação de segurança e conformidade
+2025-08-11 21:27:27,685 - INFO - Testando proteção contra SQL Injection...
+2025-08-11 21:27:30,410 - INFO - [PASS] SQL Injection Test: ' OR '1'='1: Payload rejeitado corretamente
+2025-08-11 21:27:33,050 - INFO - [PASS] SQL Injection Test: '; DROP TABLE users; --: Payload rejeitado corretamente
+2025-08-11 21:27:35,693 - INFO - [PASS] SQL Injection Test: ' UNION SELECT * FROM users --: Payload rejeitado corretamente
+2025-08-11 21:27:38,355 - INFO - [PASS] SQL Injection Test: admin'--: Payload rejeitado corretamente
+2025-08-11 21:27:41,027 - INFO - [PASS] SQL Injection Test: ' OR 1=1#: Payload rejeitado corretamente
+2025-08-11 21:27:41,061 - INFO - Testando segurança de senhas...
+2025-08-11 21:27:41,155 - INFO - [PASS] Password Hashing: Senha de admin está hasheada
+2025-08-11 21:27:41,159 - INFO - [PASS] Password Hashing: Senha de test_user está hasheada
+2025-08-11 21:27:41,168 - INFO - Testando criptografia de dados sensíveis...
+2025-08-11 21:27:41,174 - INFO - Testando limitação de taxa de requisições...
+2025-08-11 21:29:23,224 - INFO - [FAIL] Rate Limiting: 100 requisições em 101.99s sem limitação
+2025-08-11 21:29:23,225 - INFO - Testando configuração CORS...
+2025-08-11 21:29:25,281 - INFO - [FAIL] CORS Configuration: CORS permite qualquer origem (*)
+2025-08-11 21:29:25,281 - INFO - Testando configuração HTTPS...
+2025-08-11 21:29:27,330 - INFO - [FAIL] Security Headers: Headers ausentes: Strict-Transport-Security, X-Content-Type-Options, X-Frame-Options, X-XSS-Protection
+2025-08-11 21:29:27,331 - INFO - Testando conformidade com LGPD...
+2025-08-11 21:29:27,334 - INFO - [PASS] LGPD - Audit Logs: Tabela de auditoria encontrada
+2025-08-11 21:29:27,336 - INFO - [FAIL] LGPD - consent_data_processing: Campo de consentimento não encontrado
+2025-08-11 21:29:27,336 - INFO - [FAIL] LGPD - consent_date: Campo de consentimento não encontrado
+2025-08-11 21:29:27,337 - INFO - Testando integridade dos dados...
+2025-08-11 21:29:27,344 - INFO - [PASS] Referential Integrity - appointments: Sem registros órfãos
+2025-08-11 21:29:27,345 - INFO - [PASS] Referential Integrity - appointments: Sem registros órfãos
+2025-08-11 21:29:27,346 - INFO - [PASS] Referential Integrity - medical_records: Sem registros órfãos
+2025-08-11 21:29:27,348 - INFO - 
+
+=== RELATÓRIO DE SEGURANÇA E CONFORMIDADE ===
+
+Duração: 0:01:59.661547
+Início: 2025-08-11 21:27:27.685203
+Fim: 2025-08-11 21:29:27.346750
+
+
+TESTES DE SEGURANÇA:
+- Total: 10
+- Aprovados: 7
+- Falharam: 3
+- Taxa de sucesso: 70.0%
+
+FALHAS:
+- Rate Limiting: 100 requisições em 101.99s sem limitação
+- CORS Configuration: CORS permite qualquer origem (*)
+- Security Headers: Headers ausentes: Strict-Transport-Security, X-Content-Type-Options, X-Frame-Options, X-XSS-Protection
+
+TESTES DE CONFORMIDADE:
+- Total: 3
+- Aprovados: 1
+- Falharam: 2
+- Taxa de sucesso: 33.3%
+
+FALHAS:
+- LGPD - consent_data_processing: Campo de consentimento não encontrado
+- LGPD - consent_date: Campo de consentimento não encontrado
+
+TESTES DE INTEGRIDADE:
+- Total: 3
+- Aprovados: 3
+- Falharam: 0
+- Taxa de sucesso: 100.0%
+
+2025-08-11 21:29:27,349 - INFO - [DONE] Validação de segurança e conformidade concluída
+2025-08-11 22:06:38,706 - INFO - [START] Iniciando validação de segurança e conformidade
+2025-08-11 22:06:38,707 - INFO - Testando proteção contra SQL Injection...
+2025-08-11 22:06:41,426 - INFO - [PASS] SQL Injection Test: ' OR '1'='1: Payload rejeitado corretamente
+2025-08-11 22:06:44,088 - INFO - [PASS] SQL Injection Test: '; DROP TABLE users; --: Payload rejeitado corretamente
+2025-08-11 22:06:46,777 - INFO - [PASS] SQL Injection Test: ' UNION SELECT * FROM users --: Payload rejeitado corretamente
+2025-08-11 22:06:49,425 - INFO - [PASS] SQL Injection Test: admin'--: Payload rejeitado corretamente
+2025-08-11 22:06:52,086 - INFO - [PASS] SQL Injection Test: ' OR 1=1#: Payload rejeitado corretamente
+2025-08-11 22:06:52,086 - INFO - Testando segurança de senhas...
+2025-08-11 22:06:52,098 - INFO - [PASS] Password Hashing: Senha de admin está hasheada
+2025-08-11 22:06:52,099 - INFO - [PASS] Password Hashing: Senha de test_user está hasheada
+2025-08-11 22:06:52,099 - INFO - Testando criptografia de dados sensíveis...
+2025-08-11 22:06:52,101 - INFO - Testando limitação de taxa de requisições...
+2025-08-11 22:08:33,533 - INFO - [FAIL] Rate Limiting: 100 requisições em 101.43s sem limitação
+2025-08-11 22:08:33,533 - INFO - Testando configuração CORS...
+2025-08-11 22:08:35,595 - INFO - [PASS] CORS Configuration: CORS configurado: None
+2025-08-11 22:08:35,596 - INFO - Testando configuração HTTPS...
+2025-08-11 22:08:37,643 - INFO - [PASS] Security Headers: Todos os headers de segurança presentes
+2025-08-11 22:08:37,643 - INFO - Testando conformidade com LGPD...
+2025-08-11 22:08:37,645 - INFO - [PASS] LGPD - Audit Logs: Tabela de auditoria encontrada
+2025-08-11 22:08:37,646 - INFO - [FAIL] LGPD - consent_data_processing: Campo de consentimento não encontrado
+2025-08-11 22:08:37,646 - INFO - [FAIL] LGPD - consent_date: Campo de consentimento não encontrado
+2025-08-11 22:08:37,646 - INFO - Testando integridade dos dados...
+2025-08-11 22:08:37,648 - INFO - [PASS] Referential Integrity - appointments: Sem registros órfãos
+2025-08-11 22:08:37,649 - INFO - [PASS] Referential Integrity - appointments: Sem registros órfãos
+2025-08-11 22:08:37,649 - INFO - [PASS] Referential Integrity - medical_records: Sem registros órfãos
+2025-08-11 22:08:37,651 - INFO - 
+
+=== RELATÓRIO DE SEGURANÇA E CONFORMIDADE ===
+
+Duração: 0:01:58.944088
+Início: 2025-08-11 22:06:38.706214
+Fim: 2025-08-11 22:08:37.650302
+
+
+TESTES DE SEGURANÇA:
+- Total: 10
+- Aprovados: 9
+- Falharam: 1
+- Taxa de sucesso: 90.0%
+
+FALHAS:
+- Rate Limiting: 100 requisições em 101.43s sem limitação
+
+TESTES DE CONFORMIDADE:
+- Total: 3
+- Aprovados: 1
+- Falharam: 2
+- Taxa de sucesso: 33.3%
+
+FALHAS:
+- LGPD - consent_data_processing: Campo de consentimento não encontrado
+- LGPD - consent_date: Campo de consentimento não encontrado
+
+TESTES DE INTEGRIDADE:
+- Total: 3
+- Aprovados: 3
+- Falharam: 0
+- Taxa de sucesso: 100.0%
+
+2025-08-11 22:08:37,652 - INFO - [DONE] Validação de segurança e conformidade concluída
+2025-08-11 22:09:38,690 - INFO - [START] Iniciando validação de segurança e conformidade
+2025-08-11 22:09:38,703 - INFO - Testando proteção contra SQL Injection...
+2025-08-11 22:09:41,408 - INFO - [PASS] SQL Injection Test: ' OR '1'='1: Payload rejeitado corretamente
+2025-08-11 22:09:44,076 - INFO - [PASS] SQL Injection Test: '; DROP TABLE users; --: Payload rejeitado corretamente
+2025-08-11 22:09:46,938 - INFO - [PASS] SQL Injection Test: ' UNION SELECT * FROM users --: Payload rejeitado corretamente
+2025-08-11 22:09:49,596 - INFO - [PASS] SQL Injection Test: admin'--: Payload rejeitado corretamente
+2025-08-11 22:09:52,231 - INFO - [PASS] SQL Injection Test: ' OR 1=1#: Payload rejeitado corretamente
+2025-08-11 22:09:52,232 - INFO - Testando segurança de senhas...
+2025-08-11 22:09:52,234 - INFO - [PASS] Password Hashing: Senha de admin está hasheada
+2025-08-11 22:09:52,234 - INFO - [PASS] Password Hashing: Senha de test_user está hasheada
+2025-08-11 22:09:52,235 - INFO - Testando criptografia de dados sensíveis...
+2025-08-11 22:09:52,237 - INFO - Testando limitação de taxa de requisições...
+2025-08-11 22:11:33,728 - INFO - [FAIL] Rate Limiting: 100 requisições em 101.49s sem limitação
+2025-08-11 22:11:33,728 - INFO - Testando configuração CORS...
+2025-08-11 22:11:35,777 - INFO - [PASS] CORS Configuration: CORS configurado: None
+2025-08-11 22:11:35,778 - INFO - Testando configuração HTTPS...
+2025-08-11 22:11:37,804 - INFO - [PASS] Security Headers: Todos os headers de segurança presentes
+2025-08-11 22:11:37,804 - INFO - Testando conformidade com LGPD...
+2025-08-11 22:11:37,806 - INFO - [PASS] LGPD - Audit Logs: Tabela de auditoria encontrada
+2025-08-11 22:11:37,806 - INFO - [FAIL] LGPD - consent_data_processing: Campo de consentimento não encontrado
+2025-08-11 22:11:37,806 - INFO - [FAIL] LGPD - consent_date: Campo de consentimento não encontrado
+2025-08-11 22:11:37,807 - INFO - Testando integridade dos dados...
+2025-08-11 22:11:37,808 - INFO - [PASS] Referential Integrity - appointments: Sem registros órfãos
+2025-08-11 22:11:37,809 - INFO - [PASS] Referential Integrity - appointments: Sem registros órfãos
+2025-08-11 22:11:37,809 - INFO - [PASS] Referential Integrity - medical_records: Sem registros órfãos
+2025-08-11 22:11:37,810 - INFO - 
+
+=== RELATÓRIO DE SEGURANÇA E CONFORMIDADE ===
+
+Duração: 0:01:59.119577
+Início: 2025-08-11 22:09:38.690190
+Fim: 2025-08-11 22:11:37.809767
+
+
+TESTES DE SEGURANÇA:
+- Total: 10
+- Aprovados: 9
+- Falharam: 1
+- Taxa de sucesso: 90.0%
+
+FALHAS:
+- Rate Limiting: 100 requisições em 101.49s sem limitação
+
+TESTES DE CONFORMIDADE:
+- Total: 3
+- Aprovados: 1
+- Falharam: 2
+- Taxa de sucesso: 33.3%
+
+FALHAS:
+- LGPD - consent_data_processing: Campo de consentimento não encontrado
+- LGPD - consent_date: Campo de consentimento não encontrado
+
+TESTES DE INTEGRIDADE:
+- Total: 3
+- Aprovados: 3
+- Falharam: 0
+- Taxa de sucesso: 100.0%
+
+2025-08-11 22:11:37,811 - INFO - [DONE] Validação de segurança e conformidade concluída
+2025-08-11 22:12:29,936 - INFO - [START] Iniciando validação de segurança e conformidade
+2025-08-11 22:12:29,937 - INFO - Testando proteção contra SQL Injection...
+2025-08-11 22:12:32,639 - INFO - [PASS] SQL Injection Test: ' OR '1'='1: Payload rejeitado corretamente
+2025-08-11 22:12:35,329 - INFO - [PASS] SQL Injection Test: '; DROP TABLE users; --: Payload rejeitado corretamente
+2025-08-11 22:12:37,998 - INFO - [PASS] SQL Injection Test: ' UNION SELECT * FROM users --: Payload rejeitado corretamente
+2025-08-11 22:12:40,644 - INFO - [PASS] SQL Injection Test: admin'--: Payload rejeitado corretamente
+2025-08-11 22:12:43,295 - INFO - [PASS] SQL Injection Test: ' OR 1=1#: Payload rejeitado corretamente
+2025-08-11 22:12:43,295 - INFO - Testando segurança de senhas...
+2025-08-11 22:12:43,298 - INFO - [PASS] Password Hashing: Senha de admin está hasheada
+2025-08-11 22:12:43,299 - INFO - [PASS] Password Hashing: Senha de test_user está hasheada
+2025-08-11 22:12:43,299 - INFO - Testando criptografia de dados sensíveis...
+2025-08-11 22:12:43,302 - INFO - Testando limitação de taxa de requisições...
+2025-08-11 22:14:25,521 - INFO - [FAIL] Rate Limiting: 100 requisições em 102.22s sem limitação
+2025-08-11 22:14:25,521 - INFO - Testando configuração CORS...
+2025-08-11 22:14:27,553 - INFO - [PASS] CORS Configuration: CORS configurado: None
+2025-08-11 22:14:27,554 - INFO - Testando configuração HTTPS...
+2025-08-11 22:14:29,604 - INFO - [PASS] Security Headers: Todos os headers de segurança presentes
+2025-08-11 22:14:29,605 - INFO - Testando conformidade com LGPD...
+2025-08-11 22:14:29,607 - INFO - [PASS] LGPD - Audit Logs: Tabela de auditoria encontrada
+2025-08-11 22:14:29,607 - INFO - [FAIL] LGPD - consent_data_processing: Campo de consentimento não encontrado
+2025-08-11 22:14:29,607 - INFO - [FAIL] LGPD - consent_date: Campo de consentimento não encontrado
+2025-08-11 22:14:29,608 - INFO - Testando integridade dos dados...
+2025-08-11 22:14:29,610 - INFO - [PASS] Referential Integrity - appointments: Sem registros órfãos
+2025-08-11 22:14:29,610 - INFO - [PASS] Referential Integrity - appointments: Sem registros órfãos
+2025-08-11 22:14:29,611 - INFO - [PASS] Referential Integrity - medical_records: Sem registros órfãos
+2025-08-11 22:14:29,612 - INFO - 
+
+=== RELATÓRIO DE SEGURANÇA E CONFORMIDADE ===
+
+Duração: 0:01:59.674801
+Início: 2025-08-11 22:12:29.936777
+Fim: 2025-08-11 22:14:29.611578
+
+
+TESTES DE SEGURANÇA:
+- Total: 10
+- Aprovados: 9
+- Falharam: 1
+- Taxa de sucesso: 90.0%
+
+FALHAS:
+- Rate Limiting: 100 requisições em 102.22s sem limitação
+
+TESTES DE CONFORMIDADE:
+- Total: 3
+- Aprovados: 1
+- Falharam: 2
+- Taxa de sucesso: 33.3%
+
+FALHAS:
+- LGPD - consent_data_processing: Campo de consentimento não encontrado
+- LGPD - consent_date: Campo de consentimento não encontrado
+
+TESTES DE INTEGRIDADE:
+- Total: 3
+- Aprovados: 3
+- Falharam: 0
+- Taxa de sucesso: 100.0%
+
+2025-08-11 22:14:29,613 - INFO - [DONE] Validação de segurança e conformidade concluída

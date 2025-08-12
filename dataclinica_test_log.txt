@@ -1,0 +1,2090 @@
+2025-08-11 21:22:26,763 - INFO - === FASE 1: TESTES INICIAIS ===
+2025-08-11 21:22:31,774 - INFO - === FASE 2: TESTES DE PERFORMANCE ===
+2025-08-11 21:22:31,776 - INFO - Iniciando testes de performance...
+2025-08-11 21:23:06,190 - INFO - [START] Iniciando teste abrangente do DataClinica por 12 horas
+2025-08-11 21:23:06,191 - INFO - === FASE 1: TESTES INICIAIS ===
+2025-08-11 21:23:08,258 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-11 21:23:08,267 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 21:23:10,911 - ERROR - [FAIL] Authentication Test: FALHOU - Status: 401 (2.64s)
+2025-08-11 21:23:10,914 - ERROR - [FAIL] API Endpoints Test: FALHOU - Token de autenticação não disponível (0.00s)
+2025-08-11 21:23:10,915 - INFO - === FASE 2: TESTES DE PERFORMANCE ===
+2025-08-11 21:23:10,915 - INFO - Iniciando testes de performance...
+2025-08-11 21:25:10,853 - ERROR - [FAIL] Backend Performance: FALHOU - Tempo médio: 2.298s (0.00s)
+2025-08-11 21:25:10,854 - INFO - [PASS] Frontend Performance: PASSOU - Tempo médio: 0.011s (0.00s)
+2025-08-11 21:25:10,854 - INFO - === FASE 3: TESTES DE ESTABILIDADE ===
+2025-08-11 21:25:10,854 - INFO - Iniciando teste de estabilidade por 11 hora(s)...
+2025-08-11 21:25:10,854 - INFO - Ciclo de estabilidade #1
+2025-08-11 21:25:12,912 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 21:25:12,918 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 21:26:12,919 - INFO - Tempo restante: 10:58:57.935971
+2025-08-11 21:26:12,919 - INFO - Ciclo de estabilidade #2
+2025-08-11 21:26:14,998 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.08s)
+2025-08-11 21:26:15,021 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 21:27:15,022 - INFO - Tempo restante: 10:57:55.832437
+2025-08-11 21:27:15,024 - INFO - Ciclo de estabilidade #3
+2025-08-11 21:27:17,085 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 21:27:17,106 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 21:28:17,107 - INFO - Tempo restante: 10:56:53.747183
+2025-08-11 21:28:17,108 - INFO - Ciclo de estabilidade #4
+2025-08-11 21:28:19,159 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-11 21:28:19,164 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 21:29:19,165 - INFO - Tempo restante: 10:55:51.689626
+2025-08-11 21:29:19,166 - INFO - Ciclo de estabilidade #5
+2025-08-11 21:29:21,207 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-11 21:29:21,213 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 21:30:21,214 - INFO - Tempo restante: 10:54:49.640154
+2025-08-11 21:30:21,215 - INFO - Ciclo de estabilidade #6
+2025-08-11 21:30:23,273 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 21:30:23,280 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 21:31:23,281 - INFO - Tempo restante: 10:53:47.573628
+2025-08-11 21:31:23,281 - INFO - Ciclo de estabilidade #7
+2025-08-11 21:31:25,331 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-11 21:31:25,339 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 21:32:25,340 - INFO - Tempo restante: 10:52:45.514287
+2025-08-11 21:32:25,341 - INFO - Ciclo de estabilidade #8
+2025-08-11 21:32:27,391 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-11 21:32:27,407 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-11 21:33:27,408 - INFO - Tempo restante: 10:51:43.446305
+2025-08-11 21:33:27,410 - INFO - Ciclo de estabilidade #9
+2025-08-11 21:33:29,440 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.03s)
+2025-08-11 21:33:29,450 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 21:34:29,459 - INFO - Tempo restante: 10:50:41.395898
+2025-08-11 21:34:29,461 - INFO - Ciclo de estabilidade #10
+2025-08-11 21:34:31,506 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-11 21:34:31,515 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 21:35:31,517 - INFO - Tempo restante: 10:49:39.337472
+2025-08-11 21:35:31,518 - INFO - Ciclo de estabilidade #11
+2025-08-11 21:35:33,579 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 21:35:33,602 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-11 21:36:33,603 - INFO - Tempo restante: 10:48:37.251044
+2025-08-11 21:36:33,604 - INFO - Ciclo de estabilidade #12
+2025-08-11 21:36:35,664 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 21:36:35,695 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.03s)
+2025-08-11 21:37:35,696 - INFO - Tempo restante: 10:47:35.158409
+2025-08-11 21:37:35,697 - INFO - Ciclo de estabilidade #13
+2025-08-11 21:37:37,738 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-11 21:37:37,743 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 21:38:37,744 - INFO - Tempo restante: 10:46:33.110542
+2025-08-11 21:38:37,746 - INFO - Ciclo de estabilidade #14
+2025-08-11 21:38:39,787 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-11 21:38:39,792 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 21:39:39,793 - INFO - Tempo restante: 10:45:31.061543
+2025-08-11 21:39:39,793 - INFO - Ciclo de estabilidade #15
+2025-08-11 21:39:41,882 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.09s)
+2025-08-11 21:39:41,943 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 21:40:41,947 - INFO - Tempo restante: 10:44:28.907807
+2025-08-11 21:40:41,948 - INFO - Ciclo de estabilidade #16
+2025-08-11 21:40:43,993 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-11 21:40:44,005 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 21:41:44,007 - INFO - Tempo restante: 10:43:26.847931
+2025-08-11 21:41:44,007 - INFO - Ciclo de estabilidade #17
+2025-08-11 21:41:46,067 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 21:41:46,074 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 21:42:46,077 - INFO - Tempo restante: 10:42:24.778048
+2025-08-11 21:42:46,082 - INFO - Ciclo de estabilidade #18
+2025-08-11 21:42:48,123 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-11 21:42:48,129 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 21:43:48,131 - INFO - Tempo restante: 10:41:22.723989
+2025-08-11 21:43:48,150 - INFO - Ciclo de estabilidade #19
+2025-08-11 21:44:00,232 - ERROR - [FAIL] Backend Health Check: FALHOU - HTTPConnectionPool(host='localhost', port=8000): Read timed out. (read timeout=10) (12.07s)
+2025-08-11 21:44:00,245 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 21:45:00,247 - INFO - Tempo restante: 10:40:10.607600
+2025-08-11 21:45:00,250 - INFO - Ciclo de estabilidade #20
+2025-08-11 21:45:12,321 - ERROR - [FAIL] Backend Health Check: FALHOU - HTTPConnectionPool(host='localhost', port=8000): Read timed out. (read timeout=10) (12.07s)
+2025-08-11 21:45:12,335 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 21:46:12,337 - INFO - Tempo restante: 10:38:58.517970
+2025-08-11 21:46:12,341 - INFO - Ciclo de estabilidade #21
+2025-08-11 21:46:24,387 - ERROR - [FAIL] Backend Health Check: FALHOU - HTTPConnectionPool(host='localhost', port=8000): Read timed out. (read timeout=10) (12.05s)
+2025-08-11 21:46:24,424 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-11 21:47:24,430 - INFO - Tempo restante: 10:37:46.424717
+2025-08-11 21:47:24,433 - INFO - Ciclo de estabilidade #22
+2025-08-11 21:47:36,497 - ERROR - [FAIL] Backend Health Check: FALHOU - HTTPConnectionPool(host='localhost', port=8000): Read timed out. (read timeout=10) (12.06s)
+2025-08-11 21:47:36,520 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 21:48:36,546 - INFO - Tempo restante: 10:36:34.308335
+2025-08-11 21:48:36,620 - INFO - Ciclo de estabilidade #23
+2025-08-11 21:48:48,712 - ERROR - [FAIL] Backend Health Check: FALHOU - HTTPConnectionPool(host='localhost', port=8000): Read timed out. (read timeout=10) (12.05s)
+2025-08-11 21:48:48,731 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-11 21:49:48,732 - INFO - Tempo restante: 10:35:22.122719
+2025-08-11 21:49:48,733 - INFO - Ciclo de estabilidade #24
+2025-08-11 21:49:52,818 - ERROR - [FAIL] Backend Health Check: FALHOU - HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000017425A1DF20>: Failed to establish a new connection: [WinError 10061] Nenhuma conexão pôde ser feita porque a máquina de destino as recusou ativamente')) (4.09s)
+2025-08-11 21:49:52,834 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 21:50:52,844 - INFO - Tempo restante: 10:34:18.011092
+2025-08-11 21:50:52,845 - INFO - Ciclo de estabilidade #25
+2025-08-11 21:50:54,923 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.08s)
+2025-08-11 21:50:54,935 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 21:51:54,936 - INFO - Tempo restante: 10:33:15.918249
+2025-08-11 21:51:54,937 - INFO - Ciclo de estabilidade #26
+2025-08-11 21:51:56,991 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-11 21:51:56,998 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 21:52:56,999 - INFO - Tempo restante: 10:32:13.855450
+2025-08-11 21:52:56,999 - INFO - Ciclo de estabilidade #27
+2025-08-11 21:52:59,051 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-11 21:52:59,073 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-11 21:53:59,074 - INFO - Tempo restante: 10:31:11.780261
+2025-08-11 21:53:59,075 - INFO - Ciclo de estabilidade #28
+2025-08-11 21:54:01,133 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 21:54:01,137 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 21:55:01,138 - INFO - Tempo restante: 10:30:09.716310
+2025-08-11 21:55:01,139 - INFO - Ciclo de estabilidade #29
+2025-08-11 21:55:03,181 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-11 21:55:03,185 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 21:56:03,186 - INFO - Tempo restante: 10:29:07.668218
+2025-08-11 21:56:03,188 - INFO - Ciclo de estabilidade #30
+2025-08-11 21:56:05,253 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 21:56:05,274 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-11 21:57:05,276 - INFO - Tempo restante: 10:28:05.578978
+2025-08-11 21:57:05,277 - INFO - Ciclo de estabilidade #31
+2025-08-11 21:57:07,329 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-11 21:57:07,337 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 21:58:07,339 - INFO - Tempo restante: 10:27:03.516046
+2025-08-11 21:58:07,339 - INFO - Ciclo de estabilidade #32
+2025-08-11 21:58:09,403 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 21:58:09,410 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 21:59:09,411 - INFO - Tempo restante: 10:26:01.443436
+2025-08-11 21:59:09,413 - INFO - Ciclo de estabilidade #33
+2025-08-11 21:59:11,467 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-11 21:59:11,471 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 22:00:11,472 - INFO - Tempo restante: 10:24:59.382263
+2025-08-11 22:00:11,474 - INFO - Ciclo de estabilidade #34
+2025-08-11 22:00:13,530 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 22:00:13,536 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 22:01:13,537 - INFO - Tempo restante: 10:23:57.317271
+2025-08-11 22:01:13,538 - INFO - Ciclo de estabilidade #35
+2025-08-11 22:01:15,602 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 22:01:15,606 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 22:02:15,607 - INFO - Tempo restante: 10:22:55.247219
+2025-08-11 22:02:15,609 - INFO - Ciclo de estabilidade #36
+2025-08-11 22:02:17,674 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 22:02:17,689 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 22:03:17,690 - INFO - Tempo restante: 10:21:53.164360
+2025-08-11 22:03:17,691 - INFO - Ciclo de estabilidade #37
+2025-08-11 22:03:19,742 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-11 22:03:19,770 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.03s)
+2025-08-11 22:04:19,771 - INFO - Tempo restante: 10:20:51.083008
+2025-08-11 22:04:19,772 - INFO - Ciclo de estabilidade #38
+2025-08-11 22:04:21,838 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-11 22:04:21,843 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 22:05:21,845 - INFO - Tempo restante: 10:19:49.010214
+2025-08-11 22:05:21,846 - INFO - Ciclo de estabilidade #39
+2025-08-11 22:05:23,903 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 22:05:23,912 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 22:06:23,914 - INFO - Tempo restante: 10:18:46.940869
+2025-08-11 22:06:23,914 - INFO - Ciclo de estabilidade #40
+2025-08-11 22:06:25,972 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 22:06:25,980 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 22:07:25,983 - INFO - Tempo restante: 10:17:44.871835
+2025-08-11 22:07:25,983 - INFO - Ciclo de estabilidade #41
+2025-08-11 22:07:28,032 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-11 22:07:28,036 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 22:08:28,037 - INFO - Tempo restante: 10:16:42.817365
+2025-08-11 22:08:28,038 - INFO - Ciclo de estabilidade #42
+2025-08-11 22:08:30,062 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.02s)
+2025-08-11 22:08:30,067 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 22:09:30,068 - INFO - Tempo restante: 10:15:40.786757
+2025-08-11 22:09:30,068 - INFO - Ciclo de estabilidade #43
+2025-08-11 22:09:32,128 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 22:09:32,136 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 22:10:32,137 - INFO - Tempo restante: 10:14:38.717213
+2025-08-11 22:10:32,138 - INFO - Ciclo de estabilidade #44
+2025-08-11 22:10:34,189 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-11 22:10:34,193 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 22:11:34,193 - INFO - Tempo restante: 10:13:36.661161
+2025-08-11 22:11:34,194 - INFO - Ciclo de estabilidade #45
+2025-08-11 22:11:36,230 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-11 22:11:36,235 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 22:12:36,235 - INFO - Tempo restante: 10:12:34.619099
+2025-08-11 22:12:36,237 - INFO - Ciclo de estabilidade #46
+2025-08-11 22:12:38,309 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-11 22:12:38,340 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.03s)
+2025-08-11 22:13:38,341 - INFO - Tempo restante: 10:11:32.513750
+2025-08-11 22:13:38,341 - INFO - Ciclo de estabilidade #47
+2025-08-11 22:13:40,364 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.02s)
+2025-08-11 22:13:40,370 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 22:14:40,371 - INFO - Tempo restante: 10:10:30.483316
+2025-08-11 22:14:40,372 - INFO - Ciclo de estabilidade #48
+2025-08-11 22:14:42,408 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-11 22:14:42,413 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 22:15:42,414 - INFO - Tempo restante: 10:09:28.440357
+2025-08-11 22:15:42,415 - INFO - Ciclo de estabilidade #49
+2025-08-11 22:15:44,477 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 22:15:44,487 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 22:16:44,490 - INFO - Tempo restante: 10:08:26.365061
+2025-08-11 22:16:44,491 - INFO - Ciclo de estabilidade #50
+2025-08-11 22:16:46,547 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-11 22:16:46,552 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 22:17:46,553 - INFO - Tempo restante: 10:07:24.301332
+2025-08-11 22:17:46,554 - INFO - Ciclo de estabilidade #51
+2025-08-11 22:17:48,622 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-11 22:17:48,647 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-11 22:18:48,649 - INFO - Tempo restante: 10:06:22.205973
+2025-08-11 22:18:48,650 - INFO - Ciclo de estabilidade #52
+2025-08-11 22:18:50,726 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.08s)
+2025-08-11 22:18:50,742 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-11 22:19:50,743 - INFO - Tempo restante: 10:05:20.111357
+2025-08-11 22:19:50,744 - INFO - Ciclo de estabilidade #53
+2025-08-11 22:19:52,785 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-11 22:19:52,790 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 22:20:52,791 - INFO - Tempo restante: 10:04:18.063615
+2025-08-11 22:20:52,791 - INFO - Ciclo de estabilidade #54
+2025-08-11 22:20:54,838 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-11 22:20:54,845 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 22:21:54,847 - INFO - Tempo restante: 10:03:16.008031
+2025-08-11 22:21:54,848 - INFO - Ciclo de estabilidade #55
+2025-08-11 22:21:56,904 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 22:21:56,909 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 22:22:56,912 - INFO - Tempo restante: 10:02:13.942185
+2025-08-11 22:22:56,914 - INFO - Ciclo de estabilidade #56
+2025-08-11 22:22:58,992 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.08s)
+2025-08-11 22:22:59,022 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.03s)
+2025-08-11 22:23:59,023 - INFO - Tempo restante: 10:01:11.831478
+2025-08-11 22:23:59,023 - INFO - Ciclo de estabilidade #57
+2025-08-11 22:24:01,078 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-11 22:24:01,083 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 22:25:01,084 - INFO - Tempo restante: 10:00:09.770351
+2025-08-11 22:25:01,086 - INFO - Ciclo de estabilidade #58
+2025-08-11 22:25:03,148 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 22:25:03,161 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 22:26:03,163 - INFO - Tempo restante: 9:59:07.691627
+2025-08-11 22:26:03,164 - INFO - Ciclo de estabilidade #59
+2025-08-11 22:26:05,215 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-11 22:26:05,220 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 22:27:05,221 - INFO - Tempo restante: 9:58:05.633712
+2025-08-11 22:27:05,221 - INFO - Ciclo de estabilidade #60
+2025-08-11 22:27:07,293 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-11 22:27:07,320 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.03s)
+2025-08-11 22:28:07,322 - INFO - Tempo restante: 9:57:03.532874
+2025-08-11 22:28:07,323 - INFO - Ciclo de estabilidade #61
+2025-08-11 22:28:09,392 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-11 22:28:09,397 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 22:29:09,398 - INFO - Tempo restante: 9:56:01.456618
+2025-08-11 22:29:09,399 - INFO - Ciclo de estabilidade #62
+2025-08-11 22:29:11,463 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 22:29:11,480 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-11 22:30:11,482 - INFO - Tempo restante: 9:54:59.372460
+2025-08-11 22:30:11,482 - INFO - Ciclo de estabilidade #63
+2025-08-11 22:30:13,525 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-11 22:30:13,529 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 22:31:13,530 - INFO - Tempo restante: 9:53:57.324460
+2025-08-11 22:31:13,532 - INFO - Ciclo de estabilidade #64
+2025-08-11 22:31:15,600 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-11 22:31:15,610 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 22:32:15,614 - INFO - Tempo restante: 9:52:55.241082
+2025-08-11 22:32:15,615 - INFO - Ciclo de estabilidade #65
+2025-08-11 22:32:17,661 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-11 22:32:17,671 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 22:33:17,673 - INFO - Tempo restante: 9:51:53.181713
+2025-08-11 22:33:17,673 - INFO - Ciclo de estabilidade #66
+2025-08-11 22:33:19,710 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-11 22:33:19,738 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.03s)
+2025-08-11 22:34:19,738 - INFO - Tempo restante: 9:50:51.115995
+2025-08-11 22:34:19,739 - INFO - Ciclo de estabilidade #67
+2025-08-11 22:34:21,774 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-11 22:34:21,781 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 22:35:21,781 - INFO - Tempo restante: 9:49:49.073104
+2025-08-11 22:35:21,782 - INFO - Ciclo de estabilidade #68
+2025-08-11 22:35:23,837 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 22:35:23,842 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 22:36:23,843 - INFO - Tempo restante: 9:48:47.011935
+2025-08-11 22:36:23,843 - INFO - Ciclo de estabilidade #69
+2025-08-11 22:36:25,892 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-11 22:36:25,896 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 22:37:25,897 - INFO - Tempo restante: 9:47:44.957372
+2025-08-11 22:37:25,898 - INFO - Ciclo de estabilidade #70
+2025-08-11 22:37:27,948 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-11 22:37:27,955 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 22:38:27,956 - INFO - Tempo restante: 9:46:42.898783
+2025-08-11 22:38:27,957 - INFO - Ciclo de estabilidade #71
+2025-08-11 22:38:29,997 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-11 22:38:30,001 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 22:39:30,002 - INFO - Tempo restante: 9:45:40.852511
+2025-08-11 22:39:30,002 - INFO - Ciclo de estabilidade #72
+2025-08-11 22:39:32,052 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-11 22:39:32,058 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 22:40:32,059 - INFO - Tempo restante: 9:44:38.795435
+2025-08-11 22:40:32,059 - INFO - Ciclo de estabilidade #73
+2025-08-11 22:40:34,126 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-11 22:40:34,151 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-11 22:41:34,152 - INFO - Tempo restante: 9:43:36.702394
+2025-08-11 22:41:34,152 - INFO - Ciclo de estabilidade #74
+2025-08-11 22:41:36,192 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-11 22:41:36,196 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 22:42:36,197 - INFO - Tempo restante: 9:42:34.657086
+2025-08-11 22:42:36,198 - INFO - Ciclo de estabilidade #75
+2025-08-11 22:42:38,256 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 22:42:38,262 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 22:43:38,263 - INFO - Tempo restante: 9:41:32.591743
+2025-08-11 22:43:38,264 - INFO - Ciclo de estabilidade #76
+2025-08-11 22:43:40,299 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.03s)
+2025-08-11 22:43:40,303 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 22:44:40,304 - INFO - Tempo restante: 9:40:30.550451
+2025-08-11 22:44:40,305 - INFO - Ciclo de estabilidade #77
+2025-08-11 22:44:42,368 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 22:44:42,377 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 22:45:42,382 - INFO - Tempo restante: 9:39:28.472682
+2025-08-11 22:45:42,383 - INFO - Ciclo de estabilidade #78
+2025-08-11 22:45:44,428 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-11 22:45:44,448 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-11 22:46:44,449 - INFO - Tempo restante: 9:38:26.405664
+2025-08-11 22:46:44,450 - INFO - Ciclo de estabilidade #79
+2025-08-11 22:46:46,501 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-11 22:46:46,505 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 22:47:46,507 - INFO - Tempo restante: 9:37:24.347798
+2025-08-11 22:47:46,508 - INFO - Ciclo de estabilidade #80
+2025-08-11 22:47:48,546 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-11 22:47:48,553 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 22:48:48,554 - INFO - Tempo restante: 9:36:22.300315
+2025-08-11 22:48:48,555 - INFO - Ciclo de estabilidade #81
+2025-08-11 22:48:50,616 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 22:48:50,619 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 22:49:50,621 - INFO - Tempo restante: 9:35:20.234043
+2025-08-11 22:49:50,622 - INFO - Ciclo de estabilidade #82
+2025-08-11 22:49:52,677 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-11 22:49:52,687 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 22:50:52,689 - INFO - Tempo restante: 9:34:18.165959
+2025-08-11 22:50:52,689 - INFO - Ciclo de estabilidade #83
+2025-08-11 22:50:54,748 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 22:50:54,755 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 22:51:54,756 - INFO - Tempo restante: 9:33:16.098464
+2025-08-11 22:51:54,756 - INFO - Ciclo de estabilidade #84
+2025-08-11 22:51:56,817 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 22:51:56,834 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 22:52:56,836 - INFO - Tempo restante: 9:32:14.018312
+2025-08-11 22:52:56,837 - INFO - Ciclo de estabilidade #85
+2025-08-11 22:52:58,907 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-11 22:52:58,920 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 22:53:58,921 - INFO - Tempo restante: 9:31:11.933363
+2025-08-11 22:53:58,921 - INFO - Ciclo de estabilidade #86
+2025-08-11 22:54:00,968 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-11 22:54:00,972 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 22:55:00,973 - INFO - Tempo restante: 9:30:09.881186
+2025-08-11 22:55:00,975 - INFO - Ciclo de estabilidade #87
+2025-08-11 22:55:03,037 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 22:55:03,068 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.03s)
+2025-08-11 22:56:03,069 - INFO - Tempo restante: 9:29:07.785469
+2025-08-11 22:56:03,070 - INFO - Ciclo de estabilidade #88
+2025-08-11 22:56:05,134 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 22:56:05,139 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 22:57:05,140 - INFO - Tempo restante: 9:28:05.714524
+2025-08-11 22:57:05,141 - INFO - Ciclo de estabilidade #89
+2025-08-11 22:57:07,214 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-11 22:57:07,225 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 22:58:07,226 - INFO - Tempo restante: 9:27:03.628303
+2025-08-11 22:58:07,227 - INFO - Ciclo de estabilidade #90
+2025-08-11 22:58:09,296 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-11 22:58:09,308 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 22:59:09,310 - INFO - Tempo restante: 9:26:01.544844
+2025-08-11 22:59:09,311 - INFO - Ciclo de estabilidade #91
+2025-08-11 22:59:11,379 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-11 22:59:11,383 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 23:00:11,384 - INFO - Tempo restante: 9:24:59.470268
+2025-08-11 23:00:11,386 - INFO - Ciclo de estabilidade #92
+2025-08-11 23:00:13,452 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-11 23:00:13,459 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 23:01:13,460 - INFO - Tempo restante: 9:23:57.394241
+2025-08-11 23:01:13,462 - INFO - Ciclo de estabilidade #93
+2025-08-11 23:01:15,532 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-11 23:01:15,540 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 23:02:15,541 - INFO - Tempo restante: 9:22:55.313348
+2025-08-11 23:02:15,542 - INFO - Ciclo de estabilidade #94
+2025-08-11 23:02:17,612 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-11 23:02:17,619 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 23:03:17,620 - INFO - Tempo restante: 9:21:53.234145
+2025-08-11 23:03:17,621 - INFO - Ciclo de estabilidade #95
+2025-08-11 23:03:19,686 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 23:03:19,691 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 23:04:19,692 - INFO - Tempo restante: 9:20:51.162931
+2025-08-11 23:04:19,692 - INFO - Ciclo de estabilidade #96
+2025-08-11 23:04:21,765 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-11 23:04:21,772 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 23:05:21,774 - INFO - Tempo restante: 9:19:49.080877
+2025-08-11 23:05:21,775 - INFO - Ciclo de estabilidade #97
+2025-08-11 23:05:23,843 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-11 23:05:23,848 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 23:06:23,849 - INFO - Tempo restante: 9:18:47.005412
+2025-08-11 23:06:23,849 - INFO - Ciclo de estabilidade #98
+2025-08-11 23:06:25,910 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 23:06:25,916 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 23:07:25,918 - INFO - Tempo restante: 9:17:44.936260
+2025-08-11 23:07:25,920 - INFO - Ciclo de estabilidade #99
+2025-08-11 23:07:27,980 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 23:07:28,004 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-11 23:08:28,005 - INFO - Tempo restante: 9:16:42.849443
+2025-08-11 23:08:28,006 - INFO - Ciclo de estabilidade #100
+2025-08-11 23:08:30,075 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-11 23:08:30,101 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-11 23:09:30,102 - INFO - Tempo restante: 9:15:40.752203
+2025-08-11 23:09:30,104 - INFO - Ciclo de estabilidade #101
+2025-08-11 23:09:32,203 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.10s)
+2025-08-11 23:09:32,218 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-11 23:10:32,221 - INFO - Tempo restante: 9:14:38.634078
+2025-08-11 23:10:32,222 - INFO - Ciclo de estabilidade #102
+2025-08-11 23:10:34,256 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.03s)
+2025-08-11 23:10:34,271 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 23:11:34,272 - INFO - Tempo restante: 9:13:36.582720
+2025-08-11 23:11:34,272 - INFO - Ciclo de estabilidade #103
+2025-08-11 23:11:36,331 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 23:11:36,335 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 23:12:36,337 - INFO - Tempo restante: 9:12:34.518007
+2025-08-11 23:12:36,338 - INFO - Ciclo de estabilidade #104
+2025-08-11 23:12:38,401 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 23:12:38,411 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 23:13:38,414 - INFO - Tempo restante: 9:11:32.441143
+2025-08-11 23:13:38,415 - INFO - Ciclo de estabilidade #105
+2025-08-11 23:13:40,481 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-11 23:13:40,486 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 23:14:40,487 - INFO - Tempo restante: 9:10:30.367480
+2025-08-11 23:14:40,489 - INFO - Ciclo de estabilidade #106
+2025-08-11 23:14:42,534 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-11 23:14:42,540 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 23:15:42,541 - INFO - Tempo restante: 9:09:28.313704
+2025-08-11 23:15:42,542 - INFO - Ciclo de estabilidade #107
+2025-08-11 23:15:44,591 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-11 23:15:44,601 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 23:16:44,603 - INFO - Tempo restante: 9:08:26.252045
+2025-08-11 23:16:44,604 - INFO - Ciclo de estabilidade #108
+2025-08-11 23:16:46,660 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 23:16:46,667 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 23:17:46,669 - INFO - Tempo restante: 9:07:24.185873
+2025-08-11 23:17:46,671 - INFO - Ciclo de estabilidade #109
+2025-08-11 23:17:48,720 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-11 23:17:48,733 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 23:18:48,735 - INFO - Tempo restante: 9:06:22.119918
+2025-08-11 23:18:48,735 - INFO - Ciclo de estabilidade #110
+2025-08-11 23:18:50,798 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 23:18:50,814 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-11 23:19:50,815 - INFO - Tempo restante: 9:05:20.039426
+2025-08-11 23:19:50,816 - INFO - Ciclo de estabilidade #111
+2025-08-11 23:19:52,891 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-11 23:19:52,919 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.03s)
+2025-08-11 23:20:52,920 - INFO - Tempo restante: 9:04:17.934635
+2025-08-11 23:20:52,920 - INFO - Ciclo de estabilidade #112
+2025-08-11 23:20:54,978 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 23:20:55,003 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-11 23:21:55,007 - INFO - Tempo restante: 9:03:15.847967
+2025-08-11 23:21:55,007 - INFO - Ciclo de estabilidade #113
+2025-08-11 23:21:57,061 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-11 23:21:57,077 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-11 23:22:57,078 - INFO - Tempo restante: 9:02:13.776635
+2025-08-11 23:22:57,078 - INFO - Ciclo de estabilidade #114
+2025-08-11 23:22:59,130 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-11 23:22:59,155 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-11 23:23:59,156 - INFO - Tempo restante: 9:01:11.698813
+2025-08-11 23:23:59,157 - INFO - Ciclo de estabilidade #115
+2025-08-11 23:24:01,226 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-11 23:24:01,242 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-11 23:25:01,246 - INFO - Tempo restante: 9:00:09.608545
+2025-08-11 23:25:01,248 - INFO - Ciclo de estabilidade #116
+2025-08-11 23:25:03,322 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-11 23:25:03,334 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 23:26:03,336 - INFO - Tempo restante: 8:59:07.518737
+2025-08-11 23:26:03,337 - INFO - Ciclo de estabilidade #117
+2025-08-11 23:26:05,382 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-11 23:26:05,389 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 23:27:05,391 - INFO - Tempo restante: 8:58:05.464121
+2025-08-11 23:27:05,392 - INFO - Ciclo de estabilidade #118
+2025-08-11 23:27:07,423 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.03s)
+2025-08-11 23:27:07,453 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.03s)
+2025-08-11 23:28:07,454 - INFO - Tempo restante: 8:57:03.400962
+2025-08-11 23:28:07,455 - INFO - Ciclo de estabilidade #119
+2025-08-11 23:28:09,537 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.08s)
+2025-08-11 23:28:09,542 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 23:29:09,543 - INFO - Tempo restante: 8:56:01.311430
+2025-08-11 23:29:09,543 - INFO - Ciclo de estabilidade #120
+2025-08-11 23:29:11,594 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-11 23:29:11,623 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.03s)
+2025-08-11 23:30:11,624 - INFO - Tempo restante: 8:54:59.230704
+2025-08-11 23:30:11,624 - INFO - Ciclo de estabilidade #121
+2025-08-11 23:30:13,687 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 23:30:13,701 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 23:31:13,702 - INFO - Tempo restante: 8:53:57.152589
+2025-08-11 23:31:13,702 - INFO - Ciclo de estabilidade #122
+2025-08-11 23:31:15,762 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 23:31:15,769 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 23:32:15,770 - INFO - Tempo restante: 8:52:55.084471
+2025-08-11 23:32:15,770 - INFO - Ciclo de estabilidade #123
+2025-08-11 23:32:17,814 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-11 23:32:17,818 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 23:33:17,820 - INFO - Tempo restante: 8:51:53.034961
+2025-08-11 23:33:17,820 - INFO - Ciclo de estabilidade #124
+2025-08-11 23:33:19,879 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 23:33:19,910 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.03s)
+2025-08-11 23:34:19,912 - INFO - Tempo restante: 8:50:50.943002
+2025-08-11 23:34:19,913 - INFO - Ciclo de estabilidade #125
+2025-08-11 23:34:21,985 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-11 23:34:21,990 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 23:35:21,991 - INFO - Tempo restante: 8:49:48.863688
+2025-08-11 23:35:21,992 - INFO - Ciclo de estabilidade #126
+2025-08-11 23:35:24,062 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-11 23:35:24,070 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 23:36:24,071 - INFO - Tempo restante: 8:48:46.783525
+2025-08-11 23:36:24,071 - INFO - Ciclo de estabilidade #127
+2025-08-11 23:36:26,135 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 23:36:26,155 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-11 23:37:26,158 - INFO - Tempo restante: 8:47:44.696384
+2025-08-11 23:37:26,159 - INFO - Ciclo de estabilidade #128
+2025-08-11 23:37:28,219 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 23:37:28,234 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 23:38:28,235 - INFO - Tempo restante: 8:46:42.619433
+2025-08-11 23:38:28,236 - INFO - Ciclo de estabilidade #129
+2025-08-11 23:38:30,283 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-11 23:38:30,288 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 23:39:30,289 - INFO - Tempo restante: 8:45:40.565911
+2025-08-11 23:39:30,290 - INFO - Ciclo de estabilidade #130
+2025-08-11 23:39:32,367 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.08s)
+2025-08-11 23:39:32,396 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.03s)
+2025-08-11 23:40:32,397 - INFO - Tempo restante: 8:44:38.457777
+2025-08-11 23:40:32,397 - INFO - Ciclo de estabilidade #131
+2025-08-11 23:40:34,444 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-11 23:40:34,451 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 23:41:34,455 - INFO - Tempo restante: 8:43:36.399815
+2025-08-11 23:41:34,455 - INFO - Ciclo de estabilidade #132
+2025-08-11 23:41:36,516 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 23:41:36,522 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 23:42:36,524 - INFO - Tempo restante: 8:42:34.330982
+2025-08-11 23:42:36,525 - INFO - Ciclo de estabilidade #133
+2025-08-11 23:42:38,595 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-11 23:42:38,602 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 23:43:38,604 - INFO - Tempo restante: 8:41:32.250765
+2025-08-11 23:43:38,605 - INFO - Ciclo de estabilidade #134
+2025-08-11 23:43:40,650 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-11 23:43:40,656 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 23:44:40,657 - INFO - Tempo restante: 8:40:30.197529
+2025-08-11 23:44:40,658 - INFO - Ciclo de estabilidade #135
+2025-08-11 23:44:42,719 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 23:44:42,725 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 23:45:42,726 - INFO - Tempo restante: 8:39:28.128489
+2025-08-11 23:45:42,726 - INFO - Ciclo de estabilidade #136
+2025-08-11 23:45:44,776 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-11 23:45:44,779 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 23:46:44,781 - INFO - Tempo restante: 8:38:26.074074
+2025-08-11 23:46:44,782 - INFO - Ciclo de estabilidade #137
+2025-08-11 23:46:46,832 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-11 23:46:46,838 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 23:47:46,839 - INFO - Tempo restante: 8:37:24.015554
+2025-08-11 23:47:46,840 - INFO - Ciclo de estabilidade #138
+2025-08-11 23:47:48,915 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-11 23:47:48,932 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-11 23:48:48,934 - INFO - Tempo restante: 8:36:21.920579
+2025-08-11 23:48:48,935 - INFO - Ciclo de estabilidade #139
+2025-08-11 23:48:50,997 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 23:48:51,008 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 23:49:51,010 - INFO - Tempo restante: 8:35:19.844827
+2025-08-11 23:49:51,010 - INFO - Ciclo de estabilidade #140
+2025-08-11 23:49:53,067 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 23:49:53,097 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.03s)
+2025-08-11 23:50:53,098 - INFO - Tempo restante: 8:34:17.756351
+2025-08-11 23:50:53,100 - INFO - Ciclo de estabilidade #141
+2025-08-11 23:50:55,128 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.03s)
+2025-08-11 23:50:55,136 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 23:51:55,138 - INFO - Tempo restante: 8:33:15.716736
+2025-08-11 23:51:55,139 - INFO - Ciclo de estabilidade #142
+2025-08-11 23:51:57,218 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.08s)
+2025-08-11 23:51:57,235 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-11 23:52:57,235 - INFO - Tempo restante: 8:32:13.619154
+2025-08-11 23:52:57,237 - INFO - Ciclo de estabilidade #143
+2025-08-11 23:52:59,308 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-11 23:52:59,312 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 23:53:59,314 - INFO - Tempo restante: 8:31:11.540880
+2025-08-11 23:53:59,315 - INFO - Ciclo de estabilidade #144
+2025-08-11 23:54:01,363 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-11 23:54:01,391 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.03s)
+2025-08-11 23:55:01,393 - INFO - Tempo restante: 8:30:09.461929
+2025-08-11 23:55:01,394 - INFO - Ciclo de estabilidade #145
+2025-08-11 23:55:03,457 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 23:55:03,466 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 23:56:03,468 - INFO - Tempo restante: 8:29:07.386552
+2025-08-11 23:56:03,469 - INFO - Ciclo de estabilidade #146
+2025-08-11 23:56:05,563 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.09s)
+2025-08-11 23:56:05,578 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-11 23:57:05,579 - INFO - Tempo restante: 8:28:05.275261
+2025-08-11 23:57:05,580 - INFO - Ciclo de estabilidade #147
+2025-08-11 23:57:07,619 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-11 23:57:07,625 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-11 23:58:07,626 - INFO - Tempo restante: 8:27:03.228612
+2025-08-11 23:58:07,627 - INFO - Ciclo de estabilidade #148
+2025-08-11 23:58:09,688 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 23:58:09,718 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.03s)
+2025-08-11 23:59:09,719 - INFO - Tempo restante: 8:26:01.135986
+2025-08-11 23:59:09,719 - INFO - Ciclo de estabilidade #149
+2025-08-11 23:59:11,783 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-11 23:59:11,787 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:00:11,788 - INFO - Tempo restante: 8:24:59.066131
+2025-08-12 00:00:11,790 - INFO - Ciclo de estabilidade #150
+2025-08-12 00:00:13,841 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 00:00:13,847 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 00:01:13,848 - INFO - Tempo restante: 8:23:57.006745
+2025-08-12 00:01:13,849 - INFO - Ciclo de estabilidade #151
+2025-08-12 00:01:15,922 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 00:01:15,929 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 00:02:15,930 - INFO - Tempo restante: 8:22:54.924350
+2025-08-12 00:02:15,932 - INFO - Ciclo de estabilidade #152
+2025-08-12 00:02:17,997 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 00:02:18,012 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 00:03:18,013 - INFO - Tempo restante: 8:21:52.841370
+2025-08-12 00:03:18,014 - INFO - Ciclo de estabilidade #153
+2025-08-12 00:03:20,067 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 00:03:20,074 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 00:04:20,075 - INFO - Tempo restante: 8:20:50.779369
+2025-08-12 00:04:20,075 - INFO - Ciclo de estabilidade #154
+2025-08-12 00:04:22,117 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 00:04:22,128 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 00:05:22,133 - INFO - Tempo restante: 8:19:48.721487
+2025-08-12 00:05:22,134 - INFO - Ciclo de estabilidade #155
+2025-08-12 00:05:24,205 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 00:05:24,210 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:06:24,211 - INFO - Tempo restante: 8:18:46.643745
+2025-08-12 00:06:24,211 - INFO - Ciclo de estabilidade #156
+2025-08-12 00:06:26,262 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 00:06:26,266 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:07:26,267 - INFO - Tempo restante: 8:17:44.587272
+2025-08-12 00:07:26,268 - INFO - Ciclo de estabilidade #157
+2025-08-12 00:07:28,314 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 00:07:28,318 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:08:28,319 - INFO - Tempo restante: 8:16:42.535544
+2025-08-12 00:08:28,319 - INFO - Ciclo de estabilidade #158
+2025-08-12 00:08:30,378 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 00:08:30,383 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:09:30,387 - INFO - Tempo restante: 8:15:40.467648
+2025-08-12 00:09:30,387 - INFO - Ciclo de estabilidade #159
+2025-08-12 00:09:32,440 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 00:09:32,446 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:10:32,447 - INFO - Tempo restante: 8:14:38.407830
+2025-08-12 00:10:32,448 - INFO - Ciclo de estabilidade #160
+2025-08-12 00:10:34,500 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 00:10:34,527 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.03s)
+2025-08-12 00:11:34,528 - INFO - Tempo restante: 8:13:36.326219
+2025-08-12 00:11:34,530 - INFO - Ciclo de estabilidade #161
+2025-08-12 00:11:36,554 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.02s)
+2025-08-12 00:11:36,559 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:12:36,560 - INFO - Tempo restante: 8:12:34.294507
+2025-08-12 00:12:36,560 - INFO - Ciclo de estabilidade #162
+2025-08-12 00:12:38,627 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 00:12:38,641 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 00:13:38,642 - INFO - Tempo restante: 8:11:32.212626
+2025-08-12 00:13:38,642 - INFO - Ciclo de estabilidade #163
+2025-08-12 00:13:40,708 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 00:13:40,713 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:14:40,714 - INFO - Tempo restante: 8:10:30.140966
+2025-08-12 00:14:40,714 - INFO - Ciclo de estabilidade #164
+2025-08-12 00:14:42,766 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 00:14:42,770 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:15:42,771 - INFO - Tempo restante: 8:09:28.083719
+2025-08-12 00:15:42,771 - INFO - Ciclo de estabilidade #165
+2025-08-12 00:15:44,802 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.03s)
+2025-08-12 00:15:44,808 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:16:44,808 - INFO - Tempo restante: 8:08:26.046145
+2025-08-12 00:16:44,809 - INFO - Ciclo de estabilidade #166
+2025-08-12 00:16:46,877 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 00:16:46,882 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:17:46,886 - INFO - Tempo restante: 8:07:23.968964
+2025-08-12 00:17:46,886 - INFO - Ciclo de estabilidade #167
+2025-08-12 00:17:48,936 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 00:17:48,940 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:18:48,941 - INFO - Tempo restante: 8:06:21.913142
+2025-08-12 00:18:48,942 - INFO - Ciclo de estabilidade #168
+2025-08-12 00:18:51,009 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 00:18:51,025 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-12 00:19:51,027 - INFO - Tempo restante: 8:05:19.827835
+2025-08-12 00:19:51,028 - INFO - Ciclo de estabilidade #169
+2025-08-12 00:19:53,079 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 00:19:53,083 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:20:53,084 - INFO - Tempo restante: 8:04:17.770294
+2025-08-12 00:20:53,085 - INFO - Ciclo de estabilidade #170
+2025-08-12 00:20:55,126 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 00:20:55,130 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:21:55,130 - INFO - Tempo restante: 8:03:15.724110
+2025-08-12 00:21:55,131 - INFO - Ciclo de estabilidade #171
+2025-08-12 00:21:57,203 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 00:21:57,220 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-12 00:22:57,220 - INFO - Tempo restante: 8:02:13.634100
+2025-08-12 00:22:57,221 - INFO - Ciclo de estabilidade #172
+2025-08-12 00:22:59,273 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 00:22:59,278 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:23:59,279 - INFO - Tempo restante: 8:01:11.575209
+2025-08-12 00:23:59,280 - INFO - Ciclo de estabilidade #173
+2025-08-12 00:24:01,323 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 00:24:01,327 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:25:01,328 - INFO - Tempo restante: 8:00:09.526706
+2025-08-12 00:25:01,328 - INFO - Ciclo de estabilidade #174
+2025-08-12 00:25:03,372 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 00:25:03,377 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:26:03,377 - INFO - Tempo restante: 7:59:07.477167
+2025-08-12 00:26:03,378 - INFO - Ciclo de estabilidade #175
+2025-08-12 00:26:05,409 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.03s)
+2025-08-12 00:26:05,413 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:27:05,414 - INFO - Tempo restante: 7:58:05.440310
+2025-08-12 00:27:05,416 - INFO - Ciclo de estabilidade #176
+2025-08-12 00:27:07,497 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.08s)
+2025-08-12 00:27:07,504 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 00:28:07,505 - INFO - Tempo restante: 7:57:03.349861
+2025-08-12 00:28:07,506 - INFO - Ciclo de estabilidade #177
+2025-08-12 00:28:09,568 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 00:28:09,574 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 00:29:09,576 - INFO - Tempo restante: 7:56:01.279016
+2025-08-12 00:29:09,577 - INFO - Ciclo de estabilidade #178
+2025-08-12 00:29:11,652 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 00:29:11,669 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-12 00:30:11,671 - INFO - Tempo restante: 7:54:59.183749
+2025-08-12 00:30:11,672 - INFO - Ciclo de estabilidade #179
+2025-08-12 00:30:13,707 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.03s)
+2025-08-12 00:30:13,712 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:31:13,713 - INFO - Tempo restante: 7:53:57.141544
+2025-08-12 00:31:13,713 - INFO - Ciclo de estabilidade #180
+2025-08-12 00:31:15,789 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 00:31:15,796 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 00:32:15,797 - INFO - Tempo restante: 7:52:55.057207
+2025-08-12 00:32:15,798 - INFO - Ciclo de estabilidade #181
+2025-08-12 00:32:17,837 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 00:32:17,841 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:33:17,842 - INFO - Tempo restante: 7:51:53.012652
+2025-08-12 00:33:17,842 - INFO - Ciclo de estabilidade #182
+2025-08-12 00:33:19,912 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 00:33:19,918 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:34:19,919 - INFO - Tempo restante: 7:50:50.935638
+2025-08-12 00:34:19,919 - INFO - Ciclo de estabilidade #183
+2025-08-12 00:34:21,989 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 00:34:22,018 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.03s)
+2025-08-12 00:35:22,019 - INFO - Tempo restante: 7:49:48.835507
+2025-08-12 00:35:22,022 - INFO - Ciclo de estabilidade #184
+2025-08-12 00:35:24,075 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 00:35:24,080 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:36:24,081 - INFO - Tempo restante: 7:48:46.773641
+2025-08-12 00:36:24,081 - INFO - Ciclo de estabilidade #185
+2025-08-12 00:36:26,142 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 00:36:26,156 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 00:37:26,157 - INFO - Tempo restante: 7:47:44.697424
+2025-08-12 00:37:26,157 - INFO - Ciclo de estabilidade #186
+2025-08-12 00:37:28,202 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 00:37:28,207 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:38:28,208 - INFO - Tempo restante: 7:46:42.646588
+2025-08-12 00:38:28,208 - INFO - Ciclo de estabilidade #187
+2025-08-12 00:38:30,274 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 00:38:30,290 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-12 00:39:30,291 - INFO - Tempo restante: 7:45:40.563652
+2025-08-12 00:39:30,291 - INFO - Ciclo de estabilidade #188
+2025-08-12 00:39:32,357 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 00:39:32,361 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:40:32,362 - INFO - Tempo restante: 7:44:38.492469
+2025-08-12 00:40:32,362 - INFO - Ciclo de estabilidade #189
+2025-08-12 00:40:34,409 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 00:40:34,413 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:41:34,414 - INFO - Tempo restante: 7:43:36.440197
+2025-08-12 00:41:34,415 - INFO - Ciclo de estabilidade #190
+2025-08-12 00:41:36,479 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 00:41:36,483 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:42:36,483 - INFO - Tempo restante: 7:42:34.371387
+2025-08-12 00:42:36,483 - INFO - Ciclo de estabilidade #191
+2025-08-12 00:42:38,555 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 00:42:38,559 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:43:38,560 - INFO - Tempo restante: 7:41:32.294845
+2025-08-12 00:43:38,560 - INFO - Ciclo de estabilidade #192
+2025-08-12 00:43:40,612 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 00:43:40,629 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-12 00:44:40,630 - INFO - Tempo restante: 7:40:30.224302
+2025-08-12 00:44:40,631 - INFO - Ciclo de estabilidade #193
+2025-08-12 00:44:42,690 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 00:44:42,695 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:45:42,695 - INFO - Tempo restante: 7:39:28.159269
+2025-08-12 00:45:42,696 - INFO - Ciclo de estabilidade #194
+2025-08-12 00:45:44,741 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 00:45:44,746 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:46:44,747 - INFO - Tempo restante: 7:38:26.107966
+2025-08-12 00:46:44,747 - INFO - Ciclo de estabilidade #195
+2025-08-12 00:46:46,801 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 00:46:46,816 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 00:47:46,816 - INFO - Tempo restante: 7:37:24.038012
+2025-08-12 00:47:46,817 - INFO - Ciclo de estabilidade #196
+2025-08-12 00:47:48,862 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 00:47:48,866 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:48:48,867 - INFO - Tempo restante: 7:36:21.987660
+2025-08-12 00:48:48,867 - INFO - Ciclo de estabilidade #197
+2025-08-12 00:48:50,933 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 00:48:50,937 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:49:50,937 - INFO - Tempo restante: 7:35:19.917472
+2025-08-12 00:49:50,937 - INFO - Ciclo de estabilidade #198
+2025-08-12 00:49:52,984 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 00:49:52,988 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:50:52,991 - INFO - Tempo restante: 7:34:17.863136
+2025-08-12 00:50:52,992 - INFO - Ciclo de estabilidade #199
+2025-08-12 00:50:55,044 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 00:50:55,048 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:51:55,048 - INFO - Tempo restante: 7:33:15.805999
+2025-08-12 00:51:55,049 - INFO - Ciclo de estabilidade #200
+2025-08-12 00:51:57,089 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 00:51:57,094 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:52:57,095 - INFO - Tempo restante: 7:32:13.759963
+2025-08-12 00:52:57,095 - INFO - Ciclo de estabilidade #201
+2025-08-12 00:52:59,141 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 00:52:59,146 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:53:59,147 - INFO - Tempo restante: 7:31:11.707510
+2025-08-12 00:53:59,147 - INFO - Ciclo de estabilidade #202
+2025-08-12 00:54:01,186 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 00:54:01,217 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.03s)
+2025-08-12 00:55:01,218 - INFO - Tempo restante: 7:30:09.636364
+2025-08-12 00:55:01,219 - INFO - Ciclo de estabilidade #203
+2025-08-12 00:55:03,272 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 00:55:03,276 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:56:03,276 - INFO - Tempo restante: 7:29:07.578236
+2025-08-12 00:56:03,277 - INFO - Ciclo de estabilidade #204
+2025-08-12 00:56:05,335 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 00:56:05,338 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:57:05,339 - INFO - Tempo restante: 7:28:05.515573
+2025-08-12 00:57:05,339 - INFO - Ciclo de estabilidade #205
+2025-08-12 00:57:07,395 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 00:57:07,399 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:58:07,400 - INFO - Tempo restante: 7:27:03.454036
+2025-08-12 00:58:07,401 - INFO - Ciclo de estabilidade #206
+2025-08-12 00:58:09,458 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 00:58:09,462 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 00:59:09,463 - INFO - Tempo restante: 7:26:01.391770
+2025-08-12 00:59:09,463 - INFO - Ciclo de estabilidade #207
+2025-08-12 00:59:11,517 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 00:59:11,522 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:00:11,523 - INFO - Tempo restante: 7:24:59.331445
+2025-08-12 01:00:11,523 - INFO - Ciclo de estabilidade #208
+2025-08-12 01:00:13,593 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 01:00:13,597 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:01:13,597 - INFO - Tempo restante: 7:23:57.257255
+2025-08-12 01:01:13,598 - INFO - Ciclo de estabilidade #209
+2025-08-12 01:01:15,660 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 01:01:15,676 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-12 01:02:15,677 - INFO - Tempo restante: 7:22:55.177643
+2025-08-12 01:02:15,677 - INFO - Ciclo de estabilidade #210
+2025-08-12 01:02:17,722 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 01:02:17,752 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.03s)
+2025-08-12 01:03:17,753 - INFO - Tempo restante: 7:21:53.101593
+2025-08-12 01:03:17,753 - INFO - Ciclo de estabilidade #211
+2025-08-12 01:03:19,807 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 01:03:19,814 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 01:04:19,815 - INFO - Tempo restante: 7:20:51.039392
+2025-08-12 01:04:19,815 - INFO - Ciclo de estabilidade #212
+2025-08-12 01:04:21,861 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 01:04:21,891 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.03s)
+2025-08-12 01:05:21,893 - INFO - Tempo restante: 7:19:48.961879
+2025-08-12 01:05:21,893 - INFO - Ciclo de estabilidade #213
+2025-08-12 01:05:23,955 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 01:05:23,986 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.03s)
+2025-08-12 01:06:23,987 - INFO - Tempo restante: 7:18:46.867345
+2025-08-12 01:06:23,988 - INFO - Ciclo de estabilidade #214
+2025-08-12 01:06:26,046 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 01:06:26,052 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 01:07:26,059 - INFO - Tempo restante: 7:17:44.795889
+2025-08-12 01:07:26,059 - INFO - Ciclo de estabilidade #215
+2025-08-12 01:07:28,127 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 01:07:28,142 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 01:08:28,144 - INFO - Tempo restante: 7:16:42.710939
+2025-08-12 01:08:28,144 - INFO - Ciclo de estabilidade #216
+2025-08-12 01:08:30,190 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 01:08:30,196 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 01:09:30,197 - INFO - Tempo restante: 7:15:40.657593
+2025-08-12 01:09:30,198 - INFO - Ciclo de estabilidade #217
+2025-08-12 01:09:32,255 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 01:09:32,271 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-12 01:10:32,271 - INFO - Tempo restante: 7:14:38.583018
+2025-08-12 01:10:32,272 - INFO - Ciclo de estabilidade #218
+2025-08-12 01:10:34,328 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 01:10:34,335 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 01:11:34,336 - INFO - Tempo restante: 7:13:36.518511
+2025-08-12 01:11:34,336 - INFO - Ciclo de estabilidade #219
+2025-08-12 01:11:36,394 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 01:11:36,398 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:12:36,400 - INFO - Tempo restante: 7:12:34.454636
+2025-08-12 01:12:36,400 - INFO - Ciclo de estabilidade #220
+2025-08-12 01:12:38,455 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 01:12:38,459 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:13:38,460 - INFO - Tempo restante: 7:11:32.394432
+2025-08-12 01:13:38,460 - INFO - Ciclo de estabilidade #221
+2025-08-12 01:13:40,513 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 01:13:40,521 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 01:14:40,522 - INFO - Tempo restante: 7:10:30.332324
+2025-08-12 01:14:40,523 - INFO - Ciclo de estabilidade #222
+2025-08-12 01:14:42,579 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 01:14:42,584 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:15:42,584 - INFO - Tempo restante: 7:09:28.270099
+2025-08-12 01:15:42,585 - INFO - Ciclo de estabilidade #223
+2025-08-12 01:15:44,637 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 01:15:44,641 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:16:44,641 - INFO - Tempo restante: 7:08:26.213056
+2025-08-12 01:16:44,642 - INFO - Ciclo de estabilidade #224
+2025-08-12 01:16:46,685 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 01:16:46,689 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:17:46,692 - INFO - Tempo restante: 7:07:24.162964
+2025-08-12 01:17:46,692 - INFO - Ciclo de estabilidade #225
+2025-08-12 01:17:48,732 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 01:17:48,735 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:18:48,736 - INFO - Tempo restante: 7:06:22.118383
+2025-08-12 01:18:48,736 - INFO - Ciclo de estabilidade #226
+2025-08-12 01:18:50,879 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.14s)
+2025-08-12 01:18:50,884 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:19:50,885 - INFO - Tempo restante: 7:05:19.969239
+2025-08-12 01:19:50,886 - INFO - Ciclo de estabilidade #227
+2025-08-12 01:19:52,935 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 01:19:52,939 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:20:52,940 - INFO - Tempo restante: 7:04:17.914586
+2025-08-12 01:20:52,940 - INFO - Ciclo de estabilidade #228
+2025-08-12 01:20:54,993 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 01:20:54,999 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 01:21:55,001 - INFO - Tempo restante: 7:03:15.853188
+2025-08-12 01:21:55,002 - INFO - Ciclo de estabilidade #229
+2025-08-12 01:21:57,069 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 01:21:57,074 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:22:57,075 - INFO - Tempo restante: 7:02:13.779834
+2025-08-12 01:22:57,075 - INFO - Ciclo de estabilidade #230
+2025-08-12 01:22:59,137 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 01:22:59,142 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:23:59,143 - INFO - Tempo restante: 7:01:11.711734
+2025-08-12 01:23:59,143 - INFO - Ciclo de estabilidade #231
+2025-08-12 01:24:01,184 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 01:24:01,193 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 01:25:01,194 - INFO - Tempo restante: 7:00:09.660481
+2025-08-12 01:25:01,194 - INFO - Ciclo de estabilidade #232
+2025-08-12 01:25:03,249 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 01:25:03,253 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:26:03,256 - INFO - Tempo restante: 6:59:07.598403
+2025-08-12 01:26:03,256 - INFO - Ciclo de estabilidade #233
+2025-08-12 01:26:05,301 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 01:26:05,305 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:27:05,305 - INFO - Tempo restante: 6:58:05.549104
+2025-08-12 01:27:05,306 - INFO - Ciclo de estabilidade #234
+2025-08-12 01:27:07,346 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 01:27:07,360 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 01:28:07,363 - INFO - Tempo restante: 6:57:03.491324
+2025-08-12 01:28:07,364 - INFO - Ciclo de estabilidade #235
+2025-08-12 01:28:09,416 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 01:28:09,420 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:29:09,420 - INFO - Tempo restante: 6:56:01.434000
+2025-08-12 01:29:09,421 - INFO - Ciclo de estabilidade #236
+2025-08-12 01:29:11,470 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 01:29:11,476 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 01:30:11,477 - INFO - Tempo restante: 6:54:59.377367
+2025-08-12 01:30:11,477 - INFO - Ciclo de estabilidade #237
+2025-08-12 01:30:13,518 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 01:30:13,522 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:31:13,522 - INFO - Tempo restante: 6:53:57.332049
+2025-08-12 01:31:13,523 - INFO - Ciclo de estabilidade #238
+2025-08-12 01:31:15,585 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 01:31:15,593 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 01:32:15,597 - INFO - Tempo restante: 6:52:55.257048
+2025-08-12 01:32:15,598 - INFO - Ciclo de estabilidade #239
+2025-08-12 01:32:17,630 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.03s)
+2025-08-12 01:32:17,634 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:33:17,635 - INFO - Tempo restante: 6:51:53.219801
+2025-08-12 01:33:17,635 - INFO - Ciclo de estabilidade #240
+2025-08-12 01:33:19,694 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 01:33:19,697 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:34:19,699 - INFO - Tempo restante: 6:50:51.155486
+2025-08-12 01:34:19,699 - INFO - Ciclo de estabilidade #241
+2025-08-12 01:34:21,730 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.03s)
+2025-08-12 01:34:21,734 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:35:21,735 - INFO - Tempo restante: 6:49:49.119487
+2025-08-12 01:35:21,735 - INFO - Ciclo de estabilidade #242
+2025-08-12 01:35:23,779 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 01:35:23,783 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:36:23,783 - INFO - Tempo restante: 6:48:47.071024
+2025-08-12 01:36:23,784 - INFO - Ciclo de estabilidade #243
+2025-08-12 01:36:25,847 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 01:36:25,851 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:37:25,852 - INFO - Tempo restante: 6:47:45.002379
+2025-08-12 01:37:25,853 - INFO - Ciclo de estabilidade #244
+2025-08-12 01:37:27,909 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 01:37:27,914 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:38:27,915 - INFO - Tempo restante: 6:46:42.939466
+2025-08-12 01:38:27,915 - INFO - Ciclo de estabilidade #245
+2025-08-12 01:38:29,987 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 01:38:30,003 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-12 01:39:30,004 - INFO - Tempo restante: 6:45:40.850387
+2025-08-12 01:39:30,004 - INFO - Ciclo de estabilidade #246
+2025-08-12 01:39:32,047 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 01:39:32,051 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:40:32,052 - INFO - Tempo restante: 6:44:38.802553
+2025-08-12 01:40:32,052 - INFO - Ciclo de estabilidade #247
+2025-08-12 01:40:34,094 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 01:40:34,121 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.03s)
+2025-08-12 01:41:34,122 - INFO - Tempo restante: 6:43:36.732881
+2025-08-12 01:41:34,122 - INFO - Ciclo de estabilidade #248
+2025-08-12 01:41:36,190 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 01:41:36,194 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:42:36,194 - INFO - Tempo restante: 6:42:34.660242
+2025-08-12 01:42:36,198 - INFO - Ciclo de estabilidade #249
+2025-08-12 01:42:38,251 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 01:42:38,255 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:43:38,256 - INFO - Tempo restante: 6:41:32.598483
+2025-08-12 01:43:38,256 - INFO - Ciclo de estabilidade #250
+2025-08-12 01:43:40,298 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 01:43:40,303 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:44:40,303 - INFO - Tempo restante: 6:40:30.551274
+2025-08-12 01:44:40,304 - INFO - Ciclo de estabilidade #251
+2025-08-12 01:44:42,357 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 01:44:42,360 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:45:42,361 - INFO - Tempo restante: 6:39:28.493563
+2025-08-12 01:45:42,361 - INFO - Ciclo de estabilidade #252
+2025-08-12 01:45:44,392 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.03s)
+2025-08-12 01:45:44,396 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:46:44,397 - INFO - Tempo restante: 6:38:26.457536
+2025-08-12 01:46:44,397 - INFO - Ciclo de estabilidade #253
+2025-08-12 01:46:46,441 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 01:46:46,447 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 01:47:46,448 - INFO - Tempo restante: 6:37:24.406902
+2025-08-12 01:47:46,448 - INFO - Ciclo de estabilidade #254
+2025-08-12 01:47:48,516 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 01:47:48,520 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:48:48,521 - INFO - Tempo restante: 6:36:22.333067
+2025-08-12 01:48:48,522 - INFO - Ciclo de estabilidade #255
+2025-08-12 01:48:50,567 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 01:48:50,574 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 01:49:50,576 - INFO - Tempo restante: 6:35:20.278425
+2025-08-12 01:49:50,576 - INFO - Ciclo de estabilidade #256
+2025-08-12 01:49:52,618 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 01:49:52,633 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 01:50:52,634 - INFO - Tempo restante: 6:34:18.220718
+2025-08-12 01:50:52,634 - INFO - Ciclo de estabilidade #257
+2025-08-12 01:50:54,684 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 01:50:54,689 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:51:54,690 - INFO - Tempo restante: 6:33:16.164842
+2025-08-12 01:51:54,690 - INFO - Ciclo de estabilidade #258
+2025-08-12 01:51:56,725 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.03s)
+2025-08-12 01:51:56,729 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:52:56,730 - INFO - Tempo restante: 6:32:14.124546
+2025-08-12 01:52:56,730 - INFO - Ciclo de estabilidade #259
+2025-08-12 01:52:58,772 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 01:52:58,775 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:53:58,776 - INFO - Tempo restante: 6:31:12.078451
+2025-08-12 01:53:58,776 - INFO - Ciclo de estabilidade #260
+2025-08-12 01:54:00,837 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 01:54:00,843 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:55:00,843 - INFO - Tempo restante: 6:30:10.011133
+2025-08-12 01:55:00,844 - INFO - Ciclo de estabilidade #261
+2025-08-12 01:55:02,884 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 01:55:02,889 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:56:02,890 - INFO - Tempo restante: 6:29:07.964597
+2025-08-12 01:56:02,890 - INFO - Ciclo de estabilidade #262
+2025-08-12 01:56:04,940 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 01:56:04,944 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:57:04,945 - INFO - Tempo restante: 6:28:05.909352
+2025-08-12 01:57:04,946 - INFO - Ciclo de estabilidade #263
+2025-08-12 01:57:07,002 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 01:57:07,017 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 01:58:07,018 - INFO - Tempo restante: 6:27:03.836798
+2025-08-12 01:58:07,018 - INFO - Ciclo de estabilidade #264
+2025-08-12 01:58:09,085 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 01:58:09,089 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 01:59:09,090 - INFO - Tempo restante: 6:26:01.764774
+2025-08-12 01:59:09,090 - INFO - Ciclo de estabilidade #265
+2025-08-12 01:59:11,132 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 01:59:11,135 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:00:11,136 - INFO - Tempo restante: 6:24:59.718510
+2025-08-12 02:00:11,136 - INFO - Ciclo de estabilidade #266
+2025-08-12 02:00:13,176 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 02:00:13,180 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:01:13,181 - INFO - Tempo restante: 6:23:57.673157
+2025-08-12 02:01:13,182 - INFO - Ciclo de estabilidade #267
+2025-08-12 02:01:15,255 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 02:01:15,259 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:02:15,260 - INFO - Tempo restante: 6:22:55.594411
+2025-08-12 02:02:15,261 - INFO - Ciclo de estabilidade #268
+2025-08-12 02:02:17,330 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 02:02:17,346 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-12 02:03:17,347 - INFO - Tempo restante: 6:21:53.507798
+2025-08-12 02:03:17,347 - INFO - Ciclo de estabilidade #269
+2025-08-12 02:03:19,408 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 02:03:19,412 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:04:19,413 - INFO - Tempo restante: 6:20:51.441283
+2025-08-12 02:04:19,414 - INFO - Ciclo de estabilidade #270
+2025-08-12 02:04:21,471 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 02:04:21,475 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:05:21,478 - INFO - Tempo restante: 6:19:49.376779
+2025-08-12 02:05:21,478 - INFO - Ciclo de estabilidade #271
+2025-08-12 02:05:23,519 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 02:05:23,523 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:06:23,524 - INFO - Tempo restante: 6:18:47.330629
+2025-08-12 02:06:23,524 - INFO - Ciclo de estabilidade #272
+2025-08-12 02:06:25,575 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 02:06:25,580 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:07:25,581 - INFO - Tempo restante: 6:17:45.273429
+2025-08-12 02:07:25,581 - INFO - Ciclo de estabilidade #273
+2025-08-12 02:07:27,652 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 02:07:27,656 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:08:27,657 - INFO - Tempo restante: 6:16:43.197299
+2025-08-12 02:08:27,658 - INFO - Ciclo de estabilidade #274
+2025-08-12 02:08:29,711 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 02:08:29,715 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:09:29,716 - INFO - Tempo restante: 6:15:41.138284
+2025-08-12 02:09:29,717 - INFO - Ciclo de estabilidade #275
+2025-08-12 02:09:31,771 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 02:09:31,776 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:10:31,776 - INFO - Tempo restante: 6:14:39.078090
+2025-08-12 02:10:31,777 - INFO - Ciclo de estabilidade #276
+2025-08-12 02:10:33,816 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 02:10:33,820 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:11:33,821 - INFO - Tempo restante: 6:13:37.033964
+2025-08-12 02:11:33,821 - INFO - Ciclo de estabilidade #277
+2025-08-12 02:11:35,870 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 02:11:35,874 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:12:35,874 - INFO - Tempo restante: 6:12:34.980017
+2025-08-12 02:12:35,875 - INFO - Ciclo de estabilidade #278
+2025-08-12 02:12:37,923 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 02:12:37,927 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:13:37,928 - INFO - Tempo restante: 6:11:32.926308
+2025-08-12 02:13:37,929 - INFO - Ciclo de estabilidade #279
+2025-08-12 02:13:39,966 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 02:13:39,973 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 02:14:39,977 - INFO - Tempo restante: 6:10:30.877278
+2025-08-12 02:14:39,978 - INFO - Ciclo de estabilidade #280
+2025-08-12 02:14:42,016 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 02:14:42,019 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:15:42,020 - INFO - Tempo restante: 6:09:28.834126
+2025-08-12 02:15:42,021 - INFO - Ciclo de estabilidade #281
+2025-08-12 02:15:44,072 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 02:15:44,076 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:16:44,077 - INFO - Tempo restante: 6:08:26.777784
+2025-08-12 02:16:44,077 - INFO - Ciclo de estabilidade #282
+2025-08-12 02:16:46,127 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 02:16:46,131 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:17:46,132 - INFO - Tempo restante: 6:07:24.722444
+2025-08-12 02:17:46,132 - INFO - Ciclo de estabilidade #283
+2025-08-12 02:17:48,185 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 02:17:48,189 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:18:48,190 - INFO - Tempo restante: 6:06:22.664405
+2025-08-12 02:18:48,190 - INFO - Ciclo de estabilidade #284
+2025-08-12 02:18:50,228 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 02:18:50,232 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:19:50,233 - INFO - Tempo restante: 6:05:20.621100
+2025-08-12 02:19:50,234 - INFO - Ciclo de estabilidade #285
+2025-08-12 02:19:52,289 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 02:19:52,293 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:20:52,293 - INFO - Tempo restante: 6:04:18.561316
+2025-08-12 02:20:52,294 - INFO - Ciclo de estabilidade #286
+2025-08-12 02:20:54,348 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 02:20:54,352 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:21:54,353 - INFO - Tempo restante: 6:03:16.501947
+2025-08-12 02:21:54,353 - INFO - Ciclo de estabilidade #287
+2025-08-12 02:21:56,403 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 02:21:56,409 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 02:22:56,410 - INFO - Tempo restante: 6:02:14.444738
+2025-08-12 02:22:56,410 - INFO - Ciclo de estabilidade #288
+2025-08-12 02:22:58,473 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 02:22:58,489 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 02:23:58,490 - INFO - Tempo restante: 6:01:12.364413
+2025-08-12 02:23:58,490 - INFO - Ciclo de estabilidade #289
+2025-08-12 02:24:00,538 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 02:24:00,542 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:25:00,543 - INFO - Tempo restante: 6:00:10.311742
+2025-08-12 02:25:00,543 - INFO - Ciclo de estabilidade #290
+2025-08-12 02:25:02,585 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 02:25:02,589 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:26:02,590 - INFO - Tempo restante: 5:59:08.264508
+2025-08-12 02:26:02,590 - INFO - Ciclo de estabilidade #291
+2025-08-12 02:26:04,641 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 02:26:04,645 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:27:04,646 - INFO - Tempo restante: 5:58:06.208642
+2025-08-12 02:27:04,646 - INFO - Ciclo de estabilidade #292
+2025-08-12 02:27:06,695 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 02:27:06,698 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:28:06,699 - INFO - Tempo restante: 5:57:04.155426
+2025-08-12 02:28:06,699 - INFO - Ciclo de estabilidade #293
+2025-08-12 02:28:08,750 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 02:28:08,765 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-12 02:29:08,766 - INFO - Tempo restante: 5:56:02.088122
+2025-08-12 02:29:08,767 - INFO - Ciclo de estabilidade #294
+2025-08-12 02:29:10,819 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 02:29:10,824 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:30:10,828 - INFO - Tempo restante: 5:55:00.026873
+2025-08-12 02:30:10,828 - INFO - Ciclo de estabilidade #295
+2025-08-12 02:30:12,885 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 02:30:12,901 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 02:31:12,901 - INFO - Tempo restante: 5:53:57.953014
+2025-08-12 02:31:12,902 - INFO - Ciclo de estabilidade #296
+2025-08-12 02:31:14,946 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 02:31:14,954 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 02:32:14,954 - INFO - Tempo restante: 5:52:55.900146
+2025-08-12 02:32:14,955 - INFO - Ciclo de estabilidade #297
+2025-08-12 02:32:16,997 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 02:32:17,001 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:33:17,002 - INFO - Tempo restante: 5:51:53.852900
+2025-08-12 02:33:17,002 - INFO - Ciclo de estabilidade #298
+2025-08-12 02:33:19,041 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 02:33:19,045 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:34:19,046 - INFO - Tempo restante: 5:50:51.808879
+2025-08-12 02:34:19,046 - INFO - Ciclo de estabilidade #299
+2025-08-12 02:34:21,110 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 02:34:21,114 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:35:21,115 - INFO - Tempo restante: 5:49:49.739353
+2025-08-12 02:35:21,115 - INFO - Ciclo de estabilidade #300
+2025-08-12 02:35:23,153 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 02:35:23,157 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:36:23,158 - INFO - Tempo restante: 5:48:47.696852
+2025-08-12 02:36:23,158 - INFO - Ciclo de estabilidade #301
+2025-08-12 02:36:25,225 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 02:36:25,229 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:37:25,230 - INFO - Tempo restante: 5:47:45.624892
+2025-08-12 02:37:25,230 - INFO - Ciclo de estabilidade #302
+2025-08-12 02:37:27,290 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 02:37:27,296 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 02:38:27,297 - INFO - Tempo restante: 5:46:43.557990
+2025-08-12 02:38:27,297 - INFO - Ciclo de estabilidade #303
+2025-08-12 02:38:29,348 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 02:38:29,352 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:39:29,352 - INFO - Tempo restante: 5:45:41.502066
+2025-08-12 02:39:29,353 - INFO - Ciclo de estabilidade #304
+2025-08-12 02:39:31,395 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 02:39:31,410 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 02:40:31,411 - INFO - Tempo restante: 5:44:39.443807
+2025-08-12 02:40:31,411 - INFO - Ciclo de estabilidade #305
+2025-08-12 02:40:33,472 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 02:40:33,476 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:41:33,477 - INFO - Tempo restante: 5:43:37.377399
+2025-08-12 02:41:33,477 - INFO - Ciclo de estabilidade #306
+2025-08-12 02:41:35,511 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.03s)
+2025-08-12 02:41:35,517 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:42:35,518 - INFO - Tempo restante: 5:42:35.336315
+2025-08-12 02:42:35,519 - INFO - Ciclo de estabilidade #307
+2025-08-12 02:42:37,577 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 02:42:37,581 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:43:37,582 - INFO - Tempo restante: 5:41:33.272537
+2025-08-12 02:43:37,582 - INFO - Ciclo de estabilidade #308
+2025-08-12 02:43:39,628 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 02:43:39,632 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:44:39,632 - INFO - Tempo restante: 5:40:31.222358
+2025-08-12 02:44:39,633 - INFO - Ciclo de estabilidade #309
+2025-08-12 02:44:41,697 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 02:44:41,701 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:45:41,702 - INFO - Tempo restante: 5:39:29.152516
+2025-08-12 02:45:41,702 - INFO - Ciclo de estabilidade #310
+2025-08-12 02:45:43,771 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 02:45:43,776 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:46:43,777 - INFO - Tempo restante: 5:38:27.077693
+2025-08-12 02:46:43,777 - INFO - Ciclo de estabilidade #311
+2025-08-12 02:46:45,810 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.03s)
+2025-08-12 02:46:45,813 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:47:45,814 - INFO - Tempo restante: 5:37:25.040537
+2025-08-12 02:47:45,814 - INFO - Ciclo de estabilidade #312
+2025-08-12 02:47:47,860 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 02:47:47,864 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:48:47,865 - INFO - Tempo restante: 5:36:22.989860
+2025-08-12 02:48:47,865 - INFO - Ciclo de estabilidade #313
+2025-08-12 02:48:49,910 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 02:48:49,913 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:49:49,914 - INFO - Tempo restante: 5:35:20.940247
+2025-08-12 02:49:49,915 - INFO - Ciclo de estabilidade #314
+2025-08-12 02:49:51,965 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 02:49:51,970 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:50:51,971 - INFO - Tempo restante: 5:34:18.883622
+2025-08-12 02:50:51,971 - INFO - Ciclo de estabilidade #315
+2025-08-12 02:50:54,017 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 02:50:54,032 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 02:51:54,033 - INFO - Tempo restante: 5:33:16.821799
+2025-08-12 02:51:54,033 - INFO - Ciclo de estabilidade #316
+2025-08-12 02:51:56,087 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 02:51:56,093 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 02:52:56,093 - INFO - Tempo restante: 5:32:14.761063
+2025-08-12 02:52:56,094 - INFO - Ciclo de estabilidade #317
+2025-08-12 02:52:58,143 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 02:52:58,147 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:53:58,148 - INFO - Tempo restante: 5:31:12.706399
+2025-08-12 02:53:58,148 - INFO - Ciclo de estabilidade #318
+2025-08-12 02:54:00,208 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 02:54:00,225 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-12 02:55:00,226 - INFO - Tempo restante: 5:30:10.628533
+2025-08-12 02:55:00,226 - INFO - Ciclo de estabilidade #319
+2025-08-12 02:55:02,269 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 02:55:02,275 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 02:56:02,276 - INFO - Tempo restante: 5:29:08.578094
+2025-08-12 02:56:02,277 - INFO - Ciclo de estabilidade #320
+2025-08-12 02:56:04,329 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 02:56:04,333 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:57:04,334 - INFO - Tempo restante: 5:28:06.520416
+2025-08-12 02:57:04,335 - INFO - Ciclo de estabilidade #321
+2025-08-12 02:57:06,390 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 02:57:06,396 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:58:06,396 - INFO - Tempo restante: 5:27:04.458105
+2025-08-12 02:58:06,397 - INFO - Ciclo de estabilidade #322
+2025-08-12 02:58:08,460 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 02:58:08,465 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 02:59:08,466 - INFO - Tempo restante: 5:26:02.388512
+2025-08-12 02:59:08,466 - INFO - Ciclo de estabilidade #323
+2025-08-12 02:59:10,518 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 02:59:10,522 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:00:10,522 - INFO - Tempo restante: 5:25:00.332020
+2025-08-12 03:00:10,523 - INFO - Ciclo de estabilidade #324
+2025-08-12 03:00:12,571 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 03:00:12,575 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:01:12,576 - INFO - Tempo restante: 5:23:58.278507
+2025-08-12 03:01:12,576 - INFO - Ciclo de estabilidade #325
+2025-08-12 03:01:14,621 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 03:01:14,625 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:02:14,626 - INFO - Tempo restante: 5:22:56.228934
+2025-08-12 03:02:14,629 - INFO - Ciclo de estabilidade #326
+2025-08-12 03:02:16,690 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 03:02:16,700 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 03:03:16,713 - INFO - Tempo restante: 5:21:54.141072
+2025-08-12 03:03:16,714 - INFO - Ciclo de estabilidade #327
+2025-08-12 03:03:18,763 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 03:03:18,767 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:04:18,768 - INFO - Tempo restante: 5:20:52.086339
+2025-08-12 03:04:18,769 - INFO - Ciclo de estabilidade #328
+2025-08-12 03:04:20,814 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 03:04:20,819 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:05:20,819 - INFO - Tempo restante: 5:19:50.035231
+2025-08-12 03:05:20,820 - INFO - Ciclo de estabilidade #329
+2025-08-12 03:05:22,884 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 03:05:22,888 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:06:22,888 - INFO - Tempo restante: 5:18:47.966194
+2025-08-12 03:06:22,889 - INFO - Ciclo de estabilidade #330
+2025-08-12 03:06:24,948 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 03:06:24,952 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:07:24,953 - INFO - Tempo restante: 5:17:45.901604
+2025-08-12 03:07:24,953 - INFO - Ciclo de estabilidade #331
+2025-08-12 03:07:26,999 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 03:07:27,003 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:08:27,004 - INFO - Tempo restante: 5:16:43.850515
+2025-08-12 03:08:27,004 - INFO - Ciclo de estabilidade #332
+2025-08-12 03:08:29,070 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 03:08:29,075 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:09:29,076 - INFO - Tempo restante: 5:15:41.778943
+2025-08-12 03:09:29,076 - INFO - Ciclo de estabilidade #333
+2025-08-12 03:09:31,136 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 03:09:31,140 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:10:31,141 - INFO - Tempo restante: 5:14:39.713471
+2025-08-12 03:10:31,141 - INFO - Ciclo de estabilidade #334
+2025-08-12 03:10:33,183 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 03:10:33,189 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:11:33,190 - INFO - Tempo restante: 5:13:37.664916
+2025-08-12 03:11:33,190 - INFO - Ciclo de estabilidade #335
+2025-08-12 03:11:35,231 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 03:11:35,235 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:12:35,236 - INFO - Tempo restante: 5:12:35.618364
+2025-08-12 03:12:35,236 - INFO - Ciclo de estabilidade #336
+2025-08-12 03:12:37,276 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 03:12:37,280 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:13:37,281 - INFO - Tempo restante: 5:11:33.573405
+2025-08-12 03:13:37,282 - INFO - Ciclo de estabilidade #337
+2025-08-12 03:13:39,349 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 03:13:39,353 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:14:39,354 - INFO - Tempo restante: 5:10:31.500313
+2025-08-12 03:14:39,355 - INFO - Ciclo de estabilidade #338
+2025-08-12 03:14:41,397 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 03:14:41,405 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 03:15:41,406 - INFO - Tempo restante: 5:09:29.448832
+2025-08-12 03:15:41,406 - INFO - Ciclo de estabilidade #339
+2025-08-12 03:15:43,460 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 03:15:43,466 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:16:43,466 - INFO - Tempo restante: 5:08:27.388181
+2025-08-12 03:16:43,467 - INFO - Ciclo de estabilidade #340
+2025-08-12 03:16:45,511 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 03:16:45,519 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 03:17:45,522 - INFO - Tempo restante: 5:07:25.332972
+2025-08-12 03:17:45,522 - INFO - Ciclo de estabilidade #341
+2025-08-12 03:17:47,575 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 03:17:47,580 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:18:47,582 - INFO - Tempo restante: 5:06:23.272835
+2025-08-12 03:18:47,582 - INFO - Ciclo de estabilidade #342
+2025-08-12 03:18:49,642 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 03:18:49,658 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-12 03:19:49,658 - INFO - Tempo restante: 5:05:21.196081
+2025-08-12 03:19:49,659 - INFO - Ciclo de estabilidade #343
+2025-08-12 03:19:51,685 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.03s)
+2025-08-12 03:19:51,714 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.03s)
+2025-08-12 03:20:51,715 - INFO - Tempo restante: 5:04:19.139300
+2025-08-12 03:20:51,716 - INFO - Ciclo de estabilidade #344
+2025-08-12 03:20:53,764 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 03:20:53,768 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:21:53,769 - INFO - Tempo restante: 5:03:17.085648
+2025-08-12 03:21:53,769 - INFO - Ciclo de estabilidade #345
+2025-08-12 03:21:55,821 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 03:21:55,825 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:22:55,826 - INFO - Tempo restante: 5:02:15.028605
+2025-08-12 03:22:55,826 - INFO - Ciclo de estabilidade #346
+2025-08-12 03:22:57,876 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 03:22:57,882 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 03:23:57,886 - INFO - Tempo restante: 5:01:12.968779
+2025-08-12 03:23:57,886 - INFO - Ciclo de estabilidade #347
+2025-08-12 03:23:59,947 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 03:23:59,951 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:24:59,952 - INFO - Tempo restante: 5:00:10.902688
+2025-08-12 03:24:59,952 - INFO - Ciclo de estabilidade #348
+2025-08-12 03:25:02,001 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 03:25:02,005 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:26:02,006 - INFO - Tempo restante: 4:59:08.848129
+2025-08-12 03:26:02,007 - INFO - Ciclo de estabilidade #349
+2025-08-12 03:26:04,041 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.03s)
+2025-08-12 03:26:04,044 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:27:04,045 - INFO - Tempo restante: 4:58:06.809614
+2025-08-12 03:27:04,045 - INFO - Ciclo de estabilidade #350
+2025-08-12 03:27:06,078 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.03s)
+2025-08-12 03:27:06,081 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:28:06,082 - INFO - Tempo restante: 4:57:04.772553
+2025-08-12 03:28:06,082 - INFO - Ciclo de estabilidade #351
+2025-08-12 03:28:08,151 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 03:28:08,155 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:29:08,156 - INFO - Tempo restante: 4:56:02.698571
+2025-08-12 03:29:08,156 - INFO - Ciclo de estabilidade #352
+2025-08-12 03:29:10,202 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 03:29:10,206 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:30:10,207 - INFO - Tempo restante: 4:55:00.647920
+2025-08-12 03:30:10,207 - INFO - Ciclo de estabilidade #353
+2025-08-12 03:30:12,248 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 03:30:12,251 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:31:12,252 - INFO - Tempo restante: 4:53:58.602398
+2025-08-12 03:31:12,252 - INFO - Ciclo de estabilidade #354
+2025-08-12 03:31:14,286 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.03s)
+2025-08-12 03:31:14,292 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 03:32:14,294 - INFO - Tempo restante: 4:52:56.561383
+2025-08-12 03:32:14,294 - INFO - Ciclo de estabilidade #355
+2025-08-12 03:32:16,333 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 03:32:16,338 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:33:16,339 - INFO - Tempo restante: 4:51:54.515422
+2025-08-12 03:33:16,339 - INFO - Ciclo de estabilidade #356
+2025-08-12 03:33:18,413 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 03:33:18,417 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:34:18,418 - INFO - Tempo restante: 4:50:52.436689
+2025-08-12 03:34:18,418 - INFO - Ciclo de estabilidade #357
+2025-08-12 03:34:20,460 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 03:34:20,463 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:35:20,464 - INFO - Tempo restante: 4:49:50.390835
+2025-08-12 03:35:20,464 - INFO - Ciclo de estabilidade #358
+2025-08-12 03:35:22,512 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 03:35:22,516 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:36:22,517 - INFO - Tempo restante: 4:48:48.337534
+2025-08-12 03:36:22,517 - INFO - Ciclo de estabilidade #359
+2025-08-12 03:36:24,557 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 03:36:24,563 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:37:24,564 - INFO - Tempo restante: 4:47:46.290360
+2025-08-12 03:37:24,564 - INFO - Ciclo de estabilidade #360
+2025-08-12 03:37:26,604 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 03:37:26,608 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:38:26,609 - INFO - Tempo restante: 4:46:44.245363
+2025-08-12 03:38:26,609 - INFO - Ciclo de estabilidade #361
+2025-08-12 03:38:28,665 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 03:38:28,680 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 03:39:28,681 - INFO - Tempo restante: 4:45:42.173171
+2025-08-12 03:39:28,682 - INFO - Ciclo de estabilidade #362
+2025-08-12 03:39:30,725 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 03:39:30,729 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:40:30,730 - INFO - Tempo restante: 4:44:40.124493
+2025-08-12 03:40:30,730 - INFO - Ciclo de estabilidade #363
+2025-08-12 03:40:32,771 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 03:40:32,775 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:41:32,776 - INFO - Tempo restante: 4:43:38.078811
+2025-08-12 03:41:32,776 - INFO - Ciclo de estabilidade #364
+2025-08-12 03:41:34,820 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 03:41:34,824 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:42:34,825 - INFO - Tempo restante: 4:42:36.029428
+2025-08-12 03:42:34,825 - INFO - Ciclo de estabilidade #365
+2025-08-12 03:42:36,880 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 03:42:36,887 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 03:43:36,888 - INFO - Tempo restante: 4:41:33.966097
+2025-08-12 03:43:36,889 - INFO - Ciclo de estabilidade #366
+2025-08-12 03:43:38,941 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 03:43:38,947 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:44:38,947 - INFO - Tempo restante: 4:40:31.907019
+2025-08-12 03:44:38,948 - INFO - Ciclo de estabilidade #367
+2025-08-12 03:44:41,001 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 03:44:41,005 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:45:41,006 - INFO - Tempo restante: 4:39:29.848665
+2025-08-12 03:45:41,006 - INFO - Ciclo de estabilidade #368
+2025-08-12 03:45:43,053 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 03:45:43,057 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:46:43,058 - INFO - Tempo restante: 4:38:27.796921
+2025-08-12 03:46:43,058 - INFO - Ciclo de estabilidade #369
+2025-08-12 03:46:45,107 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 03:46:45,138 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.03s)
+2025-08-12 03:47:45,138 - INFO - Tempo restante: 4:37:25.716072
+2025-08-12 03:47:45,139 - INFO - Ciclo de estabilidade #370
+2025-08-12 03:47:47,189 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 03:47:47,193 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:48:47,194 - INFO - Tempo restante: 4:36:23.660341
+2025-08-12 03:48:47,194 - INFO - Ciclo de estabilidade #371
+2025-08-12 03:48:49,242 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 03:48:49,258 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-12 03:49:49,258 - INFO - Tempo restante: 4:35:21.596336
+2025-08-12 03:49:49,259 - INFO - Ciclo de estabilidade #372
+2025-08-12 03:49:51,317 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 03:49:51,322 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:50:51,322 - INFO - Tempo restante: 4:34:19.532035
+2025-08-12 03:50:51,323 - INFO - Ciclo de estabilidade #373
+2025-08-12 03:50:53,367 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 03:50:53,372 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:51:53,373 - INFO - Tempo restante: 4:33:17.481611
+2025-08-12 03:51:53,373 - INFO - Ciclo de estabilidade #374
+2025-08-12 03:51:55,415 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 03:51:55,418 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:52:55,419 - INFO - Tempo restante: 4:32:15.435494
+2025-08-12 03:52:55,419 - INFO - Ciclo de estabilidade #375
+2025-08-12 03:52:57,448 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.03s)
+2025-08-12 03:52:57,478 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.03s)
+2025-08-12 03:53:57,479 - INFO - Tempo restante: 4:31:13.375099
+2025-08-12 03:53:57,480 - INFO - Ciclo de estabilidade #376
+2025-08-12 03:53:59,514 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.03s)
+2025-08-12 03:53:59,518 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:54:59,519 - INFO - Tempo restante: 4:30:11.335402
+2025-08-12 03:54:59,519 - INFO - Ciclo de estabilidade #377
+2025-08-12 03:55:01,573 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 03:55:01,578 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:56:01,580 - INFO - Tempo restante: 4:29:09.274925
+2025-08-12 03:56:01,580 - INFO - Ciclo de estabilidade #378
+2025-08-12 03:56:03,646 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 03:56:03,650 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:57:03,651 - INFO - Tempo restante: 4:28:07.203968
+2025-08-12 03:57:03,651 - INFO - Ciclo de estabilidade #379
+2025-08-12 03:57:05,701 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 03:57:05,707 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 03:58:05,708 - INFO - Tempo restante: 4:27:05.146328
+2025-08-12 03:58:05,709 - INFO - Ciclo de estabilidade #380
+2025-08-12 03:58:07,774 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 03:58:07,778 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 03:59:07,779 - INFO - Tempo restante: 4:26:03.075490
+2025-08-12 03:59:07,779 - INFO - Ciclo de estabilidade #381
+2025-08-12 03:59:09,833 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 03:59:09,836 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:00:09,837 - INFO - Tempo restante: 4:25:01.017692
+2025-08-12 04:00:09,837 - INFO - Ciclo de estabilidade #382
+2025-08-12 04:00:11,878 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 04:00:11,883 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:01:11,883 - INFO - Tempo restante: 4:23:58.970980
+2025-08-12 04:01:11,884 - INFO - Ciclo de estabilidade #383
+2025-08-12 04:01:13,966 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.08s)
+2025-08-12 04:01:13,970 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:02:13,971 - INFO - Tempo restante: 4:22:56.883639
+2025-08-12 04:02:13,971 - INFO - Ciclo de estabilidade #384
+2025-08-12 04:02:15,992 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.02s)
+2025-08-12 04:02:15,997 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:03:15,997 - INFO - Tempo restante: 4:21:54.856979
+2025-08-12 04:03:15,998 - INFO - Ciclo de estabilidade #385
+2025-08-12 04:03:18,057 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 04:03:18,061 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:04:18,062 - INFO - Tempo restante: 4:20:52.792685
+2025-08-12 04:04:18,062 - INFO - Ciclo de estabilidade #386
+2025-08-12 04:04:20,115 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 04:04:20,119 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:05:20,120 - INFO - Tempo restante: 4:19:50.734543
+2025-08-12 04:05:20,120 - INFO - Ciclo de estabilidade #387
+2025-08-12 04:05:22,176 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 04:05:22,180 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:06:22,181 - INFO - Tempo restante: 4:18:48.673222
+2025-08-12 04:06:22,182 - INFO - Ciclo de estabilidade #388
+2025-08-12 04:06:24,230 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 04:06:24,235 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:07:24,238 - INFO - Tempo restante: 4:17:46.616751
+2025-08-12 04:07:24,238 - INFO - Ciclo de estabilidade #389
+2025-08-12 04:07:26,277 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 04:07:26,281 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:08:26,282 - INFO - Tempo restante: 4:16:44.572571
+2025-08-12 04:08:26,282 - INFO - Ciclo de estabilidade #390
+2025-08-12 04:08:28,327 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 04:08:28,331 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:09:28,332 - INFO - Tempo restante: 4:15:42.522706
+2025-08-12 04:09:28,332 - INFO - Ciclo de estabilidade #391
+2025-08-12 04:09:30,393 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 04:09:30,397 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:10:30,398 - INFO - Tempo restante: 4:14:40.456213
+2025-08-12 04:10:30,399 - INFO - Ciclo de estabilidade #392
+2025-08-12 04:10:32,457 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 04:10:32,461 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:11:32,462 - INFO - Tempo restante: 4:13:38.392509
+2025-08-12 04:11:32,462 - INFO - Ciclo de estabilidade #393
+2025-08-12 04:11:34,502 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 04:11:34,506 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:12:34,507 - INFO - Tempo restante: 4:12:36.347713
+2025-08-12 04:12:34,507 - INFO - Ciclo de estabilidade #394
+2025-08-12 04:12:36,565 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 04:12:36,569 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:13:36,570 - INFO - Tempo restante: 4:11:34.284701
+2025-08-12 04:13:36,570 - INFO - Ciclo de estabilidade #395
+2025-08-12 04:13:38,629 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 04:13:38,633 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:14:38,634 - INFO - Tempo restante: 4:10:32.220622
+2025-08-12 04:14:38,634 - INFO - Ciclo de estabilidade #396
+2025-08-12 04:14:40,682 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 04:14:40,688 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 04:15:40,688 - INFO - Tempo restante: 4:09:30.166067
+2025-08-12 04:15:40,689 - INFO - Ciclo de estabilidade #397
+2025-08-12 04:15:42,736 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 04:15:42,741 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:16:42,741 - INFO - Tempo restante: 4:08:28.113209
+2025-08-12 04:16:42,742 - INFO - Ciclo de estabilidade #398
+2025-08-12 04:16:44,798 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 04:16:44,802 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:17:44,803 - INFO - Tempo restante: 4:07:26.051434
+2025-08-12 04:17:44,803 - INFO - Ciclo de estabilidade #399
+2025-08-12 04:17:46,880 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.08s)
+2025-08-12 04:17:46,884 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:18:46,885 - INFO - Tempo restante: 4:06:23.969686
+2025-08-12 04:18:46,885 - INFO - Ciclo de estabilidade #400
+2025-08-12 04:18:48,935 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 04:18:48,939 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:19:48,940 - INFO - Tempo restante: 4:05:21.914806
+2025-08-12 04:19:48,940 - INFO - Ciclo de estabilidade #401
+2025-08-12 04:19:51,002 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 04:19:51,006 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:20:51,007 - INFO - Tempo restante: 4:04:19.847396
+2025-08-12 04:20:51,007 - INFO - Ciclo de estabilidade #402
+2025-08-12 04:20:53,076 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 04:20:53,080 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:21:53,081 - INFO - Tempo restante: 4:03:17.773635
+2025-08-12 04:21:53,081 - INFO - Ciclo de estabilidade #403
+2025-08-12 04:21:55,119 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 04:21:55,124 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:22:55,126 - INFO - Tempo restante: 4:02:15.728857
+2025-08-12 04:22:55,126 - INFO - Ciclo de estabilidade #404
+2025-08-12 04:22:57,175 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 04:22:57,181 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:23:57,182 - INFO - Tempo restante: 4:01:13.672519
+2025-08-12 04:23:57,182 - INFO - Ciclo de estabilidade #405
+2025-08-12 04:23:59,233 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 04:23:59,237 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:24:59,237 - INFO - Tempo restante: 4:00:11.617022
+2025-08-12 04:24:59,238 - INFO - Ciclo de estabilidade #406
+2025-08-12 04:25:01,283 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 04:25:01,287 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:26:01,287 - INFO - Tempo restante: 3:59:09.567041
+2025-08-12 04:26:01,288 - INFO - Ciclo de estabilidade #407
+2025-08-12 04:26:03,345 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 04:26:03,350 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:27:03,351 - INFO - Tempo restante: 3:58:07.503603
+2025-08-12 04:27:03,351 - INFO - Ciclo de estabilidade #408
+2025-08-12 04:27:05,387 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 04:27:05,393 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:28:05,393 - INFO - Tempo restante: 3:57:05.461072
+2025-08-12 04:28:05,394 - INFO - Ciclo de estabilidade #409
+2025-08-12 04:28:07,436 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 04:28:07,451 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 04:29:07,451 - INFO - Tempo restante: 3:56:03.403028
+2025-08-12 04:29:07,452 - INFO - Ciclo de estabilidade #410
+2025-08-12 04:29:09,482 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.03s)
+2025-08-12 04:29:09,486 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:30:09,487 - INFO - Tempo restante: 3:55:01.367495
+2025-08-12 04:30:09,487 - INFO - Ciclo de estabilidade #411
+2025-08-12 04:30:11,530 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 04:30:11,533 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:31:11,534 - INFO - Tempo restante: 3:53:59.320556
+2025-08-12 04:31:11,534 - INFO - Ciclo de estabilidade #412
+2025-08-12 04:31:13,593 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 04:31:13,597 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:32:13,598 - INFO - Tempo restante: 3:52:57.256566
+2025-08-12 04:32:13,598 - INFO - Ciclo de estabilidade #413
+2025-08-12 04:32:15,645 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 04:32:15,649 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:33:15,650 - INFO - Tempo restante: 3:51:55.204216
+2025-08-12 04:33:15,651 - INFO - Ciclo de estabilidade #414
+2025-08-12 04:33:17,707 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 04:33:17,712 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:34:17,713 - INFO - Tempo restante: 3:50:53.141773
+2025-08-12 04:34:17,713 - INFO - Ciclo de estabilidade #415
+2025-08-12 04:34:19,782 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 04:34:19,786 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:35:19,787 - INFO - Tempo restante: 3:49:51.067705
+2025-08-12 04:35:19,787 - INFO - Ciclo de estabilidade #416
+2025-08-12 04:35:21,821 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.03s)
+2025-08-12 04:35:21,825 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:36:21,825 - INFO - Tempo restante: 3:48:49.029432
+2025-08-12 04:36:21,825 - INFO - Ciclo de estabilidade #417
+2025-08-12 04:36:23,879 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 04:36:23,884 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:37:23,885 - INFO - Tempo restante: 3:47:46.969460
+2025-08-12 04:37:23,885 - INFO - Ciclo de estabilidade #418
+2025-08-12 04:37:25,935 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 04:37:25,939 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:38:25,940 - INFO - Tempo restante: 3:46:44.914007
+2025-08-12 04:38:25,941 - INFO - Ciclo de estabilidade #419
+2025-08-12 04:38:27,981 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 04:38:27,984 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:39:27,985 - INFO - Tempo restante: 3:45:42.869551
+2025-08-12 04:39:27,985 - INFO - Ciclo de estabilidade #420
+2025-08-12 04:39:30,012 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.03s)
+2025-08-12 04:39:30,026 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 04:40:30,027 - INFO - Tempo restante: 3:44:40.827479
+2025-08-12 04:40:30,027 - INFO - Ciclo de estabilidade #421
+2025-08-12 04:40:32,068 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 04:40:32,072 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:41:32,073 - INFO - Tempo restante: 3:43:38.781896
+2025-08-12 04:41:32,073 - INFO - Ciclo de estabilidade #422
+2025-08-12 04:41:34,119 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 04:41:34,123 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:42:34,124 - INFO - Tempo restante: 3:42:36.730856
+2025-08-12 04:42:34,124 - INFO - Ciclo de estabilidade #423
+2025-08-12 04:42:36,167 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 04:42:36,173 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 04:43:36,176 - INFO - Tempo restante: 3:41:34.678952
+2025-08-12 04:43:36,176 - INFO - Ciclo de estabilidade #424
+2025-08-12 04:43:38,211 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 04:43:38,215 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:44:38,216 - INFO - Tempo restante: 3:40:32.638441
+2025-08-12 04:44:38,216 - INFO - Ciclo de estabilidade #425
+2025-08-12 04:44:40,272 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 04:44:40,277 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:45:40,278 - INFO - Tempo restante: 3:39:30.576354
+2025-08-12 04:45:40,278 - INFO - Ciclo de estabilidade #426
+2025-08-12 04:45:42,327 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 04:45:42,331 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:46:42,334 - INFO - Tempo restante: 3:38:28.520792
+2025-08-12 04:46:42,334 - INFO - Ciclo de estabilidade #427
+2025-08-12 04:46:44,385 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 04:46:44,389 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:47:44,390 - INFO - Tempo restante: 3:37:26.464671
+2025-08-12 04:47:44,390 - INFO - Ciclo de estabilidade #428
+2025-08-12 04:47:46,439 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 04:47:46,443 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:48:46,444 - INFO - Tempo restante: 3:36:24.410422
+2025-08-12 04:48:46,444 - INFO - Ciclo de estabilidade #429
+2025-08-12 04:48:48,477 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.03s)
+2025-08-12 04:48:48,492 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 04:49:48,493 - INFO - Tempo restante: 3:35:22.361787
+2025-08-12 04:49:48,493 - INFO - Ciclo de estabilidade #430
+2025-08-12 04:49:50,558 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 04:49:50,563 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:50:50,564 - INFO - Tempo restante: 3:34:20.290385
+2025-08-12 04:50:50,564 - INFO - Ciclo de estabilidade #431
+2025-08-12 04:50:52,609 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 04:50:52,613 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:51:52,613 - INFO - Tempo restante: 3:33:18.241251
+2025-08-12 04:51:52,614 - INFO - Ciclo de estabilidade #432
+2025-08-12 04:51:54,669 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 04:51:54,674 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:52:54,674 - INFO - Tempo restante: 3:32:16.180048
+2025-08-12 04:52:54,675 - INFO - Ciclo de estabilidade #433
+2025-08-12 04:52:56,727 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 04:52:56,730 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:53:56,731 - INFO - Tempo restante: 3:31:14.123548
+2025-08-12 04:53:56,731 - INFO - Ciclo de estabilidade #434
+2025-08-12 04:53:58,785 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 04:53:58,794 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 04:54:58,795 - INFO - Tempo restante: 3:30:12.059807
+2025-08-12 04:54:58,795 - INFO - Ciclo de estabilidade #435
+2025-08-12 04:55:00,836 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 04:55:00,843 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 04:56:00,844 - INFO - Tempo restante: 3:29:10.010645
+2025-08-12 04:56:00,844 - INFO - Ciclo de estabilidade #436
+2025-08-12 04:56:02,894 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 04:56:02,897 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:57:02,898 - INFO - Tempo restante: 3:28:07.956043
+2025-08-12 04:57:02,899 - INFO - Ciclo de estabilidade #437
+2025-08-12 04:57:04,952 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 04:57:04,955 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 04:58:04,956 - INFO - Tempo restante: 3:27:05.898549
+2025-08-12 04:58:04,956 - INFO - Ciclo de estabilidade #438
+2025-08-12 04:58:07,018 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 04:58:07,048 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.03s)
+2025-08-12 04:59:07,049 - INFO - Tempo restante: 3:26:03.805857
+2025-08-12 04:59:07,049 - INFO - Ciclo de estabilidade #439
+2025-08-12 04:59:09,101 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 04:59:09,105 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:00:09,106 - INFO - Tempo restante: 3:25:01.748476
+2025-08-12 05:00:09,106 - INFO - Ciclo de estabilidade #440
+2025-08-12 05:00:11,162 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 05:00:11,169 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 05:01:11,171 - INFO - Tempo restante: 3:23:59.683829
+2025-08-12 05:01:11,171 - INFO - Ciclo de estabilidade #441
+2025-08-12 05:01:13,218 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 05:01:13,222 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:02:13,223 - INFO - Tempo restante: 3:22:57.631271
+2025-08-12 05:02:13,224 - INFO - Ciclo de estabilidade #442
+2025-08-12 05:02:15,268 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 05:02:15,298 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.03s)
+2025-08-12 05:03:15,299 - INFO - Tempo restante: 3:21:55.555282
+2025-08-12 05:03:15,300 - INFO - Ciclo de estabilidade #443
+2025-08-12 05:03:17,353 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 05:03:17,359 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:04:17,360 - INFO - Tempo restante: 3:20:53.494300
+2025-08-12 05:04:17,361 - INFO - Ciclo de estabilidade #444
+2025-08-12 05:04:19,423 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 05:04:19,427 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:05:19,428 - INFO - Tempo restante: 3:19:51.426438
+2025-08-12 05:05:19,428 - INFO - Ciclo de estabilidade #445
+2025-08-12 05:05:21,488 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 05:05:21,492 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:06:21,493 - INFO - Tempo restante: 3:18:49.361517
+2025-08-12 05:06:21,496 - INFO - Ciclo de estabilidade #446
+2025-08-12 05:06:23,544 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 05:06:23,551 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 05:07:23,552 - INFO - Tempo restante: 3:17:47.302545
+2025-08-12 05:07:23,552 - INFO - Ciclo de estabilidade #447
+2025-08-12 05:07:25,610 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 05:07:25,614 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:08:25,614 - INFO - Tempo restante: 3:16:45.240091
+2025-08-12 05:08:25,615 - INFO - Ciclo de estabilidade #448
+2025-08-12 05:08:27,665 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 05:08:27,670 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:09:27,672 - INFO - Tempo restante: 3:15:43.182959
+2025-08-12 05:09:27,672 - INFO - Ciclo de estabilidade #449
+2025-08-12 05:09:29,715 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 05:09:29,719 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:10:29,720 - INFO - Tempo restante: 3:14:41.134882
+2025-08-12 05:10:29,720 - INFO - Ciclo de estabilidade #450
+2025-08-12 05:10:31,764 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 05:10:31,768 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:11:31,769 - INFO - Tempo restante: 3:13:39.085170
+2025-08-12 05:11:31,770 - INFO - Ciclo de estabilidade #451
+2025-08-12 05:11:33,816 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 05:11:33,821 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:12:33,822 - INFO - Tempo restante: 3:12:37.032318
+2025-08-12 05:12:33,823 - INFO - Ciclo de estabilidade #452
+2025-08-12 05:12:35,887 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 05:12:35,903 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-12 05:13:35,904 - INFO - Tempo restante: 3:11:34.950725
+2025-08-12 05:13:35,904 - INFO - Ciclo de estabilidade #453
+2025-08-12 05:13:37,954 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 05:13:37,958 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:14:37,959 - INFO - Tempo restante: 3:10:32.895867
+2025-08-12 05:14:37,959 - INFO - Ciclo de estabilidade #454
+2025-08-12 05:14:40,005 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 05:14:40,009 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:15:40,010 - INFO - Tempo restante: 3:09:30.844174
+2025-08-12 05:15:40,011 - INFO - Ciclo de estabilidade #455
+2025-08-12 05:15:42,049 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 05:15:42,065 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-12 05:16:42,065 - INFO - Tempo restante: 3:08:28.789017
+2025-08-12 05:16:42,066 - INFO - Ciclo de estabilidade #456
+2025-08-12 05:16:44,120 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 05:16:44,124 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:17:44,125 - INFO - Tempo restante: 3:07:26.729963
+2025-08-12 05:17:44,125 - INFO - Ciclo de estabilidade #457
+2025-08-12 05:17:46,190 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 05:17:46,194 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:18:46,194 - INFO - Tempo restante: 3:06:24.660005
+2025-08-12 05:18:46,195 - INFO - Ciclo de estabilidade #458
+2025-08-12 05:18:48,258 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 05:18:48,262 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:19:48,265 - INFO - Tempo restante: 3:05:22.589107
+2025-08-12 05:19:48,266 - INFO - Ciclo de estabilidade #459
+2025-08-12 05:19:50,302 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 05:19:50,308 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:20:50,308 - INFO - Tempo restante: 3:04:20.546288
+2025-08-12 05:20:50,309 - INFO - Ciclo de estabilidade #460
+2025-08-12 05:20:52,350 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 05:20:52,355 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:21:52,356 - INFO - Tempo restante: 3:03:18.498466
+2025-08-12 05:21:52,356 - INFO - Ciclo de estabilidade #461
+2025-08-12 05:21:54,398 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 05:21:54,402 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:22:54,402 - INFO - Tempo restante: 3:02:16.452135
+2025-08-12 05:22:54,403 - INFO - Ciclo de estabilidade #462
+2025-08-12 05:22:56,471 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 05:22:56,487 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.02s)
+2025-08-12 05:23:56,488 - INFO - Tempo restante: 3:01:14.366611
+2025-08-12 05:23:56,488 - INFO - Ciclo de estabilidade #463
+2025-08-12 05:23:58,561 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 05:23:58,565 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:24:58,566 - INFO - Tempo restante: 3:00:12.288761
+2025-08-12 05:24:58,566 - INFO - Ciclo de estabilidade #464
+2025-08-12 05:25:00,622 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 05:25:00,626 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:26:00,627 - INFO - Tempo restante: 2:59:10.227044
+2025-08-12 05:26:00,628 - INFO - Ciclo de estabilidade #465
+2025-08-12 05:26:02,664 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 05:26:02,669 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:27:02,670 - INFO - Tempo restante: 2:58:08.184326
+2025-08-12 05:27:02,671 - INFO - Ciclo de estabilidade #466
+2025-08-12 05:27:04,722 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 05:27:04,727 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:28:04,728 - INFO - Tempo restante: 2:57:06.126958
+2025-08-12 05:28:04,728 - INFO - Ciclo de estabilidade #467
+2025-08-12 05:28:06,781 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 05:28:06,785 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:29:06,785 - INFO - Tempo restante: 2:56:04.069368
+2025-08-12 05:29:06,785 - INFO - Ciclo de estabilidade #468
+2025-08-12 05:29:08,826 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 05:29:08,830 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:30:08,830 - INFO - Tempo restante: 2:55:02.023990
+2025-08-12 05:30:08,831 - INFO - Ciclo de estabilidade #469
+2025-08-12 05:30:10,890 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 05:30:10,894 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:31:10,895 - INFO - Tempo restante: 2:53:59.959323
+2025-08-12 05:31:10,896 - INFO - Ciclo de estabilidade #470
+2025-08-12 05:31:12,934 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 05:31:12,938 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:32:12,939 - INFO - Tempo restante: 2:52:57.915602
+2025-08-12 05:32:12,939 - INFO - Ciclo de estabilidade #471
+2025-08-12 05:32:15,006 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 05:32:15,010 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:33:15,011 - INFO - Tempo restante: 2:51:55.843793
+2025-08-12 05:33:15,011 - INFO - Ciclo de estabilidade #472
+2025-08-12 05:33:17,052 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 05:33:17,056 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:34:17,056 - INFO - Tempo restante: 2:50:53.798356
+2025-08-12 05:34:17,056 - INFO - Ciclo de estabilidade #473
+2025-08-12 05:34:19,102 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 05:34:19,106 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:35:19,107 - INFO - Tempo restante: 2:49:51.747739
+2025-08-12 05:35:19,107 - INFO - Ciclo de estabilidade #474
+2025-08-12 05:35:21,149 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 05:35:21,153 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:36:21,154 - INFO - Tempo restante: 2:48:49.700678
+2025-08-12 05:36:21,154 - INFO - Ciclo de estabilidade #475
+2025-08-12 05:36:23,202 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 05:36:23,230 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.03s)
+2025-08-12 05:37:23,231 - INFO - Tempo restante: 2:47:47.623192
+2025-08-12 05:37:23,232 - INFO - Ciclo de estabilidade #476
+2025-08-12 05:37:25,291 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 05:37:25,296 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 05:38:25,297 - INFO - Tempo restante: 2:46:45.557020
+2025-08-12 05:38:25,298 - INFO - Ciclo de estabilidade #477
+2025-08-12 05:38:27,337 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 05:38:27,343 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 05:39:27,344 - INFO - Tempo restante: 2:45:43.510200
+2025-08-12 05:39:27,345 - INFO - Ciclo de estabilidade #478
+2025-08-12 05:39:29,409 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 05:39:29,415 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 05:40:29,416 - INFO - Tempo restante: 2:44:41.438278
+2025-08-12 05:40:29,417 - INFO - Ciclo de estabilidade #479
+2025-08-12 05:40:31,475 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 05:40:31,478 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:41:31,479 - INFO - Tempo restante: 2:43:39.375619
+2025-08-12 05:41:31,479 - INFO - Ciclo de estabilidade #480
+2025-08-12 05:41:33,544 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 05:41:33,548 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:42:33,549 - INFO - Tempo restante: 2:42:37.305935
+2025-08-12 05:42:33,549 - INFO - Ciclo de estabilidade #481
+2025-08-12 05:42:35,597 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 05:42:35,601 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:43:35,602 - INFO - Tempo restante: 2:41:35.252655
+2025-08-12 05:43:35,602 - INFO - Ciclo de estabilidade #482
+2025-08-12 05:43:37,680 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.08s)
+2025-08-12 05:43:37,684 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:44:37,685 - INFO - Tempo restante: 2:40:33.169485
+2025-08-12 05:44:37,685 - INFO - Ciclo de estabilidade #483
+2025-08-12 05:44:39,730 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 05:44:39,734 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:45:39,735 - INFO - Tempo restante: 2:39:31.119191
+2025-08-12 05:45:39,736 - INFO - Ciclo de estabilidade #484
+2025-08-12 05:45:41,776 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 05:45:41,780 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:46:41,780 - INFO - Tempo restante: 2:38:29.073997
+2025-08-12 05:46:41,781 - INFO - Ciclo de estabilidade #485
+2025-08-12 05:46:43,843 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 05:46:43,847 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:47:43,848 - INFO - Tempo restante: 2:37:27.006299
+2025-08-12 05:47:43,849 - INFO - Ciclo de estabilidade #486
+2025-08-12 05:47:45,892 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 05:47:45,898 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 05:48:45,899 - INFO - Tempo restante: 2:36:24.955683
+2025-08-12 05:48:45,899 - INFO - Ciclo de estabilidade #487
+2025-08-12 05:48:47,987 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.09s)
+2025-08-12 05:48:47,994 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 05:49:47,995 - INFO - Tempo restante: 2:35:22.859264
+2025-08-12 05:49:47,996 - INFO - Ciclo de estabilidade #488
+2025-08-12 05:49:50,026 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.03s)
+2025-08-12 05:49:50,032 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 05:50:50,033 - INFO - Tempo restante: 2:34:20.821748
+2025-08-12 05:50:50,033 - INFO - Ciclo de estabilidade #489
+2025-08-12 05:50:52,094 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 05:50:52,098 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:51:52,099 - INFO - Tempo restante: 2:33:18.755693
+2025-08-12 05:51:52,099 - INFO - Ciclo de estabilidade #490
+2025-08-12 05:51:54,139 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 05:51:54,143 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:52:54,143 - INFO - Tempo restante: 2:32:16.711211
+2025-08-12 05:52:54,144 - INFO - Ciclo de estabilidade #491
+2025-08-12 05:52:56,189 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 05:52:56,195 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 05:53:56,196 - INFO - Tempo restante: 2:31:14.658424
+2025-08-12 05:53:56,196 - INFO - Ciclo de estabilidade #492
+2025-08-12 05:53:58,237 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 05:53:58,241 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:54:58,241 - INFO - Tempo restante: 2:30:12.613209
+2025-08-12 05:54:58,242 - INFO - Ciclo de estabilidade #493
+2025-08-12 05:55:00,290 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 05:55:00,294 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:56:00,295 - INFO - Tempo restante: 2:29:10.559365
+2025-08-12 05:56:00,295 - INFO - Ciclo de estabilidade #494
+2025-08-12 05:56:02,339 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 05:56:02,344 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:57:02,345 - INFO - Tempo restante: 2:28:08.509091
+2025-08-12 05:57:02,346 - INFO - Ciclo de estabilidade #495
+2025-08-12 05:57:04,403 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 05:57:04,418 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 05:58:04,419 - INFO - Tempo restante: 2:27:06.435546
+2025-08-12 05:58:04,419 - INFO - Ciclo de estabilidade #496
+2025-08-12 05:58:06,483 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 05:58:06,487 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 05:59:06,488 - INFO - Tempo restante: 2:26:04.366637
+2025-08-12 05:59:06,488 - INFO - Ciclo de estabilidade #497
+2025-08-12 05:59:08,525 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 05:59:08,531 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 06:00:08,531 - INFO - Tempo restante: 2:25:02.323016
+2025-08-12 06:00:08,532 - INFO - Ciclo de estabilidade #498
+2025-08-12 06:00:10,576 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 06:00:10,581 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 06:01:10,582 - INFO - Tempo restante: 2:24:00.272265
+2025-08-12 06:01:10,583 - INFO - Ciclo de estabilidade #499
+2025-08-12 06:01:12,618 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 06:01:12,633 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 06:02:12,634 - INFO - Tempo restante: 2:22:58.220265
+2025-08-12 06:02:12,634 - INFO - Ciclo de estabilidade #500
+2025-08-12 06:02:14,671 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 06:02:14,676 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 06:03:14,676 - INFO - Tempo restante: 2:21:56.178393
+2025-08-12 06:03:14,676 - INFO - Ciclo de estabilidade #501
+2025-08-12 06:03:16,712 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 06:03:16,716 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 06:04:16,717 - INFO - Tempo restante: 2:20:54.137594
+2025-08-12 06:04:16,717 - INFO - Ciclo de estabilidade #502
+2025-08-12 06:04:18,760 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 06:04:18,764 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 06:05:18,765 - INFO - Tempo restante: 2:19:52.089782
+2025-08-12 06:05:18,765 - INFO - Ciclo de estabilidade #503
+2025-08-12 06:05:20,807 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 06:05:20,811 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 06:06:20,812 - INFO - Tempo restante: 2:18:50.042158
+2025-08-12 06:06:20,813 - INFO - Ciclo de estabilidade #504
+2025-08-12 06:06:22,872 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 06:06:22,876 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 06:07:22,876 - INFO - Tempo restante: 2:17:47.978096
+2025-08-12 06:07:22,877 - INFO - Ciclo de estabilidade #505
+2025-08-12 06:07:24,928 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 06:07:24,932 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 06:08:24,933 - INFO - Tempo restante: 2:16:45.921769
+2025-08-12 06:08:24,933 - INFO - Ciclo de estabilidade #506
+2025-08-12 06:08:26,980 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 06:08:26,983 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 06:09:26,984 - INFO - Tempo restante: 2:15:43.870104
+2025-08-12 06:09:26,985 - INFO - Ciclo de estabilidade #507
+2025-08-12 06:09:29,018 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.03s)
+2025-08-12 06:09:29,022 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 06:10:29,023 - INFO - Tempo restante: 2:14:41.831463
+2025-08-12 06:10:29,023 - INFO - Ciclo de estabilidade #508
+2025-08-12 06:10:31,076 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 06:10:31,082 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 06:11:31,083 - INFO - Tempo restante: 2:13:39.771685
+2025-08-12 06:11:31,083 - INFO - Ciclo de estabilidade #509
+2025-08-12 06:11:33,131 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 06:11:33,136 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 06:12:33,137 - INFO - Tempo restante: 2:12:37.717798
+2025-08-12 06:12:33,137 - INFO - Ciclo de estabilidade #510
+2025-08-12 06:12:35,174 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 06:12:35,177 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 06:13:35,178 - INFO - Tempo restante: 2:11:35.676001
+2025-08-12 06:13:35,179 - INFO - Ciclo de estabilidade #511
+2025-08-12 06:13:37,229 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 06:13:37,234 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 06:14:37,235 - INFO - Tempo restante: 2:10:33.619586
+2025-08-12 06:14:37,236 - INFO - Ciclo de estabilidade #512
+2025-08-12 06:14:39,270 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.03s)
+2025-08-12 06:14:39,274 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 06:15:39,275 - INFO - Tempo restante: 2:09:31.579908
+2025-08-12 06:15:39,275 - INFO - Ciclo de estabilidade #513
+2025-08-12 06:15:41,324 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 06:15:41,328 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 06:16:41,329 - INFO - Tempo restante: 2:08:29.525303
+2025-08-12 06:16:41,331 - INFO - Ciclo de estabilidade #514
+2025-08-12 06:16:43,371 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 06:16:43,375 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 06:17:43,376 - INFO - Tempo restante: 2:07:27.478864
+2025-08-12 06:17:43,376 - INFO - Ciclo de estabilidade #515
+2025-08-12 06:17:45,446 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.07s)
+2025-08-12 06:17:45,451 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 06:18:45,451 - INFO - Tempo restante: 2:06:25.403161
+2025-08-12 06:18:45,452 - INFO - Ciclo de estabilidade #516
+2025-08-12 06:18:47,514 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.06s)
+2025-08-12 06:18:47,518 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 06:19:47,519 - INFO - Tempo restante: 2:05:23.335342
+2025-08-12 06:19:47,520 - INFO - Ciclo de estabilidade #517
+2025-08-12 06:19:49,563 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 06:19:49,578 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.01s)
+2025-08-12 06:20:49,579 - INFO - Tempo restante: 2:04:21.275927
+2025-08-12 06:20:49,579 - INFO - Ciclo de estabilidade #518
+2025-08-12 06:20:51,625 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.05s)
+2025-08-12 06:20:51,630 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)
+2025-08-12 06:21:51,631 - INFO - Tempo restante: 2:03:19.223450
+2025-08-12 06:21:51,631 - INFO - Ciclo de estabilidade #519
+2025-08-12 06:21:53,667 - INFO - [PASS] Backend Health Check: PASSOU - Backend respondendo (2.04s)
+2025-08-12 06:21:53,671 - INFO - [PASS] Frontend Health Check: PASSOU - Frontend respondendo (0.00s)

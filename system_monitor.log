@@ -1,0 +1,2967 @@
+2025-08-11 21:31:00,182 - INFO - [START] Iniciando monitoramento por 12 horas
+2025-08-11 21:31:01,225 - INFO - CPU: 23.6% | RAM: 80.7% | Disco: 87.39%
+2025-08-11 21:31:04,892 - INFO - Processos DataClinica ativos: 5
+2025-08-11 21:31:04,893 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 21:31:06,974 - INFO - Backend: OK (2.07s)
+2025-08-11 21:31:06,975 - INFO - Frontend: OK (0.01s)
+2025-08-11 21:31:06,975 - INFO - Tempo restante: 11:59
+2025-08-11 21:32:08,015 - INFO - CPU: 4.9% | RAM: 80.7% | Disco: 87.39%
+2025-08-11 21:32:10,730 - INFO - Processos DataClinica ativos: 5
+2025-08-11 21:32:10,730 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 21:32:12,785 - INFO - Backend: OK (2.04s)
+2025-08-11 21:32:12,785 - INFO - Frontend: OK (0.01s)
+2025-08-11 21:32:12,786 - INFO - Tempo restante: 11:58
+2025-08-11 21:33:13,824 - INFO - CPU: 3.9% | RAM: 80.1% | Disco: 87.39%
+2025-08-11 21:33:16,337 - INFO - Processos DataClinica ativos: 5
+2025-08-11 21:33:16,337 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 21:33:18,387 - INFO - Backend: OK (2.04s)
+2025-08-11 21:33:18,387 - INFO - Frontend: OK (0.00s)
+2025-08-11 21:33:18,387 - INFO - Tempo restante: 11:57
+2025-08-11 21:34:19,432 - INFO - CPU: 23.7% | RAM: 82.0% | Disco: 87.39%
+2025-08-11 21:34:22,327 - INFO - Processos DataClinica ativos: 5
+2025-08-11 21:34:22,327 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 21:34:24,396 - INFO - Backend: OK (2.06s)
+2025-08-11 21:34:24,397 - INFO - Frontend: OK (0.00s)
+2025-08-11 21:34:24,397 - INFO - Tempo restante: 11:56
+2025-08-11 21:35:25,423 - INFO - CPU: 4.7% | RAM: 83.0% | Disco: 87.38%
+2025-08-11 21:35:27,937 - INFO - Processos DataClinica ativos: 5
+2025-08-11 21:35:27,937 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 21:35:30,025 - INFO - Backend: OK (2.06s)
+2025-08-11 21:35:30,026 - INFO - Frontend: OK (0.02s)
+2025-08-11 21:35:30,027 - INFO - Tempo restante: 11:55
+2025-08-11 21:36:31,076 - INFO - CPU: 15.3% | RAM: 83.8% | Disco: 87.39%
+2025-08-11 21:36:34,032 - INFO - Processos DataClinica ativos: 5
+2025-08-11 21:36:34,032 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 21:36:36,106 - INFO - Backend: OK (2.06s)
+2025-08-11 21:36:36,107 - INFO - Frontend: OK (0.01s)
+2025-08-11 21:36:36,107 - INFO - Tempo restante: 11:54
+2025-08-11 21:37:37,132 - INFO - CPU: 21.7% | RAM: 84.5% | Disco: 87.39%
+2025-08-11 21:37:40,274 - INFO - Processos DataClinica ativos: 5
+2025-08-11 21:37:40,274 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 21:37:42,346 - INFO - Backend: OK (2.06s)
+2025-08-11 21:37:42,356 - INFO - Frontend: OK (0.01s)
+2025-08-11 21:37:42,363 - INFO - Tempo restante: 11:53
+2025-08-11 21:38:43,407 - INFO - CPU: 12.0% | RAM: 82.7% | Disco: 87.39%
+2025-08-11 21:38:46,859 - INFO - Processos DataClinica ativos: 5
+2025-08-11 21:38:46,860 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 21:38:48,921 - INFO - Backend: OK (2.05s)
+2025-08-11 21:38:48,923 - INFO - Frontend: OK (0.01s)
+2025-08-11 21:38:48,923 - INFO - Tempo restante: 11:52
+2025-08-11 21:39:50,012 - INFO - CPU: 67.2% | RAM: 81.9% | Disco: 87.39%
+2025-08-11 21:39:55,726 - INFO - Processos DataClinica ativos: 5
+2025-08-11 21:39:55,727 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 21:39:57,792 - INFO - Backend: OK (2.05s)
+2025-08-11 21:39:57,796 - INFO - Frontend: OK (0.01s)
+2025-08-11 21:39:57,801 - INFO - Tempo restante: 11:51
+2025-08-11 21:40:58,838 - INFO - CPU: 62.9% | RAM: 84.5% | Disco: 87.39%
+2025-08-11 21:41:04,938 - INFO - Processos DataClinica ativos: 5
+2025-08-11 21:41:04,939 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 21:41:07,006 - INFO - Backend: OK (2.05s)
+2025-08-11 21:41:07,011 - INFO - Frontend: OK (0.01s)
+2025-08-11 21:41:07,019 - INFO - Tempo restante: 11:49
+2025-08-11 21:42:08,068 - INFO - CPU: 72.2% | RAM: 83.4% | Disco: 87.39%
+2025-08-11 21:42:11,149 - INFO - Processos DataClinica ativos: 5
+2025-08-11 21:42:11,149 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 21:42:13,250 - INFO - Backend: OK (2.09s)
+2025-08-11 21:42:13,253 - INFO - Frontend: OK (0.01s)
+2025-08-11 21:42:13,261 - INFO - Tempo restante: 11:48
+2025-08-11 21:43:14,340 - WARNING - [ALERT] CPU alto: 100.0%
+2025-08-11 21:43:14,341 - WARNING - [ALERT] Memória alta: 86.5%
+2025-08-11 21:43:14,343 - INFO - CPU: 100.0% | RAM: 86.5% | Disco: 87.39%
+2025-08-11 21:43:22,737 - INFO - Processos DataClinica ativos: 5
+2025-08-11 21:43:22,738 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 21:43:29,827 - ERROR - Backend: error: HTTPConnectionPool(host='localhost', port=8000): R
+2025-08-11 21:43:29,827 - INFO - Frontend: OK (0.01s)
+2025-08-11 21:43:29,827 - INFO - Tempo restante: 11:47
+2025-08-11 21:44:31,109 - WARNING - [ALERT] CPU alto: 99.8%
+2025-08-11 21:44:31,112 - WARNING - [ALERT] Memória alta: 86.3%
+2025-08-11 21:44:31,118 - INFO - CPU: 99.8% | RAM: 86.3% | Disco: 87.39%
+2025-08-11 21:44:42,146 - INFO - Processos DataClinica ativos: 5
+2025-08-11 21:44:42,214 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 21:44:49,422 - ERROR - Backend: error: HTTPConnectionPool(host='localhost', port=8000): R
+2025-08-11 21:44:49,422 - INFO - Frontend: OK (0.04s)
+2025-08-11 21:44:49,423 - INFO - Tempo restante: 11:46
+2025-08-11 21:45:50,657 - INFO - CPU: 77.1% | RAM: 85.0% | Disco: 87.39%
+2025-08-11 21:45:56,785 - INFO - Processos DataClinica ativos: 5
+2025-08-11 21:45:56,785 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 21:46:03,873 - ERROR - Backend: error: HTTPConnectionPool(host='localhost', port=8000): R
+2025-08-11 21:46:03,874 - INFO - Frontend: OK (0.02s)
+2025-08-11 21:46:03,874 - INFO - Tempo restante: 11:44
+2025-08-11 21:47:04,980 - WARNING - [ALERT] CPU alto: 91.4%
+2025-08-11 21:47:04,985 - INFO - CPU: 91.4% | RAM: 81.6% | Disco: 87.41%
+2025-08-11 21:47:13,564 - INFO - Processos DataClinica ativos: 5
+2025-08-11 21:47:13,566 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 21:47:20,624 - ERROR - Backend: error: HTTPConnectionPool(host='localhost', port=8000): R
+2025-08-11 21:47:20,633 - INFO - Frontend: OK (0.01s)
+2025-08-11 21:47:20,635 - INFO - Tempo restante: 11:43
+2025-08-11 21:48:21,745 - WARNING - [ALERT] CPU alto: 98.7%
+2025-08-11 21:48:21,750 - INFO - CPU: 98.7% | RAM: 84.8% | Disco: 87.49%
+2025-08-11 21:48:29,181 - INFO - Processos DataClinica ativos: 5
+2025-08-11 21:48:29,181 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 21:48:36,258 - ERROR - Backend: error: HTTPConnectionPool(host='localhost', port=8000): R
+2025-08-11 21:48:36,260 - INFO - Frontend: OK (0.01s)
+2025-08-11 21:48:36,260 - INFO - Tempo restante: 11:42
+2025-08-11 21:49:37,312 - WARNING - [ALERT] CPU alto: 83.7%
+2025-08-11 21:49:37,313 - INFO - CPU: 83.7% | RAM: 80.2% | Disco: 87.49%
+2025-08-11 21:49:45,298 - INFO - Processos DataClinica ativos: 5
+2025-08-11 21:49:45,300 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 21:49:49,435 - ERROR - Backend: error: HTTPConnectionPool(host='localhost', port=8000): M
+2025-08-11 21:49:49,438 - INFO - Frontend: OK (0.03s)
+2025-08-11 21:49:49,439 - INFO - Tempo restante: 11:41
+2025-08-11 21:50:50,737 - INFO - CPU: 75.2% | RAM: 82.6% | Disco: 87.49%
+2025-08-11 21:50:57,425 - INFO - Processos DataClinica ativos: 5
+2025-08-11 21:50:57,425 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 21:50:59,498 - INFO - Backend: OK (2.06s)
+2025-08-11 21:50:59,498 - INFO - Frontend: OK (0.01s)
+2025-08-11 21:50:59,500 - INFO - Tempo restante: 11:40
+2025-08-11 21:52:00,643 - INFO - CPU: 16.5% | RAM: 82.1% | Disco: 87.49%
+2025-08-11 21:52:03,611 - INFO - Processos DataClinica ativos: 5
+2025-08-11 21:52:03,612 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 21:52:05,680 - INFO - Backend: OK (2.04s)
+2025-08-11 21:52:05,680 - INFO - Frontend: OK (0.03s)
+2025-08-11 21:52:05,681 - INFO - Tempo restante: 11:38
+2025-08-11 21:53:06,715 - INFO - CPU: 7.0% | RAM: 81.7% | Disco: 87.49%
+2025-08-11 21:53:09,657 - INFO - Processos DataClinica ativos: 5
+2025-08-11 21:53:09,657 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 21:53:11,712 - INFO - Backend: OK (2.04s)
+2025-08-11 21:53:11,713 - INFO - Frontend: OK (0.02s)
+2025-08-11 21:53:11,717 - INFO - Tempo restante: 11:37
+2025-08-11 21:54:12,744 - INFO - CPU: 16.3% | RAM: 81.7% | Disco: 87.49%
+2025-08-11 21:54:15,934 - INFO - Processos DataClinica ativos: 5
+2025-08-11 21:54:15,934 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 21:54:18,014 - INFO - Backend: OK (2.05s)
+2025-08-11 21:54:18,014 - INFO - Frontend: OK (0.03s)
+2025-08-11 21:54:18,015 - INFO - Tempo restante: 11:36
+2025-08-11 21:55:19,051 - INFO - CPU: 19.6% | RAM: 82.8% | Disco: 87.49%
+2025-08-11 21:55:22,704 - INFO - Processos DataClinica ativos: 5
+2025-08-11 21:55:22,705 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 21:55:24,795 - INFO - Backend: OK (2.06s)
+2025-08-11 21:55:24,795 - INFO - Frontend: OK (0.03s)
+2025-08-11 21:55:24,795 - INFO - Tempo restante: 11:35
+2025-08-11 21:56:25,836 - INFO - CPU: 3.3% | RAM: 82.9% | Disco: 87.49%
+2025-08-11 21:56:28,410 - INFO - Processos DataClinica ativos: 5
+2025-08-11 21:56:28,410 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 21:56:30,465 - INFO - Backend: OK (2.04s)
+2025-08-11 21:56:30,467 - INFO - Frontend: OK (0.01s)
+2025-08-11 21:56:30,467 - INFO - Tempo restante: 11:34
+2025-08-11 21:57:31,510 - INFO - CPU: 24.6% | RAM: 83.7% | Disco: 87.49%
+2025-08-11 21:57:33,999 - INFO - Processos DataClinica ativos: 5
+2025-08-11 21:57:33,999 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 21:57:36,058 - INFO - Backend: OK (2.05s)
+2025-08-11 21:57:36,058 - INFO - Frontend: OK (0.00s)
+2025-08-11 21:57:36,058 - INFO - Tempo restante: 11:33
+2025-08-11 21:58:37,102 - INFO - CPU: 10.0% | RAM: 84.2% | Disco: 87.49%
+2025-08-11 21:58:39,569 - INFO - Processos DataClinica ativos: 5
+2025-08-11 21:58:39,569 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 21:58:41,632 - INFO - Backend: OK (2.05s)
+2025-08-11 21:58:41,633 - INFO - Frontend: OK (0.01s)
+2025-08-11 21:58:41,633 - INFO - Tempo restante: 11:32
+2025-08-11 21:59:42,677 - INFO - CPU: 28.6% | RAM: 84.7% | Disco: 87.49%
+2025-08-11 21:59:45,396 - INFO - Processos DataClinica ativos: 5
+2025-08-11 21:59:45,396 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 21:59:47,468 - INFO - Backend: OK (2.04s)
+2025-08-11 21:59:47,469 - INFO - Frontend: OK (0.03s)
+2025-08-11 21:59:47,469 - INFO - Tempo restante: 11:31
+2025-08-11 22:00:48,514 - INFO - CPU: 5.2% | RAM: 84.4% | Disco: 87.49%
+2025-08-11 22:00:51,077 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:00:51,077 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:00:53,164 - INFO - Backend: OK (2.05s)
+2025-08-11 22:00:53,164 - INFO - Frontend: OK (0.03s)
+2025-08-11 22:00:53,164 - INFO - Tempo restante: 11:30
+2025-08-11 22:01:54,206 - INFO - CPU: 7.7% | RAM: 84.9% | Disco: 87.49%
+2025-08-11 22:01:56,827 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:01:56,827 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:01:58,903 - INFO - Backend: OK (2.06s)
+2025-08-11 22:01:58,904 - INFO - Frontend: OK (0.01s)
+2025-08-11 22:01:58,904 - INFO - Tempo restante: 11:29
+2025-08-11 22:02:59,936 - WARNING - [ALERT] Memória alta: 85.2%
+2025-08-11 22:02:59,936 - INFO - CPU: 14.5% | RAM: 85.2% | Disco: 87.49%
+2025-08-11 22:03:02,243 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:03:02,244 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:03:04,305 - INFO - Backend: OK (2.06s)
+2025-08-11 22:03:04,305 - INFO - Frontend: OK (0.00s)
+2025-08-11 22:03:04,305 - INFO - Tempo restante: 11:27
+2025-08-11 22:04:05,346 - WARNING - [ALERT] Memória alta: 85.3%
+2025-08-11 22:04:05,347 - INFO - CPU: 6.2% | RAM: 85.3% | Disco: 87.49%
+2025-08-11 22:04:07,947 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:04:07,947 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:04:10,013 - INFO - Backend: OK (2.06s)
+2025-08-11 22:04:10,014 - INFO - Frontend: OK (0.00s)
+2025-08-11 22:04:10,018 - INFO - Tempo restante: 11:26
+2025-08-11 22:05:11,069 - WARNING - [ALERT] Memória alta: 87.1%
+2025-08-11 22:05:11,069 - INFO - CPU: 10.5% | RAM: 87.1% | Disco: 87.49%
+2025-08-11 22:05:13,534 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:05:13,535 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:05:15,604 - INFO - Backend: OK (2.06s)
+2025-08-11 22:05:15,604 - INFO - Frontend: OK (0.00s)
+2025-08-11 22:05:15,604 - INFO - Tempo restante: 11:25
+2025-08-11 22:06:16,654 - WARNING - [ALERT] CPU alto: 80.3%
+2025-08-11 22:06:16,654 - WARNING - [ALERT] Memória alta: 90.7%
+2025-08-11 22:06:16,654 - WARNING - [ALERT] Pouca memória disponível: 0.73GB
+2025-08-11 22:06:16,654 - INFO - CPU: 80.3% | RAM: 90.7% | Disco: 87.49%
+2025-08-11 22:06:19,961 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:06:19,963 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:06:22,052 - INFO - Backend: OK (2.05s)
+2025-08-11 22:06:22,052 - INFO - Frontend: OK (0.03s)
+2025-08-11 22:06:22,052 - INFO - Tempo restante: 11:24
+2025-08-11 22:07:23,075 - INFO - CPU: 16.0% | RAM: 78.7% | Disco: 87.49%
+2025-08-11 22:07:25,731 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:07:25,731 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:07:27,787 - INFO - Backend: OK (2.05s)
+2025-08-11 22:07:27,788 - INFO - Frontend: OK (0.00s)
+2025-08-11 22:07:27,788 - INFO - Tempo restante: 11:23
+2025-08-11 22:08:28,812 - INFO - CPU: 25.7% | RAM: 79.1% | Disco: 87.49%
+2025-08-11 22:08:31,559 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:08:31,559 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:08:33,631 - INFO - Backend: OK (2.06s)
+2025-08-11 22:08:33,632 - INFO - Frontend: OK (0.00s)
+2025-08-11 22:08:33,632 - INFO - Tempo restante: 11:22
+2025-08-11 22:09:34,685 - WARNING - [ALERT] Memória alta: 88.5%
+2025-08-11 22:09:34,686 - WARNING - [ALERT] Pouca memória disponível: 0.9GB
+2025-08-11 22:09:34,686 - INFO - CPU: 32.4% | RAM: 88.5% | Disco: 87.49%
+2025-08-11 22:09:39,721 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:09:39,722 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:09:41,764 - INFO - Backend: OK (2.03s)
+2025-08-11 22:09:41,764 - INFO - Frontend: OK (0.00s)
+2025-08-11 22:09:41,765 - INFO - Tempo restante: 11:21
+2025-08-11 22:10:42,823 - INFO - CPU: 37.7% | RAM: 81.2% | Disco: 87.49%
+2025-08-11 22:10:45,231 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:10:45,232 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:10:47,318 - INFO - Backend: OK (2.06s)
+2025-08-11 22:10:47,318 - INFO - Frontend: OK (0.02s)
+2025-08-11 22:10:47,319 - INFO - Tempo restante: 11:20
+2025-08-11 22:11:48,353 - INFO - CPU: 66.9% | RAM: 78.5% | Disco: 87.5%
+2025-08-11 22:11:52,087 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:11:52,089 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:11:54,154 - INFO - Backend: OK (2.05s)
+2025-08-11 22:11:54,155 - INFO - Frontend: OK (0.01s)
+2025-08-11 22:11:54,155 - INFO - Tempo restante: 11:19
+2025-08-11 22:12:55,205 - INFO - CPU: 30.3% | RAM: 77.2% | Disco: 87.49%
+2025-08-11 22:12:57,686 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:12:57,687 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:12:59,770 - INFO - Backend: OK (2.05s)
+2025-08-11 22:12:59,770 - INFO - Frontend: OK (0.03s)
+2025-08-11 22:12:59,771 - INFO - Tempo restante: 11:18
+2025-08-11 22:14:00,801 - INFO - CPU: 9.6% | RAM: 78.9% | Disco: 87.49%
+2025-08-11 22:14:03,234 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:14:03,234 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:14:05,312 - INFO - Backend: OK (2.07s)
+2025-08-11 22:14:05,312 - INFO - Frontend: OK (0.01s)
+2025-08-11 22:14:05,312 - INFO - Tempo restante: 11:16
+2025-08-11 22:15:06,354 - INFO - CPU: 73.0% | RAM: 83.4% | Disco: 87.5%
+2025-08-11 22:15:12,461 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:15:12,461 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:15:14,534 - INFO - Backend: OK (2.06s)
+2025-08-11 22:15:14,547 - INFO - Frontend: OK (0.01s)
+2025-08-11 22:15:14,560 - INFO - Tempo restante: 11:15
+2025-08-11 22:16:15,595 - INFO - CPU: 59.6% | RAM: 81.6% | Disco: 87.5%
+2025-08-11 22:16:21,379 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:16:21,380 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:16:23,470 - INFO - Backend: OK (2.06s)
+2025-08-11 22:16:23,470 - INFO - Frontend: OK (0.03s)
+2025-08-11 22:16:23,471 - INFO - Tempo restante: 11:14
+2025-08-11 22:17:24,513 - INFO - CPU: 6.9% | RAM: 77.2% | Disco: 87.5%
+2025-08-11 22:17:27,147 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:17:27,148 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:17:29,184 - INFO - Backend: OK (2.03s)
+2025-08-11 22:17:29,184 - INFO - Frontend: OK (0.00s)
+2025-08-11 22:17:29,185 - INFO - Tempo restante: 11:13
+2025-08-11 22:18:30,215 - INFO - CPU: 37.3% | RAM: 77.7% | Disco: 87.5%
+2025-08-11 22:18:32,980 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:18:32,980 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:18:35,039 - INFO - Backend: OK (2.05s)
+2025-08-11 22:18:35,039 - INFO - Frontend: OK (0.01s)
+2025-08-11 22:18:35,040 - INFO - Tempo restante: 11:12
+2025-08-11 22:19:36,065 - INFO - CPU: 20.7% | RAM: 81.9% | Disco: 87.49%
+2025-08-11 22:19:38,636 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:19:38,637 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:19:40,694 - INFO - Backend: OK (2.05s)
+2025-08-11 22:19:40,694 - INFO - Frontend: OK (0.00s)
+2025-08-11 22:19:40,694 - INFO - Tempo restante: 11:11
+2025-08-11 22:20:41,715 - INFO - CPU: 7.8% | RAM: 82.0% | Disco: 87.49%
+2025-08-11 22:20:44,578 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:20:44,578 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:20:46,663 - INFO - Backend: OK (2.06s)
+2025-08-11 22:20:46,663 - INFO - Frontend: OK (0.02s)
+2025-08-11 22:20:46,663 - INFO - Tempo restante: 11:10
+2025-08-11 22:21:47,687 - INFO - CPU: 13.4% | RAM: 81.6% | Disco: 87.49%
+2025-08-11 22:21:49,990 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:21:49,990 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:21:52,026 - INFO - Backend: OK (2.03s)
+2025-08-11 22:21:52,027 - INFO - Frontend: OK (0.00s)
+2025-08-11 22:21:52,027 - INFO - Tempo restante: 11:09
+2025-08-11 22:22:53,070 - INFO - CPU: 10.1% | RAM: 82.2% | Disco: 87.49%
+2025-08-11 22:22:55,712 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:22:55,713 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:22:57,775 - INFO - Backend: OK (2.06s)
+2025-08-11 22:22:57,775 - INFO - Frontend: OK (0.00s)
+2025-08-11 22:22:57,775 - INFO - Tempo restante: 11:08
+2025-08-11 22:23:58,819 - INFO - CPU: 22.4% | RAM: 82.1% | Disco: 87.49%
+2025-08-11 22:24:01,271 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:24:01,272 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:24:03,332 - INFO - Backend: OK (2.05s)
+2025-08-11 22:24:03,332 - INFO - Frontend: OK (0.00s)
+2025-08-11 22:24:03,332 - INFO - Tempo restante: 11:06
+2025-08-11 22:25:04,375 - INFO - CPU: 7.5% | RAM: 82.8% | Disco: 87.49%
+2025-08-11 22:25:06,960 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:25:06,960 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:25:09,032 - INFO - Backend: OK (2.06s)
+2025-08-11 22:25:09,032 - INFO - Frontend: OK (0.01s)
+2025-08-11 22:25:09,033 - INFO - Tempo restante: 11:05
+2025-08-11 22:26:10,068 - INFO - CPU: 6.4% | RAM: 82.0% | Disco: 87.49%
+2025-08-11 22:26:12,539 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:26:12,540 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:26:14,641 - INFO - Backend: OK (2.07s)
+2025-08-11 22:26:14,641 - INFO - Frontend: OK (0.02s)
+2025-08-11 22:26:14,648 - INFO - Tempo restante: 11:04
+2025-08-11 22:27:15,686 - INFO - CPU: 14.1% | RAM: 82.5% | Disco: 87.49%
+2025-08-11 22:27:17,993 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:27:17,994 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:27:20,072 - INFO - Backend: OK (2.04s)
+2025-08-11 22:27:20,072 - INFO - Frontend: OK (0.03s)
+2025-08-11 22:27:20,072 - INFO - Tempo restante: 11:03
+2025-08-11 22:28:21,095 - INFO - CPU: 12.4% | RAM: 83.0% | Disco: 87.49%
+2025-08-11 22:28:23,605 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:28:23,605 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:28:25,676 - INFO - Backend: OK (2.05s)
+2025-08-11 22:28:25,676 - INFO - Frontend: OK (0.01s)
+2025-08-11 22:28:25,677 - INFO - Tempo restante: 11:02
+2025-08-11 22:29:26,698 - INFO - CPU: 18.7% | RAM: 83.1% | Disco: 87.49%
+2025-08-11 22:29:28,921 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:29:28,922 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:29:30,994 - INFO - Backend: OK (2.06s)
+2025-08-11 22:29:30,995 - INFO - Frontend: OK (0.01s)
+2025-08-11 22:29:30,995 - INFO - Tempo restante: 11:01
+2025-08-11 22:30:32,020 - INFO - CPU: 13.4% | RAM: 82.9% | Disco: 87.49%
+2025-08-11 22:30:34,409 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:30:34,410 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:30:36,482 - INFO - Backend: OK (2.06s)
+2025-08-11 22:30:36,482 - INFO - Frontend: OK (0.01s)
+2025-08-11 22:30:36,482 - INFO - Tempo restante: 11:00
+2025-08-11 22:31:37,524 - INFO - CPU: 22.6% | RAM: 83.8% | Disco: 87.49%
+2025-08-11 22:31:40,047 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:31:40,048 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:31:42,121 - INFO - Backend: OK (2.06s)
+2025-08-11 22:31:42,122 - INFO - Frontend: OK (0.01s)
+2025-08-11 22:31:42,122 - INFO - Tempo restante: 10:59
+2025-08-11 22:32:43,180 - INFO - CPU: 39.4% | RAM: 84.1% | Disco: 87.49%
+2025-08-11 22:32:45,816 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:32:45,817 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:32:47,890 - INFO - Backend: OK (2.06s)
+2025-08-11 22:32:47,891 - INFO - Frontend: OK (0.01s)
+2025-08-11 22:32:47,891 - INFO - Tempo restante: 10:58
+2025-08-11 22:33:48,941 - INFO - CPU: 5.7% | RAM: 83.9% | Disco: 87.49%
+2025-08-11 22:33:51,311 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:33:51,311 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:33:53,351 - INFO - Backend: OK (2.03s)
+2025-08-11 22:33:53,352 - INFO - Frontend: OK (0.00s)
+2025-08-11 22:33:53,352 - INFO - Tempo restante: 10:57
+2025-08-11 22:34:54,395 - INFO - CPU: 14.1% | RAM: 83.9% | Disco: 87.49%
+2025-08-11 22:34:57,049 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:34:57,049 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:34:59,125 - INFO - Backend: OK (2.06s)
+2025-08-11 22:34:59,126 - INFO - Frontend: OK (0.01s)
+2025-08-11 22:34:59,126 - INFO - Tempo restante: 10:56
+2025-08-11 22:36:00,197 - INFO - CPU: 11.9% | RAM: 84.0% | Disco: 87.49%
+2025-08-11 22:36:02,517 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:36:02,518 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:36:04,594 - INFO - Backend: OK (2.06s)
+2025-08-11 22:36:04,594 - INFO - Frontend: OK (0.01s)
+2025-08-11 22:36:04,594 - INFO - Tempo restante: 10:54
+2025-08-11 22:37:05,641 - WARNING - [ALERT] Memória alta: 85.5%
+2025-08-11 22:37:05,641 - INFO - CPU: 7.2% | RAM: 85.5% | Disco: 87.49%
+2025-08-11 22:37:08,304 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:37:08,305 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:37:10,359 - INFO - Backend: OK (2.05s)
+2025-08-11 22:37:10,360 - INFO - Frontend: OK (0.00s)
+2025-08-11 22:37:10,366 - INFO - Tempo restante: 10:53
+2025-08-11 22:38:11,411 - WARNING - [ALERT] Memória alta: 85.7%
+2025-08-11 22:38:11,411 - INFO - CPU: 12.6% | RAM: 85.7% | Disco: 87.49%
+2025-08-11 22:38:13,712 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:38:13,712 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:38:15,790 - INFO - Backend: OK (2.07s)
+2025-08-11 22:38:15,790 - INFO - Frontend: OK (0.00s)
+2025-08-11 22:38:15,790 - INFO - Tempo restante: 10:52
+2025-08-11 22:39:16,814 - WARNING - [ALERT] Memória alta: 85.6%
+2025-08-11 22:39:16,814 - INFO - CPU: 16.9% | RAM: 85.6% | Disco: 87.49%
+2025-08-11 22:39:19,675 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:39:19,675 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:39:21,742 - INFO - Backend: OK (2.06s)
+2025-08-11 22:39:21,742 - INFO - Frontend: OK (0.01s)
+2025-08-11 22:39:21,742 - INFO - Tempo restante: 10:51
+2025-08-11 22:40:22,765 - WARNING - [ALERT] Memória alta: 85.9%
+2025-08-11 22:40:22,766 - INFO - CPU: 21.7% | RAM: 85.9% | Disco: 87.49%
+2025-08-11 22:40:25,241 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:40:25,241 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:40:27,298 - INFO - Backend: OK (2.05s)
+2025-08-11 22:40:27,298 - INFO - Frontend: OK (0.00s)
+2025-08-11 22:40:27,298 - INFO - Tempo restante: 10:50
+2025-08-11 22:41:28,322 - WARNING - [ALERT] Memória alta: 85.8%
+2025-08-11 22:41:28,322 - INFO - CPU: 19.0% | RAM: 85.8% | Disco: 87.49%
+2025-08-11 22:41:30,641 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:41:30,641 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:41:32,706 - INFO - Backend: OK (2.06s)
+2025-08-11 22:41:32,707 - INFO - Frontend: OK (0.00s)
+2025-08-11 22:41:32,707 - INFO - Tempo restante: 10:49
+2025-08-11 22:42:33,739 - INFO - CPU: 7.7% | RAM: 85.9% | Disco: 87.49%
+2025-08-11 22:42:36,196 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:42:36,196 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:42:38,260 - INFO - Backend: OK (2.06s)
+2025-08-11 22:42:38,260 - INFO - Frontend: OK (0.00s)
+2025-08-11 22:42:38,260 - INFO - Tempo restante: 10:48
+2025-08-11 22:43:39,300 - WARNING - [ALERT] Memória alta: 86.1%
+2025-08-11 22:43:39,300 - INFO - CPU: 18.6% | RAM: 86.1% | Disco: 87.49%
+2025-08-11 22:43:41,658 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:43:41,659 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:43:43,746 - INFO - Backend: OK (2.07s)
+2025-08-11 22:43:43,746 - INFO - Frontend: OK (0.02s)
+2025-08-11 22:43:43,746 - INFO - Tempo restante: 10:47
+2025-08-11 22:44:44,768 - WARNING - [ALERT] Memória alta: 86.4%
+2025-08-11 22:44:44,769 - INFO - CPU: 27.9% | RAM: 86.4% | Disco: 87.49%
+2025-08-11 22:44:47,269 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:44:47,270 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:44:49,354 - INFO - Backend: OK (2.05s)
+2025-08-11 22:44:49,354 - INFO - Frontend: OK (0.03s)
+2025-08-11 22:44:49,355 - INFO - Tempo restante: 10:46
+2025-08-11 22:45:50,393 - WARNING - [ALERT] Memória alta: 86.0%
+2025-08-11 22:45:50,394 - INFO - CPU: 19.2% | RAM: 86.0% | Disco: 87.49%
+2025-08-11 22:45:52,966 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:45:52,966 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:45:55,014 - INFO - Backend: OK (2.04s)
+2025-08-11 22:45:55,014 - INFO - Frontend: OK (0.00s)
+2025-08-11 22:45:55,014 - INFO - Tempo restante: 10:45
+2025-08-11 22:46:56,059 - INFO - CPU: 15.6% | RAM: 86.3% | Disco: 87.49%
+2025-08-11 22:46:58,849 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:46:58,849 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:47:00,896 - INFO - Backend: OK (2.04s)
+2025-08-11 22:47:00,896 - INFO - Frontend: OK (0.00s)
+2025-08-11 22:47:00,896 - INFO - Tempo restante: 10:43
+2025-08-11 22:48:01,929 - INFO - CPU: 13.8% | RAM: 86.3% | Disco: 87.49%
+2025-08-11 22:48:04,760 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:48:04,760 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:48:06,827 - INFO - Backend: OK (2.05s)
+2025-08-11 22:48:06,827 - INFO - Frontend: OK (0.01s)
+2025-08-11 22:48:06,833 - INFO - Tempo restante: 10:42
+2025-08-11 22:49:07,872 - INFO - CPU: 28.0% | RAM: 86.3% | Disco: 87.49%
+2025-08-11 22:49:10,548 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:49:10,548 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:49:12,652 - INFO - Backend: OK (2.07s)
+2025-08-11 22:49:12,652 - INFO - Frontend: OK (0.03s)
+2025-08-11 22:49:12,652 - INFO - Tempo restante: 10:41
+2025-08-11 22:50:13,696 - INFO - CPU: 16.3% | RAM: 86.5% | Disco: 87.49%
+2025-08-11 22:50:16,019 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:50:16,020 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:50:18,094 - INFO - Backend: OK (2.07s)
+2025-08-11 22:50:18,094 - INFO - Frontend: OK (0.00s)
+2025-08-11 22:50:18,094 - INFO - Tempo restante: 10:40
+2025-08-11 22:51:19,163 - INFO - CPU: 6.9% | RAM: 86.3% | Disco: 87.49%
+2025-08-11 22:51:21,554 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:51:21,554 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:51:23,635 - INFO - Backend: OK (2.07s)
+2025-08-11 22:51:23,636 - INFO - Frontend: OK (0.01s)
+2025-08-11 22:51:23,637 - INFO - Tempo restante: 10:39
+2025-08-11 22:52:24,668 - INFO - CPU: 6.4% | RAM: 86.5% | Disco: 87.49%
+2025-08-11 22:52:27,126 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:52:27,126 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:52:29,210 - INFO - Backend: OK (2.06s)
+2025-08-11 22:52:29,210 - INFO - Frontend: OK (0.02s)
+2025-08-11 22:52:29,210 - INFO - Tempo restante: 10:38
+2025-08-11 22:53:30,234 - INFO - CPU: 15.0% | RAM: 86.3% | Disco: 87.54%
+2025-08-11 22:53:32,702 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:53:32,703 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:53:34,774 - INFO - Backend: OK (2.06s)
+2025-08-11 22:53:34,774 - INFO - Frontend: OK (0.00s)
+2025-08-11 22:53:34,774 - INFO - Tempo restante: 10:37
+2025-08-11 22:54:35,814 - WARNING - [ALERT] Memória alta: 86.6%
+2025-08-11 22:54:35,815 - INFO - CPU: 4.3% | RAM: 86.6% | Disco: 87.54%
+2025-08-11 22:54:38,442 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:54:38,442 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:54:40,520 - INFO - Backend: OK (2.06s)
+2025-08-11 22:54:40,520 - INFO - Frontend: OK (0.02s)
+2025-08-11 22:54:40,520 - INFO - Tempo restante: 10:36
+2025-08-11 22:55:41,562 - INFO - CPU: 7.3% | RAM: 85.8% | Disco: 87.54%
+2025-08-11 22:55:44,053 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:55:44,053 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:55:46,099 - INFO - Backend: OK (2.04s)
+2025-08-11 22:55:46,099 - INFO - Frontend: OK (0.00s)
+2025-08-11 22:55:46,099 - INFO - Tempo restante: 10:35
+2025-08-11 22:56:47,122 - INFO - CPU: 26.2% | RAM: 86.6% | Disco: 87.54%
+2025-08-11 22:56:49,776 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:56:49,776 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:56:51,835 - INFO - Backend: OK (2.05s)
+2025-08-11 22:56:51,835 - INFO - Frontend: OK (0.00s)
+2025-08-11 22:56:51,836 - INFO - Tempo restante: 10:34
+2025-08-11 22:57:52,858 - INFO - CPU: 15.6% | RAM: 84.3% | Disco: 87.54%
+2025-08-11 22:57:55,287 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:57:55,288 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:57:57,344 - INFO - Backend: OK (2.05s)
+2025-08-11 22:57:57,344 - INFO - Frontend: OK (0.00s)
+2025-08-11 22:57:57,344 - INFO - Tempo restante: 10:33
+2025-08-11 22:58:58,374 - INFO - CPU: 13.6% | RAM: 84.2% | Disco: 87.54%
+2025-08-11 22:59:00,738 - INFO - Processos DataClinica ativos: 5
+2025-08-11 22:59:00,738 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 22:59:02,813 - INFO - Backend: OK (2.07s)
+2025-08-11 22:59:02,813 - INFO - Frontend: OK (0.00s)
+2025-08-11 22:59:02,821 - INFO - Tempo restante: 10:31
+2025-08-11 23:00:03,842 - INFO - CPU: 10.4% | RAM: 84.0% | Disco: 87.54%
+2025-08-11 23:00:06,138 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:00:06,139 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:00:08,177 - INFO - Backend: OK (2.03s)
+2025-08-11 23:00:08,178 - INFO - Frontend: OK (0.00s)
+2025-08-11 23:00:08,178 - INFO - Tempo restante: 10:30
+2025-08-11 23:01:09,201 - INFO - CPU: 4.1% | RAM: 84.0% | Disco: 87.54%
+2025-08-11 23:01:11,855 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:01:11,856 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:01:13,903 - INFO - Backend: OK (2.04s)
+2025-08-11 23:01:13,904 - INFO - Frontend: OK (0.01s)
+2025-08-11 23:01:13,904 - INFO - Tempo restante: 10:29
+2025-08-11 23:02:14,939 - INFO - CPU: 22.1% | RAM: 85.0% | Disco: 87.54%
+2025-08-11 23:02:17,512 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:02:17,512 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:02:19,592 - INFO - Backend: OK (2.07s)
+2025-08-11 23:02:19,592 - INFO - Frontend: OK (0.00s)
+2025-08-11 23:02:19,593 - INFO - Tempo restante: 10:28
+2025-08-11 23:03:20,621 - INFO - CPU: 6.9% | RAM: 84.1% | Disco: 87.54%
+2025-08-11 23:03:23,269 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:03:23,269 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:03:25,332 - INFO - Backend: OK (2.06s)
+2025-08-11 23:03:25,332 - INFO - Frontend: OK (0.00s)
+2025-08-11 23:03:25,332 - INFO - Tempo restante: 10:27
+2025-08-11 23:04:26,372 - INFO - CPU: 7.0% | RAM: 84.6% | Disco: 87.54%
+2025-08-11 23:04:28,832 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:04:28,833 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:04:30,899 - INFO - Backend: OK (2.06s)
+2025-08-11 23:04:30,899 - INFO - Frontend: OK (0.00s)
+2025-08-11 23:04:30,899 - INFO - Tempo restante: 10:26
+2025-08-11 23:05:31,928 - INFO - CPU: 19.6% | RAM: 84.5% | Disco: 87.54%
+2025-08-11 23:05:34,137 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:05:34,138 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:05:36,219 - INFO - Backend: OK (2.06s)
+2025-08-11 23:05:36,220 - INFO - Frontend: OK (0.01s)
+2025-08-11 23:05:36,220 - INFO - Tempo restante: 10:25
+2025-08-11 23:06:37,250 - WARNING - [ALERT] Memória alta: 87.0%
+2025-08-11 23:06:37,250 - INFO - CPU: 34.0% | RAM: 87.0% | Disco: 87.54%
+2025-08-11 23:06:40,193 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:06:40,193 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:06:42,245 - INFO - Backend: OK (2.04s)
+2025-08-11 23:06:42,245 - INFO - Frontend: OK (0.01s)
+2025-08-11 23:06:42,245 - INFO - Tempo restante: 10:24
+2025-08-11 23:07:43,272 - INFO - CPU: 23.6% | RAM: 86.0% | Disco: 87.54%
+2025-08-11 23:07:45,645 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:07:45,645 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:07:47,707 - INFO - Backend: OK (2.05s)
+2025-08-11 23:07:47,707 - INFO - Frontend: OK (0.00s)
+2025-08-11 23:07:47,707 - INFO - Tempo restante: 10:23
+2025-08-11 23:08:48,760 - INFO - CPU: 9.5% | RAM: 85.9% | Disco: 87.54%
+2025-08-11 23:08:51,061 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:08:51,061 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:08:53,118 - INFO - Backend: OK (2.05s)
+2025-08-11 23:08:53,118 - INFO - Frontend: OK (0.00s)
+2025-08-11 23:08:53,119 - INFO - Tempo restante: 10:22
+2025-08-11 23:09:54,163 - INFO - CPU: 20.5% | RAM: 87.0% | Disco: 87.54%
+2025-08-11 23:09:56,679 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:09:56,679 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:09:58,749 - INFO - Backend: OK (2.06s)
+2025-08-11 23:09:58,749 - INFO - Frontend: OK (0.00s)
+2025-08-11 23:09:58,762 - INFO - Tempo restante: 10:21
+2025-08-11 23:10:59,793 - INFO - CPU: 28.0% | RAM: 85.7% | Disco: 87.54%
+2025-08-11 23:11:02,318 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:11:02,318 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:11:04,361 - INFO - Backend: OK (2.04s)
+2025-08-11 23:11:04,361 - INFO - Frontend: OK (0.00s)
+2025-08-11 23:11:04,362 - INFO - Tempo restante: 10:19
+2025-08-11 23:12:05,394 - INFO - CPU: 16.7% | RAM: 86.4% | Disco: 87.54%
+2025-08-11 23:12:08,001 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:12:08,002 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:12:10,059 - INFO - Backend: OK (2.05s)
+2025-08-11 23:12:10,059 - INFO - Frontend: OK (0.00s)
+2025-08-11 23:12:10,059 - INFO - Tempo restante: 10:18
+2025-08-11 23:13:11,107 - INFO - CPU: 10.3% | RAM: 85.7% | Disco: 87.54%
+2025-08-11 23:13:13,807 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:13:13,807 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:13:15,873 - INFO - Backend: OK (2.05s)
+2025-08-11 23:13:15,873 - INFO - Frontend: OK (0.01s)
+2025-08-11 23:13:15,874 - INFO - Tempo restante: 10:17
+2025-08-11 23:14:16,901 - INFO - CPU: 7.2% | RAM: 85.7% | Disco: 87.54%
+2025-08-11 23:14:19,420 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:14:19,421 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:14:21,479 - INFO - Backend: OK (2.05s)
+2025-08-11 23:14:21,480 - INFO - Frontend: OK (0.00s)
+2025-08-11 23:14:21,480 - INFO - Tempo restante: 10:16
+2025-08-11 23:15:22,521 - INFO - CPU: 3.9% | RAM: 85.3% | Disco: 87.54%
+2025-08-11 23:15:25,722 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:15:25,722 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:15:27,784 - INFO - Backend: OK (2.05s)
+2025-08-11 23:15:27,785 - INFO - Frontend: OK (0.01s)
+2025-08-11 23:15:27,785 - INFO - Tempo restante: 10:15
+2025-08-11 23:16:28,812 - INFO - CPU: 16.8% | RAM: 85.3% | Disco: 87.54%
+2025-08-11 23:16:31,636 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:16:31,636 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:16:33,690 - INFO - Backend: OK (2.05s)
+2025-08-11 23:16:33,690 - INFO - Frontend: OK (0.00s)
+2025-08-11 23:16:33,691 - INFO - Tempo restante: 10:14
+2025-08-11 23:17:34,732 - INFO - CPU: 16.4% | RAM: 85.5% | Disco: 87.54%
+2025-08-11 23:17:37,416 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:17:37,417 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:17:39,472 - INFO - Backend: OK (2.04s)
+2025-08-11 23:17:39,473 - INFO - Frontend: OK (0.01s)
+2025-08-11 23:17:39,473 - INFO - Tempo restante: 10:13
+2025-08-11 23:18:40,514 - INFO - CPU: 11.5% | RAM: 85.5% | Disco: 87.54%
+2025-08-11 23:18:43,081 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:18:43,082 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:18:45,147 - INFO - Backend: OK (2.03s)
+2025-08-11 23:18:45,147 - INFO - Frontend: OK (0.03s)
+2025-08-11 23:18:45,148 - INFO - Tempo restante: 10:12
+2025-08-11 23:19:46,187 - INFO - CPU: 14.5% | RAM: 85.8% | Disco: 87.54%
+2025-08-11 23:19:48,688 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:19:48,689 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:19:50,749 - INFO - Backend: OK (2.04s)
+2025-08-11 23:19:50,749 - INFO - Frontend: OK (0.02s)
+2025-08-11 23:19:50,749 - INFO - Tempo restante: 10:11
+2025-08-11 23:20:51,777 - INFO - CPU: 12.0% | RAM: 85.6% | Disco: 87.54%
+2025-08-11 23:20:54,368 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:20:54,369 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:20:56,437 - INFO - Backend: OK (2.06s)
+2025-08-11 23:20:56,437 - INFO - Frontend: OK (0.00s)
+2025-08-11 23:20:56,444 - INFO - Tempo restante: 10:10
+2025-08-11 23:21:57,466 - INFO - CPU: 10.0% | RAM: 85.8% | Disco: 87.54%
+2025-08-11 23:21:59,815 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:21:59,815 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:22:01,887 - INFO - Backend: OK (2.05s)
+2025-08-11 23:22:01,888 - INFO - Frontend: OK (0.01s)
+2025-08-11 23:22:01,888 - INFO - Tempo restante: 10:08
+2025-08-11 23:23:02,909 - INFO - CPU: 29.1% | RAM: 85.8% | Disco: 87.54%
+2025-08-11 23:23:05,393 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:23:05,394 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:23:07,457 - INFO - Backend: OK (2.05s)
+2025-08-11 23:23:07,458 - INFO - Frontend: OK (0.00s)
+2025-08-11 23:23:07,458 - INFO - Tempo restante: 10:07
+2025-08-11 23:24:08,502 - INFO - CPU: 19.1% | RAM: 86.0% | Disco: 87.54%
+2025-08-11 23:24:11,073 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:24:11,073 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:24:13,140 - INFO - Backend: OK (2.05s)
+2025-08-11 23:24:13,141 - INFO - Frontend: OK (0.01s)
+2025-08-11 23:24:13,141 - INFO - Tempo restante: 10:06
+2025-08-11 23:25:14,172 - INFO - CPU: 21.8% | RAM: 85.8% | Disco: 87.54%
+2025-08-11 23:25:16,576 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:25:16,577 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:25:18,646 - INFO - Backend: OK (2.06s)
+2025-08-11 23:25:18,647 - INFO - Frontend: OK (0.01s)
+2025-08-11 23:25:18,647 - INFO - Tempo restante: 10:05
+2025-08-11 23:26:19,688 - INFO - CPU: 20.4% | RAM: 86.1% | Disco: 87.54%
+2025-08-11 23:26:22,166 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:26:22,167 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:26:24,230 - INFO - Backend: OK (2.05s)
+2025-08-11 23:26:24,230 - INFO - Frontend: OK (0.01s)
+2025-08-11 23:26:24,231 - INFO - Tempo restante: 10:04
+2025-08-11 23:27:25,253 - INFO - CPU: 22.2% | RAM: 85.5% | Disco: 87.54%
+2025-08-11 23:27:27,999 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:27:27,999 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:27:30,103 - INFO - Backend: OK (2.08s)
+2025-08-11 23:27:30,103 - INFO - Frontend: OK (0.02s)
+2025-08-11 23:27:30,103 - INFO - Tempo restante: 10:03
+2025-08-11 23:28:31,136 - INFO - CPU: 9.1% | RAM: 85.7% | Disco: 87.54%
+2025-08-11 23:28:33,551 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:28:33,552 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:28:35,602 - INFO - Backend: OK (2.04s)
+2025-08-11 23:28:35,602 - INFO - Frontend: OK (0.00s)
+2025-08-11 23:28:35,602 - INFO - Tempo restante: 10:02
+2025-08-11 23:29:36,655 - INFO - CPU: 19.5% | RAM: 86.5% | Disco: 87.54%
+2025-08-11 23:29:39,432 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:29:39,432 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:29:41,499 - INFO - Backend: OK (2.06s)
+2025-08-11 23:29:41,500 - INFO - Frontend: OK (0.00s)
+2025-08-11 23:29:41,500 - INFO - Tempo restante: 10:01
+2025-08-11 23:30:42,547 - WARNING - [ALERT] Memória alta: 86.2%
+2025-08-11 23:30:42,548 - INFO - CPU: 2.5% | RAM: 86.2% | Disco: 87.55%
+2025-08-11 23:30:45,016 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:30:45,017 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:30:47,087 - INFO - Backend: OK (2.06s)
+2025-08-11 23:30:47,087 - INFO - Frontend: OK (0.00s)
+2025-08-11 23:30:47,087 - INFO - Tempo restante: 10:00
+2025-08-11 23:31:48,131 - WARNING - [ALERT] Memória alta: 86.8%
+2025-08-11 23:31:48,132 - INFO - CPU: 5.3% | RAM: 86.8% | Disco: 87.55%
+2025-08-11 23:31:50,540 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:31:50,540 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:31:52,603 - INFO - Backend: OK (2.04s)
+2025-08-11 23:31:52,603 - INFO - Frontend: OK (0.02s)
+2025-08-11 23:31:52,611 - INFO - Tempo restante: 09:59
+2025-08-11 23:32:53,639 - INFO - CPU: 22.2% | RAM: 86.5% | Disco: 87.55%
+2025-08-11 23:32:56,038 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:32:56,039 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:32:58,117 - INFO - Backend: OK (2.07s)
+2025-08-11 23:32:58,117 - INFO - Frontend: OK (0.00s)
+2025-08-11 23:32:58,117 - INFO - Tempo restante: 09:58
+2025-08-11 23:33:59,167 - INFO - CPU: 10.9% | RAM: 86.4% | Disco: 87.55%
+2025-08-11 23:34:01,519 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:34:01,520 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:34:03,588 - INFO - Backend: OK (2.06s)
+2025-08-11 23:34:03,588 - INFO - Frontend: OK (0.00s)
+2025-08-11 23:34:03,588 - INFO - Tempo restante: 09:56
+2025-08-11 23:35:04,631 - INFO - CPU: 10.7% | RAM: 86.5% | Disco: 87.54%
+2025-08-11 23:35:07,006 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:35:07,006 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:35:09,071 - INFO - Backend: OK (2.06s)
+2025-08-11 23:35:09,072 - INFO - Frontend: OK (0.00s)
+2025-08-11 23:35:09,072 - INFO - Tempo restante: 09:55
+2025-08-11 23:36:10,113 - INFO - CPU: 5.4% | RAM: 86.4% | Disco: 87.54%
+2025-08-11 23:36:12,508 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:36:12,508 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:36:14,557 - INFO - Backend: OK (2.04s)
+2025-08-11 23:36:14,557 - INFO - Frontend: OK (0.00s)
+2025-08-11 23:36:14,558 - INFO - Tempo restante: 09:54
+2025-08-11 23:37:15,584 - INFO - CPU: 9.9% | RAM: 86.5% | Disco: 87.55%
+2025-08-11 23:37:17,967 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:37:17,968 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:37:20,025 - INFO - Backend: OK (2.05s)
+2025-08-11 23:37:20,025 - INFO - Frontend: OK (0.00s)
+2025-08-11 23:37:20,025 - INFO - Tempo restante: 09:53
+2025-08-11 23:38:21,054 - INFO - CPU: 20.3% | RAM: 86.4% | Disco: 87.55%
+2025-08-11 23:38:23,275 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:38:23,275 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:38:25,343 - INFO - Backend: OK (2.06s)
+2025-08-11 23:38:25,343 - INFO - Frontend: OK (0.00s)
+2025-08-11 23:38:25,343 - INFO - Tempo restante: 09:52
+2025-08-11 23:39:26,386 - INFO - CPU: 26.1% | RAM: 86.5% | Disco: 87.54%
+2025-08-11 23:39:29,003 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:39:29,003 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:39:31,070 - INFO - Backend: OK (2.04s)
+2025-08-11 23:39:31,071 - INFO - Frontend: OK (0.02s)
+2025-08-11 23:39:31,071 - INFO - Tempo restante: 09:51
+2025-08-11 23:40:32,111 - INFO - CPU: 15.4% | RAM: 86.3% | Disco: 87.54%
+2025-08-11 23:40:34,484 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:40:34,484 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:40:36,548 - INFO - Backend: OK (2.06s)
+2025-08-11 23:40:36,549 - INFO - Frontend: OK (0.00s)
+2025-08-11 23:40:36,549 - INFO - Tempo restante: 09:50
+2025-08-11 23:41:37,582 - INFO - CPU: 10.1% | RAM: 86.0% | Disco: 87.54%
+2025-08-11 23:41:40,121 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:41:40,121 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:41:42,207 - INFO - Backend: OK (2.07s)
+2025-08-11 23:41:42,207 - INFO - Frontend: OK (0.02s)
+2025-08-11 23:41:42,208 - INFO - Tempo restante: 09:49
+2025-08-11 23:42:43,258 - INFO - CPU: 24.7% | RAM: 86.3% | Disco: 87.54%
+2025-08-11 23:42:45,575 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:42:45,575 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:42:47,665 - INFO - Backend: OK (2.06s)
+2025-08-11 23:42:47,665 - INFO - Frontend: OK (0.02s)
+2025-08-11 23:42:47,675 - INFO - Tempo restante: 09:48
+2025-08-11 23:43:48,750 - INFO - CPU: 18.9% | RAM: 86.6% | Disco: 87.54%
+2025-08-11 23:43:51,019 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:43:51,019 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:43:53,056 - INFO - Backend: OK (2.03s)
+2025-08-11 23:43:53,057 - INFO - Frontend: OK (0.00s)
+2025-08-11 23:43:53,057 - INFO - Tempo restante: 09:47
+2025-08-11 23:44:54,088 - WARNING - [ALERT] Memória alta: 86.7%
+2025-08-11 23:44:54,088 - INFO - CPU: 10.0% | RAM: 86.7% | Disco: 87.54%
+2025-08-11 23:44:56,979 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:44:56,980 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:44:59,036 - INFO - Backend: OK (2.05s)
+2025-08-11 23:44:59,037 - INFO - Frontend: OK (0.01s)
+2025-08-11 23:44:59,037 - INFO - Tempo restante: 09:46
+2025-08-11 23:46:00,061 - INFO - CPU: 27.7% | RAM: 86.5% | Disco: 87.55%
+2025-08-11 23:46:02,560 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:46:02,560 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:46:04,642 - INFO - Backend: OK (2.07s)
+2025-08-11 23:46:04,643 - INFO - Frontend: OK (0.01s)
+2025-08-11 23:46:04,643 - INFO - Tempo restante: 09:44
+2025-08-11 23:47:05,671 - WARNING - [ALERT] Memória alta: 87.7%
+2025-08-11 23:47:05,671 - WARNING - [ALERT] Pouca memória disponível: 0.96GB
+2025-08-11 23:47:05,672 - INFO - CPU: 13.4% | RAM: 87.7% | Disco: 87.55%
+2025-08-11 23:47:08,203 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:47:08,203 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:47:10,271 - INFO - Backend: OK (2.06s)
+2025-08-11 23:47:10,271 - INFO - Frontend: OK (0.00s)
+2025-08-11 23:47:10,271 - INFO - Tempo restante: 09:43
+2025-08-11 23:48:11,298 - WARNING - [ALERT] Memória alta: 87.8%
+2025-08-11 23:48:11,299 - INFO - CPU: 9.0% | RAM: 87.8% | Disco: 87.55%
+2025-08-11 23:48:13,763 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:48:13,763 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:48:15,830 - INFO - Backend: OK (2.04s)
+2025-08-11 23:48:15,831 - INFO - Frontend: OK (0.03s)
+2025-08-11 23:48:15,831 - INFO - Tempo restante: 09:42
+2025-08-11 23:49:16,912 - INFO - CPU: 35.9% | RAM: 87.7% | Disco: 87.55%
+2025-08-11 23:49:19,286 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:49:19,287 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:49:21,359 - INFO - Backend: OK (2.06s)
+2025-08-11 23:49:21,359 - INFO - Frontend: OK (0.01s)
+2025-08-11 23:49:21,360 - INFO - Tempo restante: 09:41
+2025-08-11 23:50:22,407 - WARNING - [ALERT] Memória alta: 87.5%
+2025-08-11 23:50:22,408 - WARNING - [ALERT] Pouca memória disponível: 0.98GB
+2025-08-11 23:50:22,408 - INFO - CPU: 12.4% | RAM: 87.5% | Disco: 87.55%
+2025-08-11 23:50:25,015 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:50:25,016 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:50:27,093 - INFO - Backend: OK (2.06s)
+2025-08-11 23:50:27,093 - INFO - Frontend: OK (0.01s)
+2025-08-11 23:50:27,094 - INFO - Tempo restante: 09:40
+2025-08-11 23:51:28,115 - WARNING - [ALERT] Memória alta: 87.9%
+2025-08-11 23:51:28,115 - WARNING - [ALERT] Pouca memória disponível: 0.95GB
+2025-08-11 23:51:28,115 - INFO - CPU: 13.2% | RAM: 87.9% | Disco: 87.54%
+2025-08-11 23:51:30,852 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:51:30,852 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:51:32,914 - INFO - Backend: OK (2.05s)
+2025-08-11 23:51:32,914 - INFO - Frontend: OK (0.00s)
+2025-08-11 23:51:32,915 - INFO - Tempo restante: 09:39
+2025-08-11 23:52:33,962 - INFO - CPU: 18.1% | RAM: 87.7% | Disco: 87.55%
+2025-08-11 23:52:36,444 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:52:36,447 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:52:38,513 - INFO - Backend: OK (2.06s)
+2025-08-11 23:52:38,513 - INFO - Frontend: OK (0.00s)
+2025-08-11 23:52:38,514 - INFO - Tempo restante: 09:38
+2025-08-11 23:53:39,541 - WARNING - [ALERT] Memória alta: 88.0%
+2025-08-11 23:53:39,542 - WARNING - [ALERT] Pouca memória disponível: 0.94GB
+2025-08-11 23:53:39,542 - INFO - CPU: 19.0% | RAM: 88.0% | Disco: 87.55%
+2025-08-11 23:53:42,375 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:53:42,376 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:53:44,432 - INFO - Backend: OK (2.05s)
+2025-08-11 23:53:44,432 - INFO - Frontend: OK (0.00s)
+2025-08-11 23:53:44,446 - INFO - Tempo restante: 09:37
+2025-08-11 23:54:45,471 - WARNING - [ALERT] Memória alta: 87.6%
+2025-08-11 23:54:45,471 - WARNING - [ALERT] Pouca memória disponível: 0.97GB
+2025-08-11 23:54:45,472 - INFO - CPU: 15.3% | RAM: 87.6% | Disco: 87.55%
+2025-08-11 23:54:48,127 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:54:48,128 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:54:50,202 - INFO - Backend: OK (2.06s)
+2025-08-11 23:54:50,203 - INFO - Frontend: OK (0.01s)
+2025-08-11 23:54:50,203 - INFO - Tempo restante: 09:36
+2025-08-11 23:55:51,240 - INFO - CPU: 11.7% | RAM: 87.0% | Disco: 87.55%
+2025-08-11 23:55:53,755 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:55:53,756 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:55:55,837 - INFO - Backend: OK (2.07s)
+2025-08-11 23:55:55,838 - INFO - Frontend: OK (0.01s)
+2025-08-11 23:55:55,838 - INFO - Tempo restante: 09:35
+2025-08-11 23:56:56,887 - WARNING - [ALERT] Memória alta: 87.4%
+2025-08-11 23:56:56,888 - WARNING - [ALERT] Pouca memória disponível: 0.99GB
+2025-08-11 23:56:56,888 - INFO - CPU: 4.1% | RAM: 87.4% | Disco: 87.54%
+2025-08-11 23:56:59,520 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:56:59,520 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:57:01,581 - INFO - Backend: OK (2.04s)
+2025-08-11 23:57:01,582 - INFO - Frontend: OK (0.01s)
+2025-08-11 23:57:01,582 - INFO - Tempo restante: 09:33
+2025-08-11 23:58:02,622 - INFO - CPU: 8.9% | RAM: 87.5% | Disco: 87.55%
+2025-08-11 23:58:05,129 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:58:05,130 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:58:07,183 - INFO - Backend: OK (2.05s)
+2025-08-11 23:58:07,183 - INFO - Frontend: OK (0.00s)
+2025-08-11 23:58:07,183 - INFO - Tempo restante: 09:32
+2025-08-11 23:59:08,208 - INFO - CPU: 21.8% | RAM: 87.7% | Disco: 87.55%
+2025-08-11 23:59:10,735 - INFO - Processos DataClinica ativos: 5
+2025-08-11 23:59:10,735 - INFO - Tamanho do banco: 0.46MB
+2025-08-11 23:59:12,807 - INFO - Backend: OK (2.05s)
+2025-08-11 23:59:12,808 - INFO - Frontend: OK (0.01s)
+2025-08-11 23:59:12,808 - INFO - Tempo restante: 09:31
+2025-08-12 00:00:13,843 - INFO - CPU: 10.3% | RAM: 87.6% | Disco: 87.55%
+2025-08-12 00:00:16,369 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:00:16,370 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:00:18,453 - INFO - Backend: OK (2.06s)
+2025-08-12 00:00:18,454 - INFO - Frontend: OK (0.01s)
+2025-08-12 00:00:18,455 - INFO - Tempo restante: 09:30
+2025-08-12 00:01:19,478 - INFO - CPU: 25.7% | RAM: 87.8% | Disco: 87.55%
+2025-08-12 00:01:21,966 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:01:21,966 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:01:24,046 - INFO - Backend: OK (2.07s)
+2025-08-12 00:01:24,046 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:01:24,046 - INFO - Tempo restante: 09:29
+2025-08-12 00:02:25,070 - WARNING - [ALERT] Memória alta: 88.1%
+2025-08-12 00:02:25,071 - WARNING - [ALERT] Pouca memória disponível: 0.93GB
+2025-08-12 00:02:25,071 - INFO - CPU: 19.7% | RAM: 88.1% | Disco: 87.55%
+2025-08-12 00:02:27,987 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:02:27,987 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:02:30,039 - INFO - Backend: OK (2.05s)
+2025-08-12 00:02:30,040 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:02:30,040 - INFO - Tempo restante: 09:28
+2025-08-12 00:03:31,073 - INFO - CPU: 19.4% | RAM: 87.9% | Disco: 87.64%
+2025-08-12 00:03:33,623 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:03:33,624 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:03:35,701 - INFO - Backend: OK (2.06s)
+2025-08-12 00:03:35,702 - INFO - Frontend: OK (0.01s)
+2025-08-12 00:03:35,702 - INFO - Tempo restante: 09:27
+2025-08-12 00:04:36,732 - INFO - CPU: 21.3% | RAM: 87.8% | Disco: 87.64%
+2025-08-12 00:04:39,587 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:04:39,588 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:04:41,653 - INFO - Backend: OK (2.06s)
+2025-08-12 00:04:41,653 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:04:41,664 - INFO - Tempo restante: 09:26
+2025-08-12 00:05:42,686 - INFO - CPU: 35.6% | RAM: 87.9% | Disco: 87.64%
+2025-08-12 00:05:45,245 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:05:45,245 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:05:47,331 - INFO - Backend: OK (2.05s)
+2025-08-12 00:05:47,331 - INFO - Frontend: OK (0.03s)
+2025-08-12 00:05:47,331 - INFO - Tempo restante: 09:25
+2025-08-12 00:06:48,370 - WARNING - [ALERT] Memória alta: 89.8%
+2025-08-12 00:06:48,370 - WARNING - [ALERT] Pouca memória disponível: 0.8GB
+2025-08-12 00:06:48,371 - INFO - CPU: 25.8% | RAM: 89.8% | Disco: 87.64%
+2025-08-12 00:06:50,831 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:06:50,832 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:06:52,875 - INFO - Backend: OK (2.04s)
+2025-08-12 00:06:52,875 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:06:52,875 - INFO - Tempo restante: 09:24
+2025-08-12 00:07:53,902 - WARNING - [ALERT] Memória alta: 88.3%
+2025-08-12 00:07:53,903 - WARNING - [ALERT] Pouca memória disponível: 0.92GB
+2025-08-12 00:07:53,903 - INFO - CPU: 18.4% | RAM: 88.3% | Disco: 87.64%
+2025-08-12 00:07:56,841 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:07:56,841 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:07:58,926 - INFO - Backend: OK (2.07s)
+2025-08-12 00:07:58,927 - INFO - Frontend: OK (0.01s)
+2025-08-12 00:07:58,927 - INFO - Tempo restante: 09:23
+2025-08-12 00:08:59,971 - WARNING - [ALERT] Memória alta: 88.6%
+2025-08-12 00:08:59,971 - INFO - CPU: 14.5% | RAM: 88.6% | Disco: 87.64%
+2025-08-12 00:09:02,519 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:09:02,520 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:09:04,588 - INFO - Backend: OK (2.06s)
+2025-08-12 00:09:04,588 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:09:04,589 - INFO - Tempo restante: 09:21
+2025-08-12 00:10:05,623 - INFO - CPU: 9.3% | RAM: 87.9% | Disco: 87.64%
+2025-08-12 00:10:08,531 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:10:08,531 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:10:10,619 - INFO - Backend: OK (2.06s)
+2025-08-12 00:10:10,619 - INFO - Frontend: OK (0.02s)
+2025-08-12 00:10:10,620 - INFO - Tempo restante: 09:20
+2025-08-12 00:11:11,668 - INFO - CPU: 16.1% | RAM: 88.0% | Disco: 87.64%
+2025-08-12 00:11:14,277 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:11:14,277 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:11:16,370 - INFO - Backend: OK (2.07s)
+2025-08-12 00:11:16,370 - INFO - Frontend: OK (0.02s)
+2025-08-12 00:11:16,370 - INFO - Tempo restante: 09:19
+2025-08-12 00:12:17,443 - INFO - CPU: 19.6% | RAM: 87.9% | Disco: 87.64%
+2025-08-12 00:12:20,307 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:12:20,307 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:12:22,341 - INFO - Backend: OK (2.03s)
+2025-08-12 00:12:22,341 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:12:22,341 - INFO - Tempo restante: 09:18
+2025-08-12 00:13:23,383 - INFO - CPU: 9.9% | RAM: 88.0% | Disco: 87.64%
+2025-08-12 00:13:26,434 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:13:26,435 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:13:28,509 - INFO - Backend: OK (2.06s)
+2025-08-12 00:13:28,509 - INFO - Frontend: OK (0.02s)
+2025-08-12 00:13:28,510 - INFO - Tempo restante: 09:17
+2025-08-12 00:14:29,539 - WARNING - [ALERT] Memória alta: 88.2%
+2025-08-12 00:14:29,540 - INFO - CPU: 20.9% | RAM: 88.2% | Disco: 87.64%
+2025-08-12 00:14:32,513 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:14:32,513 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:14:34,603 - INFO - Backend: OK (2.06s)
+2025-08-12 00:14:34,603 - INFO - Frontend: OK (0.03s)
+2025-08-12 00:14:34,604 - INFO - Tempo restante: 09:16
+2025-08-12 00:15:35,656 - INFO - CPU: 10.0% | RAM: 88.1% | Disco: 87.64%
+2025-08-12 00:15:38,273 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:15:38,274 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:15:40,307 - INFO - Backend: OK (2.03s)
+2025-08-12 00:15:40,307 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:15:40,315 - INFO - Tempo restante: 09:15
+2025-08-12 00:16:41,361 - INFO - CPU: 10.5% | RAM: 88.0% | Disco: 87.64%
+2025-08-12 00:16:44,304 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:16:44,304 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:16:46,379 - INFO - Backend: OK (2.07s)
+2025-08-12 00:16:46,380 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:16:46,380 - INFO - Tempo restante: 09:14
+2025-08-12 00:17:47,421 - WARNING - [ALERT] Pouca memória disponível: 0.91GB
+2025-08-12 00:17:47,421 - INFO - CPU: 12.4% | RAM: 88.3% | Disco: 87.64%
+2025-08-12 00:17:50,138 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:17:50,138 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:17:52,212 - INFO - Backend: OK (2.06s)
+2025-08-12 00:17:52,213 - INFO - Frontend: OK (0.01s)
+2025-08-12 00:17:52,213 - INFO - Tempo restante: 09:13
+2025-08-12 00:18:53,242 - WARNING - [ALERT] Memória alta: 90.6%
+2025-08-12 00:18:53,243 - INFO - CPU: 24.9% | RAM: 90.6% | Disco: 87.64%
+2025-08-12 00:18:56,691 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:18:56,691 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:18:58,736 - INFO - Backend: OK (2.04s)
+2025-08-12 00:18:58,736 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:18:58,737 - INFO - Tempo restante: 09:12
+2025-08-12 00:19:59,764 - WARNING - [ALERT] Memória alta: 90.8%
+2025-08-12 00:19:59,765 - WARNING - [ALERT] Pouca memória disponível: 0.72GB
+2025-08-12 00:19:59,765 - INFO - CPU: 16.7% | RAM: 90.8% | Disco: 87.64%
+2025-08-12 00:20:02,423 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:20:02,423 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:20:04,500 - INFO - Backend: OK (2.04s)
+2025-08-12 00:20:04,502 - INFO - Frontend: OK (0.03s)
+2025-08-12 00:20:04,502 - INFO - Tempo restante: 09:10
+2025-08-12 00:21:05,530 - WARNING - [ALERT] Memória alta: 90.2%
+2025-08-12 00:21:05,530 - WARNING - [ALERT] Pouca memória disponível: 0.77GB
+2025-08-12 00:21:05,531 - INFO - CPU: 26.7% | RAM: 90.2% | Disco: 87.64%
+2025-08-12 00:21:08,545 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:21:08,546 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:21:10,600 - INFO - Backend: OK (2.05s)
+2025-08-12 00:21:10,600 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:21:10,600 - INFO - Tempo restante: 09:09
+2025-08-12 00:22:11,626 - WARNING - [ALERT] Memória alta: 89.4%
+2025-08-12 00:22:11,626 - WARNING - [ALERT] Pouca memória disponível: 0.83GB
+2025-08-12 00:22:11,627 - INFO - CPU: 20.2% | RAM: 89.4% | Disco: 87.64%
+2025-08-12 00:22:14,107 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:22:14,107 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:22:16,186 - INFO - Backend: OK (2.05s)
+2025-08-12 00:22:16,186 - INFO - Frontend: OK (0.03s)
+2025-08-12 00:22:16,186 - INFO - Tempo restante: 09:08
+2025-08-12 00:23:17,208 - INFO - CPU: 17.9% | RAM: 89.4% | Disco: 87.64%
+2025-08-12 00:23:20,059 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:23:20,060 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:23:22,126 - INFO - Backend: OK (2.06s)
+2025-08-12 00:23:22,127 - INFO - Frontend: OK (0.01s)
+2025-08-12 00:23:22,127 - INFO - Tempo restante: 09:07
+2025-08-12 00:24:23,156 - INFO - CPU: 15.9% | RAM: 88.2% | Disco: 87.64%
+2025-08-12 00:24:25,852 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:24:25,852 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:24:27,900 - INFO - Backend: OK (2.03s)
+2025-08-12 00:24:27,900 - INFO - Frontend: OK (0.01s)
+2025-08-12 00:24:27,900 - INFO - Tempo restante: 09:06
+2025-08-12 00:25:28,930 - INFO - CPU: 25.8% | RAM: 88.1% | Disco: 87.64%
+2025-08-12 00:25:31,421 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:25:31,421 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:25:33,470 - INFO - Backend: OK (2.04s)
+2025-08-12 00:25:33,470 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:25:33,470 - INFO - Tempo restante: 09:05
+2025-08-12 00:26:34,493 - INFO - CPU: 10.9% | RAM: 88.1% | Disco: 87.64%
+2025-08-12 00:26:37,066 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:26:37,066 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:26:39,140 - INFO - Backend: OK (2.07s)
+2025-08-12 00:26:39,140 - INFO - Frontend: OK (0.01s)
+2025-08-12 00:26:39,154 - INFO - Tempo restante: 09:04
+2025-08-12 00:27:40,194 - INFO - CPU: 10.1% | RAM: 88.5% | Disco: 87.64%
+2025-08-12 00:27:42,873 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:27:42,873 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:27:44,946 - INFO - Backend: OK (2.06s)
+2025-08-12 00:27:44,946 - INFO - Frontend: OK (0.01s)
+2025-08-12 00:27:44,946 - INFO - Tempo restante: 09:03
+2025-08-12 00:28:45,979 - WARNING - [ALERT] Memória alta: 88.4%
+2025-08-12 00:28:45,980 - INFO - CPU: 19.0% | RAM: 88.4% | Disco: 87.64%
+2025-08-12 00:28:48,592 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:28:48,592 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:28:50,643 - INFO - Backend: OK (2.04s)
+2025-08-12 00:28:50,643 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:28:50,643 - INFO - Tempo restante: 09:02
+2025-08-12 00:29:51,674 - INFO - CPU: 12.8% | RAM: 88.5% | Disco: 87.64%
+2025-08-12 00:29:54,201 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:29:54,202 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:29:56,272 - INFO - Backend: OK (2.06s)
+2025-08-12 00:29:56,272 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:29:56,273 - INFO - Tempo restante: 09:01
+2025-08-12 00:30:57,296 - INFO - CPU: 20.2% | RAM: 88.5% | Disco: 87.64%
+2025-08-12 00:30:59,997 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:30:59,998 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:31:02,070 - INFO - Backend: OK (2.07s)
+2025-08-12 00:31:02,071 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:31:02,071 - INFO - Tempo restante: 08:59
+2025-08-12 00:32:03,110 - WARNING - [ALERT] Memória alta: 88.7%
+2025-08-12 00:32:03,110 - WARNING - [ALERT] Pouca memória disponível: 0.89GB
+2025-08-12 00:32:03,111 - INFO - CPU: 15.1% | RAM: 88.7% | Disco: 87.64%
+2025-08-12 00:32:05,504 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:32:05,505 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:32:07,577 - INFO - Backend: OK (2.06s)
+2025-08-12 00:32:07,577 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:32:07,578 - INFO - Tempo restante: 08:58
+2025-08-12 00:33:08,644 - INFO - CPU: 26.6% | RAM: 88.6% | Disco: 87.64%
+2025-08-12 00:33:11,751 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:33:11,752 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:33:13,818 - INFO - Backend: OK (2.06s)
+2025-08-12 00:33:13,818 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:33:13,819 - INFO - Tempo restante: 08:57
+2025-08-12 00:34:14,848 - INFO - CPU: 19.0% | RAM: 88.6% | Disco: 87.64%
+2025-08-12 00:34:17,343 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:34:17,343 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:34:19,396 - INFO - Backend: OK (2.04s)
+2025-08-12 00:34:19,397 - INFO - Frontend: OK (0.01s)
+2025-08-12 00:34:19,398 - INFO - Tempo restante: 08:56
+2025-08-12 00:35:20,441 - INFO - CPU: 20.3% | RAM: 88.6% | Disco: 87.64%
+2025-08-12 00:35:23,172 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:35:23,172 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:35:25,228 - INFO - Backend: OK (2.05s)
+2025-08-12 00:35:25,228 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:35:25,228 - INFO - Tempo restante: 08:55
+2025-08-12 00:36:26,253 - INFO - CPU: 23.9% | RAM: 88.4% | Disco: 87.64%
+2025-08-12 00:36:28,777 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:36:28,777 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:36:30,871 - INFO - Backend: OK (2.08s)
+2025-08-12 00:36:30,871 - INFO - Frontend: OK (0.02s)
+2025-08-12 00:36:30,871 - INFO - Tempo restante: 08:54
+2025-08-12 00:37:31,902 - WARNING - [ALERT] Memória alta: 88.9%
+2025-08-12 00:37:31,902 - WARNING - [ALERT] Pouca memória disponível: 0.87GB
+2025-08-12 00:37:31,902 - INFO - CPU: 27.8% | RAM: 88.9% | Disco: 87.65%
+2025-08-12 00:37:35,584 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:37:35,585 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:37:37,645 - INFO - Backend: OK (2.05s)
+2025-08-12 00:37:37,646 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:37:37,661 - INFO - Tempo restante: 08:53
+2025-08-12 00:38:38,713 - INFO - CPU: 17.5% | RAM: 76.6% | Disco: 87.64%
+2025-08-12 00:38:41,484 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:38:41,484 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:38:43,536 - INFO - Backend: OK (2.05s)
+2025-08-12 00:38:43,536 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:38:43,536 - INFO - Tempo restante: 08:52
+2025-08-12 00:39:44,560 - INFO - CPU: 14.6% | RAM: 76.9% | Disco: 87.65%
+2025-08-12 00:39:47,316 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:39:47,317 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:39:49,385 - INFO - Backend: OK (2.06s)
+2025-08-12 00:39:49,385 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:39:49,386 - INFO - Tempo restante: 08:51
+2025-08-12 00:40:50,409 - INFO - CPU: 21.9% | RAM: 75.4% | Disco: 87.64%
+2025-08-12 00:40:53,040 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:40:53,041 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:40:55,101 - INFO - Backend: OK (2.05s)
+2025-08-12 00:40:55,101 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:40:55,102 - INFO - Tempo restante: 08:50
+2025-08-12 00:41:56,131 - INFO - CPU: 38.4% | RAM: 76.6% | Disco: 87.64%
+2025-08-12 00:41:59,432 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:41:59,432 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:42:01,497 - INFO - Backend: OK (2.04s)
+2025-08-12 00:42:01,498 - INFO - Frontend: OK (0.02s)
+2025-08-12 00:42:01,498 - INFO - Tempo restante: 08:48
+2025-08-12 00:43:02,521 - INFO - CPU: 36.2% | RAM: 76.9% | Disco: 87.64%
+2025-08-12 00:43:05,611 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:43:05,612 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:43:07,653 - INFO - Backend: OK (2.04s)
+2025-08-12 00:43:07,653 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:43:07,653 - INFO - Tempo restante: 08:47
+2025-08-12 00:44:08,677 - INFO - CPU: 30.3% | RAM: 77.0% | Disco: 87.64%
+2025-08-12 00:44:11,835 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:44:11,835 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:44:13,909 - INFO - Backend: OK (2.07s)
+2025-08-12 00:44:13,909 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:44:13,909 - INFO - Tempo restante: 08:46
+2025-08-12 00:45:14,934 - INFO - CPU: 16.1% | RAM: 77.3% | Disco: 87.64%
+2025-08-12 00:45:17,461 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:45:17,461 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:45:19,518 - INFO - Backend: OK (2.05s)
+2025-08-12 00:45:19,518 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:45:19,519 - INFO - Tempo restante: 08:45
+2025-08-12 00:46:20,545 - INFO - CPU: 24.0% | RAM: 77.2% | Disco: 87.64%
+2025-08-12 00:46:23,416 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:46:23,417 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:46:25,482 - INFO - Backend: OK (2.06s)
+2025-08-12 00:46:25,482 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:46:25,482 - INFO - Tempo restante: 08:44
+2025-08-12 00:47:26,507 - INFO - CPU: 27.3% | RAM: 78.1% | Disco: 87.64%
+2025-08-12 00:47:29,325 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:47:29,325 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:47:31,374 - INFO - Backend: OK (2.04s)
+2025-08-12 00:47:31,374 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:47:31,375 - INFO - Tempo restante: 08:43
+2025-08-12 00:48:32,399 - INFO - CPU: 15.1% | RAM: 77.6% | Disco: 87.64%
+2025-08-12 00:48:35,274 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:48:35,274 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:48:37,358 - INFO - Backend: OK (2.05s)
+2025-08-12 00:48:37,358 - INFO - Frontend: OK (0.03s)
+2025-08-12 00:48:37,376 - INFO - Tempo restante: 08:42
+2025-08-12 00:49:38,402 - INFO - CPU: 14.2% | RAM: 77.5% | Disco: 87.64%
+2025-08-12 00:49:41,417 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:49:41,418 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:49:43,482 - INFO - Backend: OK (2.05s)
+2025-08-12 00:49:43,483 - INFO - Frontend: OK (0.01s)
+2025-08-12 00:49:43,484 - INFO - Tempo restante: 08:41
+2025-08-12 00:50:44,508 - INFO - CPU: 20.1% | RAM: 77.6% | Disco: 87.64%
+2025-08-12 00:50:47,659 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:50:47,659 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:50:49,719 - INFO - Backend: OK (2.05s)
+2025-08-12 00:50:49,719 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:50:49,719 - INFO - Tempo restante: 08:40
+2025-08-12 00:51:50,741 - INFO - CPU: 21.2% | RAM: 77.5% | Disco: 87.64%
+2025-08-12 00:51:53,396 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:51:53,397 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:51:55,452 - INFO - Backend: OK (2.05s)
+2025-08-12 00:51:55,452 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:51:55,452 - INFO - Tempo restante: 08:39
+2025-08-12 00:52:56,484 - INFO - CPU: 27.2% | RAM: 77.7% | Disco: 87.64%
+2025-08-12 00:52:59,911 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:52:59,912 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:53:01,989 - INFO - Backend: OK (2.07s)
+2025-08-12 00:53:01,990 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:53:01,990 - INFO - Tempo restante: 08:37
+2025-08-12 00:54:03,013 - INFO - CPU: 14.2% | RAM: 77.5% | Disco: 87.64%
+2025-08-12 00:54:05,958 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:54:05,959 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:54:08,003 - INFO - Backend: OK (2.04s)
+2025-08-12 00:54:08,003 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:54:08,004 - INFO - Tempo restante: 08:36
+2025-08-12 00:55:09,029 - INFO - CPU: 13.7% | RAM: 77.5% | Disco: 87.64%
+2025-08-12 00:55:12,424 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:55:12,425 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:55:14,470 - INFO - Backend: OK (2.04s)
+2025-08-12 00:55:14,470 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:55:14,471 - INFO - Tempo restante: 08:35
+2025-08-12 00:56:15,497 - INFO - CPU: 16.9% | RAM: 76.4% | Disco: 87.64%
+2025-08-12 00:56:18,153 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:56:18,154 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:56:20,216 - INFO - Backend: OK (2.06s)
+2025-08-12 00:56:20,217 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:56:20,217 - INFO - Tempo restante: 08:34
+2025-08-12 00:57:21,241 - INFO - CPU: 24.3% | RAM: 77.1% | Disco: 87.64%
+2025-08-12 00:57:23,962 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:57:23,963 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:57:26,037 - INFO - Backend: OK (2.07s)
+2025-08-12 00:57:26,037 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:57:26,038 - INFO - Tempo restante: 08:33
+2025-08-12 00:58:27,062 - INFO - CPU: 29.3% | RAM: 77.6% | Disco: 87.64%
+2025-08-12 00:58:29,868 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:58:29,869 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:58:31,930 - INFO - Backend: OK (2.06s)
+2025-08-12 00:58:31,930 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:58:31,930 - INFO - Tempo restante: 08:32
+2025-08-12 00:59:32,953 - INFO - CPU: 20.5% | RAM: 77.4% | Disco: 87.64%
+2025-08-12 00:59:35,799 - INFO - Processos DataClinica ativos: 5
+2025-08-12 00:59:35,799 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 00:59:37,861 - INFO - Backend: OK (2.05s)
+2025-08-12 00:59:37,861 - INFO - Frontend: OK (0.00s)
+2025-08-12 00:59:37,889 - INFO - Tempo restante: 08:31
+2025-08-12 01:00:38,913 - INFO - CPU: 23.8% | RAM: 77.5% | Disco: 87.64%
+2025-08-12 01:00:41,764 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:00:41,764 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:00:43,816 - INFO - Backend: OK (2.04s)
+2025-08-12 01:00:43,816 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:00:43,816 - INFO - Tempo restante: 08:30
+2025-08-12 01:01:44,840 - INFO - CPU: 16.9% | RAM: 77.8% | Disco: 87.64%
+2025-08-12 01:01:47,830 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:01:47,831 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:01:49,884 - INFO - Backend: OK (2.05s)
+2025-08-12 01:01:49,885 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:01:49,885 - INFO - Tempo restante: 08:29
+2025-08-12 01:02:50,909 - INFO - CPU: 23.2% | RAM: 78.4% | Disco: 87.64%
+2025-08-12 01:02:53,579 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:02:53,580 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:02:55,639 - INFO - Backend: OK (2.05s)
+2025-08-12 01:02:55,639 - INFO - Frontend: OK (0.01s)
+2025-08-12 01:02:55,640 - INFO - Tempo restante: 08:28
+2025-08-12 01:03:56,665 - INFO - CPU: 38.0% | RAM: 78.1% | Disco: 87.64%
+2025-08-12 01:03:59,581 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:03:59,581 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:04:01,633 - INFO - Backend: OK (2.05s)
+2025-08-12 01:04:01,634 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:04:01,634 - INFO - Tempo restante: 08:26
+2025-08-12 01:05:02,662 - INFO - CPU: 17.3% | RAM: 78.9% | Disco: 87.64%
+2025-08-12 01:05:05,178 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:05:05,179 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:05:07,258 - INFO - Backend: OK (2.07s)
+2025-08-12 01:05:07,258 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:05:07,259 - INFO - Tempo restante: 08:25
+2025-08-12 01:06:08,282 - INFO - CPU: 14.8% | RAM: 79.1% | Disco: 87.64%
+2025-08-12 01:06:11,621 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:06:11,621 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:06:13,682 - INFO - Backend: OK (2.05s)
+2025-08-12 01:06:13,682 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:06:13,683 - INFO - Tempo restante: 08:24
+2025-08-12 01:07:14,707 - INFO - CPU: 23.4% | RAM: 80.8% | Disco: 87.64%
+2025-08-12 01:07:17,319 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:07:17,319 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:07:19,385 - INFO - Backend: OK (2.06s)
+2025-08-12 01:07:19,386 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:07:19,386 - INFO - Tempo restante: 08:23
+2025-08-12 01:08:20,495 - INFO - CPU: 26.5% | RAM: 79.9% | Disco: 87.64%
+2025-08-12 01:08:23,195 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:08:23,196 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:08:25,265 - INFO - Backend: OK (2.06s)
+2025-08-12 01:08:25,266 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:08:25,266 - INFO - Tempo restante: 08:22
+2025-08-12 01:09:26,289 - INFO - CPU: 14.2% | RAM: 80.1% | Disco: 87.64%
+2025-08-12 01:09:29,042 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:09:29,042 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:09:31,091 - INFO - Backend: OK (2.04s)
+2025-08-12 01:09:31,092 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:09:31,092 - INFO - Tempo restante: 08:21
+2025-08-12 01:10:32,118 - INFO - CPU: 24.7% | RAM: 79.5% | Disco: 87.64%
+2025-08-12 01:10:34,894 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:10:34,894 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:10:36,937 - INFO - Backend: OK (2.04s)
+2025-08-12 01:10:36,937 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:10:36,957 - INFO - Tempo restante: 08:20
+2025-08-12 01:11:38,002 - INFO - CPU: 22.3% | RAM: 78.6% | Disco: 87.64%
+2025-08-12 01:11:40,925 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:11:40,926 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:11:42,975 - INFO - Backend: OK (2.04s)
+2025-08-12 01:11:42,975 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:11:42,975 - INFO - Tempo restante: 08:19
+2025-08-12 01:12:44,007 - INFO - CPU: 40.5% | RAM: 79.0% | Disco: 87.64%
+2025-08-12 01:12:46,969 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:12:46,969 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:12:49,036 - INFO - Backend: OK (2.06s)
+2025-08-12 01:12:49,036 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:12:49,037 - INFO - Tempo restante: 08:18
+2025-08-12 01:13:50,064 - INFO - CPU: 24.0% | RAM: 79.6% | Disco: 87.65%
+2025-08-12 01:13:52,757 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:13:52,758 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:13:54,831 - INFO - Backend: OK (2.06s)
+2025-08-12 01:13:54,831 - INFO - Frontend: OK (0.01s)
+2025-08-12 01:13:54,831 - INFO - Tempo restante: 08:17
+2025-08-12 01:14:55,859 - INFO - CPU: 25.9% | RAM: 79.7% | Disco: 87.65%
+2025-08-12 01:14:58,819 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:14:58,819 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:15:00,873 - INFO - Backend: OK (2.05s)
+2025-08-12 01:15:00,873 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:15:00,873 - INFO - Tempo restante: 08:15
+2025-08-12 01:16:01,897 - INFO - CPU: 14.3% | RAM: 79.8% | Disco: 87.65%
+2025-08-12 01:16:04,454 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:16:04,455 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:16:06,514 - INFO - Backend: OK (2.05s)
+2025-08-12 01:16:06,514 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:16:06,515 - INFO - Tempo restante: 08:14
+2025-08-12 01:17:07,539 - INFO - CPU: 20.2% | RAM: 80.1% | Disco: 87.65%
+2025-08-12 01:17:10,297 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:17:10,297 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:17:12,355 - INFO - Backend: OK (2.05s)
+2025-08-12 01:17:12,355 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:17:12,355 - INFO - Tempo restante: 08:13
+2025-08-12 01:18:13,383 - INFO - CPU: 19.1% | RAM: 79.6% | Disco: 87.64%
+2025-08-12 01:18:15,933 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:18:15,933 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:18:17,997 - INFO - Backend: OK (2.06s)
+2025-08-12 01:18:17,997 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:18:17,997 - INFO - Tempo restante: 08:12
+2025-08-12 01:19:19,021 - INFO - CPU: 13.2% | RAM: 79.9% | Disco: 87.65%
+2025-08-12 01:19:21,694 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:19:21,695 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:19:23,738 - INFO - Backend: OK (2.03s)
+2025-08-12 01:19:23,738 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:19:23,740 - INFO - Tempo restante: 08:11
+2025-08-12 01:20:24,764 - INFO - CPU: 22.0% | RAM: 79.8% | Disco: 87.64%
+2025-08-12 01:20:27,542 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:20:27,542 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:20:29,591 - INFO - Backend: OK (2.04s)
+2025-08-12 01:20:29,592 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:20:29,592 - INFO - Tempo restante: 08:10
+2025-08-12 01:21:30,616 - INFO - CPU: 14.1% | RAM: 79.9% | Disco: 87.65%
+2025-08-12 01:21:33,264 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:21:33,264 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:21:35,338 - INFO - Backend: OK (2.07s)
+2025-08-12 01:21:35,339 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:21:35,358 - INFO - Tempo restante: 08:09
+2025-08-12 01:22:36,385 - INFO - CPU: 20.8% | RAM: 80.0% | Disco: 87.65%
+2025-08-12 01:22:39,086 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:22:39,087 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:22:41,141 - INFO - Backend: OK (2.04s)
+2025-08-12 01:22:41,141 - INFO - Frontend: OK (0.01s)
+2025-08-12 01:22:41,141 - INFO - Tempo restante: 08:08
+2025-08-12 01:23:42,173 - INFO - CPU: 31.6% | RAM: 80.5% | Disco: 87.64%
+2025-08-12 01:23:44,864 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:23:44,865 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:23:46,926 - INFO - Backend: OK (2.04s)
+2025-08-12 01:23:46,926 - INFO - Frontend: OK (0.01s)
+2025-08-12 01:23:46,927 - INFO - Tempo restante: 08:07
+2025-08-12 01:24:47,950 - INFO - CPU: 22.0% | RAM: 80.1% | Disco: 87.65%
+2025-08-12 01:24:50,651 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:24:50,651 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:24:52,701 - INFO - Backend: OK (2.04s)
+2025-08-12 01:24:52,702 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:24:52,702 - INFO - Tempo restante: 08:06
+2025-08-12 01:25:53,725 - INFO - CPU: 25.6% | RAM: 78.3% | Disco: 87.65%
+2025-08-12 01:25:56,282 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:25:56,282 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:25:58,355 - INFO - Backend: OK (2.06s)
+2025-08-12 01:25:58,355 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:25:58,355 - INFO - Tempo restante: 08:05
+2025-08-12 01:26:59,384 - INFO - CPU: 19.1% | RAM: 79.5% | Disco: 87.65%
+2025-08-12 01:27:02,141 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:27:02,141 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:27:04,192 - INFO - Backend: OK (2.04s)
+2025-08-12 01:27:04,192 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:27:04,192 - INFO - Tempo restante: 08:03
+2025-08-12 01:28:05,215 - INFO - CPU: 22.3% | RAM: 80.2% | Disco: 87.65%
+2025-08-12 01:28:07,823 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:28:07,824 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:28:09,879 - INFO - Backend: OK (2.05s)
+2025-08-12 01:28:09,879 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:28:09,879 - INFO - Tempo restante: 08:02
+2025-08-12 01:29:10,912 - INFO - CPU: 21.1% | RAM: 80.6% | Disco: 87.65%
+2025-08-12 01:29:14,187 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:29:14,188 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:29:16,226 - INFO - Backend: OK (2.03s)
+2025-08-12 01:29:16,226 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:29:16,226 - INFO - Tempo restante: 08:01
+2025-08-12 01:30:17,253 - INFO - CPU: 19.5% | RAM: 80.6% | Disco: 87.65%
+2025-08-12 01:30:19,756 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:30:19,756 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:30:21,809 - INFO - Backend: OK (2.05s)
+2025-08-12 01:30:21,810 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:30:21,810 - INFO - Tempo restante: 08:00
+2025-08-12 01:31:22,837 - INFO - CPU: 25.2% | RAM: 80.4% | Disco: 87.65%
+2025-08-12 01:31:25,771 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:31:25,771 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:31:27,845 - INFO - Backend: OK (2.07s)
+2025-08-12 01:31:27,845 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:31:27,845 - INFO - Tempo restante: 07:59
+2025-08-12 01:32:28,869 - INFO - CPU: 14.9% | RAM: 81.4% | Disco: 87.65%
+2025-08-12 01:32:31,439 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:32:31,439 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:32:33,492 - INFO - Backend: OK (2.05s)
+2025-08-12 01:32:33,493 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:32:33,508 - INFO - Tempo restante: 07:58
+2025-08-12 01:33:34,535 - INFO - CPU: 19.5% | RAM: 81.3% | Disco: 87.65%
+2025-08-12 01:33:37,336 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:33:37,336 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:33:39,406 - INFO - Backend: OK (2.06s)
+2025-08-12 01:33:39,407 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:33:39,407 - INFO - Tempo restante: 07:57
+2025-08-12 01:34:40,434 - INFO - CPU: 30.3% | RAM: 81.0% | Disco: 87.64%
+2025-08-12 01:34:43,097 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:34:43,098 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:34:45,172 - INFO - Backend: OK (2.07s)
+2025-08-12 01:34:45,172 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:34:45,172 - INFO - Tempo restante: 07:56
+2025-08-12 01:35:46,198 - INFO - CPU: 15.4% | RAM: 81.3% | Disco: 87.65%
+2025-08-12 01:35:48,863 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:35:48,863 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:35:50,916 - INFO - Backend: OK (2.03s)
+2025-08-12 01:35:50,916 - INFO - Frontend: OK (0.01s)
+2025-08-12 01:35:50,916 - INFO - Tempo restante: 07:55
+2025-08-12 01:36:51,941 - INFO - CPU: 32.0% | RAM: 81.4% | Disco: 87.65%
+2025-08-12 01:36:54,662 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:36:54,663 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:36:56,722 - INFO - Backend: OK (2.05s)
+2025-08-12 01:36:56,722 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:36:56,722 - INFO - Tempo restante: 07:54
+2025-08-12 01:37:57,747 - INFO - CPU: 33.9% | RAM: 83.5% | Disco: 87.64%
+2025-08-12 01:38:00,375 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:38:00,376 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:38:02,412 - INFO - Backend: OK (2.03s)
+2025-08-12 01:38:02,412 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:38:02,412 - INFO - Tempo restante: 07:52
+2025-08-12 01:39:03,434 - INFO - CPU: 13.9% | RAM: 82.4% | Disco: 87.65%
+2025-08-12 01:39:05,990 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:39:05,990 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:39:08,051 - INFO - Backend: OK (2.05s)
+2025-08-12 01:39:08,051 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:39:08,051 - INFO - Tempo restante: 07:51
+2025-08-12 01:40:09,119 - INFO - CPU: 17.1% | RAM: 82.2% | Disco: 87.65%
+2025-08-12 01:40:11,492 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:40:11,492 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:40:13,552 - INFO - Backend: OK (2.05s)
+2025-08-12 01:40:13,552 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:40:13,553 - INFO - Tempo restante: 07:50
+2025-08-12 01:41:14,580 - INFO - CPU: 14.4% | RAM: 80.7% | Disco: 87.64%
+2025-08-12 01:41:17,241 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:41:17,242 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:41:19,295 - INFO - Backend: OK (2.04s)
+2025-08-12 01:41:19,298 - INFO - Frontend: OK (0.01s)
+2025-08-12 01:41:19,301 - INFO - Tempo restante: 07:49
+2025-08-12 01:42:20,332 - INFO - CPU: 29.9% | RAM: 81.1% | Disco: 87.64%
+2025-08-12 01:42:22,851 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:42:22,851 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:42:24,911 - INFO - Backend: OK (2.05s)
+2025-08-12 01:42:24,912 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:42:24,912 - INFO - Tempo restante: 07:48
+2025-08-12 01:43:25,936 - INFO - CPU: 12.9% | RAM: 81.8% | Disco: 87.64%
+2025-08-12 01:43:29,038 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:43:29,039 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:43:31,083 - INFO - Backend: OK (2.03s)
+2025-08-12 01:43:31,085 - INFO - Frontend: OK (0.01s)
+2025-08-12 01:43:31,114 - INFO - Tempo restante: 07:47
+2025-08-12 01:44:32,149 - INFO - CPU: 44.4% | RAM: 81.6% | Disco: 87.64%
+2025-08-12 01:44:35,429 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:44:35,429 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:44:37,481 - INFO - Backend: OK (2.04s)
+2025-08-12 01:44:37,481 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:44:37,481 - INFO - Tempo restante: 07:46
+2025-08-12 01:45:38,511 - INFO - CPU: 28.2% | RAM: 81.6% | Disco: 87.65%
+2025-08-12 01:45:41,531 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:45:41,531 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:45:43,584 - INFO - Backend: OK (2.05s)
+2025-08-12 01:45:43,585 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:45:43,585 - INFO - Tempo restante: 07:45
+2025-08-12 01:46:44,618 - INFO - CPU: 45.3% | RAM: 82.4% | Disco: 87.65%
+2025-08-12 01:46:47,565 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:46:47,565 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:46:49,625 - INFO - Backend: OK (2.05s)
+2025-08-12 01:46:49,626 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:46:49,626 - INFO - Tempo restante: 07:44
+2025-08-12 01:47:50,651 - INFO - CPU: 40.0% | RAM: 82.4% | Disco: 87.64%
+2025-08-12 01:47:53,399 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:47:53,400 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:47:55,459 - INFO - Backend: OK (2.05s)
+2025-08-12 01:47:55,460 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:47:55,460 - INFO - Tempo restante: 07:43
+2025-08-12 01:48:56,488 - INFO - CPU: 20.9% | RAM: 82.1% | Disco: 87.65%
+2025-08-12 01:48:59,260 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:48:59,261 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:49:01,311 - INFO - Backend: OK (2.03s)
+2025-08-12 01:49:01,312 - INFO - Frontend: OK (0.01s)
+2025-08-12 01:49:01,312 - INFO - Tempo restante: 07:41
+2025-08-12 01:50:02,347 - INFO - CPU: 41.5% | RAM: 82.4% | Disco: 87.65%
+2025-08-12 01:50:05,010 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:50:05,011 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:50:07,056 - INFO - Backend: OK (2.04s)
+2025-08-12 01:50:07,056 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:50:07,057 - INFO - Tempo restante: 07:40
+2025-08-12 01:51:08,078 - INFO - CPU: 15.0% | RAM: 82.3% | Disco: 87.65%
+2025-08-12 01:51:10,757 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:51:10,757 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:51:12,821 - INFO - Backend: OK (2.05s)
+2025-08-12 01:51:12,822 - INFO - Frontend: OK (0.02s)
+2025-08-12 01:51:12,822 - INFO - Tempo restante: 07:39
+2025-08-12 01:52:13,849 - INFO - CPU: 35.2% | RAM: 82.3% | Disco: 87.65%
+2025-08-12 01:52:16,458 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:52:16,458 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:52:18,519 - INFO - Backend: OK (2.05s)
+2025-08-12 01:52:18,520 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:52:18,520 - INFO - Tempo restante: 07:38
+2025-08-12 01:53:19,545 - INFO - CPU: 25.6% | RAM: 82.1% | Disco: 87.65%
+2025-08-12 01:53:22,100 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:53:22,100 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:53:24,157 - INFO - Backend: OK (2.05s)
+2025-08-12 01:53:24,158 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:53:24,158 - INFO - Tempo restante: 07:37
+2025-08-12 01:54:25,182 - INFO - CPU: 21.1% | RAM: 82.1% | Disco: 87.65%
+2025-08-12 01:54:27,646 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:54:27,646 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:54:29,694 - INFO - Backend: OK (2.04s)
+2025-08-12 01:54:29,694 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:54:29,716 - INFO - Tempo restante: 07:36
+2025-08-12 01:55:30,740 - INFO - CPU: 22.5% | RAM: 82.1% | Disco: 87.65%
+2025-08-12 01:55:33,215 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:55:33,215 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:55:35,260 - INFO - Backend: OK (2.04s)
+2025-08-12 01:55:35,260 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:55:35,260 - INFO - Tempo restante: 07:35
+2025-08-12 01:56:36,289 - INFO - CPU: 20.4% | RAM: 82.0% | Disco: 87.63%
+2025-08-12 01:56:39,251 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:56:39,252 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:56:41,316 - INFO - Backend: OK (2.06s)
+2025-08-12 01:56:41,316 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:56:41,316 - INFO - Tempo restante: 07:34
+2025-08-12 01:57:42,339 - INFO - CPU: 25.0% | RAM: 82.2% | Disco: 87.63%
+2025-08-12 01:57:45,249 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:57:45,250 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:57:47,280 - INFO - Backend: OK (2.02s)
+2025-08-12 01:57:47,280 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:57:47,280 - INFO - Tempo restante: 07:33
+2025-08-12 01:58:48,305 - INFO - CPU: 14.9% | RAM: 82.1% | Disco: 87.63%
+2025-08-12 01:58:51,144 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:58:51,144 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:58:53,195 - INFO - Backend: OK (2.05s)
+2025-08-12 01:58:53,195 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:58:53,196 - INFO - Tempo restante: 07:32
+2025-08-12 01:59:54,219 - INFO - CPU: 14.6% | RAM: 82.4% | Disco: 87.63%
+2025-08-12 01:59:56,765 - INFO - Processos DataClinica ativos: 5
+2025-08-12 01:59:56,765 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 01:59:58,823 - INFO - Backend: OK (2.05s)
+2025-08-12 01:59:58,828 - INFO - Frontend: OK (0.00s)
+2025-08-12 01:59:58,830 - INFO - Tempo restante: 07:31
+2025-08-12 02:00:59,852 - INFO - CPU: 27.9% | RAM: 82.0% | Disco: 87.63%
+2025-08-12 02:01:02,714 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:01:02,714 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:01:04,815 - INFO - Backend: OK (2.08s)
+2025-08-12 02:01:04,815 - INFO - Frontend: OK (0.01s)
+2025-08-12 02:01:04,815 - INFO - Tempo restante: 07:29
+2025-08-12 02:02:05,839 - INFO - CPU: 14.8% | RAM: 82.7% | Disco: 87.63%
+2025-08-12 02:02:08,488 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:02:08,489 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:02:10,523 - INFO - Backend: OK (2.03s)
+2025-08-12 02:02:10,523 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:02:10,523 - INFO - Tempo restante: 07:28
+2025-08-12 02:03:11,550 - INFO - CPU: 18.3% | RAM: 82.6% | Disco: 87.63%
+2025-08-12 02:03:15,190 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:03:15,191 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:03:17,274 - INFO - Backend: OK (2.07s)
+2025-08-12 02:03:17,274 - INFO - Frontend: OK (0.02s)
+2025-08-12 02:03:17,275 - INFO - Tempo restante: 07:27
+2025-08-12 02:04:18,301 - INFO - CPU: 24.4% | RAM: 82.3% | Disco: 87.63%
+2025-08-12 02:04:20,851 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:04:20,852 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:04:22,907 - INFO - Backend: OK (2.05s)
+2025-08-12 02:04:22,907 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:04:22,907 - INFO - Tempo restante: 07:26
+2025-08-12 02:05:23,932 - INFO - CPU: 22.6% | RAM: 82.8% | Disco: 87.63%
+2025-08-12 02:05:27,287 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:05:27,288 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:05:29,366 - INFO - Backend: OK (2.06s)
+2025-08-12 02:05:29,366 - INFO - Frontend: OK (0.01s)
+2025-08-12 02:05:29,381 - INFO - Tempo restante: 07:25
+2025-08-12 02:06:30,405 - INFO - CPU: 13.2% | RAM: 82.5% | Disco: 87.63%
+2025-08-12 02:06:32,901 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:06:32,902 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:06:34,960 - INFO - Backend: OK (2.05s)
+2025-08-12 02:06:34,965 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:06:34,968 - INFO - Tempo restante: 07:24
+2025-08-12 02:07:35,993 - INFO - CPU: 26.1% | RAM: 83.6% | Disco: 87.63%
+2025-08-12 02:07:38,878 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:07:38,879 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:07:40,945 - INFO - Backend: OK (2.05s)
+2025-08-12 02:07:40,946 - INFO - Frontend: OK (0.01s)
+2025-08-12 02:07:40,946 - INFO - Tempo restante: 07:23
+2025-08-12 02:08:41,969 - INFO - CPU: 16.9% | RAM: 83.0% | Disco: 87.63%
+2025-08-12 02:08:44,770 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:08:44,770 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:08:46,836 - INFO - Backend: OK (2.06s)
+2025-08-12 02:08:46,837 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:08:46,837 - INFO - Tempo restante: 07:22
+2025-08-12 02:09:47,861 - INFO - CPU: 17.0% | RAM: 82.8% | Disco: 87.63%
+2025-08-12 02:09:50,556 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:09:50,556 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:09:52,592 - INFO - Backend: OK (2.03s)
+2025-08-12 02:09:52,592 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:09:52,593 - INFO - Tempo restante: 07:21
+2025-08-12 02:10:53,617 - INFO - CPU: 27.6% | RAM: 81.5% | Disco: 87.63%
+2025-08-12 02:10:56,233 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:10:56,233 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:10:58,287 - INFO - Backend: OK (2.05s)
+2025-08-12 02:10:58,287 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:10:58,287 - INFO - Tempo restante: 07:20
+2025-08-12 02:11:59,310 - INFO - CPU: 28.9% | RAM: 82.2% | Disco: 87.63%
+2025-08-12 02:12:01,988 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:12:01,989 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:12:04,060 - INFO - Backend: OK (2.04s)
+2025-08-12 02:12:04,061 - INFO - Frontend: OK (0.03s)
+2025-08-12 02:12:04,061 - INFO - Tempo restante: 07:18
+2025-08-12 02:13:05,088 - INFO - CPU: 25.4% | RAM: 83.0% | Disco: 87.63%
+2025-08-12 02:13:07,672 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:13:07,673 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:13:09,736 - INFO - Backend: OK (2.06s)
+2025-08-12 02:13:09,736 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:13:09,736 - INFO - Tempo restante: 07:17
+2025-08-12 02:14:10,761 - INFO - CPU: 13.4% | RAM: 82.6% | Disco: 87.63%
+2025-08-12 02:14:13,668 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:14:13,668 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:14:15,730 - INFO - Backend: OK (2.05s)
+2025-08-12 02:14:15,730 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:14:15,730 - INFO - Tempo restante: 07:16
+2025-08-12 02:15:16,755 - INFO - CPU: 25.1% | RAM: 82.7% | Disco: 87.63%
+2025-08-12 02:15:19,514 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:15:19,514 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:15:21,556 - INFO - Backend: OK (2.03s)
+2025-08-12 02:15:21,556 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:15:21,556 - INFO - Tempo restante: 07:15
+2025-08-12 02:16:22,586 - INFO - CPU: 15.4% | RAM: 82.3% | Disco: 87.63%
+2025-08-12 02:16:25,632 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:16:25,632 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:16:27,670 - INFO - Backend: OK (2.03s)
+2025-08-12 02:16:27,670 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:16:27,698 - INFO - Tempo restante: 07:14
+2025-08-12 02:17:28,730 - INFO - CPU: 41.4% | RAM: 83.2% | Disco: 87.63%
+2025-08-12 02:17:31,656 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:17:31,656 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:17:33,714 - INFO - Backend: OK (2.05s)
+2025-08-12 02:17:33,715 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:17:33,715 - INFO - Tempo restante: 07:13
+2025-08-12 02:18:34,740 - INFO - CPU: 32.9% | RAM: 83.1% | Disco: 87.63%
+2025-08-12 02:18:37,323 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:18:37,323 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:18:39,363 - INFO - Backend: OK (2.03s)
+2025-08-12 02:18:39,364 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:18:39,364 - INFO - Tempo restante: 07:12
+2025-08-12 02:19:40,390 - INFO - CPU: 15.5% | RAM: 82.8% | Disco: 87.63%
+2025-08-12 02:19:43,357 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:19:43,358 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:19:45,416 - INFO - Backend: OK (2.04s)
+2025-08-12 02:19:45,417 - INFO - Frontend: OK (0.01s)
+2025-08-12 02:19:45,417 - INFO - Tempo restante: 07:11
+2025-08-12 02:20:46,450 - INFO - CPU: 25.5% | RAM: 83.2% | Disco: 87.63%
+2025-08-12 02:20:49,160 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:20:49,160 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:20:51,220 - INFO - Backend: OK (2.05s)
+2025-08-12 02:20:51,220 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:20:51,220 - INFO - Tempo restante: 07:10
+2025-08-12 02:21:52,242 - INFO - CPU: 13.2% | RAM: 83.0% | Disco: 87.63%
+2025-08-12 02:21:55,191 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:21:55,191 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:21:57,245 - INFO - Backend: OK (2.05s)
+2025-08-12 02:21:57,245 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:21:57,245 - INFO - Tempo restante: 07:09
+2025-08-12 02:22:58,272 - INFO - CPU: 20.5% | RAM: 82.9% | Disco: 87.63%
+2025-08-12 02:23:01,292 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:23:01,292 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:23:03,333 - INFO - Backend: OK (2.03s)
+2025-08-12 02:23:03,333 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:23:03,333 - INFO - Tempo restante: 07:07
+2025-08-12 02:24:04,367 - INFO - CPU: 55.4% | RAM: 83.1% | Disco: 87.63%
+2025-08-12 02:24:07,090 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:24:07,091 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:24:09,135 - INFO - Backend: OK (2.04s)
+2025-08-12 02:24:09,136 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:24:09,136 - INFO - Tempo restante: 07:06
+2025-08-12 02:25:10,158 - INFO - CPU: 21.2% | RAM: 82.8% | Disco: 87.63%
+2025-08-12 02:25:12,654 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:25:12,655 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:25:14,703 - INFO - Backend: OK (2.04s)
+2025-08-12 02:25:14,703 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:25:14,703 - INFO - Tempo restante: 07:05
+2025-08-12 02:26:15,728 - INFO - CPU: 30.9% | RAM: 82.4% | Disco: 87.63%
+2025-08-12 02:26:18,350 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:26:18,350 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:26:20,424 - INFO - Backend: OK (2.06s)
+2025-08-12 02:26:20,425 - INFO - Frontend: OK (0.01s)
+2025-08-12 02:26:20,425 - INFO - Tempo restante: 07:04
+2025-08-12 02:27:21,449 - INFO - CPU: 13.6% | RAM: 82.3% | Disco: 87.63%
+2025-08-12 02:27:24,034 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:27:24,034 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:27:26,062 - INFO - Backend: OK (2.02s)
+2025-08-12 02:27:26,062 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:27:26,094 - INFO - Tempo restante: 07:03
+2025-08-12 02:28:27,128 - INFO - CPU: 27.3% | RAM: 82.5% | Disco: 87.63%
+2025-08-12 02:28:29,742 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:28:29,743 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:28:31,823 - INFO - Backend: OK (2.08s)
+2025-08-12 02:28:31,823 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:28:31,824 - INFO - Tempo restante: 07:02
+2025-08-12 02:29:32,848 - INFO - CPU: 18.4% | RAM: 82.5% | Disco: 87.63%
+2025-08-12 02:29:35,585 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:29:35,586 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:29:37,632 - INFO - Backend: OK (2.04s)
+2025-08-12 02:29:37,632 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:29:37,632 - INFO - Tempo restante: 07:01
+2025-08-12 02:30:38,659 - INFO - CPU: 14.8% | RAM: 82.7% | Disco: 87.63%
+2025-08-12 02:30:41,400 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:30:41,400 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:30:43,447 - INFO - Backend: OK (2.04s)
+2025-08-12 02:30:43,447 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:30:43,447 - INFO - Tempo restante: 07:00
+2025-08-12 02:31:44,495 - INFO - CPU: 45.5% | RAM: 83.7% | Disco: 87.63%
+2025-08-12 02:31:47,177 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:31:47,178 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:31:49,231 - INFO - Backend: OK (2.05s)
+2025-08-12 02:31:49,231 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:31:49,231 - INFO - Tempo restante: 06:59
+2025-08-12 02:32:50,255 - INFO - CPU: 15.7% | RAM: 83.4% | Disco: 87.63%
+2025-08-12 02:32:53,250 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:32:53,251 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:32:55,311 - INFO - Backend: OK (2.05s)
+2025-08-12 02:32:55,312 - INFO - Frontend: OK (0.01s)
+2025-08-12 02:32:55,312 - INFO - Tempo restante: 06:58
+2025-08-12 02:33:56,335 - INFO - CPU: 26.7% | RAM: 83.3% | Disco: 87.63%
+2025-08-12 02:33:58,929 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:33:58,929 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:34:00,984 - INFO - Backend: OK (2.05s)
+2025-08-12 02:34:00,984 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:34:00,985 - INFO - Tempo restante: 06:56
+2025-08-12 02:35:02,009 - INFO - CPU: 15.3% | RAM: 83.2% | Disco: 87.63%
+2025-08-12 02:35:04,931 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:35:04,932 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:35:06,992 - INFO - Backend: OK (2.04s)
+2025-08-12 02:35:06,992 - INFO - Frontend: OK (0.01s)
+2025-08-12 02:35:06,992 - INFO - Tempo restante: 06:55
+2025-08-12 02:36:08,016 - INFO - CPU: 15.3% | RAM: 83.1% | Disco: 87.63%
+2025-08-12 02:36:10,732 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:36:10,732 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:36:12,810 - INFO - Backend: OK (2.07s)
+2025-08-12 02:36:12,810 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:36:12,811 - INFO - Tempo restante: 06:54
+2025-08-12 02:37:13,834 - INFO - CPU: 22.9% | RAM: 82.9% | Disco: 87.63%
+2025-08-12 02:37:16,906 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:37:16,906 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:37:18,992 - INFO - Backend: OK (2.08s)
+2025-08-12 02:37:18,992 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:37:18,993 - INFO - Tempo restante: 06:53
+2025-08-12 02:38:20,016 - INFO - CPU: 16.0% | RAM: 82.7% | Disco: 87.63%
+2025-08-12 02:38:22,939 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:38:22,939 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:38:24,998 - INFO - Backend: OK (2.05s)
+2025-08-12 02:38:24,998 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:38:25,018 - INFO - Tempo restante: 06:52
+2025-08-12 02:39:26,045 - INFO - CPU: 19.9% | RAM: 83.1% | Disco: 87.63%
+2025-08-12 02:39:29,104 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:39:29,104 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:39:31,151 - INFO - Backend: OK (2.04s)
+2025-08-12 02:39:31,151 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:39:31,152 - INFO - Tempo restante: 06:51
+2025-08-12 02:40:32,177 - INFO - CPU: 24.4% | RAM: 82.8% | Disco: 87.63%
+2025-08-12 02:40:34,947 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:40:34,948 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:40:37,016 - INFO - Backend: OK (2.06s)
+2025-08-12 02:40:37,016 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:40:37,017 - INFO - Tempo restante: 06:50
+2025-08-12 02:41:38,045 - INFO - CPU: 20.3% | RAM: 81.9% | Disco: 87.63%
+2025-08-12 02:41:41,238 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:41:41,239 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:41:43,279 - INFO - Backend: OK (2.03s)
+2025-08-12 02:41:43,279 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:41:43,280 - INFO - Tempo restante: 06:49
+2025-08-12 02:42:44,313 - INFO - CPU: 26.6% | RAM: 82.5% | Disco: 87.63%
+2025-08-12 02:42:47,227 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:42:47,227 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:42:49,277 - INFO - Backend: OK (2.04s)
+2025-08-12 02:42:49,278 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:42:49,278 - INFO - Tempo restante: 06:48
+2025-08-12 02:43:50,302 - INFO - CPU: 24.0% | RAM: 82.7% | Disco: 87.63%
+2025-08-12 02:43:53,031 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:43:53,031 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:43:55,091 - INFO - Backend: OK (2.05s)
+2025-08-12 02:43:55,092 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:43:55,092 - INFO - Tempo restante: 06:47
+2025-08-12 02:44:56,115 - INFO - CPU: 14.4% | RAM: 83.1% | Disco: 87.63%
+2025-08-12 02:44:58,567 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:44:58,567 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:45:00,608 - INFO - Backend: OK (2.03s)
+2025-08-12 02:45:00,608 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:45:00,608 - INFO - Tempo restante: 06:45
+2025-08-12 02:46:01,633 - INFO - CPU: 28.6% | RAM: 82.9% | Disco: 87.63%
+2025-08-12 02:46:04,247 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:46:04,248 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:46:06,293 - INFO - Backend: OK (2.04s)
+2025-08-12 02:46:06,293 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:46:06,294 - INFO - Tempo restante: 06:44
+2025-08-12 02:47:07,317 - INFO - CPU: 13.1% | RAM: 83.7% | Disco: 87.63%
+2025-08-12 02:47:10,097 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:47:10,098 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:47:12,159 - INFO - Backend: OK (2.05s)
+2025-08-12 02:47:12,160 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:47:12,161 - INFO - Tempo restante: 06:43
+2025-08-12 02:48:13,191 - INFO - CPU: 44.3% | RAM: 83.6% | Disco: 87.63%
+2025-08-12 02:48:16,552 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:48:16,553 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:48:18,614 - INFO - Backend: OK (2.05s)
+2025-08-12 02:48:18,615 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:48:18,615 - INFO - Tempo restante: 06:42
+2025-08-12 02:49:19,642 - INFO - CPU: 26.7% | RAM: 83.5% | Disco: 87.63%
+2025-08-12 02:49:22,267 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:49:22,267 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:49:24,328 - INFO - Backend: OK (2.05s)
+2025-08-12 02:49:24,329 - INFO - Frontend: OK (0.01s)
+2025-08-12 02:49:24,362 - INFO - Tempo restante: 06:41
+2025-08-12 02:50:25,392 - INFO - CPU: 20.6% | RAM: 83.9% | Disco: 87.63%
+2025-08-12 02:50:28,114 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:50:28,114 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:50:30,177 - INFO - Backend: OK (2.06s)
+2025-08-12 02:50:30,177 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:50:30,177 - INFO - Tempo restante: 06:40
+2025-08-12 02:51:31,201 - INFO - CPU: 26.2% | RAM: 83.6% | Disco: 87.63%
+2025-08-12 02:51:33,816 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:51:33,817 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:51:35,875 - INFO - Backend: OK (2.05s)
+2025-08-12 02:51:35,875 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:51:35,876 - INFO - Tempo restante: 06:39
+2025-08-12 02:52:36,900 - INFO - CPU: 16.5% | RAM: 83.3% | Disco: 87.63%
+2025-08-12 02:52:39,590 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:52:39,590 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:52:41,648 - INFO - Backend: OK (2.05s)
+2025-08-12 02:52:41,648 - INFO - Frontend: OK (0.01s)
+2025-08-12 02:52:41,648 - INFO - Tempo restante: 06:38
+2025-08-12 02:53:42,676 - INFO - CPU: 16.2% | RAM: 83.1% | Disco: 87.63%
+2025-08-12 02:53:45,647 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:53:45,647 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:53:47,701 - INFO - Backend: OK (2.05s)
+2025-08-12 02:53:47,701 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:53:47,702 - INFO - Tempo restante: 06:37
+2025-08-12 02:54:48,766 - INFO - CPU: 16.4% | RAM: 83.0% | Disco: 87.63%
+2025-08-12 02:54:51,568 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:54:51,569 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:54:53,610 - INFO - Backend: OK (2.04s)
+2025-08-12 02:54:53,611 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:54:53,611 - INFO - Tempo restante: 06:36
+2025-08-12 02:55:54,634 - INFO - CPU: 20.6% | RAM: 82.8% | Disco: 87.63%
+2025-08-12 02:55:57,839 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:55:57,840 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:55:59,898 - INFO - Backend: OK (2.05s)
+2025-08-12 02:55:59,898 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:55:59,899 - INFO - Tempo restante: 06:35
+2025-08-12 02:57:00,925 - INFO - CPU: 40.4% | RAM: 82.3% | Disco: 87.63%
+2025-08-12 02:57:03,786 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:57:03,787 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:57:05,832 - INFO - Backend: OK (2.04s)
+2025-08-12 02:57:05,832 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:57:05,832 - INFO - Tempo restante: 06:33
+2025-08-12 02:58:06,861 - INFO - CPU: 20.9% | RAM: 82.8% | Disco: 87.63%
+2025-08-12 02:58:09,723 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:58:09,724 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:58:11,785 - INFO - Backend: OK (2.06s)
+2025-08-12 02:58:11,785 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:58:11,785 - INFO - Tempo restante: 06:32
+2025-08-12 02:59:12,809 - INFO - CPU: 16.3% | RAM: 82.8% | Disco: 87.63%
+2025-08-12 02:59:16,012 - INFO - Processos DataClinica ativos: 5
+2025-08-12 02:59:16,013 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 02:59:18,060 - INFO - Backend: OK (2.04s)
+2025-08-12 02:59:18,061 - INFO - Frontend: OK (0.00s)
+2025-08-12 02:59:18,061 - INFO - Tempo restante: 06:31
+2025-08-12 03:00:19,088 - INFO - CPU: 46.2% | RAM: 82.8% | Disco: 87.63%
+2025-08-12 03:00:21,640 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:00:21,641 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:00:23,681 - INFO - Backend: OK (2.03s)
+2025-08-12 03:00:23,681 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:00:23,732 - INFO - Tempo restante: 06:30
+2025-08-12 03:01:24,757 - INFO - CPU: 14.1% | RAM: 85.7% | Disco: 87.63%
+2025-08-12 03:01:27,667 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:01:27,668 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:01:29,713 - INFO - Backend: OK (2.04s)
+2025-08-12 03:01:29,714 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:01:29,714 - INFO - Tempo restante: 06:29
+2025-08-12 03:02:30,743 - INFO - CPU: 42.2% | RAM: 85.2% | Disco: 87.63%
+2025-08-12 03:02:33,754 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:02:33,754 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:02:35,829 - INFO - Backend: OK (2.04s)
+2025-08-12 03:02:35,829 - INFO - Frontend: OK (0.03s)
+2025-08-12 03:02:35,830 - INFO - Tempo restante: 06:28
+2025-08-12 03:03:36,854 - INFO - CPU: 17.7% | RAM: 84.0% | Disco: 87.63%
+2025-08-12 03:03:39,749 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:03:39,750 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:03:41,789 - INFO - Backend: OK (2.03s)
+2025-08-12 03:03:41,789 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:03:41,790 - INFO - Tempo restante: 06:27
+2025-08-12 03:04:42,812 - INFO - CPU: 22.6% | RAM: 83.5% | Disco: 87.64%
+2025-08-12 03:04:46,000 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:04:46,001 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:04:48,042 - INFO - Backend: OK (2.03s)
+2025-08-12 03:04:48,044 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:04:48,045 - INFO - Tempo restante: 06:26
+2025-08-12 03:05:49,070 - INFO - CPU: 25.8% | RAM: 83.6% | Disco: 87.63%
+2025-08-12 03:05:51,950 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:05:51,951 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:05:54,001 - INFO - Backend: OK (2.04s)
+2025-08-12 03:05:54,002 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:05:54,002 - INFO - Tempo restante: 06:25
+2025-08-12 03:06:55,028 - INFO - CPU: 24.6% | RAM: 83.5% | Disco: 87.64%
+2025-08-12 03:06:57,943 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:06:57,943 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:07:00,004 - INFO - Backend: OK (2.05s)
+2025-08-12 03:07:00,005 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:07:00,005 - INFO - Tempo restante: 06:24
+2025-08-12 03:08:01,029 - INFO - CPU: 32.4% | RAM: 84.1% | Disco: 87.64%
+2025-08-12 03:08:03,785 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:08:03,786 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:08:05,824 - INFO - Backend: OK (2.03s)
+2025-08-12 03:08:05,824 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:08:05,825 - INFO - Tempo restante: 06:22
+2025-08-12 03:09:06,852 - INFO - CPU: 34.1% | RAM: 84.2% | Disco: 87.63%
+2025-08-12 03:09:09,646 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:09:09,647 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:09:11,699 - INFO - Backend: OK (2.04s)
+2025-08-12 03:09:11,699 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:09:11,699 - INFO - Tempo restante: 06:21
+2025-08-12 03:10:12,724 - INFO - CPU: 14.6% | RAM: 83.8% | Disco: 87.63%
+2025-08-12 03:10:15,408 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:10:15,409 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:10:17,464 - INFO - Backend: OK (2.05s)
+2025-08-12 03:10:17,464 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:10:17,464 - INFO - Tempo restante: 06:20
+2025-08-12 03:11:18,489 - INFO - CPU: 37.1% | RAM: 83.2% | Disco: 87.63%
+2025-08-12 03:11:21,371 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:11:21,372 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:11:23,411 - INFO - Backend: OK (2.03s)
+2025-08-12 03:11:23,411 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:11:23,439 - INFO - Tempo restante: 06:19
+2025-08-12 03:12:24,466 - INFO - CPU: 19.4% | RAM: 83.1% | Disco: 87.64%
+2025-08-12 03:12:27,492 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:12:27,492 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:12:29,538 - INFO - Backend: OK (2.04s)
+2025-08-12 03:12:29,538 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:12:29,539 - INFO - Tempo restante: 06:18
+2025-08-12 03:13:30,574 - INFO - CPU: 34.0% | RAM: 83.7% | Disco: 87.64%
+2025-08-12 03:13:33,768 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:13:33,769 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:13:35,835 - INFO - Backend: OK (2.06s)
+2025-08-12 03:13:35,836 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:13:35,836 - INFO - Tempo restante: 06:17
+2025-08-12 03:14:36,862 - INFO - CPU: 35.1% | RAM: 83.1% | Disco: 87.63%
+2025-08-12 03:14:39,829 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:14:39,829 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:14:41,914 - INFO - Backend: OK (2.08s)
+2025-08-12 03:14:41,914 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:14:41,915 - INFO - Tempo restante: 06:16
+2025-08-12 03:15:42,944 - INFO - CPU: 25.0% | RAM: 83.1% | Disco: 87.64%
+2025-08-12 03:15:46,257 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:15:46,257 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:15:48,310 - INFO - Backend: OK (2.04s)
+2025-08-12 03:15:48,310 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:15:48,310 - INFO - Tempo restante: 06:15
+2025-08-12 03:16:49,335 - INFO - CPU: 15.0% | RAM: 83.6% | Disco: 87.64%
+2025-08-12 03:16:52,329 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:16:52,329 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:16:54,380 - INFO - Backend: OK (2.04s)
+2025-08-12 03:16:54,380 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:16:54,380 - INFO - Tempo restante: 06:14
+2025-08-12 03:17:55,406 - INFO - CPU: 36.6% | RAM: 82.9% | Disco: 87.63%
+2025-08-12 03:17:58,874 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:17:58,875 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:18:00,921 - INFO - Backend: OK (2.04s)
+2025-08-12 03:18:00,921 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:18:00,921 - INFO - Tempo restante: 06:12
+2025-08-12 03:19:01,948 - INFO - CPU: 44.4% | RAM: 83.1% | Disco: 87.64%
+2025-08-12 03:19:04,749 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:19:04,750 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:19:06,806 - INFO - Backend: OK (2.04s)
+2025-08-12 03:19:06,807 - INFO - Frontend: OK (0.01s)
+2025-08-12 03:19:06,807 - INFO - Tempo restante: 06:11
+2025-08-12 03:20:07,830 - INFO - CPU: 27.7% | RAM: 83.4% | Disco: 87.64%
+2025-08-12 03:20:10,523 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:20:10,523 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:20:12,579 - INFO - Backend: OK (2.05s)
+2025-08-12 03:20:12,579 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:20:12,579 - INFO - Tempo restante: 06:10
+2025-08-12 03:21:13,602 - INFO - CPU: 30.2% | RAM: 82.9% | Disco: 87.64%
+2025-08-12 03:21:16,318 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:21:16,318 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:21:18,383 - INFO - Backend: OK (2.06s)
+2025-08-12 03:21:18,383 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:21:18,383 - INFO - Tempo restante: 06:09
+2025-08-12 03:22:19,410 - INFO - CPU: 21.3% | RAM: 82.8% | Disco: 87.64%
+2025-08-12 03:22:21,958 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:22:21,958 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:22:23,995 - INFO - Backend: OK (2.03s)
+2025-08-12 03:22:23,995 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:22:24,024 - INFO - Tempo restante: 06:08
+2025-08-12 03:23:25,051 - INFO - CPU: 14.8% | RAM: 82.9% | Disco: 87.63%
+2025-08-12 03:23:27,726 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:23:27,727 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:23:29,787 - INFO - Backend: OK (2.05s)
+2025-08-12 03:23:29,787 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:23:29,787 - INFO - Tempo restante: 06:07
+2025-08-12 03:24:30,816 - INFO - CPU: 27.3% | RAM: 82.9% | Disco: 87.64%
+2025-08-12 03:24:33,666 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:24:33,666 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:24:35,719 - INFO - Backend: OK (2.05s)
+2025-08-12 03:24:35,720 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:24:35,720 - INFO - Tempo restante: 06:06
+2025-08-12 03:25:36,746 - INFO - CPU: 17.6% | RAM: 82.8% | Disco: 87.64%
+2025-08-12 03:25:39,604 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:25:39,604 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:25:41,645 - INFO - Backend: OK (2.03s)
+2025-08-12 03:25:41,646 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:25:41,646 - INFO - Tempo restante: 06:05
+2025-08-12 03:26:42,673 - INFO - CPU: 24.0% | RAM: 82.9% | Disco: 87.63%
+2025-08-12 03:26:45,641 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:26:45,641 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:26:47,694 - INFO - Backend: OK (2.05s)
+2025-08-12 03:26:47,694 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:26:47,694 - INFO - Tempo restante: 06:04
+2025-08-12 03:27:48,731 - INFO - CPU: 14.6% | RAM: 83.1% | Disco: 87.64%
+2025-08-12 03:27:51,369 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:27:51,369 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:27:53,404 - INFO - Backend: OK (2.03s)
+2025-08-12 03:27:53,404 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:27:53,404 - INFO - Tempo restante: 06:03
+2025-08-12 03:28:54,428 - INFO - CPU: 15.8% | RAM: 82.9% | Disco: 87.64%
+2025-08-12 03:28:57,252 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:28:57,252 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:28:59,313 - INFO - Backend: OK (2.05s)
+2025-08-12 03:28:59,313 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:28:59,313 - INFO - Tempo restante: 06:02
+2025-08-12 03:30:00,344 - INFO - CPU: 24.3% | RAM: 82.8% | Disco: 87.64%
+2025-08-12 03:30:03,228 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:30:03,228 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:30:05,284 - INFO - Backend: OK (2.05s)
+2025-08-12 03:30:05,284 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:30:05,285 - INFO - Tempo restante: 06:00
+2025-08-12 03:31:06,308 - INFO - CPU: 14.8% | RAM: 82.7% | Disco: 87.64%
+2025-08-12 03:31:09,217 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:31:09,218 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:31:11,264 - INFO - Backend: OK (2.04s)
+2025-08-12 03:31:11,265 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:31:11,265 - INFO - Tempo restante: 05:59
+2025-08-12 03:32:12,289 - INFO - CPU: 22.1% | RAM: 83.8% | Disco: 87.64%
+2025-08-12 03:32:14,982 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:32:14,983 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:32:17,036 - INFO - Backend: OK (2.05s)
+2025-08-12 03:32:17,036 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:32:17,037 - INFO - Tempo restante: 05:58
+2025-08-12 03:33:18,061 - INFO - CPU: 31.7% | RAM: 83.1% | Disco: 87.64%
+2025-08-12 03:33:20,930 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:33:20,930 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:33:22,994 - INFO - Backend: OK (2.05s)
+2025-08-12 03:33:22,995 - INFO - Frontend: OK (0.01s)
+2025-08-12 03:33:23,016 - INFO - Tempo restante: 05:57
+2025-08-12 03:34:24,040 - INFO - CPU: 21.5% | RAM: 83.2% | Disco: 87.64%
+2025-08-12 03:34:26,658 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:34:26,658 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:34:28,705 - INFO - Backend: OK (2.04s)
+2025-08-12 03:34:28,705 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:34:28,706 - INFO - Tempo restante: 05:56
+2025-08-12 03:35:29,729 - INFO - CPU: 16.7% | RAM: 83.3% | Disco: 87.63%
+2025-08-12 03:35:32,717 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:35:32,718 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:35:34,762 - INFO - Backend: OK (2.04s)
+2025-08-12 03:35:34,762 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:35:34,763 - INFO - Tempo restante: 05:55
+2025-08-12 03:36:35,785 - INFO - CPU: 22.4% | RAM: 83.1% | Disco: 87.64%
+2025-08-12 03:36:38,372 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:36:38,372 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:36:40,432 - INFO - Backend: OK (2.04s)
+2025-08-12 03:36:40,432 - INFO - Frontend: OK (0.02s)
+2025-08-12 03:36:40,433 - INFO - Tempo restante: 05:54
+2025-08-12 03:37:41,461 - INFO - CPU: 16.9% | RAM: 83.4% | Disco: 87.63%
+2025-08-12 03:37:44,144 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:37:44,144 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:37:46,208 - INFO - Backend: OK (2.06s)
+2025-08-12 03:37:46,209 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:37:46,209 - INFO - Tempo restante: 05:53
+2025-08-12 03:38:47,234 - INFO - CPU: 28.8% | RAM: 83.3% | Disco: 87.64%
+2025-08-12 03:38:49,793 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:38:49,793 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:38:51,854 - INFO - Backend: OK (2.05s)
+2025-08-12 03:38:51,854 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:38:51,854 - INFO - Tempo restante: 05:52
+2025-08-12 03:39:52,881 - INFO - CPU: 19.9% | RAM: 83.1% | Disco: 87.64%
+2025-08-12 03:39:55,557 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:39:55,558 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:39:57,610 - INFO - Backend: OK (2.05s)
+2025-08-12 03:39:57,610 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:39:57,611 - INFO - Tempo restante: 05:51
+2025-08-12 03:40:58,637 - INFO - CPU: 28.8% | RAM: 83.4% | Disco: 87.64%
+2025-08-12 03:41:01,252 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:41:01,253 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:41:03,324 - INFO - Backend: OK (2.06s)
+2025-08-12 03:41:03,324 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:41:03,325 - INFO - Tempo restante: 05:49
+2025-08-12 03:42:04,347 - INFO - CPU: 15.6% | RAM: 82.8% | Disco: 87.64%
+2025-08-12 03:42:07,048 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:42:07,049 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:42:09,107 - INFO - Backend: OK (2.05s)
+2025-08-12 03:42:09,108 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:42:09,108 - INFO - Tempo restante: 05:48
+2025-08-12 03:43:10,132 - INFO - CPU: 18.8% | RAM: 83.5% | Disco: 87.64%
+2025-08-12 03:43:12,843 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:43:12,844 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:43:14,886 - INFO - Backend: OK (2.04s)
+2025-08-12 03:43:14,886 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:43:14,886 - INFO - Tempo restante: 05:47
+2025-08-12 03:44:15,911 - INFO - CPU: 24.8% | RAM: 83.4% | Disco: 87.63%
+2025-08-12 03:44:18,706 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:44:18,707 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:44:20,758 - INFO - Backend: OK (2.05s)
+2025-08-12 03:44:20,759 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:44:20,789 - INFO - Tempo restante: 05:46
+2025-08-12 03:45:21,813 - INFO - CPU: 17.0% | RAM: 83.2% | Disco: 87.64%
+2025-08-12 03:45:24,350 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:45:24,351 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:45:26,386 - INFO - Backend: OK (2.03s)
+2025-08-12 03:45:26,387 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:45:26,387 - INFO - Tempo restante: 05:45
+2025-08-12 03:46:27,410 - INFO - CPU: 26.2% | RAM: 82.7% | Disco: 87.64%
+2025-08-12 03:46:29,983 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:46:29,984 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:46:32,021 - INFO - Backend: OK (2.03s)
+2025-08-12 03:46:32,021 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:46:32,021 - INFO - Tempo restante: 05:44
+2025-08-12 03:47:33,046 - INFO - CPU: 31.4% | RAM: 83.5% | Disco: 87.64%
+2025-08-12 03:47:35,475 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:47:35,475 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:47:37,525 - INFO - Backend: OK (2.04s)
+2025-08-12 03:47:37,525 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:47:37,525 - INFO - Tempo restante: 05:43
+2025-08-12 03:48:38,553 - INFO - CPU: 30.9% | RAM: 83.0% | Disco: 87.64%
+2025-08-12 03:48:41,527 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:48:41,528 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:48:43,578 - INFO - Backend: OK (2.04s)
+2025-08-12 03:48:43,578 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:48:43,579 - INFO - Tempo restante: 05:42
+2025-08-12 03:49:44,618 - INFO - CPU: 35.9% | RAM: 82.9% | Disco: 87.64%
+2025-08-12 03:49:48,264 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:49:48,265 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:49:50,326 - INFO - Backend: OK (2.05s)
+2025-08-12 03:49:50,327 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:49:50,327 - INFO - Tempo restante: 05:41
+2025-08-12 03:50:51,353 - INFO - CPU: 28.5% | RAM: 83.1% | Disco: 87.64%
+2025-08-12 03:50:53,982 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:50:53,982 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:50:56,037 - INFO - Backend: OK (2.05s)
+2025-08-12 03:50:56,037 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:50:56,037 - INFO - Tempo restante: 05:40
+2025-08-12 03:51:57,059 - INFO - CPU: 22.9% | RAM: 83.0% | Disco: 87.64%
+2025-08-12 03:51:59,915 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:51:59,915 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:52:01,970 - INFO - Backend: OK (2.04s)
+2025-08-12 03:52:01,971 - INFO - Frontend: OK (0.01s)
+2025-08-12 03:52:01,971 - INFO - Tempo restante: 05:38
+2025-08-12 03:53:03,019 - INFO - CPU: 19.1% | RAM: 83.2% | Disco: 87.64%
+2025-08-12 03:53:05,473 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:53:05,474 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:53:07,539 - INFO - Backend: OK (2.06s)
+2025-08-12 03:53:07,539 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:53:07,539 - INFO - Tempo restante: 05:37
+2025-08-12 03:54:08,563 - INFO - CPU: 28.8% | RAM: 83.4% | Disco: 87.64%
+2025-08-12 03:54:11,443 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:54:11,444 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:54:13,499 - INFO - Backend: OK (2.05s)
+2025-08-12 03:54:13,500 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:54:13,500 - INFO - Tempo restante: 05:36
+2025-08-12 03:55:14,524 - INFO - CPU: 27.9% | RAM: 83.1% | Disco: 87.64%
+2025-08-12 03:55:17,156 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:55:17,157 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:55:19,222 - INFO - Backend: OK (2.05s)
+2025-08-12 03:55:19,222 - INFO - Frontend: OK (0.01s)
+2025-08-12 03:55:19,250 - INFO - Tempo restante: 05:35
+2025-08-12 03:56:20,274 - INFO - CPU: 16.1% | RAM: 82.3% | Disco: 87.64%
+2025-08-12 03:56:23,222 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:56:23,222 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:56:25,277 - INFO - Backend: OK (2.05s)
+2025-08-12 03:56:25,277 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:56:25,277 - INFO - Tempo restante: 05:34
+2025-08-12 03:57:26,304 - INFO - CPU: 13.7% | RAM: 82.9% | Disco: 87.64%
+2025-08-12 03:57:28,999 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:57:28,999 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:57:31,030 - INFO - Backend: OK (2.02s)
+2025-08-12 03:57:31,030 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:57:31,030 - INFO - Tempo restante: 05:33
+2025-08-12 03:58:32,054 - INFO - CPU: 28.4% | RAM: 83.2% | Disco: 87.64%
+2025-08-12 03:58:35,165 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:58:35,165 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:58:37,221 - INFO - Backend: OK (2.05s)
+2025-08-12 03:58:37,222 - INFO - Frontend: OK (0.00s)
+2025-08-12 03:58:37,222 - INFO - Tempo restante: 05:32
+2025-08-12 03:59:38,246 - INFO - CPU: 13.6% | RAM: 83.0% | Disco: 87.64%
+2025-08-12 03:59:40,886 - INFO - Processos DataClinica ativos: 5
+2025-08-12 03:59:40,887 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 03:59:42,945 - INFO - Backend: OK (2.05s)
+2025-08-12 03:59:42,945 - INFO - Frontend: OK (0.01s)
+2025-08-12 03:59:42,945 - INFO - Tempo restante: 05:31
+2025-08-12 04:00:43,972 - INFO - CPU: 22.6% | RAM: 83.3% | Disco: 87.64%
+2025-08-12 04:00:46,957 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:00:46,957 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:00:49,032 - INFO - Backend: OK (2.06s)
+2025-08-12 04:00:49,033 - INFO - Frontend: OK (0.01s)
+2025-08-12 04:00:49,033 - INFO - Tempo restante: 05:30
+2025-08-12 04:01:50,061 - INFO - CPU: 16.7% | RAM: 83.9% | Disco: 87.64%
+2025-08-12 04:01:52,600 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:01:52,600 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:01:54,669 - INFO - Backend: OK (2.06s)
+2025-08-12 04:01:54,669 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:01:54,670 - INFO - Tempo restante: 05:29
+2025-08-12 04:02:55,694 - INFO - CPU: 15.0% | RAM: 83.5% | Disco: 87.64%
+2025-08-12 04:02:58,663 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:02:58,663 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:03:00,724 - INFO - Backend: OK (2.05s)
+2025-08-12 04:03:00,724 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:03:00,725 - INFO - Tempo restante: 05:27
+2025-08-12 04:04:01,754 - INFO - CPU: 32.7% | RAM: 83.1% | Disco: 87.64%
+2025-08-12 04:04:04,357 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:04:04,357 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:04:06,429 - INFO - Backend: OK (2.05s)
+2025-08-12 04:04:06,429 - INFO - Frontend: OK (0.01s)
+2025-08-12 04:04:06,429 - INFO - Tempo restante: 05:26
+2025-08-12 04:05:07,453 - INFO - CPU: 16.8% | RAM: 83.3% | Disco: 87.64%
+2025-08-12 04:05:10,178 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:05:10,178 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:05:12,231 - INFO - Backend: OK (2.05s)
+2025-08-12 04:05:12,231 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:05:12,232 - INFO - Tempo restante: 05:25
+2025-08-12 04:06:13,254 - INFO - CPU: 24.1% | RAM: 83.4% | Disco: 87.64%
+2025-08-12 04:06:15,919 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:06:15,920 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:06:17,959 - INFO - Backend: OK (2.03s)
+2025-08-12 04:06:17,959 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:06:17,986 - INFO - Tempo restante: 05:24
+2025-08-12 04:07:19,012 - INFO - CPU: 21.6% | RAM: 83.4% | Disco: 87.64%
+2025-08-12 04:07:22,311 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:07:22,312 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:07:24,374 - INFO - Backend: OK (2.06s)
+2025-08-12 04:07:24,374 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:07:24,374 - INFO - Tempo restante: 05:23
+2025-08-12 04:08:25,409 - INFO - CPU: 13.8% | RAM: 83.8% | Disco: 87.64%
+2025-08-12 04:08:28,114 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:08:28,114 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:08:30,172 - INFO - Backend: OK (2.04s)
+2025-08-12 04:08:30,173 - INFO - Frontend: OK (0.01s)
+2025-08-12 04:08:30,173 - INFO - Tempo restante: 05:22
+2025-08-12 04:09:31,195 - INFO - CPU: 26.0% | RAM: 83.8% | Disco: 87.64%
+2025-08-12 04:09:33,903 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:09:33,904 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:09:35,938 - INFO - Backend: OK (2.03s)
+2025-08-12 04:09:35,938 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:09:35,938 - INFO - Tempo restante: 05:21
+2025-08-12 04:10:36,961 - INFO - CPU: 24.1% | RAM: 83.9% | Disco: 87.64%
+2025-08-12 04:10:39,730 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:10:39,730 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:10:41,815 - INFO - Backend: OK (2.07s)
+2025-08-12 04:10:41,815 - INFO - Frontend: OK (0.01s)
+2025-08-12 04:10:41,815 - INFO - Tempo restante: 05:20
+2025-08-12 04:11:42,839 - INFO - CPU: 16.0% | RAM: 83.9% | Disco: 87.63%
+2025-08-12 04:11:45,784 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:11:45,784 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:11:47,863 - INFO - Backend: OK (2.05s)
+2025-08-12 04:11:47,863 - INFO - Frontend: OK (0.03s)
+2025-08-12 04:11:47,863 - INFO - Tempo restante: 05:19
+2025-08-12 04:12:48,910 - INFO - CPU: 18.7% | RAM: 83.6% | Disco: 87.63%
+2025-08-12 04:12:51,525 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:12:51,525 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:12:53,573 - INFO - Backend: OK (2.04s)
+2025-08-12 04:12:53,573 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:12:53,574 - INFO - Tempo restante: 05:18
+2025-08-12 04:13:54,595 - INFO - CPU: 13.5% | RAM: 83.5% | Disco: 87.63%
+2025-08-12 04:13:57,093 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:13:57,094 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:13:59,144 - INFO - Backend: OK (2.04s)
+2025-08-12 04:13:59,145 - INFO - Frontend: OK (0.01s)
+2025-08-12 04:13:59,145 - INFO - Tempo restante: 05:17
+2025-08-12 04:15:00,169 - INFO - CPU: 23.8% | RAM: 83.6% | Disco: 87.64%
+2025-08-12 04:15:02,970 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:15:02,970 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:15:05,043 - INFO - Backend: OK (2.06s)
+2025-08-12 04:15:05,043 - INFO - Frontend: OK (0.01s)
+2025-08-12 04:15:05,043 - INFO - Tempo restante: 05:15
+2025-08-12 04:16:06,070 - INFO - CPU: 14.7% | RAM: 83.5% | Disco: 87.64%
+2025-08-12 04:16:08,602 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:16:08,602 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:16:10,640 - INFO - Backend: OK (2.03s)
+2025-08-12 04:16:10,640 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:16:10,640 - INFO - Tempo restante: 05:14
+2025-08-12 04:17:11,665 - INFO - CPU: 21.6% | RAM: 84.0% | Disco: 87.64%
+2025-08-12 04:17:14,356 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:17:14,356 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:17:16,405 - INFO - Backend: OK (2.04s)
+2025-08-12 04:17:16,406 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:17:16,445 - INFO - Tempo restante: 05:13
+2025-08-12 04:18:17,471 - INFO - CPU: 32.9% | RAM: 83.9% | Disco: 87.63%
+2025-08-12 04:18:20,168 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:18:20,168 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:18:22,213 - INFO - Backend: OK (2.04s)
+2025-08-12 04:18:22,213 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:18:22,214 - INFO - Tempo restante: 05:12
+2025-08-12 04:19:23,236 - INFO - CPU: 23.5% | RAM: 83.7% | Disco: 87.63%
+2025-08-12 04:19:26,160 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:19:26,161 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:19:28,208 - INFO - Backend: OK (2.04s)
+2025-08-12 04:19:28,208 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:19:28,208 - INFO - Tempo restante: 05:11
+2025-08-12 04:20:29,238 - INFO - CPU: 37.9% | RAM: 83.6% | Disco: 87.63%
+2025-08-12 04:20:32,266 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:20:32,266 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:20:34,310 - INFO - Backend: OK (2.04s)
+2025-08-12 04:20:34,310 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:20:34,310 - INFO - Tempo restante: 05:10
+2025-08-12 04:21:35,339 - INFO - CPU: 33.7% | RAM: 83.6% | Disco: 87.64%
+2025-08-12 04:21:38,201 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:21:38,202 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:21:40,267 - INFO - Backend: OK (2.06s)
+2025-08-12 04:21:40,267 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:21:40,267 - INFO - Tempo restante: 05:09
+2025-08-12 04:22:41,291 - INFO - CPU: 16.1% | RAM: 83.9% | Disco: 87.64%
+2025-08-12 04:22:44,153 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:22:44,153 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:22:46,196 - INFO - Backend: OK (2.04s)
+2025-08-12 04:22:46,197 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:22:46,197 - INFO - Tempo restante: 05:08
+2025-08-12 04:23:47,234 - INFO - CPU: 51.5% | RAM: 83.5% | Disco: 87.64%
+2025-08-12 04:23:50,366 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:23:50,367 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:23:52,430 - INFO - Backend: OK (2.06s)
+2025-08-12 04:23:52,431 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:23:52,431 - INFO - Tempo restante: 05:07
+2025-08-12 04:24:53,455 - INFO - CPU: 17.9% | RAM: 83.6% | Disco: 87.63%
+2025-08-12 04:24:56,239 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:24:56,239 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:24:58,293 - INFO - Backend: OK (2.04s)
+2025-08-12 04:24:58,293 - INFO - Frontend: OK (0.01s)
+2025-08-12 04:24:58,294 - INFO - Tempo restante: 05:06
+2025-08-12 04:25:59,321 - INFO - CPU: 26.3% | RAM: 84.2% | Disco: 87.63%
+2025-08-12 04:26:02,246 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:26:02,246 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:26:04,315 - INFO - Backend: OK (2.06s)
+2025-08-12 04:26:04,316 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:26:04,316 - INFO - Tempo restante: 05:04
+2025-08-12 04:27:05,352 - INFO - CPU: 30.4% | RAM: 83.7% | Disco: 87.63%
+2025-08-12 04:27:08,115 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:27:08,115 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:27:10,181 - INFO - Backend: OK (2.05s)
+2025-08-12 04:27:10,181 - INFO - Frontend: OK (0.02s)
+2025-08-12 04:27:10,181 - INFO - Tempo restante: 05:03
+2025-08-12 04:28:11,211 - INFO - CPU: 19.9% | RAM: 84.1% | Disco: 87.63%
+2025-08-12 04:28:14,151 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:28:14,151 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:28:16,202 - INFO - Backend: OK (2.04s)
+2025-08-12 04:28:16,203 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:28:16,258 - INFO - Tempo restante: 05:02
+2025-08-12 04:29:17,282 - INFO - CPU: 14.8% | RAM: 83.9% | Disco: 87.64%
+2025-08-12 04:29:20,183 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:29:20,183 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:29:22,235 - INFO - Backend: OK (2.04s)
+2025-08-12 04:29:22,235 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:29:22,235 - INFO - Tempo restante: 05:01
+2025-08-12 04:30:23,264 - INFO - CPU: 22.3% | RAM: 82.9% | Disco: 87.64%
+2025-08-12 04:30:25,800 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:30:25,800 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:30:27,857 - INFO - Backend: OK (2.05s)
+2025-08-12 04:30:27,858 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:30:27,858 - INFO - Tempo restante: 05:00
+2025-08-12 04:31:28,885 - INFO - CPU: 16.3% | RAM: 83.1% | Disco: 87.64%
+2025-08-12 04:31:31,549 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:31:31,549 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:31:33,613 - INFO - Backend: OK (2.06s)
+2025-08-12 04:31:33,613 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:31:33,613 - INFO - Tempo restante: 04:59
+2025-08-12 04:32:34,637 - INFO - CPU: 22.8% | RAM: 83.6% | Disco: 87.63%
+2025-08-12 04:32:37,400 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:32:37,400 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:32:39,446 - INFO - Backend: OK (2.04s)
+2025-08-12 04:32:39,446 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:32:39,447 - INFO - Tempo restante: 04:58
+2025-08-12 04:33:40,471 - INFO - CPU: 23.6% | RAM: 83.8% | Disco: 87.64%
+2025-08-12 04:33:43,102 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:33:43,102 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:33:45,155 - INFO - Backend: OK (2.03s)
+2025-08-12 04:33:45,156 - INFO - Frontend: OK (0.02s)
+2025-08-12 04:33:45,157 - INFO - Tempo restante: 04:57
+2025-08-12 04:34:46,181 - INFO - CPU: 43.7% | RAM: 83.5% | Disco: 87.64%
+2025-08-12 04:34:49,159 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:34:49,160 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:34:51,214 - INFO - Backend: OK (2.04s)
+2025-08-12 04:34:51,214 - INFO - Frontend: OK (0.01s)
+2025-08-12 04:34:51,215 - INFO - Tempo restante: 04:56
+2025-08-12 04:35:52,236 - INFO - CPU: 13.6% | RAM: 83.7% | Disco: 87.63%
+2025-08-12 04:35:54,955 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:35:54,955 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:35:57,013 - INFO - Backend: OK (2.05s)
+2025-08-12 04:35:57,013 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:35:57,013 - INFO - Tempo restante: 04:55
+2025-08-12 04:36:58,037 - INFO - CPU: 22.3% | RAM: 83.6% | Disco: 87.64%
+2025-08-12 04:37:00,915 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:37:00,916 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:37:02,956 - INFO - Backend: OK (2.03s)
+2025-08-12 04:37:02,956 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:37:02,956 - INFO - Tempo restante: 04:53
+2025-08-12 04:38:03,984 - INFO - CPU: 26.0% | RAM: 83.6% | Disco: 87.63%
+2025-08-12 04:38:06,576 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:38:06,577 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:38:08,628 - INFO - Backend: OK (2.05s)
+2025-08-12 04:38:08,629 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:38:08,629 - INFO - Tempo restante: 04:52
+2025-08-12 04:39:09,650 - INFO - CPU: 18.2% | RAM: 83.3% | Disco: 87.64%
+2025-08-12 04:39:12,371 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:39:12,371 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:39:14,422 - INFO - Backend: OK (2.04s)
+2025-08-12 04:39:14,422 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:39:14,448 - INFO - Tempo restante: 04:51
+2025-08-12 04:40:15,470 - INFO - CPU: 22.7% | RAM: 83.5% | Disco: 87.64%
+2025-08-12 04:40:18,063 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:40:18,064 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:40:20,106 - INFO - Backend: OK (2.04s)
+2025-08-12 04:40:20,106 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:40:20,107 - INFO - Tempo restante: 04:50
+2025-08-12 04:41:21,135 - INFO - CPU: 25.4% | RAM: 82.3% | Disco: 87.64%
+2025-08-12 04:41:23,971 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:41:23,971 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:41:26,022 - INFO - Backend: OK (2.04s)
+2025-08-12 04:41:26,022 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:41:26,022 - INFO - Tempo restante: 04:49
+2025-08-12 04:42:27,048 - INFO - CPU: 14.8% | RAM: 82.7% | Disco: 87.64%
+2025-08-12 04:42:29,565 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:42:29,566 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:42:31,617 - INFO - Backend: OK (2.04s)
+2025-08-12 04:42:31,617 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:42:31,617 - INFO - Tempo restante: 04:48
+2025-08-12 04:43:32,640 - INFO - CPU: 14.1% | RAM: 83.4% | Disco: 87.63%
+2025-08-12 04:43:35,552 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:43:35,553 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:43:37,609 - INFO - Backend: OK (2.05s)
+2025-08-12 04:43:37,609 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:43:37,609 - INFO - Tempo restante: 04:47
+2025-08-12 04:44:38,632 - INFO - CPU: 15.5% | RAM: 83.3% | Disco: 87.64%
+2025-08-12 04:44:41,374 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:44:41,374 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:44:43,439 - INFO - Backend: OK (2.06s)
+2025-08-12 04:44:43,439 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:44:43,439 - INFO - Tempo restante: 04:46
+2025-08-12 04:45:44,464 - INFO - CPU: 25.2% | RAM: 83.4% | Disco: 87.63%
+2025-08-12 04:45:47,029 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:45:47,030 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:45:49,076 - INFO - Backend: OK (2.04s)
+2025-08-12 04:45:49,076 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:45:49,076 - INFO - Tempo restante: 04:45
+2025-08-12 04:46:50,103 - INFO - CPU: 31.6% | RAM: 83.9% | Disco: 87.63%
+2025-08-12 04:46:52,805 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:46:52,806 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:46:54,869 - INFO - Backend: OK (2.05s)
+2025-08-12 04:46:54,870 - INFO - Frontend: OK (0.02s)
+2025-08-12 04:46:54,870 - INFO - Tempo restante: 04:44
+2025-08-12 04:47:55,896 - INFO - CPU: 23.8% | RAM: 83.6% | Disco: 87.63%
+2025-08-12 04:47:58,410 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:47:58,411 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:48:00,463 - INFO - Backend: OK (2.05s)
+2025-08-12 04:48:00,463 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:48:00,463 - INFO - Tempo restante: 04:42
+2025-08-12 04:49:01,488 - INFO - CPU: 33.3% | RAM: 83.6% | Disco: 87.63%
+2025-08-12 04:49:04,183 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:49:04,184 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:49:06,252 - INFO - Backend: OK (2.05s)
+2025-08-12 04:49:06,253 - INFO - Frontend: OK (0.02s)
+2025-08-12 04:49:06,253 - INFO - Tempo restante: 04:41
+2025-08-12 04:50:07,277 - INFO - CPU: 16.4% | RAM: 83.7% | Disco: 87.63%
+2025-08-12 04:50:10,036 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:50:10,037 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:50:12,076 - INFO - Backend: OK (2.03s)
+2025-08-12 04:50:12,076 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:50:12,103 - INFO - Tempo restante: 04:40
+2025-08-12 04:51:13,131 - INFO - CPU: 36.3% | RAM: 83.9% | Disco: 87.63%
+2025-08-12 04:51:16,012 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:51:16,012 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:51:18,067 - INFO - Backend: OK (2.05s)
+2025-08-12 04:51:18,068 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:51:18,069 - INFO - Tempo restante: 04:39
+2025-08-12 04:52:19,096 - INFO - CPU: 41.9% | RAM: 83.7% | Disco: 87.63%
+2025-08-12 04:52:21,658 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:52:21,658 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:52:23,718 - INFO - Backend: OK (2.05s)
+2025-08-12 04:52:23,721 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:52:23,721 - INFO - Tempo restante: 04:38
+2025-08-12 04:53:24,757 - INFO - CPU: 29.2% | RAM: 83.6% | Disco: 87.63%
+2025-08-12 04:53:27,315 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:53:27,316 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:53:29,371 - INFO - Backend: OK (2.05s)
+2025-08-12 04:53:29,371 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:53:29,371 - INFO - Tempo restante: 04:37
+2025-08-12 04:54:30,395 - INFO - CPU: 13.1% | RAM: 83.6% | Disco: 87.63%
+2025-08-12 04:54:33,081 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:54:33,081 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:54:35,132 - INFO - Backend: OK (2.04s)
+2025-08-12 04:54:35,133 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:54:35,133 - INFO - Tempo restante: 04:36
+2025-08-12 04:55:36,157 - INFO - CPU: 27.2% | RAM: 83.4% | Disco: 87.63%
+2025-08-12 04:55:39,157 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:55:39,158 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:55:41,218 - INFO - Backend: OK (2.06s)
+2025-08-12 04:55:41,219 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:55:41,219 - INFO - Tempo restante: 04:35
+2025-08-12 04:56:42,245 - INFO - CPU: 15.8% | RAM: 83.4% | Disco: 87.63%
+2025-08-12 04:56:44,874 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:56:44,874 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:56:46,932 - INFO - Backend: OK (2.05s)
+2025-08-12 04:56:46,933 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:56:46,933 - INFO - Tempo restante: 04:34
+2025-08-12 04:57:47,957 - INFO - CPU: 14.4% | RAM: 83.4% | Disco: 87.63%
+2025-08-12 04:57:51,107 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:57:51,107 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:57:53,162 - INFO - Backend: OK (2.05s)
+2025-08-12 04:57:53,162 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:57:53,162 - INFO - Tempo restante: 04:33
+2025-08-12 04:58:54,190 - INFO - CPU: 21.6% | RAM: 83.3% | Disco: 87.63%
+2025-08-12 04:58:56,511 - INFO - Processos DataClinica ativos: 5
+2025-08-12 04:58:56,511 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 04:58:58,580 - INFO - Backend: OK (2.06s)
+2025-08-12 04:58:58,581 - INFO - Frontend: OK (0.00s)
+2025-08-12 04:58:58,581 - INFO - Tempo restante: 04:32
+2025-08-12 04:59:59,605 - INFO - CPU: 16.9% | RAM: 83.5% | Disco: 87.63%
+2025-08-12 05:00:02,576 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:00:02,577 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:00:04,635 - INFO - Backend: OK (2.05s)
+2025-08-12 05:00:04,636 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:00:04,636 - INFO - Tempo restante: 04:30
+2025-08-12 05:01:05,663 - INFO - CPU: 37.1% | RAM: 83.3% | Disco: 87.63%
+2025-08-12 05:01:07,987 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:01:07,987 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:01:10,028 - INFO - Backend: OK (2.03s)
+2025-08-12 05:01:10,028 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:01:10,059 - INFO - Tempo restante: 04:29
+2025-08-12 05:02:11,091 - INFO - CPU: 15.1% | RAM: 84.2% | Disco: 87.63%
+2025-08-12 05:02:14,522 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:02:14,523 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:02:16,591 - INFO - Backend: OK (2.06s)
+2025-08-12 05:02:16,592 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:02:16,592 - INFO - Tempo restante: 04:28
+2025-08-12 05:03:17,620 - INFO - CPU: 19.2% | RAM: 84.2% | Disco: 87.63%
+2025-08-12 05:03:20,632 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:03:20,633 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:03:22,676 - INFO - Backend: OK (2.04s)
+2025-08-12 05:03:22,677 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:03:22,677 - INFO - Tempo restante: 04:27
+2025-08-12 05:04:23,703 - INFO - CPU: 24.9% | RAM: 84.2% | Disco: 87.63%
+2025-08-12 05:04:26,194 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:04:26,195 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:04:28,240 - INFO - Backend: OK (2.04s)
+2025-08-12 05:04:28,241 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:04:28,241 - INFO - Tempo restante: 04:26
+2025-08-12 05:05:29,267 - INFO - CPU: 14.4% | RAM: 84.1% | Disco: 87.63%
+2025-08-12 05:05:32,019 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:05:32,019 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:05:34,096 - INFO - Backend: OK (2.07s)
+2025-08-12 05:05:34,097 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:05:34,097 - INFO - Tempo restante: 04:25
+2025-08-12 05:06:35,123 - INFO - CPU: 23.3% | RAM: 84.2% | Disco: 87.63%
+2025-08-12 05:06:37,703 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:06:37,704 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:06:39,775 - INFO - Backend: OK (2.05s)
+2025-08-12 05:06:39,775 - INFO - Frontend: OK (0.02s)
+2025-08-12 05:06:39,775 - INFO - Tempo restante: 04:24
+2025-08-12 05:07:40,799 - INFO - CPU: 23.9% | RAM: 85.5% | Disco: 87.63%
+2025-08-12 05:07:43,610 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:07:43,610 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:07:45,675 - INFO - Backend: OK (2.05s)
+2025-08-12 05:07:45,675 - INFO - Frontend: OK (0.01s)
+2025-08-12 05:07:45,676 - INFO - Tempo restante: 04:23
+2025-08-12 05:08:46,701 - INFO - CPU: 18.3% | RAM: 84.2% | Disco: 87.63%
+2025-08-12 05:08:49,661 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:08:49,662 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:08:51,712 - INFO - Backend: OK (2.04s)
+2025-08-12 05:08:51,712 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:08:51,712 - INFO - Tempo restante: 04:22
+2025-08-12 05:09:52,749 - INFO - CPU: 24.3% | RAM: 84.3% | Disco: 87.63%
+2025-08-12 05:09:55,369 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:09:55,369 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:09:57,415 - INFO - Backend: OK (2.04s)
+2025-08-12 05:09:57,416 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:09:57,416 - INFO - Tempo restante: 04:21
+2025-08-12 05:10:58,440 - INFO - CPU: 13.3% | RAM: 84.7% | Disco: 87.63%
+2025-08-12 05:11:01,071 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:11:01,072 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:11:03,116 - INFO - Backend: OK (2.04s)
+2025-08-12 05:11:03,116 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:11:03,117 - INFO - Tempo restante: 04:19
+2025-08-12 05:12:04,146 - INFO - CPU: 25.9% | RAM: 83.9% | Disco: 87.63%
+2025-08-12 05:12:06,859 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:12:06,859 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:12:08,900 - INFO - Backend: OK (2.03s)
+2025-08-12 05:12:08,900 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:12:08,937 - INFO - Tempo restante: 04:18
+2025-08-12 05:13:09,960 - INFO - CPU: 14.7% | RAM: 84.1% | Disco: 87.63%
+2025-08-12 05:13:12,667 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:13:12,667 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:13:14,717 - INFO - Backend: OK (2.04s)
+2025-08-12 05:13:14,717 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:13:14,718 - INFO - Tempo restante: 04:17
+2025-08-12 05:14:15,741 - INFO - CPU: 16.2% | RAM: 84.0% | Disco: 87.63%
+2025-08-12 05:14:18,315 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:14:18,315 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:14:20,367 - INFO - Backend: OK (2.05s)
+2025-08-12 05:14:20,368 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:14:20,368 - INFO - Tempo restante: 04:16
+2025-08-12 05:15:21,404 - INFO - CPU: 27.9% | RAM: 84.6% | Disco: 87.63%
+2025-08-12 05:15:23,989 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:15:23,990 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:15:26,049 - INFO - Backend: OK (2.05s)
+2025-08-12 05:15:26,050 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:15:26,050 - INFO - Tempo restante: 04:15
+2025-08-12 05:16:27,074 - INFO - CPU: 22.2% | RAM: 84.7% | Disco: 87.63%
+2025-08-12 05:16:29,614 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:16:29,614 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:16:31,673 - INFO - Backend: OK (2.05s)
+2025-08-12 05:16:31,673 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:16:31,673 - INFO - Tempo restante: 04:14
+2025-08-12 05:17:32,699 - WARNING - [ALERT] Memória alta: 85.1%
+2025-08-12 05:17:32,700 - INFO - CPU: 31.3% | RAM: 85.1% | Disco: 87.63%
+2025-08-12 05:17:35,977 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:17:35,978 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:17:38,042 - INFO - Backend: OK (2.06s)
+2025-08-12 05:17:38,042 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:17:38,043 - INFO - Tempo restante: 04:13
+2025-08-12 05:18:39,069 - INFO - CPU: 22.9% | RAM: 84.9% | Disco: 87.63%
+2025-08-12 05:18:41,670 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:18:41,670 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:18:43,714 - INFO - Backend: OK (2.04s)
+2025-08-12 05:18:43,715 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:18:43,715 - INFO - Tempo restante: 04:12
+2025-08-12 05:19:44,744 - INFO - CPU: 22.9% | RAM: 85.0% | Disco: 87.63%
+2025-08-12 05:19:47,565 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:19:47,565 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:19:49,615 - INFO - Backend: OK (2.04s)
+2025-08-12 05:19:49,615 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:19:49,616 - INFO - Tempo restante: 04:11
+2025-08-12 05:20:50,655 - INFO - CPU: 20.4% | RAM: 84.9% | Disco: 87.63%
+2025-08-12 05:20:54,021 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:20:54,021 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:20:56,081 - INFO - Backend: OK (2.05s)
+2025-08-12 05:20:56,082 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:20:56,082 - INFO - Tempo restante: 04:10
+2025-08-12 05:21:57,110 - INFO - CPU: 37.1% | RAM: 84.4% | Disco: 87.63%
+2025-08-12 05:22:00,143 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:22:00,144 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:22:02,200 - INFO - Backend: OK (2.05s)
+2025-08-12 05:22:02,200 - INFO - Frontend: OK (0.01s)
+2025-08-12 05:22:02,201 - INFO - Tempo restante: 04:08
+2025-08-12 05:23:03,227 - INFO - CPU: 34.0% | RAM: 84.8% | Disco: 87.63%
+2025-08-12 05:23:06,201 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:23:06,202 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:23:08,257 - INFO - Backend: OK (2.05s)
+2025-08-12 05:23:08,258 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:23:08,424 - INFO - Tempo restante: 04:07
+2025-08-12 05:24:09,449 - INFO - CPU: 32.8% | RAM: 84.1% | Disco: 87.63%
+2025-08-12 05:24:11,922 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:24:11,923 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:24:13,984 - INFO - Backend: OK (2.05s)
+2025-08-12 05:24:13,985 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:24:13,986 - INFO - Tempo restante: 04:06
+2025-08-12 05:25:15,012 - INFO - CPU: 22.0% | RAM: 84.1% | Disco: 87.63%
+2025-08-12 05:25:17,524 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:25:17,524 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:25:19,576 - INFO - Backend: OK (2.04s)
+2025-08-12 05:25:19,577 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:25:19,577 - INFO - Tempo restante: 04:05
+2025-08-12 05:26:20,601 - INFO - CPU: 31.5% | RAM: 84.4% | Disco: 87.63%
+2025-08-12 05:26:23,261 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:26:23,261 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:26:25,322 - INFO - Backend: OK (2.05s)
+2025-08-12 05:26:25,323 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:26:25,323 - INFO - Tempo restante: 04:04
+2025-08-12 05:27:26,347 - INFO - CPU: 18.1% | RAM: 84.3% | Disco: 87.63%
+2025-08-12 05:27:29,199 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:27:29,200 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:27:31,274 - INFO - Backend: OK (2.06s)
+2025-08-12 05:27:31,274 - INFO - Frontend: OK (0.01s)
+2025-08-12 05:27:31,275 - INFO - Tempo restante: 04:03
+2025-08-12 05:28:32,298 - INFO - CPU: 15.6% | RAM: 84.2% | Disco: 87.63%
+2025-08-12 05:28:35,049 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:28:35,050 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:28:37,103 - INFO - Backend: OK (2.05s)
+2025-08-12 05:28:37,103 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:28:37,103 - INFO - Tempo restante: 04:02
+2025-08-12 05:29:38,128 - INFO - CPU: 24.9% | RAM: 84.5% | Disco: 87.63%
+2025-08-12 05:29:40,688 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:29:40,689 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:29:42,750 - INFO - Backend: OK (2.05s)
+2025-08-12 05:29:42,750 - INFO - Frontend: OK (0.01s)
+2025-08-12 05:29:42,750 - INFO - Tempo restante: 04:01
+2025-08-12 05:30:43,772 - INFO - CPU: 13.2% | RAM: 84.6% | Disco: 87.63%
+2025-08-12 05:30:46,459 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:30:46,460 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:30:48,508 - INFO - Backend: OK (2.04s)
+2025-08-12 05:30:48,508 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:30:48,508 - INFO - Tempo restante: 04:00
+2025-08-12 05:31:49,551 - INFO - CPU: 37.2% | RAM: 85.0% | Disco: 87.63%
+2025-08-12 05:31:52,841 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:31:52,842 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:31:54,888 - INFO - Backend: OK (2.04s)
+2025-08-12 05:31:54,888 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:31:54,888 - INFO - Tempo restante: 03:59
+2025-08-12 05:32:55,915 - INFO - CPU: 24.6% | RAM: 84.4% | Disco: 87.63%
+2025-08-12 05:32:58,415 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:32:58,416 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:33:00,465 - INFO - Backend: OK (2.04s)
+2025-08-12 05:33:00,466 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:33:00,466 - INFO - Tempo restante: 03:57
+2025-08-12 05:34:01,509 - INFO - CPU: 13.8% | RAM: 86.0% | Disco: 87.63%
+2025-08-12 05:34:04,733 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:34:04,733 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:34:06,806 - INFO - Backend: OK (2.05s)
+2025-08-12 05:34:06,806 - INFO - Frontend: OK (0.01s)
+2025-08-12 05:34:06,834 - INFO - Tempo restante: 03:56
+2025-08-12 05:35:07,861 - INFO - CPU: 18.3% | RAM: 85.7% | Disco: 87.63%
+2025-08-12 05:35:10,329 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:35:10,329 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:35:12,373 - INFO - Backend: OK (2.04s)
+2025-08-12 05:35:12,373 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:35:12,373 - INFO - Tempo restante: 03:55
+2025-08-12 05:36:13,400 - INFO - CPU: 20.6% | RAM: 86.4% | Disco: 87.63%
+2025-08-12 05:36:16,253 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:36:16,254 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:36:18,316 - INFO - Backend: OK (2.05s)
+2025-08-12 05:36:18,316 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:36:18,316 - INFO - Tempo restante: 03:54
+2025-08-12 05:37:19,340 - INFO - CPU: 14.0% | RAM: 86.2% | Disco: 87.63%
+2025-08-12 05:37:22,117 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:37:22,117 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:37:24,159 - INFO - Backend: OK (2.03s)
+2025-08-12 05:37:24,160 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:37:24,160 - INFO - Tempo restante: 03:53
+2025-08-12 05:38:25,185 - INFO - CPU: 28.4% | RAM: 86.6% | Disco: 87.63%
+2025-08-12 05:38:28,245 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:38:28,246 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:38:30,299 - INFO - Backend: OK (2.05s)
+2025-08-12 05:38:30,300 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:38:30,300 - INFO - Tempo restante: 03:52
+2025-08-12 05:39:31,322 - INFO - CPU: 18.3% | RAM: 86.4% | Disco: 87.63%
+2025-08-12 05:39:33,918 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:39:33,919 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:39:35,976 - INFO - Backend: OK (2.05s)
+2025-08-12 05:39:35,976 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:39:35,977 - INFO - Tempo restante: 03:51
+2025-08-12 05:40:37,000 - INFO - CPU: 13.1% | RAM: 86.4% | Disco: 87.63%
+2025-08-12 05:40:39,831 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:40:39,831 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:40:41,896 - INFO - Backend: OK (2.06s)
+2025-08-12 05:40:41,896 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:40:41,896 - INFO - Tempo restante: 03:50
+2025-08-12 05:41:42,921 - INFO - CPU: 27.2% | RAM: 85.8% | Disco: 87.63%
+2025-08-12 05:41:45,395 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:41:45,395 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:41:47,470 - INFO - Backend: OK (2.07s)
+2025-08-12 05:41:47,470 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:41:47,470 - INFO - Tempo restante: 03:49
+2025-08-12 05:42:48,497 - INFO - CPU: 13.9% | RAM: 86.0% | Disco: 87.63%
+2025-08-12 05:42:51,253 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:42:51,253 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:42:53,292 - INFO - Backend: OK (2.03s)
+2025-08-12 05:42:53,292 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:42:53,292 - INFO - Tempo restante: 03:48
+2025-08-12 05:43:54,316 - INFO - CPU: 25.5% | RAM: 86.5% | Disco: 87.63%
+2025-08-12 05:43:56,759 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:43:56,759 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:43:58,817 - INFO - Backend: OK (2.05s)
+2025-08-12 05:43:58,818 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:43:58,818 - INFO - Tempo restante: 03:47
+2025-08-12 05:44:59,843 - INFO - CPU: 15.2% | RAM: 86.5% | Disco: 87.63%
+2025-08-12 05:45:02,513 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:45:02,514 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:45:04,570 - INFO - Backend: OK (2.05s)
+2025-08-12 05:45:04,570 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:45:04,619 - INFO - Tempo restante: 03:45
+2025-08-12 05:46:05,648 - INFO - CPU: 42.6% | RAM: 86.7% | Disco: 87.63%
+2025-08-12 05:46:08,135 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:46:08,135 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:46:10,191 - INFO - Backend: OK (2.05s)
+2025-08-12 05:46:10,192 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:46:10,192 - INFO - Tempo restante: 03:44
+2025-08-12 05:47:11,218 - INFO - CPU: 15.2% | RAM: 86.1% | Disco: 87.63%
+2025-08-12 05:47:14,179 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:47:14,180 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:47:16,254 - INFO - Backend: OK (2.06s)
+2025-08-12 05:47:16,254 - INFO - Frontend: OK (0.01s)
+2025-08-12 05:47:16,254 - INFO - Tempo restante: 03:43
+2025-08-12 05:48:17,280 - INFO - CPU: 18.1% | RAM: 85.9% | Disco: 87.63%
+2025-08-12 05:48:20,281 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:48:20,281 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:48:22,344 - INFO - Backend: OK (2.06s)
+2025-08-12 05:48:22,344 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:48:22,345 - INFO - Tempo restante: 03:42
+2025-08-12 05:49:23,378 - INFO - CPU: 14.9% | RAM: 85.8% | Disco: 87.63%
+2025-08-12 05:49:26,351 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:49:26,351 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:49:28,410 - INFO - Backend: OK (2.05s)
+2025-08-12 05:49:28,410 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:49:28,410 - INFO - Tempo restante: 03:41
+2025-08-12 05:50:29,436 - INFO - CPU: 27.8% | RAM: 85.2% | Disco: 87.63%
+2025-08-12 05:50:32,386 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:50:32,387 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:50:34,435 - INFO - Backend: OK (2.04s)
+2025-08-12 05:50:34,435 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:50:34,436 - INFO - Tempo restante: 03:40
+2025-08-12 05:51:35,460 - WARNING - [ALERT] Memória alta: 85.4%
+2025-08-12 05:51:35,460 - INFO - CPU: 29.6% | RAM: 85.4% | Disco: 87.63%
+2025-08-12 05:51:38,741 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:51:38,742 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:51:40,798 - INFO - Backend: OK (2.05s)
+2025-08-12 05:51:40,798 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:51:40,798 - INFO - Tempo restante: 03:39
+2025-08-12 05:52:41,827 - INFO - CPU: 30.6% | RAM: 85.4% | Disco: 87.63%
+2025-08-12 05:52:45,388 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:52:45,389 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:52:47,441 - INFO - Backend: OK (2.05s)
+2025-08-12 05:52:47,442 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:52:47,442 - INFO - Tempo restante: 03:38
+2025-08-12 05:53:48,466 - INFO - CPU: 27.4% | RAM: 85.3% | Disco: 87.64%
+2025-08-12 05:53:51,687 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:53:51,688 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:53:53,757 - INFO - Backend: OK (2.06s)
+2025-08-12 05:53:53,757 - INFO - Frontend: OK (0.01s)
+2025-08-12 05:53:53,758 - INFO - Tempo restante: 03:37
+2025-08-12 05:54:54,785 - INFO - CPU: 19.3% | RAM: 85.5% | Disco: 87.63%
+2025-08-12 05:54:57,899 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:54:57,899 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:54:59,951 - INFO - Backend: OK (2.04s)
+2025-08-12 05:54:59,952 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:54:59,952 - INFO - Tempo restante: 03:36
+2025-08-12 05:56:00,977 - INFO - CPU: 21.9% | RAM: 85.3% | Disco: 87.63%
+2025-08-12 05:56:04,285 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:56:04,285 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:56:06,336 - INFO - Backend: OK (2.04s)
+2025-08-12 05:56:06,336 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:56:06,390 - INFO - Tempo restante: 03:34
+2025-08-12 05:57:07,423 - INFO - CPU: 39.0% | RAM: 84.9% | Disco: 87.63%
+2025-08-12 05:57:10,154 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:57:10,155 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:57:12,201 - INFO - Backend: OK (2.04s)
+2025-08-12 05:57:12,201 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:57:12,202 - INFO - Tempo restante: 03:33
+2025-08-12 05:58:13,225 - INFO - CPU: 13.8% | RAM: 85.9% | Disco: 87.63%
+2025-08-12 05:58:16,142 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:58:16,142 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:58:18,201 - INFO - Backend: OK (2.05s)
+2025-08-12 05:58:18,201 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:58:18,201 - INFO - Tempo restante: 03:32
+2025-08-12 05:59:19,225 - INFO - CPU: 20.1% | RAM: 85.9% | Disco: 87.63%
+2025-08-12 05:59:22,351 - INFO - Processos DataClinica ativos: 5
+2025-08-12 05:59:22,351 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 05:59:24,412 - INFO - Backend: OK (2.05s)
+2025-08-12 05:59:24,412 - INFO - Frontend: OK (0.00s)
+2025-08-12 05:59:24,412 - INFO - Tempo restante: 03:31
+2025-08-12 06:00:25,437 - INFO - CPU: 23.0% | RAM: 85.8% | Disco: 87.63%
+2025-08-12 06:00:28,271 - INFO - Processos DataClinica ativos: 5
+2025-08-12 06:00:28,272 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 06:00:30,321 - INFO - Backend: OK (2.04s)
+2025-08-12 06:00:30,321 - INFO - Frontend: OK (0.00s)
+2025-08-12 06:00:30,321 - INFO - Tempo restante: 03:30
+2025-08-12 06:01:31,357 - INFO - CPU: 19.7% | RAM: 85.4% | Disco: 87.64%
+2025-08-12 06:01:34,194 - INFO - Processos DataClinica ativos: 5
+2025-08-12 06:01:34,194 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 06:01:36,256 - INFO - Backend: OK (2.04s)
+2025-08-12 06:01:36,256 - INFO - Frontend: OK (0.01s)
+2025-08-12 06:01:36,256 - INFO - Tempo restante: 03:29
+2025-08-12 06:02:37,280 - INFO - CPU: 16.8% | RAM: 86.3% | Disco: 87.63%
+2025-08-12 06:02:40,043 - INFO - Processos DataClinica ativos: 5
+2025-08-12 06:02:40,051 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 06:02:42,117 - INFO - Backend: OK (2.06s)
+2025-08-12 06:02:42,117 - INFO - Frontend: OK (0.00s)
+2025-08-12 06:02:42,118 - INFO - Tempo restante: 03:28
+2025-08-12 06:03:43,142 - INFO - CPU: 14.8% | RAM: 85.9% | Disco: 87.63%
+2025-08-12 06:03:45,941 - INFO - Processos DataClinica ativos: 5
+2025-08-12 06:03:45,945 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 06:03:48,011 - INFO - Backend: OK (2.06s)
+2025-08-12 06:03:48,012 - INFO - Frontend: OK (0.00s)
+2025-08-12 06:03:48,012 - INFO - Tempo restante: 03:27
+2025-08-12 06:04:49,035 - INFO - CPU: 22.6% | RAM: 85.6% | Disco: 87.63%
+2025-08-12 06:04:51,678 - INFO - Processos DataClinica ativos: 5
+2025-08-12 06:04:51,679 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 06:04:53,732 - INFO - Backend: OK (2.05s)
+2025-08-12 06:04:53,733 - INFO - Frontend: OK (0.00s)
+2025-08-12 06:04:53,733 - INFO - Tempo restante: 03:26
+2025-08-12 06:05:54,757 - INFO - CPU: 22.9% | RAM: 85.6% | Disco: 87.63%
+2025-08-12 06:05:57,423 - INFO - Processos DataClinica ativos: 5
+2025-08-12 06:05:57,424 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 06:05:59,487 - INFO - Backend: OK (2.06s)
+2025-08-12 06:05:59,488 - INFO - Frontend: OK (0.00s)
+2025-08-12 06:05:59,488 - INFO - Tempo restante: 03:25
+2025-08-12 06:07:00,512 - INFO - CPU: 21.2% | RAM: 85.4% | Disco: 87.64%
+2025-08-12 06:07:02,877 - INFO - Processos DataClinica ativos: 5
+2025-08-12 06:07:02,877 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 06:07:04,929 - INFO - Backend: OK (2.05s)
+2025-08-12 06:07:04,930 - INFO - Frontend: OK (0.00s)
+2025-08-12 06:07:04,965 - INFO - Tempo restante: 03:23
+2025-08-12 06:08:05,989 - INFO - CPU: 38.5% | RAM: 87.7% | Disco: 87.63%
+2025-08-12 06:08:08,749 - INFO - Processos DataClinica ativos: 5
+2025-08-12 06:08:08,749 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 06:08:10,822 - INFO - Backend: OK (2.05s)
+2025-08-12 06:08:10,822 - INFO - Frontend: OK (0.01s)
+2025-08-12 06:08:10,822 - INFO - Tempo restante: 03:22
+2025-08-12 06:09:11,844 - INFO - CPU: 22.8% | RAM: 86.0% | Disco: 87.63%
+2025-08-12 06:09:14,394 - INFO - Processos DataClinica ativos: 5
+2025-08-12 06:09:14,395 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 06:09:16,437 - INFO - Backend: OK (2.03s)
+2025-08-12 06:09:16,437 - INFO - Frontend: OK (0.00s)
+2025-08-12 06:09:16,437 - INFO - Tempo restante: 03:21
+2025-08-12 06:10:17,461 - INFO - CPU: 22.1% | RAM: 86.2% | Disco: 87.64%
+2025-08-12 06:10:20,320 - INFO - Processos DataClinica ativos: 5
+2025-08-12 06:10:20,320 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 06:10:22,376 - INFO - Backend: OK (2.04s)
+2025-08-12 06:10:22,376 - INFO - Frontend: OK (0.02s)
+2025-08-12 06:10:22,376 - INFO - Tempo restante: 03:20
+2025-08-12 06:11:23,400 - INFO - CPU: 17.1% | RAM: 85.9% | Disco: 87.63%
+2025-08-12 06:11:26,330 - INFO - Processos DataClinica ativos: 5
+2025-08-12 06:11:26,330 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 06:11:28,397 - INFO - Backend: OK (2.06s)
+2025-08-12 06:11:28,398 - INFO - Frontend: OK (0.00s)
+2025-08-12 06:11:28,399 - INFO - Tempo restante: 03:19
+2025-08-12 06:12:29,424 - INFO - CPU: 29.6% | RAM: 86.1% | Disco: 87.63%
+2025-08-12 06:12:32,240 - INFO - Processos DataClinica ativos: 5
+2025-08-12 06:12:32,241 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 06:12:34,295 - INFO - Backend: OK (2.05s)
+2025-08-12 06:12:34,295 - INFO - Frontend: OK (0.00s)
+2025-08-12 06:12:34,295 - INFO - Tempo restante: 03:18
+2025-08-12 06:13:35,320 - INFO - CPU: 28.6% | RAM: 86.3% | Disco: 87.63%
+2025-08-12 06:13:38,320 - INFO - Processos DataClinica ativos: 5
+2025-08-12 06:13:38,320 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 06:13:40,384 - INFO - Backend: OK (2.06s)
+2025-08-12 06:13:40,384 - INFO - Frontend: OK (0.00s)
+2025-08-12 06:13:40,385 - INFO - Tempo restante: 03:17
+2025-08-12 06:14:41,421 - INFO - CPU: 20.4% | RAM: 86.3% | Disco: 87.63%
+2025-08-12 06:14:44,650 - INFO - Processos DataClinica ativos: 5
+2025-08-12 06:14:44,651 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 06:14:46,722 - INFO - Backend: OK (2.05s)
+2025-08-12 06:14:46,723 - INFO - Frontend: OK (0.02s)
+2025-08-12 06:14:46,723 - INFO - Tempo restante: 03:16
+2025-08-12 06:15:47,748 - INFO - CPU: 28.8% | RAM: 86.1% | Disco: 87.64%
+2025-08-12 06:15:50,334 - INFO - Processos DataClinica ativos: 5
+2025-08-12 06:15:50,334 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 06:15:52,403 - INFO - Backend: OK (2.06s)
+2025-08-12 06:15:52,424 - INFO - Frontend: OK (0.00s)
+2025-08-12 06:15:52,434 - INFO - Tempo restante: 03:15
+2025-08-12 06:16:53,461 - INFO - CPU: 25.0% | RAM: 86.6% | Disco: 87.64%
+2025-08-12 06:16:56,059 - INFO - Processos DataClinica ativos: 5
+2025-08-12 06:16:56,059 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 06:16:58,125 - INFO - Backend: OK (2.06s)
+2025-08-12 06:16:58,126 - INFO - Frontend: OK (0.00s)
+2025-08-12 06:16:58,126 - INFO - Tempo restante: 03:14
+2025-08-12 06:17:59,150 - INFO - CPU: 15.7% | RAM: 86.0% | Disco: 87.63%
+2025-08-12 06:18:01,710 - INFO - Processos DataClinica ativos: 5
+2025-08-12 06:18:01,710 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 06:18:03,770 - INFO - Backend: OK (2.04s)
+2025-08-12 06:18:03,770 - INFO - Frontend: OK (0.01s)
+2025-08-12 06:18:03,799 - INFO - Tempo restante: 03:12
+2025-08-12 06:19:04,833 - INFO - CPU: 19.1% | RAM: 86.1% | Disco: 87.64%
+2025-08-12 06:19:07,839 - INFO - Processos DataClinica ativos: 5
+2025-08-12 06:19:07,840 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 06:19:09,881 - INFO - Backend: OK (2.03s)
+2025-08-12 06:19:09,881 - INFO - Frontend: OK (0.00s)
+2025-08-12 06:19:09,881 - INFO - Tempo restante: 03:11
+2025-08-12 06:20:10,909 - INFO - CPU: 20.0% | RAM: 86.0% | Disco: 87.64%
+2025-08-12 06:20:13,576 - INFO - Processos DataClinica ativos: 5
+2025-08-12 06:20:13,576 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 06:20:15,611 - INFO - Backend: OK (2.03s)
+2025-08-12 06:20:15,611 - INFO - Frontend: OK (0.00s)
+2025-08-12 06:20:15,611 - INFO - Tempo restante: 03:10
+2025-08-12 06:21:16,637 - INFO - CPU: 34.0% | RAM: 84.3% | Disco: 87.63%
+2025-08-12 06:21:19,990 - INFO - Processos DataClinica ativos: 5
+2025-08-12 06:21:19,990 - INFO - Tamanho do banco: 0.46MB
+2025-08-12 06:21:22,063 - INFO - Backend: OK (2.05s)
+2025-08-12 06:21:22,063 - INFO - Frontend: OK (0.01s)
+2025-08-12 06:21:22,064 - INFO - Tempo restante: 03:09
+2025-08-12 06:22:23,090 - WARNING - [ALERT] Memória alta: 87.3%
+2025-08-12 06:22:23,090 - INFO - CPU: 46.1% | RAM: 87.3% | Disco: 87.64%
+2025-08-12 06:22:26,361 - INFO - Processos DataClinica ativos: 5
+2025-08-12 06:22:26,361 - INFO - Tamanho do banco: 0.46MB

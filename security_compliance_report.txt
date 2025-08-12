@@ -1,0 +1,32 @@
+
+=== RELATÓRIO DE SEGURANÇA E CONFORMIDADE ===
+
+Duração: 0:01:59.674801
+Início: 2025-08-11 22:12:29.936777
+Fim: 2025-08-11 22:14:29.611578
+
+
+TESTES DE SEGURANÇA:
+- Total: 10
+- Aprovados: 9
+- Falharam: 1
+- Taxa de sucesso: 90.0%
+
+FALHAS:
+- Rate Limiting: 100 requisições em 102.22s sem limitação
+
+TESTES DE CONFORMIDADE:
+- Total: 3
+- Aprovados: 1
+- Falharam: 2
+- Taxa de sucesso: 33.3%
+
+FALHAS:
+- LGPD - consent_data_processing: Campo de consentimento não encontrado
+- LGPD - consent_date: Campo de consentimento não encontrado
+
+TESTES DE INTEGRIDADE:
+- Total: 3
+- Aprovados: 3
+- Falharam: 0
+- Taxa de sucesso: 100.0%
