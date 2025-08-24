@@ -55,27 +55,5 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
   }
-}
-
-/* Custom styles for DataClinica */
-.dataclinica-gradient {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-.dataclinica-card {
-  @apply bg-card text-card-foreground rounded-lg border shadow-sm;
-}
-
-.dataclinica-button-primary {
-  @apply bg-primary text-primary-foreground hover:bg-primary/90 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50;
-}
-
-.dataclinica-sidebar {
-  @apply bg-card border-r border-border;
-}
-
-.dataclinica-header {
-  @apply bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border;
 }

@@ -1,9 +1,9 @@
 
 === RELATÓRIO DE SEGURANÇA E CONFORMIDADE ===
 
-Duração: 0:01:59.674801
-Início: 2025-08-11 22:12:29.936777
-Fim: 2025-08-11 22:14:29.611578
+Duração: 0:01:59.340035
+Início: 2025-08-12 07:20:08.674907
+Fim: 2025-08-12 07:22:08.014942
 
 
 TESTES DE SEGURANÇA:
@@ -13,7 +13,7 @@ TESTES DE SEGURANÇA:
 - Taxa de sucesso: 90.0%
 
 FALHAS:
-- Rate Limiting: 100 requisições em 102.22s sem limitação
+- Rate Limiting: 100 requisições em 101.96s sem limitação
 
 TESTES DE CONFORMIDADE:
 - Total: 3

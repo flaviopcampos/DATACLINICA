@@ -240,3 +240,185 @@ TESTES DE INTEGRIDADE:
 - Taxa de sucesso: 100.0%
 
 2025-08-11 22:14:29,613 - INFO - [DONE] Validação de segurança e conformidade concluída
+2025-08-12 06:40:12,564 - INFO - [START] Iniciando validação de segurança e conformidade
+2025-08-12 06:40:12,565 - INFO - Testando proteção contra SQL Injection...
+2025-08-12 06:40:16,671 - INFO - [PASS] SQL Injection Test: ' OR '1'='1: Erro esperado: HTTPConnectionPool(host='localhost', port=8000): M
+2025-08-12 06:40:20,768 - INFO - [PASS] SQL Injection Test: '; DROP TABLE users; --: Erro esperado: HTTPConnectionPool(host='localhost', port=8000): M
+2025-08-12 06:40:24,844 - INFO - [PASS] SQL Injection Test: ' UNION SELECT * FROM users --: Erro esperado: HTTPConnectionPool(host='localhost', port=8000): M
+2025-08-12 06:40:28,927 - INFO - [PASS] SQL Injection Test: admin'--: Erro esperado: HTTPConnectionPool(host='localhost', port=8000): M
+2025-08-12 06:40:33,012 - INFO - [PASS] SQL Injection Test: ' OR 1=1#: Erro esperado: HTTPConnectionPool(host='localhost', port=8000): M
+2025-08-12 06:40:33,013 - INFO - Testando segurança de senhas...
+2025-08-12 06:40:33,032 - INFO - [PASS] Password Hashing: Senha de admin está hasheada
+2025-08-12 06:40:33,033 - INFO - [PASS] Password Hashing: Senha de test_user está hasheada
+2025-08-12 06:40:33,033 - INFO - Testando criptografia de dados sensíveis...
+2025-08-12 06:40:33,035 - INFO - Testando limitação de taxa de requisições...
+2025-08-12 06:43:54,764 - INFO - [FAIL] Rate Limiting: 0 requisições em 201.73s sem limitação
+2025-08-12 06:43:54,765 - INFO - Testando configuração CORS...
+2025-08-12 06:43:58,861 - INFO - [FAIL] CORS Configuration: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018C82ABACF0>: Failed to establish a new connection: [WinError 10061] Nenhuma conexão pôde ser feita porque a máquina de destino as recusou ativamente'))
+2025-08-12 06:43:58,863 - INFO - Testando configuração HTTPS...
+2025-08-12 06:44:02,951 - INFO - [FAIL] HTTPS Configuration: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018C82ABB790>: Failed to establish a new connection: [WinError 10061] Nenhuma conexão pôde ser feita porque a máquina de destino as recusou ativamente'))
+2025-08-12 06:44:02,952 - INFO - Testando conformidade com LGPD...
+2025-08-12 06:44:02,959 - INFO - [PASS] LGPD - Audit Logs: Tabela de auditoria encontrada
+2025-08-12 06:44:02,962 - INFO - [FAIL] LGPD - consent_data_processing: Campo de consentimento não encontrado
+2025-08-12 06:44:02,962 - INFO - [FAIL] LGPD - consent_date: Campo de consentimento não encontrado
+2025-08-12 06:44:02,963 - INFO - Testando integridade dos dados...
+2025-08-12 06:44:02,970 - INFO - [PASS] Referential Integrity - appointments: Sem registros órfãos
+2025-08-12 06:44:02,971 - INFO - [PASS] Referential Integrity - appointments: Sem registros órfãos
+2025-08-12 06:44:02,972 - INFO - [PASS] Referential Integrity - medical_records: Sem registros órfãos
+2025-08-12 06:44:02,974 - INFO - 
+
+=== RELATÓRIO DE SEGURANÇA E CONFORMIDADE ===
+
+Duração: 0:03:50.408827
+Início: 2025-08-12 06:40:12.564405
+Fim: 2025-08-12 06:44:02.973232
+
+
+TESTES DE SEGURANÇA:
+- Total: 10
+- Aprovados: 7
+- Falharam: 3
+- Taxa de sucesso: 70.0%
+
+FALHAS:
+- Rate Limiting: 0 requisições em 201.73s sem limitação
+- CORS Configuration: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018C82ABACF0>: Failed to establish a new connection: [WinError 10061] Nenhuma conexão pôde ser feita porque a máquina de destino as recusou ativamente'))
+- HTTPS Configuration: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018C82ABB790>: Failed to establish a new connection: [WinError 10061] Nenhuma conexão pôde ser feita porque a máquina de destino as recusou ativamente'))
+
+TESTES DE CONFORMIDADE:
+- Total: 3
+- Aprovados: 1
+- Falharam: 2
+- Taxa de sucesso: 33.3%
+
+FALHAS:
+- LGPD - consent_data_processing: Campo de consentimento não encontrado
+- LGPD - consent_date: Campo de consentimento não encontrado
+
+TESTES DE INTEGRIDADE:
+- Total: 3
+- Aprovados: 3
+- Falharam: 0
+- Taxa de sucesso: 100.0%
+
+2025-08-12 06:44:02,976 - INFO - [DONE] Validação de segurança e conformidade concluída
+2025-08-12 06:44:35,938 - INFO - [START] Iniciando validação de segurança e conformidade
+2025-08-12 06:44:35,939 - INFO - Testando proteção contra SQL Injection...
+2025-08-12 06:44:38,614 - INFO - [PASS] SQL Injection Test: ' OR '1'='1: Payload rejeitado corretamente
+2025-08-12 06:44:41,245 - INFO - [PASS] SQL Injection Test: '; DROP TABLE users; --: Payload rejeitado corretamente
+2025-08-12 06:44:43,872 - INFO - [PASS] SQL Injection Test: ' UNION SELECT * FROM users --: Payload rejeitado corretamente
+2025-08-12 06:44:46,540 - INFO - [PASS] SQL Injection Test: admin'--: Payload rejeitado corretamente
+2025-08-12 06:44:49,174 - INFO - [PASS] SQL Injection Test: ' OR 1=1#: Payload rejeitado corretamente
+2025-08-12 06:44:49,175 - INFO - Testando segurança de senhas...
+2025-08-12 06:44:49,178 - INFO - [PASS] Password Hashing: Senha de admin está hasheada
+2025-08-12 06:44:49,178 - INFO - [PASS] Password Hashing: Senha de test_user está hasheada
+2025-08-12 06:44:49,179 - INFO - Testando criptografia de dados sensíveis...
+2025-08-12 06:44:49,183 - INFO - Testando limitação de taxa de requisições...
+2025-08-12 06:46:31,117 - INFO - [FAIL] Rate Limiting: 100 requisições em 101.93s sem limitação
+2025-08-12 06:46:31,118 - INFO - Testando configuração CORS...
+2025-08-12 06:46:33,174 - INFO - [PASS] CORS Configuration: CORS configurado: None
+2025-08-12 06:46:33,175 - INFO - Testando configuração HTTPS...
+2025-08-12 06:46:35,222 - INFO - [PASS] Security Headers: Todos os headers de segurança presentes
+2025-08-12 06:46:35,223 - INFO - Testando conformidade com LGPD...
+2025-08-12 06:46:35,224 - INFO - [PASS] LGPD - Audit Logs: Tabela de auditoria encontrada
+2025-08-12 06:46:35,225 - INFO - [FAIL] LGPD - consent_data_processing: Campo de consentimento não encontrado
+2025-08-12 06:46:35,225 - INFO - [FAIL] LGPD - consent_date: Campo de consentimento não encontrado
+2025-08-12 06:46:35,225 - INFO - Testando integridade dos dados...
+2025-08-12 06:46:35,227 - INFO - [PASS] Referential Integrity - appointments: Sem registros órfãos
+2025-08-12 06:46:35,228 - INFO - [PASS] Referential Integrity - appointments: Sem registros órfãos
+2025-08-12 06:46:35,228 - INFO - [PASS] Referential Integrity - medical_records: Sem registros órfãos
+2025-08-12 06:46:35,230 - INFO - 
+
+=== RELATÓRIO DE SEGURANÇA E CONFORMIDADE ===
+
+Duração: 0:01:59.290207
+Início: 2025-08-12 06:44:35.938804
+Fim: 2025-08-12 06:46:35.229011
+
+
+TESTES DE SEGURANÇA:
+- Total: 10
+- Aprovados: 9
+- Falharam: 1
+- Taxa de sucesso: 90.0%
+
+FALHAS:
+- Rate Limiting: 100 requisições em 101.93s sem limitação
+
+TESTES DE CONFORMIDADE:
+- Total: 3
+- Aprovados: 1
+- Falharam: 2
+- Taxa de sucesso: 33.3%
+
+FALHAS:
+- LGPD - consent_data_processing: Campo de consentimento não encontrado
+- LGPD - consent_date: Campo de consentimento não encontrado
+
+TESTES DE INTEGRIDADE:
+- Total: 3
+- Aprovados: 3
+- Falharam: 0
+- Taxa de sucesso: 100.0%
+
+2025-08-12 06:46:35,230 - INFO - [DONE] Validação de segurança e conformidade concluída
+2025-08-12 07:20:08,674 - INFO - [START] Iniciando validação de segurança e conformidade
+2025-08-12 07:20:08,675 - INFO - Testando proteção contra SQL Injection...
+2025-08-12 07:20:11,323 - INFO - [PASS] SQL Injection Test: ' OR '1'='1: Payload rejeitado corretamente
+2025-08-12 07:20:13,953 - INFO - [PASS] SQL Injection Test: '; DROP TABLE users; --: Payload rejeitado corretamente
+2025-08-12 07:20:16,617 - INFO - [PASS] SQL Injection Test: ' UNION SELECT * FROM users --: Payload rejeitado corretamente
+2025-08-12 07:20:19,244 - INFO - [PASS] SQL Injection Test: admin'--: Payload rejeitado corretamente
+2025-08-12 07:20:21,892 - INFO - [PASS] SQL Injection Test: ' OR 1=1#: Payload rejeitado corretamente
+2025-08-12 07:20:21,893 - INFO - Testando segurança de senhas...
+2025-08-12 07:20:21,920 - INFO - [PASS] Password Hashing: Senha de admin está hasheada
+2025-08-12 07:20:21,920 - INFO - [PASS] Password Hashing: Senha de test_user está hasheada
+2025-08-12 07:20:21,921 - INFO - Testando criptografia de dados sensíveis...
+2025-08-12 07:20:21,926 - INFO - Testando limitação de taxa de requisições...
+2025-08-12 07:22:03,885 - INFO - [FAIL] Rate Limiting: 100 requisições em 101.96s sem limitação
+2025-08-12 07:22:03,887 - INFO - Testando configuração CORS...
+2025-08-12 07:22:05,943 - INFO - [PASS] CORS Configuration: CORS configurado: None
+2025-08-12 07:22:05,943 - INFO - Testando configuração HTTPS...
+2025-08-12 07:22:07,999 - INFO - [PASS] Security Headers: Todos os headers de segurança presentes
+2025-08-12 07:22:08,001 - INFO - Testando conformidade com LGPD...
+2025-08-12 07:22:08,007 - INFO - [PASS] LGPD - Audit Logs: Tabela de auditoria encontrada
+2025-08-12 07:22:08,008 - INFO - [FAIL] LGPD - consent_data_processing: Campo de consentimento não encontrado
+2025-08-12 07:22:08,009 - INFO - [FAIL] LGPD - consent_date: Campo de consentimento não encontrado
+2025-08-12 07:22:08,010 - INFO - Testando integridade dos dados...
+2025-08-12 07:22:08,012 - INFO - [PASS] Referential Integrity - appointments: Sem registros órfãos
+2025-08-12 07:22:08,013 - INFO - [PASS] Referential Integrity - appointments: Sem registros órfãos
+2025-08-12 07:22:08,014 - INFO - [PASS] Referential Integrity - medical_records: Sem registros órfãos
+2025-08-12 07:22:08,016 - INFO - 
+
+=== RELATÓRIO DE SEGURANÇA E CONFORMIDADE ===
+
+Duração: 0:01:59.340035
+Início: 2025-08-12 07:20:08.674907
+Fim: 2025-08-12 07:22:08.014942
+
+
+TESTES DE SEGURANÇA:
+- Total: 10
+- Aprovados: 9
+- Falharam: 1
+- Taxa de sucesso: 90.0%
+
+FALHAS:
+- Rate Limiting: 100 requisições em 101.96s sem limitação
+
+TESTES DE CONFORMIDADE:
+- Total: 3
+- Aprovados: 1
+- Falharam: 2
+- Taxa de sucesso: 33.3%
+
+FALHAS:
+- LGPD - consent_data_processing: Campo de consentimento não encontrado
+- LGPD - consent_date: Campo de consentimento não encontrado
+
+TESTES DE INTEGRIDADE:
+- Total: 3
+- Aprovados: 3
+- Falharam: 0
+- Taxa de sucesso: 100.0%
+
+2025-08-12 07:22:08,017 - INFO - [DONE] Validação de segurança e conformidade concluída

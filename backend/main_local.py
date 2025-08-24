@@ -27,10 +27,9 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         
         return response
 
-
-# Importações locais
-from database import SessionLocal, engine
-from models_simple import Base, User
+# Importações locais - usando versão local
+from database_local import SessionLocal, engine
+from models_simple import Base, User, Clinic
 from schemas import Token, UserResponse
 
 # Rate Limiting
@@ -41,7 +40,6 @@ from slowapi.middleware import SlowAPIMiddleware
 
 # Configuração do rate limiter
 limiter = Limiter(key_func=get_remote_address)
-
 
 # Configurações
 SECRET_KEY = os.getenv("SECRET_KEY", "your-secret-key-here")
@@ -57,7 +55,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 # Criar tabelas
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="DataClínica API", version="1.0.0")
+app = FastAPI(title="DataClínica API Local", version="1.0.0")
 
 # Configura rate limiting
 app.state.limiter = limiter
@@ -132,6 +130,48 @@ async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = De
         raise credentials_exception
     return user
 
+# Função para inicializar dados
+def init_data():
+    db = SessionLocal()
+    try:
+        # Criar clínica se não existir
+        clinic = db.query(Clinic).first()
+        if not clinic:
+            clinic = Clinic(
+                name="DataClínica - Principal",
+                cnpj="00.000.000/0001-00",
+                email="contato@dataclinica.com.br"
+            )
+            db.add(clinic)
+            db.flush()
+        
+        # Criar usuário admin se não existir
+        admin_user = db.query(User).filter(User.email == 'admin@dataclinica.com.br').first()
+        if not admin_user:
+            hashed_password = get_password_hash("Admin123!")
+            admin_user = User(
+                username="admin",
+                email="admin@dataclinica.com.br",
+                hashed_password=hashed_password,
+                full_name="Administrador DataClínica",
+                role="admin",
+                clinic_id=clinic.id,
+                is_active=True
+            )
+            db.add(admin_user)
+        
+        db.commit()
+        print("✅ Dados iniciais criados com sucesso!")
+        
+    except Exception as e:
+        print(f"❌ Erro ao inicializar dados: {e}")
+        db.rollback()
+    finally:
+        db.close()
+
+# Inicializar dados na inicialização
+init_data()
+
 # Endpoints
 @limiter.limit("5/minute")
 @app.post("/token", response_model=Token)
@@ -157,7 +197,7 @@ async def read_users_me(request: Request, current_user: User = Depends(get_curre
 @limiter.limit("10/minute")
 @app.get("/")
 async def root(request: Request):
-    return {"message": "DataClínica API - Versão Simplificada"}
+    return {"message": "DataClínica API Local - Funcionando!"}
 
 @limiter.limit("100/minute")
 @app.get("/health")
