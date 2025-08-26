@@ -45,6 +45,452 @@ class Clinic(ClinicBase):
     class Config:
         from_attributes = True
 
+# ============================================================================
+# SCHEMAS PARA SISTEMA DE PERMISSÕES GRANULARES
+# ============================================================================
+
+# UserRole Schemas
+class UserRoleBase(BaseModel):
+    name: str
+    code: str
+    description: Optional[str] = None
+    is_system_role: bool = False
+    is_active: bool = True
+
+class UserRoleCreate(UserRoleBase):
+    clinic_id: int
+
+class UserRoleUpdate(BaseModel):
+    name: Optional[str] = None
+    code: Optional[str] = None
+    description: Optional[str] = None
+    is_active: Optional[bool] = None
+
+class UserRole(UserRoleBase):
+    id: int
+    clinic_id: int
+    created_at: datetime
+    updated_at: datetime
+    
+    class Config:
+        from_attributes = True
+
+# Module Schemas
+class ModuleBase(BaseModel):
+    name: str
+    code: str
+    description: Optional[str] = None
+    parent_module_id: Optional[int] = None
+    icon: Optional[str] = None
+    route: Optional[str] = None
+    is_active: bool = True
+    sort_order: int = 0
+
+class ModuleCreate(ModuleBase):
+    pass
+
+class ModuleUpdate(BaseModel):
+    name: Optional[str] = None
+    code: Optional[str] = None
+    description: Optional[str] = None
+    parent_module_id: Optional[int] = None
+    icon: Optional[str] = None
+    route: Optional[str] = None
+    is_active: Optional[bool] = None
+    sort_order: Optional[int] = None
+
+class Module(ModuleBase):
+    id: int
+    created_at: datetime
+    
+    class Config:
+        from_attributes = True
+
+# RolePermission Schemas
+class RolePermissionBase(BaseModel):
+    can_view: bool = False
+    can_create: bool = False
+    can_edit: bool = False
+    can_delete: bool = False
+    can_export: bool = False
+    can_import: bool = False
+    custom_permissions: Optional[Dict[str, Any]] = None
+
+class RolePermissionCreate(RolePermissionBase):
+    role_id: int
+    module_id: int
+
+class RolePermissionUpdate(BaseModel):
+    can_view: Optional[bool] = None
+    can_create: Optional[bool] = None
+    can_edit: Optional[bool] = None
+    can_delete: Optional[bool] = None
+    can_export: Optional[bool] = None
+    can_import: Optional[bool] = None
+    custom_permissions: Optional[Dict[str, Any]] = None
+
+class RolePermission(RolePermissionBase):
+    id: int
+    role_id: int
+    module_id: int
+    created_at: datetime
+    
+    class Config:
+        from_attributes = True
+
+# UserRoleAssignment Schemas
+class UserRoleAssignmentBase(BaseModel):
+    expires_at: Optional[datetime] = None
+    is_active: bool = True
+
+class UserRoleAssignmentCreate(UserRoleAssignmentBase):
+    user_id: int
+    role_id: int
+    assigned_by: int
+
+class UserRoleAssignmentUpdate(BaseModel):
+    expires_at: Optional[datetime] = None
+    is_active: Optional[bool] = None
+
+class UserRoleAssignment(UserRoleAssignmentBase):
+    id: int
+    user_id: int
+    role_id: int
+    assigned_by: int
+    assigned_at: datetime
+    
+    class Config:
+        from_attributes = True
+
+# ============================================================================
+# SCHEMAS PARA SISTEMA DE LEITOS E QUARTOS
+# ============================================================================
+
+# Room Schemas
+class RoomBase(BaseModel):
+    room_number: str
+    room_name: Optional[str] = None
+    room_type: str  # individual, duplo, enfermaria, isolamento
+    gender_restriction: Optional[str] = None  # masculino, feminino, misto
+    capacity: int = 1
+    floor: Optional[str] = None
+    wing: Optional[str] = None
+    has_bathroom: bool = True
+    has_air_conditioning: bool = False
+    has_tv: bool = False
+    has_wifi: bool = False
+    accessibility_features: Optional[Dict[str, Any]] = None
+    daily_rate: Optional[Decimal] = None
+    is_active: bool = True
+    notes: Optional[str] = None
+
+class RoomCreate(RoomBase):
+    clinic_id: int
+    department_id: int
+
+class RoomUpdate(BaseModel):
+    room_number: Optional[str] = None
+    room_name: Optional[str] = None
+    room_type: Optional[str] = None
+    gender_restriction: Optional[str] = None
+    capacity: Optional[int] = None
+    floor: Optional[str] = None
+    wing: Optional[str] = None
+    has_bathroom: Optional[bool] = None
+    has_air_conditioning: Optional[bool] = None
+    has_tv: Optional[bool] = None
+    has_wifi: Optional[bool] = None
+    accessibility_features: Optional[Dict[str, Any]] = None
+    daily_rate: Optional[Decimal] = None
+    is_active: Optional[bool] = None
+    notes: Optional[str] = None
+
+class Room(RoomBase):
+    id: int
+    clinic_id: int
+    department_id: int
+    created_at: datetime
+    updated_at: datetime
+    
+    class Config:
+        from_attributes = True
+
+# Bed Schemas
+class BedBase(BaseModel):
+    bed_number: str
+    bed_name: Optional[str] = None
+    bed_type: str = "standard"  # standard, uti, semi_uti, isolamento
+    status: str = "available"  # available, occupied, maintenance, blocked, cleaning
+    is_active: bool = True
+    equipment: Optional[Dict[str, Any]] = None
+    notes: Optional[str] = None
+    last_maintenance: Optional[datetime] = None
+    next_maintenance: Optional[datetime] = None
+
+class BedCreate(BedBase):
+    clinic_id: int
+    room_id: int
+
+class BedUpdate(BaseModel):
+    bed_number: Optional[str] = None
+    bed_name: Optional[str] = None
+    bed_type: Optional[str] = None
+    status: Optional[str] = None
+    is_active: Optional[bool] = None
+    equipment: Optional[Dict[str, Any]] = None
+    notes: Optional[str] = None
+    last_maintenance: Optional[datetime] = None
+    next_maintenance: Optional[datetime] = None
+
+class Bed(BedBase):
+    id: int
+    clinic_id: int
+    room_id: int
+    created_at: datetime
+    updated_at: datetime
+    
+    class Config:
+        from_attributes = True
+
+# BedStatusHistory Schemas
+class BedStatusHistoryBase(BaseModel):
+    previous_status: Optional[str] = None
+    new_status: str
+    change_reason: Optional[str] = None
+    notes: Optional[str] = None
+
+class BedStatusHistoryCreate(BedStatusHistoryBase):
+    bed_id: int
+    changed_by: int
+
+class BedStatusHistory(BedStatusHistoryBase):
+    id: int
+    bed_id: int
+    changed_by: int
+    changed_at: datetime
+    
+    class Config:
+        from_attributes = True
+
+# ============================================================================
+# SCHEMAS PARA SISTEMA DE INTERNAÇÃO
+# ============================================================================
+
+# PatientAdmission Schemas
+class PatientAdmissionBase(BaseModel):
+    admission_date: datetime
+    expected_discharge_date: Optional[datetime] = None
+    actual_discharge_date: Optional[datetime] = None
+    admission_reason: str
+    admission_diagnosis: Optional[str] = None
+    discharge_diagnosis: Optional[str] = None
+    treatment_plan: Optional[str] = None
+    discharge_summary: Optional[str] = None
+    status: str = "active"  # active, discharged, transferred, deceased
+    admission_type: str  # emergency, elective, transfer
+    discharge_type: Optional[str] = None  # medical_discharge, transfer, death, evasion
+    attending_doctor_id: Optional[int] = None
+    discharging_doctor_id: Optional[int] = None
+    insurance_plan_id: Optional[int] = None
+    payment_method: Optional[str] = None  # particular, convenio, sus
+    estimated_cost: Optional[Decimal] = None
+    total_cost: Optional[Decimal] = None
+    notes: Optional[str] = None
+    family_contact: Optional[Dict[str, Any]] = None
+
+class PatientAdmissionCreate(PatientAdmissionBase):
+    clinic_id: int
+    patient_id: int
+    bed_id: int
+    admission_number: str
+    admitting_doctor_id: int
+
+class PatientAdmissionUpdate(BaseModel):
+    expected_discharge_date: Optional[datetime] = None
+    actual_discharge_date: Optional[datetime] = None
+    admission_diagnosis: Optional[str] = None
+    discharge_diagnosis: Optional[str] = None
+    treatment_plan: Optional[str] = None
+    discharge_summary: Optional[str] = None
+    status: Optional[str] = None
+    discharge_type: Optional[str] = None
+    attending_doctor_id: Optional[int] = None
+    discharging_doctor_id: Optional[int] = None
+    insurance_plan_id: Optional[int] = None
+    payment_method: Optional[str] = None
+    estimated_cost: Optional[Decimal] = None
+    total_cost: Optional[Decimal] = None
+    notes: Optional[str] = None
+    family_contact: Optional[Dict[str, Any]] = None
+
+class PatientAdmission(PatientAdmissionBase):
+    id: int
+    clinic_id: int
+    patient_id: int
+    bed_id: int
+    admission_number: str
+    admitting_doctor_id: int
+    created_at: datetime
+    updated_at: datetime
+    
+    class Config:
+        from_attributes = True
+
+# BedTransfer Schemas
+class BedTransferBase(BaseModel):
+    transfer_reason: str
+    notes: Optional[str] = None
+
+class BedTransferCreate(BedTransferBase):
+    admission_id: int
+    from_bed_id: int
+    to_bed_id: int
+    authorized_by: int
+    transfer_date: Optional[datetime] = None
+
+class BedTransfer(BedTransferBase):
+    id: int
+    admission_id: int
+    from_bed_id: int
+    to_bed_id: int
+    transfer_date: datetime
+    authorized_by: int
+    
+    class Config:
+        from_attributes = True
+
+# DailyRateConfig Schemas
+class DailyRateConfigBase(BaseModel):
+    name: str
+    description: Optional[str] = None
+    room_type: Optional[str] = None
+    payment_method: Optional[str] = None
+    is_active: bool = True
+    effective_date: date
+    expiry_date: Optional[date] = None
+
+class DailyRateConfigCreate(DailyRateConfigBase):
+    clinic_id: int
+
+class DailyRateConfigUpdate(BaseModel):
+    name: Optional[str] = None
+    description: Optional[str] = None
+    room_type: Optional[str] = None
+    payment_method: Optional[str] = None
+    is_active: Optional[bool] = None
+    effective_date: Optional[date] = None
+    expiry_date: Optional[date] = None
+
+class DailyRateConfig(DailyRateConfigBase):
+    id: int
+    clinic_id: int
+    created_at: datetime
+    updated_at: datetime
+    
+    class Config:
+        from_attributes = True
+
+# DailyRateTier Schemas
+class DailyRateTierBase(BaseModel):
+    tier_name: str
+    day_from: int
+    day_to: Optional[int] = None
+    daily_rate: Decimal
+    is_weekend_rate: bool = False
+    weekend_rate: Optional[Decimal] = None
+
+class DailyRateTierCreate(DailyRateTierBase):
+    config_id: int
+
+class DailyRateTierUpdate(BaseModel):
+    tier_name: Optional[str] = None
+    day_from: Optional[int] = None
+    day_to: Optional[int] = None
+    daily_rate: Optional[Decimal] = None
+    is_weekend_rate: Optional[bool] = None
+    weekend_rate: Optional[Decimal] = None
+
+class DailyRateTier(DailyRateTierBase):
+    id: int
+    config_id: int
+    
+    class Config:
+        from_attributes = True
+
+# AdmissionBilling Schemas
+class AdmissionBillingBase(BaseModel):
+    billing_date: date
+    total_days: int
+    daily_rate_amount: Decimal = 0
+    procedures_amount: Decimal = 0
+    medications_amount: Decimal = 0
+    exams_amount: Decimal = 0
+    other_charges: Decimal = 0
+    discounts: Decimal = 0
+    total_amount: Decimal
+    status: str = "pending"  # pending, sent, paid, cancelled
+    sent_date: Optional[date] = None
+    payment_date: Optional[date] = None
+    notes: Optional[str] = None
+    billing_details: Optional[Dict[str, Any]] = None
+
+class AdmissionBillingCreate(AdmissionBillingBase):
+    admission_id: int
+
+class AdmissionBillingUpdate(BaseModel):
+    billing_date: Optional[date] = None
+    total_days: Optional[int] = None
+    daily_rate_amount: Optional[Decimal] = None
+    procedures_amount: Optional[Decimal] = None
+    medications_amount: Optional[Decimal] = None
+    exams_amount: Optional[Decimal] = None
+    other_charges: Optional[Decimal] = None
+    discounts: Optional[Decimal] = None
+    total_amount: Optional[Decimal] = None
+    status: Optional[str] = None
+    sent_date: Optional[date] = None
+    payment_date: Optional[date] = None
+    notes: Optional[str] = None
+    billing_details: Optional[Dict[str, Any]] = None
+
+class AdmissionBilling(AdmissionBillingBase):
+    id: int
+    admission_id: int
+    created_at: datetime
+    updated_at: datetime
+    
+    class Config:
+        from_attributes = True
+
+# BillingItem Schemas
+class BillingItemBase(BaseModel):
+    item_type: str  # daily_rate, procedure, medication, exam, other
+    item_code: Optional[str] = None
+    item_description: str
+    quantity: Decimal = 1
+    unit_price: Decimal
+    total_price: Decimal
+    service_date: date
+
+class BillingItemCreate(BillingItemBase):
+    billing_id: int
+
+class BillingItemUpdate(BaseModel):
+    item_type: Optional[str] = None
+    item_code: Optional[str] = None
+    item_description: Optional[str] = None
+    quantity: Optional[Decimal] = None
+    unit_price: Optional[Decimal] = None
+    total_price: Optional[Decimal] = None
+    service_date: Optional[date] = None
+
+class BillingItem(BillingItemBase):
+    id: int
+    billing_id: int
+    
+    class Config:
+        from_attributes = True
+
 # User Schemas
 class UserBase(BaseModel):
     username: str

@@ -1,19 +1,15 @@
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.middleware.cors import CORSMiddleware
-from sqlalchemy.orm import Session
-from sqlalchemy import text
 from datetime import timedelta, date, datetime
 from typing import List, Optional
 
-import crud, models, schemas, auth
-from database import engine, get_db
+import schemas, auth, models
+from crud_supabase import crud_supabase
+from database_supabase import get_supabase_client
 from audit_backup import AuditLogger, BackupManager, ComplianceChecker
 from financial_utils import FinancialCalculator, ReportGenerator
-from routers import external_apis, saas, two_factor_auth, telemedicine, companions_visitors, medical_devices, analytics_ai, stock_management
-
-# Criar todas as tabelas
-models.Base.metadata.create_all(bind=engine)
+from routers import external_apis, saas, two_factor_auth, telemedicine, companions_visitors, medical_devices, analytics_ai, stock_management, beds_rooms, hospitalization, permissions
 
 app = FastAPI(
     title="Sistema Clínico Profissional",
@@ -39,6 +35,9 @@ app.include_router(companions_visitors.router)
 app.include_router(medical_devices.router)
 app.include_router(analytics_ai.router)
 app.include_router(stock_management.router, prefix="/api", tags=["Controle de Estoque Ampliado"])
+app.include_router(beds_rooms.router, prefix="/api", tags=["Leitos e Quartos"])
+app.include_router(hospitalization.router, prefix="/api", tags=["Internação"])
+app.include_router(permissions.router, prefix="/api", tags=["Permissões"])
 
 @app.get("/")
 async def read_root():
@@ -48,235 +47,279 @@ async def read_root():
 def test_simple():
     return {"message": "API funcionando! - Reloaded", "status": "ok", "timestamp": "2024-01-01"}
 
+@app.get("/test-departments")
+def test_departments():
+    """Endpoint público para testar departamentos sem autenticação"""
+    try:
+        # Retorna dados mock para teste
+        mock_departments = [
+            {"id": 1, "name": "UTI", "description": "Unidade de Terapia Intensiva", "active": True},
+            {"id": 2, "name": "Enfermaria", "description": "Enfermaria Geral", "active": True},
+            {"id": 3, "name": "Emergência", "description": "Pronto Socorro", "active": True}
+        ]
+        return {"status": "success", "data": mock_departments, "count": len(mock_departments)}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
+
+@app.get("/test-rooms")
+def test_rooms():
+    """Endpoint público para testar quartos sem autenticação"""
+    try:
+        mock_rooms = [
+            {"id": 1, "number": "101", "department_id": 1, "department_name": "UTI", "active": True},
+            {"id": 2, "number": "102", "department_id": 1, "department_name": "UTI", "active": True},
+            {"id": 3, "number": "201", "department_id": 2, "department_name": "Enfermaria", "active": True}
+        ]
+        return {"status": "success", "data": mock_rooms, "count": len(mock_rooms)}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
+
+@app.get("/test-beds")
+def test_beds():
+    """Endpoint público para testar leitos sem autenticação"""
+    try:
+        mock_beds = [
+            {"id": 1, "number": "A1", "room_id": 1, "room_number": "101", "status": "available", "bed_type": "standard"},
+            {"id": 2, "number": "A2", "room_id": 1, "room_number": "101", "status": "occupied", "bed_type": "standard"},
+            {"id": 3, "number": "B1", "room_id": 2, "room_number": "102", "status": "maintenance", "bed_type": "icu"}
+        ]
+        return {"status": "success", "data": mock_beds, "count": len(mock_beds)}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
+
+@app.get("/test-admissions")
+def test_admissions():
+    """Endpoint público para testar internações sem autenticação"""
+    try:
+        mock_admissions = [
+            {"id": 1, "patient_name": "João Silva", "bed_id": 2, "bed_number": "A2", "admission_date": "2024-01-15", "status": "active"},
+            {"id": 2, "patient_name": "Maria Santos", "bed_id": 1, "bed_number": "A1", "admission_date": "2024-01-10", "status": "discharged"},
+            {"id": 3, "patient_name": "Pedro Costa", "bed_id": 3, "bed_number": "B1", "admission_date": "2024-01-20", "status": "active"}
+        ]
+        return {"status": "success", "data": mock_admissions, "count": len(mock_admissions)}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
+
 @app.get("/test-db/")
 async def test_db_connection():
-    import psycopg2
-    import os
-    from dotenv import load_dotenv
-    
-    load_dotenv()
-    database_url = os.getenv("DATABASE_URL")
-    
     try:
-        # Testa a conexão diretamente com psycopg2
-        conn = psycopg2.connect(database_url)
-        cursor = conn.cursor()
-        cursor.execute("SELECT version()")
-        version = cursor.fetchone()[0]
-        cursor.close()
-        conn.close()
-        return {"message": "Conexão com o banco de dados PostgreSQL bem-sucedida!", "version": version}
+        # Testa a conexão com Supabase
+        supabase = get_supabase_client()
+        response = supabase.table('clinics').select('count').execute()
+        return {"message": "Conexão com o Supabase bem-sucedida!", "status": "connected"}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Erro de conexão com o banco de dados: {e}")
+        raise HTTPException(status_code=500, detail=f"Erro de conexão com o Supabase: {e}")
 
 # Autenticação
-# @app.post("/token", response_model=schemas.Token)
-# async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
-#     user = auth.authenticate_user(db, form_data.username, form_data.password)
-#     if not user:
-#         raise HTTPException(
-#             status_code=status.HTTP_401_UNAUTHORIZED,
-#             detail="Incorrect username or password",
-#             headers={"WWW-Authenticate": "Bearer"},
-#         )
-#     access_token_expires = timedelta(minutes=auth.ACCESS_TOKEN_EXPIRE_MINUTES)
-#     access_token = auth.create_access_token(
-#         data={"sub": user.username}, expires_delta=access_token_expires
-#     )
-#     return {"access_token": access_token, "token_type": "bearer"}
+@app.post("/token", response_model=schemas.Token)
+async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
+    user = auth.authenticate_user_supabase(form_data.username, form_data.password)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    access_token_expires = timedelta(minutes=auth.ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = auth.create_access_token(
+        data={"sub": user["username"]}, expires_delta=access_token_expires
+    )
+    return {"access_token": access_token, "token_type": "bearer"}
 
-# @app.get("/users/me/", response_model=schemas.User)
-# async def read_users_me(current_user: models.User = Depends(auth.get_current_active_user)):
-#     return current_user
+@app.get("/users/me/", response_model=schemas.User)
+async def read_users_me(current_user: dict = Depends(auth.get_current_active_user_supabase)):
+    return current_user
 
 # Users endpoints
 @app.post("/users/", response_model=schemas.User)
-def create_user(user: schemas.UserCreate, db: Session = Depends(get_db), current_user: schemas.User = Depends(auth.get_current_active_user)):
-    auth.check_permission(current_user, "admin")
-    db_user = crud.get_user_by_username(db, username=user.username)
+def create_user(user: schemas.UserCreate, current_user: dict = Depends(auth.get_current_active_user_supabase)):
+    auth.check_permission_supabase(current_user, "admin")
+    db_user = crud_supabase.get_user_by_username(username=user.username)
     if db_user:
         raise HTTPException(status_code=400, detail="Username already registered")
-    db_user = crud.get_user_by_email(db, email=user.email)
+    db_user = crud_supabase.get_user_by_email(email=user.email)
     if db_user:
         raise HTTPException(status_code=400, detail="Email already registered")
-    return crud.create_user(db=db, user=user)
+    return crud_supabase.create_user(user=user)
 
 # Endpoint temporário para criar primeiro usuário admin
 @app.post("/setup/admin", response_model=schemas.User)
-def create_admin_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+def create_admin_user(user: schemas.UserCreate):
     # Verifica se já existe algum usuário admin
-    existing_admin = db.query(models.User).filter(models.User.role == "admin").first()
+    existing_admin = crud_supabase.get_users_by_role(role="admin")
     if existing_admin:
         raise HTTPException(status_code=400, detail="Admin user already exists")
     
     # Força o role como admin
     user.role = "admin"
-    db_user = crud.get_user_by_username(db, username=user.username)
+    db_user = crud_supabase.get_user_by_username(username=user.username)
     if db_user:
         raise HTTPException(status_code=400, detail="Username already registered")
-    db_user = crud.get_user_by_email(db, email=user.email)
+    db_user = crud_supabase.get_user_by_email(email=user.email)
     if db_user:
         raise HTTPException(status_code=400, detail="Email already registered")
-    return crud.create_user(db=db, user=user)
+    return crud_supabase.create_user(user=user)
 
 # Clinics endpoints
 @app.post("/clinics/", response_model=schemas.Clinic)
-def create_clinic(clinic: schemas.ClinicCreate, db: Session = Depends(get_db), current_user: schemas.User = Depends(auth.get_current_active_user)):
-    auth.check_permission(current_user, "admin")
-    db_clinic = crud.get_clinic_by_cnpj(db, cnpj=clinic.cnpj)
+def create_clinic(clinic: schemas.ClinicCreate, current_user: dict = Depends(auth.get_current_active_user_supabase)):
+    auth.check_permission_supabase(current_user, "admin")
+    db_clinic = crud_supabase.get_clinic_by_cnpj(cnpj=clinic.cnpj)
     if db_clinic:
         raise HTTPException(status_code=400, detail="CNPJ already registered")
-    return crud.create_clinic(db=db, clinic=clinic)
+    return crud_supabase.create_clinic(clinic=clinic)
 
 @app.get("/clinics/", response_model=List[schemas.Clinic])
-def read_clinics(skip: int = 0, limit: int = 100, db: Session = Depends(get_db), current_user: schemas.User = Depends(auth.get_current_active_user)):
-    clinics = crud.get_clinics(db, skip=skip, limit=limit)
+def read_clinics(skip: int = 0, limit: int = 100, current_user: dict = Depends(auth.get_current_active_user_supabase)):
+    clinics = crud_supabase.get_clinics(skip=skip, limit=limit)
     return clinics
 
 @app.get("/clinics/{clinic_id}", response_model=schemas.Clinic)
-def read_clinic(clinic_id: int, db: Session = Depends(get_db), current_user: schemas.User = Depends(auth.get_current_active_user)):
-    db_clinic = crud.get_clinic(db, clinic_id=clinic_id)
+def read_clinic(clinic_id: int, current_user: dict = Depends(auth.get_current_active_user_supabase)):
+    db_clinic = crud_supabase.get_clinic(clinic_id=clinic_id)
     if db_clinic is None:
         raise HTTPException(status_code=404, detail="Clinic not found")
     return db_clinic
 
 @app.put("/clinics/{clinic_id}", response_model=schemas.Clinic)
-def update_clinic(clinic_id: int, clinic: schemas.ClinicUpdate, db: Session = Depends(get_db), current_user: schemas.User = Depends(auth.get_current_active_user)):
-    auth.check_permission(current_user, "admin")
-    db_clinic = crud.update_clinic(db, clinic_id=clinic_id, clinic=clinic)
+def update_clinic(clinic_id: int, clinic: schemas.ClinicUpdate, current_user: dict = Depends(auth.get_current_active_user_supabase)):
+    auth.check_permission_supabase(current_user, "admin")
+    db_clinic = crud_supabase.update_clinic(clinic_id=clinic_id, clinic=clinic)
     if db_clinic is None:
         raise HTTPException(status_code=404, detail="Clinic not found")
     return db_clinic
 
 @app.delete("/clinics/{clinic_id}")
-def delete_clinic(clinic_id: int, db: Session = Depends(get_db), current_user: schemas.User = Depends(auth.get_current_active_user)):
-    auth.check_permission(current_user, "admin")
-    db_clinic = crud.delete_clinic(db, clinic_id=clinic_id)
-    if db_clinic is None:
+def delete_clinic(clinic_id: int, current_user: dict = Depends(auth.get_current_active_user_supabase)):
+    auth.check_permission_supabase(current_user, "admin")
+    success = crud_supabase.delete_clinic(clinic_id=clinic_id)
+    if not success:
         raise HTTPException(status_code=404, detail="Clinic not found")
     return {"message": "Clinic deleted successfully"}
 
 @app.get("/users/", response_model=List[schemas.User])
-def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db), current_user: schemas.User = Depends(auth.get_current_active_user)):
-    auth.check_permission(current_user, "admin")
-    users = crud.get_users(db, skip=skip, limit=limit)
+def read_users(skip: int = 0, limit: int = 100, current_user: dict = Depends(auth.get_current_active_user_supabase)):
+    auth.check_permission_supabase(current_user, "admin")
+    users = crud_supabase.get_users(skip=skip, limit=limit)
     return users
 
 @app.get("/users/{user_id}", response_model=schemas.User)
-def read_user(user_id: int, db: Session = Depends(get_db), current_user: schemas.User = Depends(auth.get_current_active_user)):
-    db_user = crud.get_user(db, user_id=user_id)
+def read_user(user_id: int, current_user: dict = Depends(auth.get_current_active_user_supabase)):
+    db_user = crud_supabase.get_user(user_id=user_id)
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
     return db_user
 
 @app.put("/users/{user_id}", response_model=schemas.User)
-def update_user(user_id: int, user: schemas.UserUpdate, db: Session = Depends(get_db), current_user: schemas.User = Depends(auth.get_current_active_user)):
-    auth.check_permission(current_user, "admin")
-    db_user = crud.update_user(db, user_id=user_id, user=user)
+def update_user(user_id: int, user: schemas.UserUpdate, current_user: dict = Depends(auth.get_current_active_user_supabase)):
+    auth.check_permission_supabase(current_user, "admin")
+    db_user = crud_supabase.update_user(user_id=user_id, user=user)
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
     return db_user
 
 @app.delete("/users/{user_id}")
-def delete_user(user_id: int, db: Session = Depends(get_db), current_user: schemas.User = Depends(auth.get_current_active_user)):
-    auth.check_permission(current_user, "admin")
-    db_user = crud.delete_user(db, user_id=user_id)
-    if db_user is None:
+def delete_user(user_id: int, current_user: dict = Depends(auth.get_current_active_user_supabase)):
+    auth.check_permission_supabase(current_user, "admin")
+    success = crud_supabase.delete_user(user_id=user_id)
+    if not success:
         raise HTTPException(status_code=404, detail="User not found")
     return {"message": "User deleted successfully"}
 
 # Patients endpoints
 @app.post("/patients/", response_model=schemas.Patient)
-def create_patient(patient: schemas.PatientCreate, db: Session = Depends(get_db), current_user: models.User = Depends(auth.get_current_active_user)):
-    db_patient = crud.get_patient_by_cpf(db, cpf=patient.cpf)
+def create_patient(patient: schemas.PatientCreate, current_user: dict = Depends(auth.get_current_active_user_supabase)):
+    db_patient = crud_supabase.get_patient_by_cpf(cpf=patient.cpf, clinic_id=current_user["clinic_id"])
     if db_patient:
         raise HTTPException(status_code=400, detail="CPF already registered")
-    return crud.create_patient(db=db, patient=patient)
+    return crud_supabase.create_patient(patient=patient, clinic_id=current_user["clinic_id"])
 
 @app.get("/patients/", response_model=List[schemas.Patient])
-def read_patients(skip: int = 0, limit: int = 100, search: Optional[str] = None, db: Session = Depends(get_db), current_user: models.User = Depends(auth.get_current_active_user)):
-    patients = crud.get_patients(db, skip=skip, limit=limit, search=search)
+def read_patients(skip: int = 0, limit: int = 100, search: Optional[str] = None, current_user: dict = Depends(auth.get_current_active_user_supabase)):
+    patients = crud_supabase.get_patients(clinic_id=current_user["clinic_id"], skip=skip, limit=limit, search=search)
     return patients
 
 @app.get("/patients/{patient_id}", response_model=schemas.Patient)
-def read_patient(patient_id: int, db: Session = Depends(get_db), current_user: models.User = Depends(auth.get_current_active_user)):
-    db_patient = crud.get_patient(db, patient_id=patient_id)
+def read_patient(patient_id: int, current_user: dict = Depends(auth.get_current_active_user_supabase)):
+    db_patient = crud_supabase.get_patient(patient_id=patient_id, clinic_id=current_user["clinic_id"])
     if db_patient is None:
         raise HTTPException(status_code=404, detail="Patient not found")
     return db_patient
 
 @app.put("/patients/{patient_id}", response_model=schemas.Patient)
-def update_patient(patient_id: int, patient: schemas.PatientUpdate, db: Session = Depends(get_db), current_user: models.User = Depends(auth.get_current_active_user)):
-    db_patient = crud.update_patient(db, patient_id=patient_id, patient=patient)
+def update_patient(patient_id: int, patient: schemas.PatientUpdate, current_user: dict = Depends(auth.get_current_active_user_supabase)):
+    db_patient = crud_supabase.update_patient(patient_id=patient_id, patient=patient, clinic_id=current_user["clinic_id"])
     if db_patient is None:
         raise HTTPException(status_code=404, detail="Patient not found")
     return db_patient
 
 # Doctors endpoints
 @app.post("/doctors/", response_model=schemas.Doctor)
-def create_doctor(doctor: schemas.DoctorCreate, db: Session = Depends(get_db), current_user: schemas.User = Depends(auth.get_current_active_user)):
-    auth.check_permission(current_user, "admin")
-    db_doctor = crud.get_doctor_by_crm(db, crm=doctor.crm)
+def create_doctor(doctor: schemas.DoctorCreate, current_user: dict = Depends(auth.get_current_active_user_supabase)):
+    auth.check_permission_supabase(current_user, "admin")
+    db_doctor = crud_supabase.get_doctor_by_crm(crm=doctor.crm, clinic_id=current_user["clinic_id"])
     if db_doctor:
         raise HTTPException(status_code=400, detail="CRM already registered")
-    return crud.create_doctor(db=db, doctor=doctor)
+    return crud_supabase.create_doctor(doctor=doctor, clinic_id=current_user["clinic_id"])
 
 @app.get("/doctors/", response_model=List[schemas.Doctor])
-def read_doctors(skip: int = 0, limit: int = 100, db: Session = Depends(get_db), current_user: models.User = Depends(auth.get_current_active_user)):
-    doctors = crud.get_doctors(db, skip=skip, limit=limit)
+def read_doctors(skip: int = 0, limit: int = 100, current_user: dict = Depends(auth.get_current_active_user_supabase)):
+    doctors = crud_supabase.get_doctors(clinic_id=current_user["clinic_id"], skip=skip, limit=limit)
     return doctors
 
 @app.get("/doctors/{doctor_id}", response_model=schemas.Doctor)
-def read_doctor(doctor_id: int, db: Session = Depends(get_db), current_user: models.User = Depends(auth.get_current_active_user)):
-    db_doctor = crud.get_doctor(db, doctor_id=doctor_id)
+def read_doctor(doctor_id: int, current_user: dict = Depends(auth.get_current_active_user_supabase)):
+    db_doctor = crud_supabase.get_doctor(doctor_id=doctor_id, clinic_id=current_user["clinic_id"])
     if db_doctor is None:
         raise HTTPException(status_code=404, detail="Doctor not found")
     return db_doctor
 
 # Appointments endpoints
 @app.post("/appointments/", response_model=schemas.Appointment)
-def create_appointment(appointment: schemas.AppointmentCreate, db: Session = Depends(get_db), current_user: models.User = Depends(auth.get_current_active_user)):
-    return crud.create_appointment(db=db, appointment=appointment)
+def create_appointment(appointment: schemas.AppointmentCreate, current_user: dict = Depends(auth.get_current_active_user_supabase)):
+    return crud_supabase.create_appointment(appointment=appointment, clinic_id=current_user["clinic_id"])
 
 @app.get("/appointments/", response_model=List[schemas.Appointment])
-def read_appointments(skip: int = 0, limit: int = 100, patient_id: Optional[int] = None, doctor_id: Optional[int] = None, db: Session = Depends(get_db), current_user: models.User = Depends(auth.get_current_active_user)):
-    appointments = crud.get_appointments(db, skip=skip, limit=limit, patient_id=patient_id, doctor_id=doctor_id)
+def read_appointments(skip: int = 0, limit: int = 100, patient_id: Optional[int] = None, doctor_id: Optional[int] = None, current_user: dict = Depends(auth.get_current_active_user_supabase)):
+    appointments = crud_supabase.get_appointments(clinic_id=current_user["clinic_id"], skip=skip, limit=limit, patient_id=patient_id, doctor_id=doctor_id)
     return appointments
 
 @app.get("/appointments/{appointment_id}", response_model=schemas.Appointment)
-def read_appointment(appointment_id: int, db: Session = Depends(get_db), current_user: models.User = Depends(auth.get_current_active_user)):
-    db_appointment = crud.get_appointment(db, appointment_id=appointment_id)
+def read_appointment(appointment_id: int, current_user: dict = Depends(auth.get_current_active_user_supabase)):
+    db_appointment = crud_supabase.get_appointment(appointment_id=appointment_id, clinic_id=current_user["clinic_id"])
     if db_appointment is None:
         raise HTTPException(status_code=404, detail="Appointment not found")
     return db_appointment
 
 @app.put("/appointments/{appointment_id}", response_model=schemas.Appointment)
-def update_appointment(appointment_id: int, appointment: schemas.AppointmentUpdate, db: Session = Depends(get_db), current_user: models.User = Depends(auth.get_current_active_user)):
-    db_appointment = crud.update_appointment(db, appointment_id=appointment_id, appointment=appointment)
+def update_appointment(appointment_id: int, appointment: schemas.AppointmentUpdate, current_user: dict = Depends(auth.get_current_active_user_supabase)):
+    db_appointment = crud_supabase.update_appointment(appointment_id=appointment_id, appointment=appointment, clinic_id=current_user["clinic_id"])
     if db_appointment is None:
         raise HTTPException(status_code=404, detail="Appointment not found")
     return db_appointment
 
 # Medical Records endpoints
 @app.post("/medical-records/", response_model=schemas.MedicalRecord)
-def create_medical_record(record: schemas.MedicalRecordCreate, db: Session = Depends(get_db), current_user: models.User = Depends(auth.check_permission(["medico", "admin"]))):
-    return crud.create_medical_record(db=db, record=record)
+def create_medical_record(record: schemas.MedicalRecordCreate, current_user: dict = Depends(auth.get_current_active_user_supabase)):
+    auth.check_permission_supabase(current_user, ["medico", "admin"])
+    return crud_supabase.create_medical_record(record=record, clinic_id=current_user["clinic_id"])
 
 @app.get("/medical-records/", response_model=List[schemas.MedicalRecord])
-def read_medical_records(skip: int = 0, limit: int = 100, patient_id: Optional[int] = None, doctor_id: Optional[int] = None, db: Session = Depends(get_db), current_user: models.User = Depends(auth.get_current_active_user)):
-    records = crud.get_medical_records(db, skip=skip, limit=limit, patient_id=patient_id, doctor_id=doctor_id)
+def read_medical_records(skip: int = 0, limit: int = 100, patient_id: Optional[int] = None, doctor_id: Optional[int] = None, current_user: dict = Depends(auth.get_current_active_user_supabase)):
+    records = crud_supabase.get_medical_records(clinic_id=current_user["clinic_id"], skip=skip, limit=limit, patient_id=patient_id, doctor_id=doctor_id)
     return records
 
 @app.get("/medical-records/{record_id}", response_model=schemas.MedicalRecord)
-def read_medical_record(record_id: int, db: Session = Depends(get_db), current_user: models.User = Depends(auth.get_current_active_user)):
-    db_record = crud.get_medical_record(db, record_id=record_id)
+def read_medical_record(record_id: int, current_user: dict = Depends(auth.get_current_active_user_supabase)):
+    db_record = crud_supabase.get_medical_record(record_id=record_id, clinic_id=current_user["clinic_id"])
     if db_record is None:
         raise HTTPException(status_code=404, detail="Medical record not found")
     return db_record
 
 @app.put("/medical-records/{record_id}", response_model=schemas.MedicalRecord)
-def update_medical_record(record_id: int, record: schemas.MedicalRecordUpdate, db: Session = Depends(get_db), current_user: models.User = Depends(auth.check_permission(["medico", "admin"]))):
-    db_record = crud.update_medical_record(db, record_id=record_id, record=record)
+def update_medical_record(record_id: int, record: schemas.MedicalRecordUpdate, current_user: dict = Depends(auth.get_current_active_user_supabase)):
+    auth.check_permission_supabase(current_user, ["medico", "admin"])
+    db_record = crud_supabase.update_medical_record(record_id=record_id, record=record, clinic_id=current_user["clinic_id"])
     if db_record is None:
         raise HTTPException(status_code=404, detail="Medical record not found")
     return db_record
@@ -285,30 +328,25 @@ def update_medical_record(record_id: int, record: schemas.MedicalRecordUpdate, d
 @app.post("/prescriptions/", response_model=schemas.Prescription)
 def create_prescription(
     prescription: schemas.PrescriptionCreate,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_write")
-    return crud.create_prescription(db=db, prescription=prescription)
+    auth.check_permission_supabase(current_user, ["medico", "admin"])
+    return crud_supabase.create_prescription(prescription=prescription, clinic_id=current_user["clinic_id"])
 
 @app.get("/prescriptions/", response_model=List[schemas.Prescription])
 def read_prescriptions(
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_read")
-    return crud.get_prescriptions(db, skip=skip, limit=limit)
+    return crud_supabase.get_prescriptions(clinic_id=current_user["clinic_id"], skip=skip, limit=limit)
 
 @app.get("/prescriptions/{prescription_id}", response_model=schemas.Prescription)
 def read_prescription(
     prescription_id: int,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_read")
-    db_prescription = crud.get_prescription(db, prescription_id=prescription_id)
+    db_prescription = crud_supabase.get_prescription(prescription_id=prescription_id, clinic_id=current_user["clinic_id"])
     if db_prescription is None:
         raise HTTPException(status_code=404, detail="Prescription not found")
     return db_prescription
@@ -318,30 +356,25 @@ def read_prescriptions_by_patient(
     patient_id: int,
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_read")
-    return crud.get_prescriptions_by_patient(db, patient_id=patient_id, skip=skip, limit=limit)
+    return crud_supabase.get_prescriptions_by_patient(patient_id=patient_id, clinic_id=current_user["clinic_id"], skip=skip, limit=limit)
 
 @app.get("/prescriptions/medical-record/{medical_record_id}", response_model=List[schemas.Prescription])
 def read_prescriptions_by_medical_record(
     medical_record_id: int,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_read")
-    return crud.get_prescriptions_by_medical_record(db, medical_record_id=medical_record_id)
+    return crud_supabase.get_prescriptions_by_medical_record(medical_record_id=medical_record_id, clinic_id=current_user["clinic_id"])
 
 @app.put("/prescriptions/{prescription_id}", response_model=schemas.Prescription)
 def update_prescription(
     prescription_id: int,
     prescription: schemas.PrescriptionUpdate,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_write")
-    db_prescription = crud.update_prescription(db, prescription_id=prescription_id, prescription=prescription)
+    auth.check_permission_supabase(current_user, ["medico", "admin"])
+    db_prescription = crud_supabase.update_prescription(prescription_id=prescription_id, prescription=prescription, clinic_id=current_user["clinic_id"])
     if db_prescription is None:
         raise HTTPException(status_code=404, detail="Prescription not found")
     return db_prescription
@@ -349,77 +382,74 @@ def update_prescription(
 @app.delete("/prescriptions/{prescription_id}")
 def delete_prescription(
     prescription_id: int,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_write")
-    db_prescription = crud.delete_prescription(db, prescription_id=prescription_id)
+    auth.check_permission_supabase(current_user, ["medico", "admin"])
+    db_prescription = crud_supabase.delete_prescription(prescription_id=prescription_id, clinic_id=current_user["clinic_id"])
     if db_prescription is None:
         raise HTTPException(status_code=404, detail="Prescription not found")
     return {"message": "Prescription deleted successfully"}
 
 # Medications endpoints
 @app.post("/medications/", response_model=schemas.Medication)
-def create_medication(medication: schemas.MedicationCreate, db: Session = Depends(get_db), current_user: models.User = Depends(auth.check_permission(["admin", "enfermeiro"]))):
-    return crud.create_medication(db=db, medication=medication)
+def create_medication(medication: schemas.MedicationCreate, current_user: dict = Depends(auth.get_current_active_user_supabase)):
+    auth.check_permission_supabase(current_user, ["admin", "enfermeiro"])
+    return crud_supabase.create_medication(medication=medication, clinic_id=current_user["clinic_id"])
 
 @app.get("/medications/", response_model=List[schemas.Medication])
-def read_medications(skip: int = 0, limit: int = 100, search: Optional[str] = None, low_stock: bool = False, db: Session = Depends(get_db), current_user: models.User = Depends(auth.get_current_active_user)):
-    medications = crud.get_medications(db, skip=skip, limit=limit, search=search, low_stock=low_stock)
+def read_medications(skip: int = 0, limit: int = 100, search: Optional[str] = None, low_stock: bool = False, current_user: dict = Depends(auth.get_current_active_user_supabase)):
+    medications = crud_supabase.get_medications(clinic_id=current_user["clinic_id"], skip=skip, limit=limit, search=search, low_stock=low_stock)
     return medications
 
 @app.get("/medications/{medication_id}", response_model=schemas.Medication)
-def read_medication(medication_id: int, db: Session = Depends(get_db), current_user: models.User = Depends(auth.get_current_active_user)):
-    db_medication = crud.get_medication(db, medication_id=medication_id)
+def read_medication(medication_id: int, current_user: dict = Depends(auth.get_current_active_user_supabase)):
+    db_medication = crud_supabase.get_medication(medication_id=medication_id, clinic_id=current_user["clinic_id"])
     if db_medication is None:
         raise HTTPException(status_code=404, detail="Medication not found")
     return db_medication
 
 @app.put("/medications/{medication_id}", response_model=schemas.Medication)
-def update_medication(medication_id: int, medication: schemas.MedicationUpdate, db: Session = Depends(get_db), current_user: models.User = Depends(auth.check_permission(["admin", "enfermeiro"]))):
-    db_medication = crud.update_medication(db, medication_id=medication_id, medication=medication)
+def update_medication(medication_id: int, medication: schemas.MedicationUpdate, current_user: dict = Depends(auth.get_current_active_user_supabase)):
+    auth.check_permission_supabase(current_user, ["admin", "enfermeiro"])
+    db_medication = crud_supabase.update_medication(medication_id=medication_id, medication=medication, clinic_id=current_user["clinic_id"])
     if db_medication is None:
         raise HTTPException(status_code=404, detail="Medication not found")
     return db_medication
 
 # Stock Movements endpoints
 @app.post("/stock-movements/", response_model=schemas.StockMovement)
-def create_stock_movement(movement: schemas.StockMovementCreate, db: Session = Depends(get_db), current_user: models.User = Depends(auth.check_permission(["admin", "enfermeiro"]))):
-    return crud.create_stock_movement(db=db, movement=movement)
+def create_stock_movement(movement: schemas.StockMovementCreate, current_user: dict = Depends(auth.get_current_active_user_supabase)):
+    auth.check_permission_supabase(current_user, ["admin", "enfermeiro"])
+    return crud_supabase.create_stock_movement(movement=movement, clinic_id=current_user["clinic_id"])
 
 @app.get("/stock-movements/", response_model=List[schemas.StockMovement])
-def read_stock_movements(skip: int = 0, limit: int = 100, medication_id: Optional[int] = None, db: Session = Depends(get_db), current_user: models.User = Depends(auth.get_current_active_user)):
-    movements = crud.get_stock_movements(db, skip=skip, limit=limit, medication_id=medication_id)
+def read_stock_movements(skip: int = 0, limit: int = 100, medication_id: Optional[int] = None, current_user: dict = Depends(auth.get_current_active_user_supabase)):
+    movements = crud_supabase.get_stock_movements(clinic_id=current_user["clinic_id"], skip=skip, limit=limit, medication_id=medication_id)
     return movements
 
 # Financial Transactions endpoints
 @app.post("/financial-transactions/", response_model=schemas.FinancialTransaction)
 def create_financial_transaction(
     transaction: schemas.FinancialTransactionCreate,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "financial_write")
-    return crud.create_financial_transaction(db=db, transaction=transaction)
+    auth.check_permission_supabase(current_user, ["admin", "financeiro"])
+    return crud_supabase.create_financial_transaction(transaction=transaction, clinic_id=current_user["clinic_id"])
 
 @app.get("/financial-transactions/", response_model=List[schemas.FinancialTransaction])
 def read_financial_transactions(
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "financial_read")
-    return crud.get_financial_transactions(db, skip=skip, limit=limit)
+    return crud_supabase.get_financial_transactions(clinic_id=current_user["clinic_id"], skip=skip, limit=limit)
 
 @app.get("/financial-transactions/{transaction_id}", response_model=schemas.FinancialTransaction)
 def read_financial_transaction(
     transaction_id: int,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "financial_read")
-    db_transaction = crud.get_financial_transaction(db, transaction_id=transaction_id)
+    db_transaction = crud_supabase.get_financial_transaction(transaction_id=transaction_id, clinic_id=current_user["clinic_id"])
     if db_transaction is None:
         raise HTTPException(status_code=404, detail="Financial transaction not found")
     return db_transaction
@@ -428,11 +458,10 @@ def read_financial_transaction(
 def update_financial_transaction(
     transaction_id: int,
     transaction: schemas.FinancialTransactionUpdate,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "financial_write")
-    db_transaction = crud.update_financial_transaction(db, transaction_id=transaction_id, transaction=transaction)
+    auth.check_permission_supabase(current_user, ["admin", "financeiro"])
+    db_transaction = crud_supabase.update_financial_transaction(transaction_id=transaction_id, transaction=transaction, clinic_id=current_user["clinic_id"])
     if db_transaction is None:
         raise HTTPException(status_code=404, detail="Financial transaction not found")
     return db_transaction
@@ -440,11 +469,10 @@ def update_financial_transaction(
 @app.delete("/financial-transactions/{transaction_id}")
 def delete_financial_transaction(
     transaction_id: int,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "financial_write")
-    db_transaction = crud.delete_financial_transaction(db, transaction_id=transaction_id)
+    auth.check_permission_supabase(current_user, ["admin", "financeiro"])
+    db_transaction = crud_supabase.delete_financial_transaction(transaction_id=transaction_id, clinic_id=current_user["clinic_id"])
     if db_transaction is None:
         raise HTTPException(status_code=404, detail="Financial transaction not found")
     return {"message": "Financial transaction deleted successfully"}
@@ -453,30 +481,24 @@ def delete_financial_transaction(
 @app.post("/anamnesis/", response_model=schemas.Anamnesis)
 def create_anamnesis(
     anamnesis: schemas.AnamnesisCreate,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_write")
-    return crud.create_anamnesis(db=db, anamnesis=anamnesis)
+    return crud_supabase.create_anamnesis(anamnesis=anamnesis, clinic_id=current_user["clinic_id"])
 
 @app.get("/anamnesis/", response_model=List[schemas.Anamnesis])
 def read_anamneses(
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_read")
-    return crud.get_anamneses(db, skip=skip, limit=limit)
+    return crud_supabase.get_anamneses(clinic_id=current_user["clinic_id"], skip=skip, limit=limit)
 
 @app.get("/anamnesis/{anamnesis_id}", response_model=schemas.Anamnesis)
 def read_anamnesis(
     anamnesis_id: int,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_read")
-    db_anamnesis = crud.get_anamnesis(db, anamnesis_id=anamnesis_id)
+    db_anamnesis = crud_supabase.get_anamnesis(anamnesis_id=anamnesis_id, clinic_id=current_user["clinic_id"])
     if db_anamnesis is None:
         raise HTTPException(status_code=404, detail="Anamnesis not found")
     return db_anamnesis
@@ -484,11 +506,9 @@ def read_anamnesis(
 @app.get("/anamnesis/medical-record/{medical_record_id}", response_model=schemas.Anamnesis)
 def read_anamnesis_by_medical_record(
     medical_record_id: int,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_read")
-    db_anamnesis = crud.get_anamnesis_by_medical_record(db, medical_record_id=medical_record_id)
+    db_anamnesis = crud_supabase.get_anamnesis_by_medical_record(medical_record_id=medical_record_id, clinic_id=current_user["clinic_id"])
     if db_anamnesis is None:
         raise HTTPException(status_code=404, detail="Anamnesis not found for this medical record")
     return db_anamnesis
@@ -497,11 +517,9 @@ def read_anamnesis_by_medical_record(
 def update_anamnesis(
     anamnesis_id: int,
     anamnesis: schemas.AnamnesisUpdate,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_write")
-    db_anamnesis = crud.update_anamnesis(db, anamnesis_id=anamnesis_id, anamnesis=anamnesis)
+    db_anamnesis = crud_supabase.update_anamnesis(anamnesis_id=anamnesis_id, anamnesis=anamnesis, clinic_id=current_user["clinic_id"])
     if db_anamnesis is None:
         raise HTTPException(status_code=404, detail="Anamnesis not found")
     return db_anamnesis
@@ -509,11 +527,9 @@ def update_anamnesis(
 @app.delete("/anamnesis/{anamnesis_id}")
 def delete_anamnesis(
     anamnesis_id: int,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_write")
-    db_anamnesis = crud.delete_anamnesis(db, anamnesis_id=anamnesis_id)
+    db_anamnesis = crud_supabase.delete_anamnesis(anamnesis_id=anamnesis_id, clinic_id=current_user["clinic_id"])
     if db_anamnesis is None:
         raise HTTPException(status_code=404, detail="Anamnesis not found")
     return {"message": "Anamnesis deleted successfully"}
@@ -522,30 +538,24 @@ def delete_anamnesis(
 @app.post("/physical-exams/", response_model=schemas.PhysicalExam)
 def create_physical_exam(
     exam: schemas.PhysicalExamCreate,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_write")
-    return crud.create_physical_exam(db=db, exam=exam)
+    return crud_supabase.create_physical_exam(exam=exam, clinic_id=current_user["clinic_id"])
 
 @app.get("/physical-exams/", response_model=List[schemas.PhysicalExam])
 def read_physical_exams(
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_read")
-    return crud.get_physical_exams(db, skip=skip, limit=limit)
+    return crud_supabase.get_physical_exams(clinic_id=current_user["clinic_id"], skip=skip, limit=limit)
 
 @app.get("/physical-exams/{exam_id}", response_model=schemas.PhysicalExam)
 def read_physical_exam(
     exam_id: int,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_read")
-    db_exam = crud.get_physical_exam(db, exam_id=exam_id)
+    db_exam = crud_supabase.get_physical_exam(exam_id=exam_id, clinic_id=current_user["clinic_id"])
     if db_exam is None:
         raise HTTPException(status_code=404, detail="Physical exam not found")
     return db_exam
@@ -553,11 +563,9 @@ def read_physical_exam(
 @app.get("/physical-exams/medical-record/{medical_record_id}", response_model=schemas.PhysicalExam)
 def read_physical_exam_by_medical_record(
     medical_record_id: int,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_read")
-    db_exam = crud.get_physical_exam_by_medical_record(db, medical_record_id=medical_record_id)
+    db_exam = crud_supabase.get_physical_exam_by_medical_record(medical_record_id=medical_record_id, clinic_id=current_user["clinic_id"])
     if db_exam is None:
         raise HTTPException(status_code=404, detail="Physical exam not found for this medical record")
     return db_exam
@@ -566,11 +574,9 @@ def read_physical_exam_by_medical_record(
 def update_physical_exam(
     exam_id: int,
     exam: schemas.PhysicalExamUpdate,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_write")
-    db_exam = crud.update_physical_exam(db, exam_id=exam_id, exam=exam)
+    db_exam = crud_supabase.update_physical_exam(exam_id=exam_id, exam=exam, clinic_id=current_user["clinic_id"])
     if db_exam is None:
         raise HTTPException(status_code=404, detail="Physical exam not found")
     return db_exam
@@ -578,11 +584,9 @@ def update_physical_exam(
 @app.delete("/physical-exams/{exam_id}")
 def delete_physical_exam(
     exam_id: int,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_write")
-    db_exam = crud.delete_physical_exam(db, exam_id=exam_id)
+    db_exam = crud_supabase.delete_physical_exam(exam_id=exam_id, clinic_id=current_user["clinic_id"])
     if db_exam is None:
         raise HTTPException(status_code=404, detail="Physical exam not found")
     return {"message": "Physical exam deleted successfully"}
@@ -591,30 +595,24 @@ def delete_physical_exam(
 @app.post("/medical-documents/", response_model=schemas.MedicalDocument)
 def create_medical_document(
     document: schemas.MedicalDocumentCreate,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_write")
-    return crud.create_medical_document(db=db, document=document)
+    return crud_supabase.create_medical_document(document=document, clinic_id=current_user["clinic_id"])
 
 @app.get("/medical-documents/", response_model=List[schemas.MedicalDocument])
 def read_medical_documents(
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_read")
-    return crud.get_medical_documents(db, skip=skip, limit=limit)
+    return crud_supabase.get_medical_documents(clinic_id=current_user["clinic_id"], skip=skip, limit=limit)
 
 @app.get("/medical-documents/{document_id}", response_model=schemas.MedicalDocument)
 def read_medical_document(
     document_id: int,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_read")
-    db_document = crud.get_medical_document(db, document_id=document_id)
+    db_document = crud_supabase.get_medical_document(document_id=document_id, clinic_id=current_user["clinic_id"])
     if db_document is None:
         raise HTTPException(status_code=404, detail="Medical document not found")
     return db_document
@@ -624,32 +622,26 @@ def read_medical_documents_by_patient(
     patient_id: int,
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_read")
-    return crud.get_medical_documents_by_patient(db, patient_id=patient_id, skip=skip, limit=limit)
+    return crud_supabase.get_medical_documents_by_patient(patient_id=patient_id, clinic_id=current_user["clinic_id"], skip=skip, limit=limit)
 
 @app.get("/medical-documents/medical-record/{medical_record_id}", response_model=List[schemas.MedicalDocument])
 def read_medical_documents_by_medical_record(
     medical_record_id: int,
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_read")
-    return crud.get_medical_documents_by_medical_record(db, medical_record_id=medical_record_id, skip=skip, limit=limit)
+    return crud_supabase.get_medical_documents_by_medical_record(medical_record_id=medical_record_id, clinic_id=current_user["clinic_id"], skip=skip, limit=limit)
 
 @app.put("/medical-documents/{document_id}", response_model=schemas.MedicalDocument)
 def update_medical_document(
     document_id: int,
     document: schemas.MedicalDocumentUpdate,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_write")
-    db_document = crud.update_medical_document(db, document_id=document_id, document=document)
+    db_document = crud_supabase.update_medical_document(document_id=document_id, document=document, clinic_id=current_user["clinic_id"])
     if db_document is None:
         raise HTTPException(status_code=404, detail="Medical document not found")
     return db_document
@@ -657,11 +649,9 @@ def update_medical_document(
 @app.delete("/medical-documents/{document_id}")
 def delete_medical_document(
     document_id: int,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_write")
-    db_document = crud.delete_medical_document(db, document_id=document_id)
+    db_document = crud_supabase.delete_medical_document(document_id=document_id, clinic_id=current_user["clinic_id"])
     if db_document is None:
         raise HTTPException(status_code=404, detail="Medical document not found")
     return {"message": "Medical document deleted successfully"}
@@ -670,30 +660,24 @@ def delete_medical_document(
 @app.post("/prescription-medications/", response_model=schemas.PrescriptionMedication)
 def create_prescription_medication(
     medication: schemas.PrescriptionMedicationCreate,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_write")
-    return crud.create_prescription_medication(db=db, medication=medication)
+    return crud_supabase.create_prescription_medication(medication=medication, clinic_id=current_user["clinic_id"])
 
 @app.get("/prescription-medications/", response_model=List[schemas.PrescriptionMedication])
 def read_prescription_medications(
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_read")
-    return crud.get_prescription_medications(db, skip=skip, limit=limit)
+    return crud_supabase.get_prescription_medications(clinic_id=current_user["clinic_id"], skip=skip, limit=limit)
 
 @app.get("/prescription-medications/{medication_id}", response_model=schemas.PrescriptionMedication)
 def read_prescription_medication(
     medication_id: int,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_read")
-    db_medication = crud.get_prescription_medication(db, medication_id=medication_id)
+    db_medication = crud_supabase.get_prescription_medication(medication_id=medication_id, clinic_id=current_user["clinic_id"])
     if db_medication is None:
         raise HTTPException(status_code=404, detail="Prescription medication not found")
     return db_medication
@@ -701,21 +685,17 @@ def read_prescription_medication(
 @app.get("/prescription-medications/prescription/{prescription_id}", response_model=List[schemas.PrescriptionMedication])
 def read_prescription_medications_by_prescription(
     prescription_id: int,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_read")
-    return crud.get_prescription_medications_by_prescription(db, prescription_id=prescription_id)
+    return crud_supabase.get_prescription_medications_by_prescription(prescription_id=prescription_id, clinic_id=current_user["clinic_id"])
 
 @app.put("/prescription-medications/{medication_id}", response_model=schemas.PrescriptionMedication)
 def update_prescription_medication(
     medication_id: int,
     medication: schemas.PrescriptionMedicationUpdate,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_write")
-    db_medication = crud.update_prescription_medication(db, medication_id=medication_id, medication=medication)
+    db_medication = crud_supabase.update_prescription_medication(medication_id=medication_id, medication=medication, clinic_id=current_user["clinic_id"])
     if db_medication is None:
         raise HTTPException(status_code=404, detail="Prescription medication not found")
     return db_medication
@@ -723,11 +703,9 @@ def update_prescription_medication(
 @app.delete("/prescription-medications/{medication_id}")
 def delete_prescription_medication(
     medication_id: int,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_write")
-    db_medication = crud.delete_prescription_medication(db, medication_id=medication_id)
+    db_medication = crud_supabase.delete_prescription_medication(medication_id=medication_id, clinic_id=current_user["clinic_id"])
     if db_medication is None:
         raise HTTPException(status_code=404, detail="Prescription medication not found")
     return {"message": "Prescription medication deleted successfully"}
@@ -737,20 +715,16 @@ def delete_prescription_medication(
 def read_cid_diagnoses(
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_read")
-    return crud.get_cid_diagnoses(db, skip=skip, limit=limit)
+    return crud_supabase.get_cid_diagnoses(clinic_id=current_user["clinic_id"], skip=skip, limit=limit)
 
 @app.get("/cid-diagnoses/{cid_id}", response_model=schemas.CidDiagnosis)
 def read_cid_diagnosis(
     cid_id: int,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_read")
-    db_cid = crud.get_cid_diagnosis(db, cid_id=cid_id)
+    db_cid = crud_supabase.get_cid_diagnosis(cid_id=cid_id, clinic_id=current_user["clinic_id"])
     if db_cid is None:
         raise HTTPException(status_code=404, detail="CID diagnosis not found")
     return db_cid
@@ -761,27 +735,24 @@ def read_cid_diagnosis(
 @app.post("/insurance-companies/", response_model=schemas.InsuranceCompany)
 def create_insurance_company(
     company: schemas.InsuranceCompanyCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    return crud.create_insurance_company(db=db, company=company)
+    return crud_supabase.create_insurance_company(company=company, clinic_id=current_user["clinic_id"])
 
 @app.get("/insurance-companies/", response_model=List[schemas.InsuranceCompany])
 def read_insurance_companies(
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    return crud.get_insurance_companies(db, skip=skip, limit=limit)
+    return crud_supabase.get_insurance_companies(clinic_id=current_user["clinic_id"], skip=skip, limit=limit)
 
 @app.get("/insurance-companies/{company_id}", response_model=schemas.InsuranceCompany)
 def read_insurance_company(
     company_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: dict = Depends(auth.get_current_active_user_supabase)
 ):
-    db_company = crud.get_insurance_company(db, company_id=company_id)
+    db_company = crud_supabase.get_insurance_company(company_id=company_id, clinic_id=current_user["clinic_id"])
     if db_company is None:
         raise HTTPException(status_code=404, detail="Insurance company not found")
     return db_company
@@ -790,10 +761,13 @@ def read_insurance_company(
 def update_insurance_company(
     company_id: int,
     company: schemas.InsuranceCompanyUpdate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: models.User = Depends(auth.check_permission_supabase(["admin", "financeiro"]))
 ):
-    db_company = crud.update_insurance_company(db, company_id=company_id, company=company)
+    db_company = crud_supabase.update_insurance_company(
+        clinic_id=current_user.clinic_id,
+        company_id=company_id, 
+        company=company
+    )
     if db_company is None:
         raise HTTPException(status_code=404, detail="Insurance company not found")
     return db_company
@@ -802,28 +776,36 @@ def update_insurance_company(
 @app.post("/tuss-procedures/", response_model=schemas.TussProcedure)
 def create_tuss_procedure(
     procedure: schemas.TussProcedureCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "medico"]))
+    current_user: models.User = Depends(auth.check_permission_supabase(["admin", "medico"]))
 ):
-    return crud.create_tuss_procedure(db=db, procedure=procedure)
+    return crud_supabase.create_tuss_procedure(
+        clinic_id=current_user.clinic_id,
+        procedure=procedure
+    )
 
 @app.get("/tuss-procedures/", response_model=List[schemas.TussProcedure])
 def read_tuss_procedures(
     skip: int = 0,
     limit: int = 100,
     search: Optional[str] = None,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
-    return crud.get_tuss_procedures(db, skip=skip, limit=limit, search=search)
+    return crud_supabase.get_tuss_procedures(
+        clinic_id=current_user.clinic_id,
+        skip=skip, 
+        limit=limit, 
+        search=search
+    )
 
 @app.get("/tuss-procedures/{procedure_id}", response_model=schemas.TussProcedure)
 def read_tuss_procedure(
     procedure_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
-    db_procedure = crud.get_tuss_procedure(db, procedure_id=procedure_id)
+    db_procedure = crud_supabase.get_tuss_procedure(
+        clinic_id=current_user.clinic_id,
+        procedure_id=procedure_id
+    )
     if db_procedure is None:
         raise HTTPException(status_code=404, detail="TUSS procedure not found")
     return db_procedure
@@ -832,28 +814,36 @@ def read_tuss_procedure(
 @app.post("/billing-batches/", response_model=schemas.BillingBatch)
 def create_billing_batch(
     batch: schemas.BillingBatchCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: models.User = Depends(auth.check_permission_supabase(["admin", "financeiro"]))
 ):
-    return crud.create_billing_batch(db=db, batch=batch)
+    return crud_supabase.create_billing_batch(
+        clinic_id=current_user.clinic_id,
+        batch=batch
+    )
 
 @app.get("/billing-batches/", response_model=List[schemas.BillingBatch])
 def read_billing_batches(
     skip: int = 0,
     limit: int = 100,
     status: Optional[str] = None,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: models.User = Depends(auth.check_permission_supabase(["admin", "financeiro"]))
 ):
-    return crud.get_billing_batches(db, skip=skip, limit=limit, status=status)
+    return crud_supabase.get_billing_batches(
+        clinic_id=current_user.clinic_id,
+        skip=skip, 
+        limit=limit, 
+        status=status
+    )
 
 @app.get("/billing-batches/{batch_id}", response_model=schemas.BillingBatch)
 def read_billing_batch(
     batch_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: models.User = Depends(auth.check_permission_supabase(["admin", "financeiro"]))
 ):
-    db_batch = crud.get_billing_batch(db, batch_id=batch_id)
+    db_batch = crud_supabase.get_billing_batch(
+        clinic_id=current_user.clinic_id,
+        batch_id=batch_id
+    )
     if db_batch is None:
         raise HTTPException(status_code=404, detail="Billing batch not found")
     return db_batch
@@ -862,10 +852,13 @@ def read_billing_batch(
 def update_billing_batch(
     batch_id: int,
     batch: schemas.BillingBatchUpdate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: models.User = Depends(auth.check_permission_supabase(["admin", "financeiro"]))
 ):
-    db_batch = crud.update_billing_batch(db, batch_id=batch_id, batch=batch)
+    db_batch = crud_supabase.update_billing_batch(
+        clinic_id=current_user.clinic_id,
+        batch_id=batch_id, 
+        batch=batch
+    )
     if db_batch is None:
         raise HTTPException(status_code=404, detail="Billing batch not found")
     return db_batch
@@ -874,47 +867,61 @@ def update_billing_batch(
 @app.post("/billing-items/", response_model=schemas.BillingItem)
 def create_billing_item(
     item: schemas.BillingItemCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: models.User = Depends(auth.check_permission_supabase(["admin", "financeiro"]))
 ):
-    return crud.create_billing_item(db=db, item=item)
+    return crud_supabase.create_billing_item(
+        clinic_id=current_user.clinic_id,
+        item=item
+    )
 
 @app.get("/billing-items/", response_model=List[schemas.BillingItem])
 def read_billing_items(
     skip: int = 0,
     limit: int = 100,
     batch_id: Optional[int] = None,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: models.User = Depends(auth.check_permission_supabase(["admin", "financeiro"]))
 ):
-    return crud.get_billing_items(db, skip=skip, limit=limit, batch_id=batch_id)
+    return crud_supabase.get_billing_items(
+        clinic_id=current_user.clinic_id,
+        skip=skip, 
+        limit=limit, 
+        batch_id=batch_id
+    )
 
 # Accounts Receivable endpoints
 @app.post("/accounts-receivable/", response_model=schemas.AccountsReceivable)
 def create_accounts_receivable(
     receivable: schemas.AccountsReceivableCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: models.User = Depends(auth.check_permission_supabase(["admin", "financeiro"]))
 ):
-    return crud.create_accounts_receivable(db=db, receivable=receivable)
+    return crud_supabase.create_accounts_receivable(
+        clinic_id=current_user.clinic_id,
+        receivable=receivable
+    )
 
 @app.get("/accounts-receivable/", response_model=List[schemas.AccountsReceivable])
 def read_accounts_receivable(
     skip: int = 0,
     limit: int = 100,
     status: Optional[str] = None,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: models.User = Depends(auth.check_permission_supabase(["admin", "financeiro"]))
 ):
-    return crud.get_accounts_receivable(db, skip=skip, limit=limit, status=status)
+    return crud_supabase.get_accounts_receivable(
+        clinic_id=current_user.clinic_id,
+        skip=skip, 
+        limit=limit, 
+        status=status
+    )
 
 @app.get("/accounts-receivable/{receivable_id}", response_model=schemas.AccountsReceivable)
 def read_accounts_receivable_item(
     receivable_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: models.User = Depends(auth.check_permission_supabase(["admin", "financeiro"]))
 ):
-    db_receivable = crud.get_accounts_receivable_item(db, receivable_id=receivable_id)
+    db_receivable = crud_supabase.get_accounts_receivable_item(
+        clinic_id=current_user.clinic_id,
+        receivable_id=receivable_id
+    )
     if db_receivable is None:
         raise HTTPException(status_code=404, detail="Accounts receivable not found")
     return db_receivable
@@ -923,10 +930,13 @@ def read_accounts_receivable_item(
 def update_accounts_receivable(
     receivable_id: int,
     receivable: schemas.AccountsReceivableUpdate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: models.User = Depends(auth.check_permission_supabase(["admin", "financeiro"]))
 ):
-    db_receivable = crud.update_accounts_receivable(db, receivable_id=receivable_id, receivable=receivable)
+    db_receivable = crud_supabase.update_accounts_receivable(
+        clinic_id=current_user.clinic_id,
+        receivable_id=receivable_id, 
+        receivable=receivable
+    )
     if db_receivable is None:
         raise HTTPException(status_code=404, detail="Accounts receivable not found")
     return db_receivable
@@ -935,28 +945,36 @@ def update_accounts_receivable(
 @app.post("/accounts-payable/", response_model=schemas.AccountsPayable)
 def create_accounts_payable(
     payable: schemas.AccountsPayableCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: models.User = Depends(auth.check_permission_supabase(["admin", "financeiro"]))
 ):
-    return crud.create_accounts_payable(db=db, payable=payable)
+    return crud_supabase.create_accounts_payable(
+        clinic_id=current_user.clinic_id,
+        payable=payable
+    )
 
 @app.get("/accounts-payable/", response_model=List[schemas.AccountsPayable])
 def read_accounts_payable(
     skip: int = 0,
     limit: int = 100,
     status: Optional[str] = None,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: models.User = Depends(auth.check_permission_supabase(["admin", "financeiro"]))
 ):
-    return crud.get_accounts_payable(db, skip=skip, limit=limit, status=status)
+    return crud_supabase.get_accounts_payable(
+        clinic_id=current_user.clinic_id,
+        skip=skip, 
+        limit=limit, 
+        status=status
+    )
 
 @app.get("/accounts-payable/{payable_id}", response_model=schemas.AccountsPayable)
 def read_accounts_payable_item(
     payable_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: models.User = Depends(auth.check_permission_supabase(["admin", "financeiro"]))
 ):
-    db_payable = crud.get_accounts_payable_item(db, payable_id=payable_id)
+    db_payable = crud_supabase.get_accounts_payable_item(
+        clinic_id=current_user.clinic_id,
+        payable_id=payable_id
+    )
     if db_payable is None:
         raise HTTPException(status_code=404, detail="Accounts payable not found")
     return db_payable
@@ -965,10 +983,13 @@ def read_accounts_payable_item(
 def update_accounts_payable(
     payable_id: int,
     payable: schemas.AccountsPayableUpdate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: models.User = Depends(auth.check_permission_supabase(["admin", "financeiro"]))
 ):
-    db_payable = crud.update_accounts_payable(db, payable_id=payable_id, payable=payable)
+    db_payable = crud_supabase.update_accounts_payable(
+        clinic_id=current_user.clinic_id,
+        payable_id=payable_id, 
+        payable=payable
+    )
     if db_payable is None:
         raise HTTPException(status_code=404, detail="Accounts payable not found")
     return db_payable
@@ -977,28 +998,36 @@ def update_accounts_payable(
 @app.post("/cash-flow/", response_model=schemas.CashFlow)
 def create_cash_flow(
     cash_flow: schemas.CashFlowCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: models.User = Depends(auth.check_permission_supabase(["admin", "financeiro"]))
 ):
-    return crud.create_cash_flow(db=db, cash_flow=cash_flow)
+    return crud_supabase.create_cash_flow(
+        clinic_id=current_user.clinic_id,
+        cash_flow=cash_flow
+    )
 
 @app.get("/cash-flow/", response_model=List[schemas.CashFlow])
 def read_cash_flow(
     skip: int = 0,
     limit: int = 100,
     transaction_type: Optional[str] = None,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: models.User = Depends(auth.check_permission_supabase(["admin", "financeiro"]))
 ):
-    return crud.get_cash_flow(db, skip=skip, limit=limit, transaction_type=transaction_type)
+    return crud_supabase.get_cash_flow(
+        clinic_id=current_user.clinic_id,
+        skip=skip, 
+        limit=limit, 
+        transaction_type=transaction_type
+    )
 
 @app.get("/cash-flow/{cash_flow_id}", response_model=schemas.CashFlow)
 def read_cash_flow_item(
     cash_flow_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: models.User = Depends(auth.check_permission_supabase(["admin", "financeiro"]))
 ):
-    db_cash_flow = crud.get_cash_flow_item(db, cash_flow_id=cash_flow_id)
+    db_cash_flow = crud_supabase.get_cash_flow_item(
+        clinic_id=current_user.clinic_id,
+        cash_flow_id=cash_flow_id
+    )
     if db_cash_flow is None:
         raise HTTPException(status_code=404, detail="Cash flow not found")
     return db_cash_flow
@@ -1006,11 +1035,13 @@ def read_cash_flow_item(
 @app.get("/cid-diagnoses/code/{code}", response_model=schemas.CidDiagnosis)
 def read_cid_diagnosis_by_code(
     code: str,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_read")
-    db_cid = crud.get_cid_diagnosis_by_code(db, code=code)
+    auth.check_permission_supabase(current_user, "medical_read")
+    db_cid = crud_supabase.get_cid_diagnosis_by_code(
+        clinic_id=current_user.clinic_id,
+        code=code
+    )
     if db_cid is None:
         raise HTTPException(status_code=404, detail="CID diagnosis not found")
     return db_cid
@@ -1020,30 +1051,38 @@ def search_cid_diagnoses(
     search_term: str,
     skip: int = 0,
     limit: int = 20,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_read")
-    return crud.search_cid_diagnosis(db, search_term=search_term, skip=skip, limit=limit)
+    auth.check_permission_supabase(current_user, "medical_read")
+    return crud_supabase.search_cid_diagnosis(
+        clinic_id=current_user.clinic_id,
+        search_term=search_term, 
+        skip=skip, 
+        limit=limit
+    )
 
 # Medical Record Diagnosis endpoints
 @app.post("/medical-record-diagnoses/", response_model=schemas.MedicalRecordDiagnosis)
 def create_medical_record_diagnosis(
     diagnosis: schemas.MedicalRecordDiagnosisCreate,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_write")
-    return crud.create_medical_record_diagnosis(db=db, diagnosis=diagnosis)
+    auth.check_permission_supabase(current_user, "medical_write")
+    return crud_supabase.create_medical_record_diagnosis(
+        clinic_id=current_user.clinic_id,
+        diagnosis=diagnosis
+    )
 
 @app.get("/medical-record-diagnoses/{diagnosis_id}", response_model=schemas.MedicalRecordDiagnosis)
 def read_medical_record_diagnosis(
     diagnosis_id: int,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_read")
-    db_diagnosis = crud.get_medical_record_diagnosis(db, diagnosis_id=diagnosis_id)
+    auth.check_permission_supabase(current_user, "medical_read")
+    db_diagnosis = crud_supabase.get_medical_record_diagnosis(
+        clinic_id=current_user.clinic_id,
+        diagnosis_id=diagnosis_id
+    )
     if db_diagnosis is None:
         raise HTTPException(status_code=404, detail="Medical record diagnosis not found")
     return db_diagnosis
@@ -1051,20 +1090,24 @@ def read_medical_record_diagnosis(
 @app.get("/medical-record-diagnoses/medical-record/{medical_record_id}", response_model=List[schemas.MedicalRecordDiagnosis])
 def read_medical_record_diagnoses_by_record(
     medical_record_id: int,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_read")
-    return crud.get_medical_record_diagnoses_by_record(db, medical_record_id=medical_record_id)
+    auth.check_permission_supabase(current_user, "medical_read")
+    return crud_supabase.get_medical_record_diagnoses_by_record(
+        clinic_id=current_user.clinic_id,
+        medical_record_id=medical_record_id
+    )
 
 @app.delete("/medical-record-diagnoses/{diagnosis_id}")
 def delete_medical_record_diagnosis(
     diagnosis_id: int,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_write")
-    db_diagnosis = crud.delete_medical_record_diagnosis(db, diagnosis_id=diagnosis_id)
+    auth.check_permission_supabase(current_user, "medical_write")
+    db_diagnosis = crud_supabase.delete_medical_record_diagnosis(
+        clinic_id=current_user.clinic_id,
+        diagnosis_id=diagnosis_id
+    )
     if db_diagnosis is None:
         raise HTTPException(status_code=404, detail="Medical record diagnosis not found")
     return {"message": "Medical record diagnosis deleted successfully"}
@@ -1073,30 +1116,37 @@ def delete_medical_record_diagnosis(
 @app.post("/medical-record-templates/", response_model=schemas.MedicalRecordTemplate)
 def create_medical_record_template(
     template: schemas.MedicalRecordTemplateCreate,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "admin")
-    return crud.create_medical_record_template(db=db, template=template)
+    auth.check_permission_supabase(current_user, "admin")
+    return crud_supabase.create_medical_record_template(
+        clinic_id=current_user.clinic_id,
+        template=template
+    )
 
 @app.get("/medical-record-templates/", response_model=List[schemas.MedicalRecordTemplate])
 def read_medical_record_templates(
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_read")
-    return crud.get_medical_record_templates(db, skip=skip, limit=limit)
+    auth.check_permission_supabase(current_user, "medical_read")
+    return crud_supabase.get_medical_record_templates(
+        clinic_id=current_user.clinic_id,
+        skip=skip, 
+        limit=limit
+    )
 
 @app.get("/medical-record-templates/{template_id}", response_model=schemas.MedicalRecordTemplate)
 def read_medical_record_template(
     template_id: int,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_read")
-    db_template = crud.get_medical_record_template(db, template_id=template_id)
+    auth.check_permission_supabase(current_user, "medical_read")
+    db_template = crud_supabase.get_medical_record_template(
+        clinic_id=current_user.clinic_id,
+        template_id=template_id
+    )
     if db_template is None:
         raise HTTPException(status_code=404, detail="Medical record template not found")
     return db_template
@@ -1106,21 +1156,28 @@ def read_medical_record_templates_by_clinic(
     clinic_id: int,
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "medical_read")
-    return crud.get_medical_record_templates_by_clinic(db, clinic_id=clinic_id, skip=skip, limit=limit)
+    auth.check_permission_supabase(current_user, "medical_read")
+    return crud_supabase.get_medical_record_templates_by_clinic(
+        clinic_id=current_user.clinic_id,
+        target_clinic_id=clinic_id, 
+        skip=skip, 
+        limit=limit
+    )
 
 @app.put("/medical-record-templates/{template_id}", response_model=schemas.MedicalRecordTemplate)
 def update_medical_record_template(
     template_id: int,
     template: schemas.MedicalRecordTemplateUpdate,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "admin")
-    db_template = crud.update_medical_record_template(db, template_id=template_id, template=template)
+    auth.check_permission_supabase(current_user, "admin")
+    db_template = crud_supabase.update_medical_record_template(
+        clinic_id=current_user.clinic_id,
+        template_id=template_id, 
+        template=template
+    )
     if db_template is None:
         raise HTTPException(status_code=404, detail="Medical record template not found")
     return db_template
@@ -1128,11 +1185,13 @@ def update_medical_record_template(
 @app.delete("/medical-record-templates/{template_id}")
 def delete_medical_record_template(
     template_id: int,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    auth.check_permission(current_user, "admin")
-    db_template = crud.delete_medical_record_template(db, template_id=template_id)
+    auth.check_permission_supabase(current_user, "admin")
+    db_template = crud_supabase.delete_medical_record_template(
+        clinic_id=current_user.clinic_id,
+        template_id=template_id
+    )
     if db_template is None:
         raise HTTPException(status_code=404, detail="Medical record template not found")
     return {"message": "Medical record template deleted successfully"}
@@ -1143,11 +1202,15 @@ def delete_medical_record_template(
 @app.post("/invoices-nfs/", response_model=schemas.InvoiceNFS)
 def create_invoice_nfs(
     invoice: schemas.InvoiceNFSCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
+    auth.check_permission_supabase(current_user, "financial_write")
     try:
-        return crud.create_invoice_nfs(db=db, invoice=invoice, clinic_id=current_user.clinic_id, user_id=current_user.id)
+        return crud_supabase.create_invoice_nfs(
+            clinic_id=current_user.clinic_id,
+            invoice=invoice, 
+            user_id=current_user.id
+        )
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
@@ -1156,19 +1219,27 @@ def read_invoices_nfs(
     skip: int = 0,
     limit: int = 100,
     status: Optional[str] = None,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    return crud.get_invoices_nfs(db, clinic_id=current_user.clinic_id, skip=skip, limit=limit, status=status)
+    auth.check_permission_supabase(current_user, "financial_read")
+    return crud_supabase.get_invoices_nfs(
+        clinic_id=current_user.clinic_id, 
+        skip=skip, 
+        limit=limit, 
+        status=status
+    )
 
 @app.get("/invoices-nfs/{invoice_id}", response_model=schemas.InvoiceNFS)
 def read_invoice_nfs(
     invoice_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    db_invoice = crud.get_invoice_nfs(db, invoice_id=invoice_id)
-    if db_invoice is None or db_invoice.clinic_id != current_user.clinic_id:
+    auth.check_permission_supabase(current_user, "financial_read")
+    db_invoice = crud_supabase.get_invoice_nfs(
+        clinic_id=current_user.clinic_id,
+        invoice_id=invoice_id
+    )
+    if db_invoice is None:
         raise HTTPException(status_code=404, detail="Invoice not found")
     return db_invoice
 
@@ -1176,11 +1247,15 @@ def read_invoice_nfs(
 def update_invoice_nfs(
     invoice_id: int,
     invoice: schemas.InvoiceNFSUpdate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    db_invoice = crud.update_invoice_nfs(db, invoice_id=invoice_id, invoice=invoice)
-    if db_invoice is None or db_invoice.clinic_id != current_user.clinic_id:
+    auth.check_permission_supabase(current_user, "financial_write")
+    db_invoice = crud_supabase.update_invoice_nfs(
+        clinic_id=current_user.clinic_id,
+        invoice_id=invoice_id, 
+        invoice=invoice
+    )
+    if db_invoice is None:
         raise HTTPException(status_code=404, detail="Invoice not found")
     return db_invoice
 
@@ -1188,28 +1263,38 @@ def update_invoice_nfs(
 @app.post("/cost-centers/", response_model=schemas.CostCenter)
 def create_cost_center(
     cost_center: schemas.CostCenterCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    return crud.create_cost_center(db=db, cost_center=cost_center, clinic_id=current_user.clinic_id)
+    auth.check_permission_supabase(current_user, "financial_write")
+    return crud_supabase.create_cost_center(
+        clinic_id=current_user.clinic_id,
+        cost_center=cost_center
+    )
 
 @app.get("/cost-centers/", response_model=List[schemas.CostCenter])
 def read_cost_centers(
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    return crud.get_cost_centers(db, clinic_id=current_user.clinic_id, skip=skip, limit=limit)
+    auth.check_permission_supabase(current_user, "financial_read")
+    return crud_supabase.get_cost_centers(
+        clinic_id=current_user.clinic_id, 
+        skip=skip, 
+        limit=limit
+    )
 
 @app.get("/cost-centers/{cost_center_id}", response_model=schemas.CostCenter)
 def read_cost_center(
     cost_center_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    db_cost_center = crud.get_cost_center(db, cost_center_id=cost_center_id)
-    if db_cost_center is None or db_cost_center.clinic_id != current_user.clinic_id:
+    auth.check_permission_supabase(current_user, "financial_read")
+    db_cost_center = crud_supabase.get_cost_center(
+        clinic_id=current_user.clinic_id,
+        cost_center_id=cost_center_id
+    )
+    if db_cost_center is None:
         raise HTTPException(status_code=404, detail="Cost center not found")
     return db_cost_center
 
@@ -1217,11 +1302,15 @@ def read_cost_center(
 def update_cost_center(
     cost_center_id: int,
     cost_center: schemas.CostCenterUpdate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    db_cost_center = crud.update_cost_center(db, cost_center_id=cost_center_id, cost_center=cost_center)
-    if db_cost_center is None or db_cost_center.clinic_id != current_user.clinic_id:
+    auth.check_permission_supabase(current_user, "financial_write")
+    db_cost_center = crud_supabase.update_cost_center(
+        clinic_id=current_user.clinic_id,
+        cost_center_id=cost_center_id, 
+        cost_center=cost_center
+    )
+    if db_cost_center is None:
         raise HTTPException(status_code=404, detail="Cost center not found")
     return db_cost_center
 
@@ -1229,24 +1318,31 @@ def update_cost_center(
 @app.post("/tax-configurations/", response_model=schemas.TaxConfiguration)
 def create_tax_configuration(
     config: schemas.TaxConfigurationCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    return crud.create_tax_configuration(db=db, config=config, clinic_id=current_user.clinic_id)
+    auth.check_permission_supabase(current_user, "admin")
+    return crud_supabase.create_tax_configuration(
+        clinic_id=current_user.clinic_id,
+        config=config
+    )
 
 @app.get("/tax-configurations/", response_model=List[schemas.TaxConfiguration])
 def read_tax_configurations(
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    return crud.get_tax_configurations(db, clinic_id=current_user.clinic_id)
+    auth.check_permission_supabase(current_user, "financial_read")
+    return crud_supabase.get_tax_configurations(
+        clinic_id=current_user.clinic_id
+    )
 
 @app.get("/tax-configurations/active", response_model=schemas.TaxConfiguration)
 def read_active_tax_configuration(
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    db_config = crud.get_active_tax_configuration(db, clinic_id=current_user.clinic_id)
+    auth.check_permission_supabase(current_user, "financial_read")
+    db_config = crud_supabase.get_active_tax_configuration(
+        clinic_id=current_user.clinic_id
+    )
     if db_config is None:
         raise HTTPException(status_code=404, detail="Active tax configuration not found")
     return db_config
@@ -1255,10 +1351,14 @@ def read_active_tax_configuration(
 def update_tax_configuration(
     config_id: int,
     config: schemas.TaxConfigurationUpdate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    db_config = crud.update_tax_configuration(db, config_id=config_id, config=config)
+    auth.check_permission_supabase(current_user, "admin")
+    db_config = crud_supabase.update_tax_configuration(
+        clinic_id=current_user.clinic_id,
+        config_id=config_id,
+        config=config
+    )
     if db_config is None or db_config.clinic_id != current_user.clinic_id:
         raise HTTPException(status_code=404, detail="Tax configuration not found")
     return db_config
@@ -1267,27 +1367,37 @@ def update_tax_configuration(
 @app.post("/bank-accounts/", response_model=schemas.BankAccount)
 def create_bank_account(
     account: schemas.BankAccountCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    return crud.create_bank_account(db=db, account=account, clinic_id=current_user.clinic_id)
+    auth.check_permission_supabase(current_user, "financial_write")
+    return crud_supabase.create_bank_account(
+        clinic_id=current_user.clinic_id,
+        account=account
+    )
 
 @app.get("/bank-accounts/", response_model=List[schemas.BankAccount])
 def read_bank_accounts(
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    return crud.get_bank_accounts(db, clinic_id=current_user.clinic_id, skip=skip, limit=limit)
+    auth.check_permission_supabase(current_user, "financial_read")
+    return crud_supabase.get_bank_accounts(
+        clinic_id=current_user.clinic_id,
+        skip=skip,
+        limit=limit
+    )
 
 @app.get("/bank-accounts/{account_id}", response_model=schemas.BankAccount)
 def read_bank_account(
     account_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    db_account = crud.get_bank_account(db, account_id=account_id)
+    auth.check_permission_supabase(current_user, "financial_read")
+    db_account = crud_supabase.get_bank_account(
+        clinic_id=current_user.clinic_id,
+        account_id=account_id
+    )
     if db_account is None or db_account.clinic_id != current_user.clinic_id:
         raise HTTPException(status_code=404, detail="Bank account not found")
     return db_account
@@ -1296,10 +1406,14 @@ def read_bank_account(
 def update_bank_account(
     account_id: int,
     account: schemas.BankAccountUpdate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    db_account = crud.update_bank_account(db, account_id=account_id, account=account)
+    auth.check_permission_supabase(current_user, "financial_write")
+    db_account = crud_supabase.update_bank_account(
+        clinic_id=current_user.clinic_id,
+        account_id=account_id,
+        account=account
+    )
     if db_account is None or db_account.clinic_id != current_user.clinic_id:
         raise HTTPException(status_code=404, detail="Bank account not found")
     return db_account
@@ -1308,29 +1422,43 @@ def update_bank_account(
 @app.post("/bank-reconciliations/", response_model=schemas.BankReconciliation)
 def create_bank_reconciliation(
     reconciliation: schemas.BankReconciliationCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    return crud.create_bank_reconciliation(db=db, reconciliation=reconciliation, user_id=current_user.id)
+    auth.check_permission_supabase(current_user, "financial_write")
+    return crud_supabase.create_bank_reconciliation(
+        clinic_id=current_user.clinic_id,
+        reconciliation=reconciliation,
+        user_id=current_user.id
+    )
 
 @app.get("/bank-reconciliations/account/{bank_account_id}", response_model=List[schemas.BankReconciliation])
 def read_bank_reconciliations(
     bank_account_id: int,
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    return crud.get_bank_reconciliations(db, bank_account_id=bank_account_id, skip=skip, limit=limit)
+    auth.check_permission_supabase(current_user, "financial_read")
+    return crud_supabase.get_bank_reconciliations(
+        clinic_id=current_user.clinic_id,
+        bank_account_id=bank_account_id,
+        skip=skip,
+        limit=limit
+    )
 
 @app.put("/bank-reconciliations/{reconciliation_id}", response_model=schemas.BankReconciliation)
 def update_bank_reconciliation(
     reconciliation_id: int,
     reconciliation: schemas.BankReconciliationUpdate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    db_reconciliation = crud.update_bank_reconciliation(db, reconciliation_id=reconciliation_id, reconciliation=reconciliation, user_id=current_user.id)
+    auth.check_permission_supabase(current_user, "financial_write")
+    db_reconciliation = crud_supabase.update_bank_reconciliation(
+        clinic_id=current_user.clinic_id,
+        reconciliation_id=reconciliation_id,
+        reconciliation=reconciliation,
+        user_id=current_user.id
+    )
     if db_reconciliation is None:
         raise HTTPException(status_code=404, detail="Bank reconciliation not found")
     return db_reconciliation
@@ -1339,28 +1467,40 @@ def update_bank_reconciliation(
 @app.post("/doctor-payments/", response_model=schemas.DoctorPayment)
 def create_doctor_payment(
     payment: schemas.DoctorPaymentCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    return crud.create_doctor_payment(db=db, payment=payment, clinic_id=current_user.clinic_id, user_id=current_user.id)
+    auth.check_permission_supabase(current_user, "financial_write")
+    return crud_supabase.create_doctor_payment(
+        clinic_id=current_user.clinic_id,
+        payment=payment,
+        user_id=current_user.id
+    )
 
 @app.get("/doctor-payments/", response_model=List[schemas.DoctorPayment])
 def read_doctor_payments(
     doctor_id: Optional[int] = None,
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    return crud.get_doctor_payments(db, clinic_id=current_user.clinic_id, doctor_id=doctor_id, skip=skip, limit=limit)
+    auth.check_permission_supabase(current_user, "financial_read")
+    return crud_supabase.get_doctor_payments(
+        clinic_id=current_user.clinic_id,
+        doctor_id=doctor_id,
+        skip=skip,
+        limit=limit
+    )
 
 @app.get("/doctor-payments/{payment_id}", response_model=schemas.DoctorPayment)
 def read_doctor_payment(
     payment_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    db_payment = crud.get_doctor_payment(db, payment_id=payment_id)
+    auth.check_permission_supabase(current_user, "financial_read")
+    db_payment = crud_supabase.get_doctor_payment(
+        clinic_id=current_user.clinic_id,
+        payment_id=payment_id
+    )
     if db_payment is None or db_payment.clinic_id != current_user.clinic_id:
         raise HTTPException(status_code=404, detail="Doctor payment not found")
     return db_payment
@@ -1369,10 +1509,14 @@ def read_doctor_payment(
 def update_doctor_payment(
     payment_id: int,
     payment: schemas.DoctorPaymentUpdate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    db_payment = crud.update_doctor_payment(db, payment_id=payment_id, payment=payment)
+    auth.check_permission_supabase(current_user, "financial_write")
+    db_payment = crud_supabase.update_doctor_payment(
+        clinic_id=current_user.clinic_id,
+        payment_id=payment_id,
+        payment=payment
+    )
     if db_payment is None or db_payment.clinic_id != current_user.clinic_id:
         raise HTTPException(status_code=404, detail="Doctor payment not found")
     return db_payment
@@ -1381,10 +1525,13 @@ def update_doctor_payment(
 @app.post("/financial-kpis/", response_model=schemas.FinancialKPI)
 def create_financial_kpi(
     kpi: schemas.FinancialKPICreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    return crud.create_financial_kpi(db=db, kpi=kpi, clinic_id=current_user.clinic_id)
+    auth.check_permission_supabase(current_user, "financial_write")
+    return crud_supabase.create_financial_kpi(
+        clinic_id=current_user.clinic_id,
+        kpi=kpi
+    )
 
 @app.get("/financial-kpis/", response_model=List[schemas.FinancialKPI])
 def read_financial_kpis(
@@ -1392,37 +1539,54 @@ def read_financial_kpis(
     period_type: Optional[str] = None,
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    return crud.get_financial_kpis(db, clinic_id=current_user.clinic_id, kpi_type=kpi_type, period_type=period_type, skip=skip, limit=limit)
+    auth.check_permission_supabase(current_user, "financial_read")
+    return crud_supabase.get_financial_kpis(
+        clinic_id=current_user.clinic_id,
+        kpi_type=kpi_type,
+        period_type=period_type,
+        skip=skip,
+        limit=limit
+    )
 
 # Supplier endpoints
 @app.post("/suppliers/", response_model=schemas.Supplier)
 def create_supplier(
     supplier: schemas.SupplierCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    return crud.create_supplier(db=db, supplier=supplier, clinic_id=current_user.clinic_id)
+    auth.check_permission_supabase(current_user, "financial_write")
+    return crud_supabase.create_supplier(
+        clinic_id=current_user.clinic_id,
+        supplier=supplier
+    )
 
 @app.get("/suppliers/", response_model=List[schemas.Supplier])
 def read_suppliers(
     category: Optional[str] = None,
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    return crud.get_suppliers(db, clinic_id=current_user.clinic_id, category=category, skip=skip, limit=limit)
+    auth.check_permission_supabase(current_user, "financial_read")
+    return crud_supabase.get_suppliers(
+        clinic_id=current_user.clinic_id,
+        category=category,
+        skip=skip,
+        limit=limit
+    )
 
 @app.get("/suppliers/{supplier_id}", response_model=schemas.Supplier)
 def read_supplier(
     supplier_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    db_supplier = crud.get_supplier(db, supplier_id=supplier_id)
+    auth.check_permission_supabase(current_user, "financial_read")
+    db_supplier = crud_supabase.get_supplier(
+        clinic_id=current_user.clinic_id,
+        supplier_id=supplier_id
+    )
     if db_supplier is None or db_supplier.clinic_id != current_user.clinic_id:
         raise HTTPException(status_code=404, detail="Supplier not found")
     return db_supplier
@@ -1431,10 +1595,14 @@ def read_supplier(
 def update_supplier(
     supplier_id: int,
     supplier: schemas.SupplierUpdate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
-    db_supplier = crud.update_supplier(db, supplier_id=supplier_id, supplier=supplier)
+    auth.check_permission_supabase(current_user, "financial_write")
+    db_supplier = crud_supabase.update_supplier(
+        clinic_id=current_user.clinic_id,
+        supplier_id=supplier_id,
+        supplier=supplier
+    )
     if db_supplier is None or db_supplier.clinic_id != current_user.clinic_id:
         raise HTTPException(status_code=404, detail="Supplier not found")
     return db_supplier
@@ -1444,28 +1612,29 @@ def update_supplier(
 @app.post("/financial-reports/dre", response_model=schemas.DREReport)
 def generate_dre_report(
     request: schemas.FinancialReportRequest,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Gera Demonstração do Resultado do Exercício (DRE)"""
     # Implementar lógica de cálculo da DRE
     from datetime import datetime
     
+    auth.check_permission_supabase(current_user, "financial_read")
+    
     # Buscar receitas do período
-    receitas = db.query(models.AccountsReceivable).filter(
-        models.AccountsReceivable.clinic_id == current_user.clinic_id,
-        models.AccountsReceivable.due_date >= request.start_date,
-        models.AccountsReceivable.due_date <= request.end_date,
-        models.AccountsReceivable.status == "paid"
-    ).all()
+    receitas = crud_supabase.get_accounts_receivable_by_period(
+        clinic_id=current_user.clinic_id,
+        start_date=request.start_date,
+        end_date=request.end_date,
+        status="paid"
+    )
     
     # Buscar despesas do período
-    despesas = db.query(models.AccountsPayable).filter(
-        models.AccountsPayable.clinic_id == current_user.clinic_id,
-        models.AccountsPayable.due_date >= request.start_date,
-        models.AccountsPayable.due_date <= request.end_date,
-        models.AccountsPayable.status == "paid"
-    ).all()
+    despesas = crud_supabase.get_accounts_payable_by_period(
+        clinic_id=current_user.clinic_id,
+        start_date=request.start_date,
+        end_date=request.end_date,
+        status="paid"
+    )
     
     receita_bruta = sum([r.amount for r in receitas])
     custos_diretos = sum([d.amount for d in despesas if d.category in ["medicamentos", "materiais_medicos"]])
@@ -1491,27 +1660,28 @@ def generate_dre_report(
 @app.post("/financial-reports/balance-sheet", response_model=schemas.BalanceSheetReport)
 def generate_balance_sheet(
     request: schemas.FinancialReportRequest,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Gera Balanço Patrimonial"""
+    auth.check_permission_supabase(current_user, "financial_read")
+    
     # Buscar contas bancárias
-    bank_accounts = db.query(models.BankAccount).filter(
-        models.BankAccount.clinic_id == current_user.clinic_id,
-        models.BankAccount.is_active == True
-    ).all()
+    bank_accounts = crud_supabase.get_bank_accounts(
+        clinic_id=current_user.clinic_id,
+        is_active=True
+    )
     
     # Buscar contas a receber
-    accounts_receivable = db.query(models.AccountsReceivable).filter(
-        models.AccountsReceivable.clinic_id == current_user.clinic_id,
-        models.AccountsReceivable.status == "pending"
-    ).all()
+    accounts_receivable = crud_supabase.get_accounts_receivable(
+        clinic_id=current_user.clinic_id,
+        status="pending"
+    )
     
     # Buscar contas a pagar
-    accounts_payable = db.query(models.AccountsPayable).filter(
-        models.AccountsPayable.clinic_id == current_user.clinic_id,
-        models.AccountsPayable.status == "pending"
-    ).all()
+    accounts_payable = crud_supabase.get_accounts_payable(
+        clinic_id=current_user.clinic_id,
+        status="pending"
+    )
     
     caixa_bancos = sum([acc.current_balance for acc in bank_accounts])
     contas_receber = sum([ar.amount for ar in accounts_receivable])
@@ -1536,16 +1706,17 @@ def generate_balance_sheet(
 @app.post("/financial-reports/cash-flow", response_model=schemas.CashFlowReport)
 def generate_cash_flow_report(
     request: schemas.FinancialReportRequest,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Gera Relatório de Fluxo de Caixa"""
+    auth.check_permission_supabase(current_user, "financial_read")
+    
     # Buscar movimentações de caixa do período
-    cash_flows = db.query(models.CashFlow).filter(
-        models.CashFlow.clinic_id == current_user.clinic_id,
-        models.CashFlow.transaction_date >= request.start_date,
-        models.CashFlow.transaction_date <= request.end_date
-    ).all()
+    cash_flows = crud_supabase.get_cash_flows_by_period(
+        clinic_id=current_user.clinic_id,
+        start_date=request.start_date,
+        end_date=request.end_date
+    )
     
     entradas_operacionais = sum([cf.amount for cf in cash_flows if cf.flow_type == "inflow" and cf.category == "operational"])
     saidas_operacionais = sum([cf.amount for cf in cash_flows if cf.flow_type == "outflow" and cf.category == "operational"])
@@ -1577,34 +1748,35 @@ def generate_cash_flow_report(
 @app.get("/financial-dashboard", response_model=schemas.FinancialDashboard)
 def get_financial_dashboard(
     period_days: int = 30,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Dashboard financeiro com KPIs específicos para clínicas"""
+    auth.check_permission_supabase(current_user, "financial_read")
+    
     from datetime import datetime, timedelta
     
     end_date = datetime.now().date()
     start_date = end_date - timedelta(days=period_days)
     
     # Buscar dados do período
-    appointments = db.query(models.Appointment).filter(
-        models.Appointment.clinic_id == current_user.clinic_id,
-        models.Appointment.appointment_date >= start_date,
-        models.Appointment.appointment_date <= end_date,
-        models.Appointment.status == "completed"
-    ).all()
+    appointments = crud_supabase.get_appointments_by_period(
+        clinic_id=current_user.clinic_id,
+        start_date=start_date,
+        end_date=end_date,
+        status="completed"
+    )
     
-    billing_items = db.query(models.BillingItem).join(models.BillingBatch).filter(
-        models.BillingBatch.clinic_id == current_user.clinic_id,
-        models.BillingItem.service_date >= start_date,
-        models.BillingItem.service_date <= end_date
-    ).all()
+    billing_items = crud_supabase.get_billing_items_by_period(
+        clinic_id=current_user.clinic_id,
+        start_date=start_date,
+        end_date=end_date
+    )
     
-    accounts_receivable = db.query(models.AccountsReceivable).filter(
-        models.AccountsReceivable.clinic_id == current_user.clinic_id,
-        models.AccountsReceivable.due_date >= start_date,
-        models.AccountsReceivable.due_date <= end_date
-    ).all()
+    accounts_receivable = crud_supabase.get_accounts_receivable_by_period(
+        clinic_id=current_user.clinic_id,
+        start_date=start_date,
+        end_date=end_date
+    )
     
     # Calcular KPIs
     total_appointments = len(appointments)
@@ -1649,15 +1821,16 @@ def get_financial_dashboard(
 @app.post("/nfs-e/emit")
 def emit_nfs_e(
     invoice_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Emite NFS-e para uma nota fiscal"""
+    auth.check_permission_supabase(current_user, "financial_write")
+    
     # Buscar a nota fiscal
-    invoice = db.query(models.InvoiceNFS).filter(
-        models.InvoiceNFS.id == invoice_id,
-        models.InvoiceNFS.clinic_id == current_user.clinic_id
-    ).first()
+    invoice = crud_supabase.get_invoice_nfs(
+        clinic_id=current_user.clinic_id,
+        invoice_id=invoice_id
+    )
     
     if not invoice:
         raise HTTPException(status_code=404, detail="Invoice not found")
@@ -1679,12 +1852,16 @@ def emit_nfs_e(
         verification_code = uuid.uuid4().hex[:12].upper()
         
         # Atualizar status da nota
-        invoice.status = "issued"
-        invoice.nfs_number = nfs_number
-        invoice.verification_code = verification_code
-        invoice.issue_date = datetime.now()
-        
-        db.commit()
+        crud_supabase.update_invoice_nfs(
+            clinic_id=current_user.clinic_id,
+            invoice_id=invoice_id,
+            invoice_data={
+                "status": "issued",
+                "nfs_number": nfs_number,
+                "verification_code": verification_code,
+                "issue_date": datetime.now()
+            }
+        )
         
         return {
             "message": "NFS-e emitida com sucesso",
@@ -1694,22 +1871,28 @@ def emit_nfs_e(
         }
         
     except Exception as e:
-        invoice.status = "error"
-        invoice.error_message = str(e)
-        db.commit()
+        crud_supabase.update_invoice_nfs(
+            clinic_id=current_user.clinic_id,
+            invoice_id=invoice_id,
+            invoice_data={
+                "status": "error",
+                "error_message": str(e)
+            }
+        )
         raise HTTPException(status_code=500, detail=f"Erro ao emitir NFS-e: {str(e)}")
 
 @app.get("/nfs-e/{invoice_id}/status")
 def check_nfs_e_status(
     invoice_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Consulta status da NFS-e"""
-    invoice = db.query(models.InvoiceNFS).filter(
-        models.InvoiceNFS.id == invoice_id,
-        models.InvoiceNFS.clinic_id == current_user.clinic_id
-    ).first()
+    auth.check_permission_supabase(current_user, "financial_read")
+    
+    invoice = crud_supabase.get_invoice_nfs(
+        clinic_id=current_user.clinic_id,
+        invoice_id=invoice_id
+    )
     
     if not invoice:
         raise HTTPException(status_code=404, detail="Invoice not found")
@@ -1726,14 +1909,15 @@ def check_nfs_e_status(
 @app.get("/nfs-e/{invoice_id}/pdf")
 def download_nfs_e_pdf(
     invoice_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Download do PDF da NFS-e"""
-    invoice = db.query(models.InvoiceNFS).filter(
-        models.InvoiceNFS.id == invoice_id,
-        models.InvoiceNFS.clinic_id == current_user.clinic_id
-    ).first()
+    auth.check_permission_supabase(current_user, "financial_read")
+    
+    invoice = crud_supabase.get_invoice_nfs(
+        clinic_id=current_user.clinic_id,
+        invoice_id=invoice_id
+    )
     
     if not invoice or invoice.status != "issued":
         raise HTTPException(status_code=404, detail="NFS-e not found or not issued")
@@ -1757,19 +1941,18 @@ def get_audit_trail(
     user_id: Optional[int] = None,
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Recupera trilha de auditoria com filtros"""
-    from datetime import datetime
+    auth.check_permission_supabase(current_user, "admin")
     
-    audit_logger = AuditLogger(db)
+    from datetime import datetime
     
     # Converter strings de data
     start_date_obj = datetime.fromisoformat(start_date).date() if start_date else None
     end_date_obj = datetime.fromisoformat(end_date).date() if end_date else None
     
-    audit_trail = audit_logger.get_audit_trail(
+    audit_trail = crud_supabase.get_audit_trail(
         clinic_id=current_user.clinic_id,
         start_date=start_date_obj,
         end_date=end_date_obj,
@@ -1791,13 +1974,12 @@ def get_audit_trail(
 @app.get("/audit/suspicious-activities")
 def get_suspicious_activities(
     days_back: int = 7,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Detecta atividades suspeitas nos últimos dias"""
-    audit_logger = AuditLogger(db)
+    auth.check_permission_supabase(current_user, "admin")
     
-    suspicious_activities = audit_logger.detect_suspicious_activities(
+    suspicious_activities = crud_supabase.detect_suspicious_activities(
         clinic_id=current_user.clinic_id,
         days_back=days_back
     )
@@ -1810,13 +1992,12 @@ def get_suspicious_activities(
 
 @app.get("/compliance/check")
 def check_compliance(
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Verifica compliance fiscal e financeiro da clínica"""
-    compliance_checker = ComplianceChecker(db)
+    auth.check_permission_supabase(current_user, "admin")
     
-    compliance_report = compliance_checker.check_financial_compliance(
+    compliance_report = crud_supabase.check_financial_compliance(
         clinic_id=current_user.clinic_id
     )
     
@@ -1827,13 +2008,12 @@ def check_compliance(
 @app.post("/backup/create")
 def create_backup(
     backup_type: str = "financial",  # financial, full, database
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Cria backup dos dados da clínica"""
-    from datetime import datetime, timedelta
+    auth.check_permission_supabase(current_user, "admin")
     
-    backup_manager = BackupManager()
+    from datetime import datetime, timedelta
     
     try:
         if backup_type == "financial":
@@ -1868,13 +2048,12 @@ def create_backup(
 
 @app.get("/backup/list")
 def list_backups(
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Lista backups disponíveis da clínica"""
-    backup_manager = BackupManager()
+    auth.check_permission_supabase(current_user, "admin")
     
-    backups = backup_manager.list_backups(clinic_id=current_user.clinic_id)
+    backups = crud_supabase.list_backups(clinic_id=current_user.clinic_id)
     
     return {
         "clinic_id": current_user.clinic_id,
@@ -1885,16 +2064,15 @@ def list_backups(
 @app.post("/backup/schedule")
 def schedule_backup(
     frequency: str = "daily",  # daily, weekly, monthly
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Agenda backup automático"""
-    backup_manager = BackupManager()
+    auth.check_permission_supabase(current_user, "admin")
     
     if frequency not in ["daily", "weekly", "monthly"]:
         raise HTTPException(status_code=400, detail="Invalid frequency")
     
-    schedule = backup_manager.schedule_automatic_backup(
+    schedule = crud_supabase.schedule_automatic_backup(
         clinic_id=current_user.clinic_id,
         frequency=frequency
     )
@@ -1907,14 +2085,13 @@ def schedule_backup(
 @app.delete("/backup/cleanup")
 def cleanup_old_backups(
     days_to_keep: int = 30,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Remove backups antigos"""
-    backup_manager = BackupManager()
+    auth.check_permission_supabase(current_user, "admin")
     
     try:
-        backup_manager.cleanup_old_backups(days_to_keep=days_to_keep)
+        crud_supabase.cleanup_old_backups(days_to_keep=days_to_keep)
         
         return {
             "message": f"Backups com mais de {days_to_keep} dias foram removidos",
@@ -1928,13 +2105,14 @@ def cleanup_old_backups(
 
 @app.get("/financial/alerts")
 def get_financial_alerts(
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Gera alertas financeiros automáticos"""
-    report_generator = ReportGenerator(db, current_user.clinic_id)
+    auth.check_permission_supabase(current_user, "financial_read")
     
-    alerts = report_generator.generate_financial_alerts()
+    alerts = crud_supabase.generate_financial_alerts(
+        clinic_id=current_user.clinic_id
+    )
     
     return {
         "clinic_id": current_user.clinic_id,
@@ -1945,42 +2123,36 @@ def get_financial_alerts(
 @app.get("/financial/kpis")
 def get_financial_kpis(
     period_days: int = 30,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Calcula KPIs financeiros específicos para clínicas"""
-    from datetime import datetime, timedelta
+    auth.check_permission_supabase(current_user, "financial_read")
     
-    calculator = FinancialCalculator(db, current_user.clinic_id)
+    from datetime import datetime, timedelta
     
     end_date = datetime.now().date()
     start_date = end_date - timedelta(days=period_days)
     
-    kpis = {
-        "period_start": start_date.isoformat(),
-        "period_end": end_date.isoformat(),
-        "revenue_per_patient": float(calculator.calculate_revenue_per_patient(start_date, end_date)),
-        "average_ticket": float(calculator.calculate_average_ticket(start_date, end_date)),
-        "default_rate": float(calculator.calculate_default_rate(start_date, end_date)),
-        "average_collection_time": calculator.calculate_average_collection_time(start_date, end_date),
-        "cost_per_appointment": float(calculator.calculate_cost_per_appointment(start_date, end_date)),
-        "occupancy_rate": float(calculator.calculate_occupancy_rate(start_date, end_date)),
-        "profit_margin_by_insurance": calculator.calculate_profit_margin_by_insurance(start_date, end_date),
-        "roi_per_doctor": calculator.calculate_roi_per_doctor(start_date, end_date)
-    }
+    kpis = crud_supabase.calculate_financial_kpis(
+        clinic_id=current_user.clinic_id,
+        start_date=start_date,
+        end_date=end_date
+    )
     
     return kpis
 
 @app.get("/financial/cash-flow-projection")
 def get_cash_flow_projection(
     days_ahead: int = 90,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "financeiro"]))
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Gera projeção de fluxo de caixa"""
-    report_generator = ReportGenerator(db, current_user.clinic_id)
+    auth.check_permission_supabase(current_user, "financial_read")
     
-    projection = report_generator.generate_cash_flow_projection(days_ahead=days_ahead)
+    projection = crud_supabase.generate_cash_flow_projection(
+        clinic_id=current_user.clinic_id,
+        days_ahead=days_ahead
+    )
     
     return {
         "days_ahead": days_ahead,
@@ -1994,30 +2166,27 @@ def get_cash_flow_projection(
 @app.post("/pharmacy/categories/", response_model=schemas.ProductCategory)
 def create_product_category(
     category: schemas.ProductCategoryCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Criar nova categoria de produto"""
-    return crud.create_product_category(db=db, category=category, clinic_id=current_user.clinic_id)
+    return crud_supabase.create_product_category(category=category, clinic_id=current_user.clinic_id)
 
 @app.get("/pharmacy/categories/", response_model=List[schemas.ProductCategory])
 def read_product_categories(
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Listar categorias de produtos"""
-    return crud.get_product_categories(db, clinic_id=current_user.clinic_id, skip=skip, limit=limit)
+    return crud_supabase.get_product_categories(clinic_id=current_user.clinic_id, skip=skip, limit=limit)
 
 @app.get("/pharmacy/categories/{category_id}", response_model=schemas.ProductCategory)
 def read_product_category(
     category_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Obter categoria específica"""
-    db_category = crud.get_product_category(db, category_id=category_id)
+    db_category = crud_supabase.get_product_category(clinic_id=current_user.clinic_id, category_id=category_id)
     if db_category is None:
         raise HTTPException(status_code=404, detail="Category not found")
     return db_category
@@ -2026,11 +2195,10 @@ def read_product_category(
 def update_product_category(
     category_id: int,
     category: schemas.ProductCategoryUpdate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Atualizar categoria de produto"""
-    db_category = crud.update_product_category(db, category_id=category_id, category=category)
+    db_category = crud_supabase.update_product_category(clinic_id=current_user.clinic_id, category_id=category_id, category=category)
     if db_category is None:
         raise HTTPException(status_code=404, detail="Category not found")
     return db_category
@@ -2038,11 +2206,10 @@ def update_product_category(
 @app.delete("/pharmacy/categories/{category_id}")
 def delete_product_category(
     category_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Desativar categoria de produto"""
-    db_category = crud.delete_product_category(db, category_id=category_id)
+    db_category = crud_supabase.delete_product_category(clinic_id=current_user.clinic_id, category_id=category_id)
     if db_category is None:
         raise HTTPException(status_code=404, detail="Category not found")
     return {"message": "Category deactivated successfully"}
@@ -2051,11 +2218,10 @@ def delete_product_category(
 @app.post("/pharmacy/products/", response_model=schemas.Product)
 def create_product(
     product: schemas.ProductCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Criar novo produto"""
-    return crud.create_product(db=db, product=product, clinic_id=current_user.clinic_id)
+    return crud_supabase.create_product(product=product, clinic_id=current_user.clinic_id)
 
 @app.get("/pharmacy/products/", response_model=List[schemas.Product])
 def read_products(
@@ -2064,12 +2230,10 @@ def read_products(
     category_id: Optional[int] = None,
     search: Optional[str] = None,
     low_stock: bool = False,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Listar produtos com filtros"""
-    return crud.get_products(
-        db, 
+    return crud_supabase.get_products(
         clinic_id=current_user.clinic_id, 
         category_id=category_id,
         search=search,
@@ -2081,11 +2245,10 @@ def read_products(
 @app.get("/pharmacy/products/{product_id}", response_model=schemas.Product)
 def read_product(
     product_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Obter produto específico"""
-    db_product = crud.get_product(db, product_id=product_id)
+    db_product = crud_supabase.get_product(clinic_id=current_user.clinic_id, product_id=product_id)
     if db_product is None:
         raise HTTPException(status_code=404, detail="Product not found")
     return db_product
@@ -2094,11 +2257,10 @@ def read_product(
 def update_product(
     product_id: int,
     product: schemas.ProductUpdate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Atualizar produto"""
-    db_product = crud.update_product(db, product_id=product_id, product=product)
+    db_product = crud_supabase.update_product(clinic_id=current_user.clinic_id, product_id=product_id, product=product)
     if db_product is None:
         raise HTTPException(status_code=404, detail="Product not found")
     return db_product
@@ -2106,11 +2268,10 @@ def update_product(
 @app.delete("/pharmacy/products/{product_id}")
 def delete_product(
     product_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Desativar produto"""
-    db_product = crud.delete_product(db, product_id=product_id)
+    db_product = crud_supabase.delete_product(clinic_id=current_user.clinic_id, product_id=product_id)
     if db_product is None:
         raise HTTPException(status_code=404, detail="Product not found")
     return {"message": "Product deactivated successfully"}
@@ -2119,11 +2280,10 @@ def delete_product(
 @app.post("/pharmacy/batches/", response_model=schemas.ProductBatch)
 def create_product_batch(
     batch: schemas.ProductBatchCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Criar novo lote de produto"""
-    return crud.create_product_batch(db=db, batch=batch, clinic_id=current_user.clinic_id)
+    return crud_supabase.create_product_batch(batch=batch, clinic_id=current_user.clinic_id)
 
 @app.get("/pharmacy/batches/", response_model=List[schemas.ProductBatch])
 def read_product_batches(
@@ -2131,12 +2291,10 @@ def read_product_batches(
     limit: int = 100,
     product_id: Optional[int] = None,
     expiring_soon: bool = False,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Listar lotes de produtos"""
-    return crud.get_product_batches(
-        db, 
+    return crud_supabase.get_product_batches(
         clinic_id=current_user.clinic_id,
         product_id=product_id,
         expiring_soon=expiring_soon,
@@ -2147,11 +2305,10 @@ def read_product_batches(
 @app.get("/pharmacy/batches/{batch_id}", response_model=schemas.ProductBatch)
 def read_product_batch(
     batch_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Obter lote específico"""
-    db_batch = crud.get_product_batch(db, batch_id=batch_id)
+    db_batch = crud_supabase.get_product_batch(clinic_id=current_user.clinic_id, batch_id=batch_id)
     if db_batch is None:
         raise HTTPException(status_code=404, detail="Batch not found")
     return db_batch
@@ -2160,11 +2317,10 @@ def read_product_batch(
 def update_product_batch(
     batch_id: int,
     batch: schemas.ProductBatchUpdate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Atualizar lote de produto"""
-    db_batch = crud.update_product_batch(db, batch_id=batch_id, batch=batch)
+    db_batch = crud_supabase.update_product_batch(clinic_id=current_user.clinic_id, batch_id=batch_id, batch=batch)
     if db_batch is None:
         raise HTTPException(status_code=404, detail="Batch not found")
     return db_batch
@@ -2173,12 +2329,10 @@ def update_product_batch(
 @app.post("/pharmacy/stock-movements/", response_model=schemas.ProductStockMovement)
 def create_stock_movement(
     movement: schemas.ProductStockMovementCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Registrar movimentação de estoque"""
-    return crud.create_product_stock_movement(
-        db=db, 
+    return crud_supabase.create_product_stock_movement(
         movement=movement, 
         clinic_id=current_user.clinic_id,
         user_id=current_user.id
@@ -2191,12 +2345,10 @@ def read_stock_movements(
     product_id: Optional[int] = None,
     department: Optional[str] = None,
     movement_type: Optional[str] = None,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Listar movimentações de estoque"""
-    return crud.get_product_stock_movements(
-        db,
+    return crud_supabase.get_product_stock_movements(
         clinic_id=current_user.clinic_id,
         product_id=product_id,
         department=department,
@@ -2208,11 +2360,10 @@ def read_stock_movements(
 @app.get("/pharmacy/stock-movements/{movement_id}", response_model=schemas.ProductStockMovement)
 def read_stock_movement(
     movement_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Obter movimentação específica"""
-    db_movement = crud.get_product_stock_movement(db, movement_id=movement_id)
+    db_movement = crud_supabase.get_product_stock_movement(clinic_id=current_user.clinic_id, movement_id=movement_id)
     if db_movement is None:
         raise HTTPException(status_code=404, detail="Movement not found")
     return db_movement
@@ -2221,12 +2372,10 @@ def read_stock_movement(
 @app.post("/pharmacy/requisitions/", response_model=schemas.StockRequisition)
 def create_stock_requisition(
     requisition: schemas.StockRequisitionCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Criar nova requisição de estoque"""
-    return crud.create_stock_requisition(
-        db=db, 
+    return crud_supabase.create_stock_requisition(
         requisition=requisition, 
         clinic_id=current_user.clinic_id,
         user_id=current_user.id
@@ -2238,12 +2387,10 @@ def read_stock_requisitions(
     limit: int = 100,
     department: Optional[str] = None,
     status: Optional[str] = None,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Listar requisições de estoque"""
-    return crud.get_stock_requisitions(
-        db,
+    return crud_supabase.get_stock_requisitions(
         clinic_id=current_user.clinic_id,
         department=department,
         status=status,
@@ -2254,11 +2401,10 @@ def read_stock_requisitions(
 @app.get("/pharmacy/requisitions/{requisition_id}", response_model=schemas.StockRequisition)
 def read_stock_requisition(
     requisition_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Obter requisição específica"""
-    db_requisition = crud.get_stock_requisition(db, requisition_id=requisition_id)
+    db_requisition = crud_supabase.get_stock_requisition(clinic_id=current_user.clinic_id, requisition_id=requisition_id)
     if db_requisition is None:
         raise HTTPException(status_code=404, detail="Requisition not found")
     return db_requisition
@@ -2267,12 +2413,11 @@ def read_stock_requisition(
 def update_stock_requisition(
     requisition_id: int,
     requisition: schemas.StockRequisitionUpdate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Atualizar requisição de estoque"""
-    db_requisition = crud.update_stock_requisition(
-        db, 
+    db_requisition = crud_supabase.update_stock_requisition(
+        clinic_id=current_user.clinic_id,
         requisition_id=requisition_id, 
         requisition=requisition,
         user_id=current_user.id
@@ -2285,12 +2430,10 @@ def update_stock_requisition(
 @app.post("/pharmacy/purchase-orders/", response_model=schemas.PurchaseOrder)
 def create_purchase_order(
     order: schemas.PurchaseOrderCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Criar nova ordem de compra"""
-    return crud.create_purchase_order(
-        db=db, 
+    return crud_supabase.create_purchase_order(
         order=order, 
         clinic_id=current_user.clinic_id,
         user_id=current_user.id
@@ -2302,12 +2445,10 @@ def read_purchase_orders(
     limit: int = 100,
     supplier_id: Optional[int] = None,
     status: Optional[str] = None,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Listar ordens de compra"""
-    return crud.get_purchase_orders(
-        db,
+    return crud_supabase.get_purchase_orders(
         clinic_id=current_user.clinic_id,
         supplier_id=supplier_id,
         status=status,
@@ -2318,11 +2459,10 @@ def read_purchase_orders(
 @app.get("/pharmacy/purchase-orders/{order_id}", response_model=schemas.PurchaseOrder)
 def read_purchase_order(
     order_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Obter ordem de compra específica"""
-    db_order = crud.get_purchase_order(db, order_id=order_id)
+    db_order = crud_supabase.get_purchase_order(clinic_id=current_user.clinic_id, order_id=order_id)
     if db_order is None:
         raise HTTPException(status_code=404, detail="Purchase order not found")
     return db_order
@@ -2331,12 +2471,11 @@ def read_purchase_order(
 def update_purchase_order(
     order_id: int,
     order: schemas.PurchaseOrderUpdate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Atualizar ordem de compra"""
-    db_order = crud.update_purchase_order(
-        db, 
+    db_order = crud_supabase.update_purchase_order(
+        clinic_id=current_user.clinic_id,
         order_id=order_id, 
         order=order,
         user_id=current_user.id
@@ -2348,29 +2487,25 @@ def update_purchase_order(
 # Stock Reports endpoints
 @app.get("/pharmacy/reports/stock-summary")
 def get_stock_summary(
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Relatório resumo do estoque"""
     # Produtos com estoque baixo
-    low_stock_products = crud.get_products(
-        db, 
+    low_stock_products = crud_supabase.get_products(
         clinic_id=current_user.clinic_id, 
         low_stock=True, 
         limit=1000
     )
     
     # Lotes próximos ao vencimento
-    expiring_batches = crud.get_product_batches(
-        db,
+    expiring_batches = crud_supabase.get_product_batches(
         clinic_id=current_user.clinic_id,
         expiring_soon=True,
         limit=1000
     )
     
     # Total de produtos ativos
-    total_products = len(crud.get_products(
-        db, 
+    total_products = len(crud_supabase.get_products(
         clinic_id=current_user.clinic_id, 
         limit=10000
     ))
@@ -2398,12 +2533,10 @@ def get_stock_summary(
 def get_movement_history(
     days: int = 30,
     product_id: Optional[int] = None,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Histórico de movimentações de estoque"""
-    movements = crud.get_product_stock_movements(
-        db,
+    movements = crud_supabase.get_product_stock_movements(
         clinic_id=current_user.clinic_id,
         product_id=product_id,
         limit=1000
@@ -2436,15 +2569,14 @@ def get_movement_history(
 @app.get("/lgpd/user-data/{user_id}")
 def get_user_data_for_portability(
     user_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Exportar dados do usuário para portabilidade (LGPD Art. 18)"""
     # Verificar se o usuário pode acessar estes dados
     if current_user.id != user_id and current_user.role not in ["admin", "manager"]:
         raise HTTPException(status_code=403, detail="Access denied")
     
-    user = crud.get_user(db, user_id=user_id)
+    user = crud_supabase.get_user(clinic_id=current_user.clinic_id, user_id=user_id)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     
@@ -2468,7 +2600,7 @@ def get_user_data_for_portability(
     }
     
     # Buscar logs de auditoria
-    audit_logs = crud.get_audit_logs(db, user_id=user_id, limit=1000)
+    audit_logs = crud_supabase.get_audit_logs(clinic_id=current_user.clinic_id, user_id=user_id, limit=1000)
     user_data["audit_logs"] = [{
         "id": log.id,
         "action": log.action,
@@ -2480,10 +2612,10 @@ def get_user_data_for_portability(
     
     # Se for um paciente, buscar dados médicos
     if user.role == "patient":
-        patient = crud.get_patient_by_user_id(db, user_id=user_id)
+        patient = crud_supabase.get_patient_by_user_id(clinic_id=current_user.clinic_id, user_id=user_id)
         if patient:
             # Prontuários
-            medical_records = crud.get_medical_records(db, patient_id=patient.id, limit=1000)
+            medical_records = crud_supabase.get_medical_records(clinic_id=current_user.clinic_id, patient_id=patient.id, limit=1000)
             user_data["medical_records"] = [{
                 "id": record.id,
                 "date": record.date.isoformat(),
@@ -2494,7 +2626,7 @@ def get_user_data_for_portability(
             } for record in medical_records]
             
             # Agendamentos
-            appointments = crud.get_appointments_by_patient(db, patient_id=patient.id, limit=1000)
+            appointments = crud_supabase.get_appointments_by_patient(clinic_id=current_user.clinic_id, patient_id=patient.id, limit=1000)
             user_data["appointments"] = [{
                 "id": appt.id,
                 "date": appt.date.isoformat(),
@@ -2510,15 +2642,14 @@ def get_user_data_for_portability(
 def update_lgpd_consent(
     user_id: int,
     consent_data: dict,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Atualizar consentimentos LGPD do usuário"""
     # Verificar se o usuário pode atualizar estes dados
     if current_user.id != user_id and current_user.role not in ["admin", "manager"]:
         raise HTTPException(status_code=403, detail="Access denied")
     
-    user = crud.get_user(db, user_id=user_id)
+    user = crud_supabase.get_user(clinic_id=current_user.clinic_id, user_id=user_id)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     
@@ -2537,15 +2668,15 @@ def update_lgpd_consent(
         update_data["marketing_consent"] = consent_data["marketing_consent"]
     
     # Atualizar no banco
-    for key, value in update_data.items():
-        setattr(user, key, value)
-    
-    db.commit()
-    db.refresh(user)
+    user = crud_supabase.update_user_lgpd_consent(
+        clinic_id=current_user.clinic_id,
+        user_id=user_id,
+        consent_data=update_data
+    )
     
     # Log da ação
-    audit_logger.log_transaction(
-        db=db,
+    crud_supabase.log_audit_transaction(
+        clinic_id=current_user.clinic_id,
         user_id=current_user.id,
         action="UPDATE_LGPD_CONSENT",
         table_name="users",
@@ -2558,15 +2689,14 @@ def update_lgpd_consent(
 @app.delete("/lgpd/user-data/{user_id}")
 def delete_user_data(
     user_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: schemas.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Direito ao esquecimento - Deletar dados do usuário (LGPD Art. 18)"""
     # Apenas admins podem executar esta ação
     if current_user.role not in ["admin", "manager"]:
         raise HTTPException(status_code=403, detail="Access denied")
     
-    user = crud.get_user(db, user_id=user_id)
+    user = crud_supabase.get_user(clinic_id=current_user.clinic_id, user_id=user_id)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     
@@ -2575,36 +2705,15 @@ def delete_user_data(
         raise HTTPException(status_code=400, detail="User has not revoked consent")
     
     try:
-        # Se for paciente, deletar dados médicos relacionados
-        if user.role == "patient":
-            patient = crud.get_patient_by_user_id(db, user_id=user_id)
-            if patient:
-                # Deletar prontuários
-                medical_records = crud.get_medical_records(db, patient_id=patient.id, limit=10000)
-                for record in medical_records:
-                    db.delete(record)
-                
-                # Deletar agendamentos
-                appointments = crud.get_appointments_by_patient(db, patient_id=patient.id, limit=10000)
-                for appointment in appointments:
-                    db.delete(appointment)
-                
-                # Deletar paciente
-                db.delete(patient)
-        
-        # Anonimizar logs de auditoria (manter para compliance, mas remover dados pessoais)
-        audit_logs = crud.get_audit_logs(db, user_id=user_id, limit=10000)
-        for log in audit_logs:
-            log.user_id = None  # Anonimizar
-            log.details = "[DADOS REMOVIDOS - LGPD]"
-        
-        # Deletar usuário
-        db.delete(user)
-        db.commit()
+        # Deletar dados do usuário usando Supabase
+        crud_supabase.delete_user_data_lgpd(
+            clinic_id=current_user.clinic_id,
+            user_id=user_id
+        )
         
         # Log da ação (com usuário atual)
-        audit_logger.log_transaction(
-            db=db,
+        crud_supabase.log_audit_transaction(
+            clinic_id=current_user.clinic_id,
             user_id=current_user.id,
             action="DELETE_USER_DATA_LGPD",
             table_name="users",
@@ -2615,13 +2724,11 @@ def delete_user_data(
         return {"message": "User data deleted successfully"}
         
     except Exception as e:
-        db.rollback()
         raise HTTPException(status_code=500, detail=f"Error deleting user data: {str(e)}")
 
 @app.get("/lgpd/data-processing-report")
 def get_data_processing_report(
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Relatório de processamento de dados pessoais (LGPD Art. 41)"""
     # Apenas admins podem acessar
@@ -2629,37 +2736,30 @@ def get_data_processing_report(
         raise HTTPException(status_code=403, detail="Access denied")
     
     # Estatísticas de consentimento
-    total_users = db.query(models.User).filter(models.User.clinic_id == current_user.clinic_id).count()
-    users_with_consent = db.query(models.User).filter(
-        models.User.clinic_id == current_user.clinic_id,
-        models.User.lgpd_consent == True
-    ).count()
+    total_users = crud_supabase.count_users_by_clinic(clinic_id=current_user.clinic_id)
+    users_with_consent = crud_supabase.count_users_with_lgpd_consent(
+        clinic_id=current_user.clinic_id
+    )
     users_without_consent = total_users - users_with_consent
     
     # Estatísticas de consentimento para compartilhamento
-    data_sharing_consent = db.query(models.User).filter(
-        models.User.clinic_id == current_user.clinic_id,
-        models.User.data_sharing_consent == True
-    ).count()
+    data_sharing_consent = crud_supabase.count_users_with_data_sharing_consent(
+        clinic_id=current_user.clinic_id
+    )
     
     # Estatísticas de consentimento para marketing
-    marketing_consent = db.query(models.User).filter(
-        models.User.clinic_id == current_user.clinic_id,
-        models.User.marketing_consent == True
-    ).count()
+    marketing_consent = crud_supabase.count_users_with_marketing_consent(
+        clinic_id=current_user.clinic_id
+    )
     
     # Atividades recentes de LGPD
     from datetime import datetime, timedelta
     last_30_days = datetime.now() - timedelta(days=30)
     
-    recent_lgpd_activities = db.query(models.AuditLog).filter(
-        models.AuditLog.action.in_([
-            "UPDATE_LGPD_CONSENT", 
-            "DELETE_USER_DATA_LGPD", 
-            "EXPORT_USER_DATA_LGPD"
-        ]),
-        models.AuditLog.timestamp >= last_30_days
-    ).count()
+    recent_lgpd_activities = crud_supabase.count_recent_lgpd_activities(
+        clinic_id=current_user.clinic_id,
+        since_date=last_30_days
+    )
     
     return {
         "clinic_id": current_user.clinic_id,
@@ -2684,8 +2784,7 @@ def get_data_processing_report(
 @app.post("/lgpd/data-breach-notification")
 def notify_data_breach(
     breach_data: dict,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Notificação de vazamento de dados (LGPD Art. 48)"""
     # Apenas admins podem reportar vazamentos
@@ -2716,8 +2815,8 @@ def notify_data_breach(
     }
     
     # Log do vazamento
-    audit_logger.log_transaction(
-        db=db,
+    crud_supabase.log_audit_transaction(
+        clinic_id=current_user.clinic_id,
         user_id=current_user.id,
         action="DATA_BREACH_NOTIFICATION",
         table_name="data_breach",
@@ -2750,12 +2849,10 @@ def get_saved_reports(
     skip: int = 0,
     limit: int = 100,
     report_type: Optional[str] = None,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Listar relatórios salvos"""
-    reports = crud.get_saved_reports(
-        db=db, 
+    reports = crud_supabase.get_saved_reports(
         clinic_id=current_user.clinic_id,
         user_id=current_user.id if current_user.role not in ["admin", "manager"] else None,
         report_type=report_type,
@@ -2767,11 +2864,10 @@ def get_saved_reports(
 @app.get("/saved-reports/{report_id}", response_model=schemas.SavedReport)
 def get_saved_report(
     report_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Obter relatório específico"""
-    report = crud.get_saved_report(db=db, report_id=report_id)
+    report = crud_supabase.get_saved_report(clinic_id=current_user.clinic_id, report_id=report_id)
     if not report:
         raise HTTPException(status_code=404, detail="Report not found")
     
@@ -2787,12 +2883,10 @@ def get_saved_report(
 @app.post("/saved-reports", response_model=schemas.SavedReport)
 def create_saved_report(
     report: schemas.SavedReportCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Criar novo relatório salvo"""
-    return crud.create_saved_report(
-        db=db, 
+    return crud_supabase.create_saved_report(
         report=report, 
         clinic_id=current_user.clinic_id,
         user_id=current_user.id
@@ -2802,11 +2896,10 @@ def create_saved_report(
 def update_saved_report(
     report_id: int,
     report: schemas.SavedReportUpdate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Atualizar relatório salvo"""
-    db_report = crud.get_saved_report(db=db, report_id=report_id)
+    db_report = crud_supabase.get_saved_report(clinic_id=current_user.clinic_id, report_id=report_id)
     if not db_report:
         raise HTTPException(status_code=404, detail="Report not found")
     
@@ -2817,16 +2910,15 @@ def update_saved_report(
     if db_report.user_id != current_user.id and current_user.role not in ["admin", "manager"]:
         raise HTTPException(status_code=403, detail="Access denied")
     
-    return crud.update_saved_report(db=db, report_id=report_id, report=report)
+    return crud_supabase.update_saved_report(clinic_id=current_user.clinic_id, report_id=report_id, report=report)
 
 @app.delete("/saved-reports/{report_id}")
 def delete_saved_report(
     report_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Deletar relatório salvo"""
-    db_report = crud.get_saved_report(db=db, report_id=report_id)
+    db_report = crud_supabase.get_saved_report(clinic_id=current_user.clinic_id, report_id=report_id)
     if not db_report:
         raise HTTPException(status_code=404, detail="Report not found")
     
@@ -2837,7 +2929,7 @@ def delete_saved_report(
     if db_report.user_id != current_user.id and current_user.role not in ["admin", "manager"]:
         raise HTTPException(status_code=403, detail="Access denied")
     
-    crud.delete_saved_report(db=db, report_id=report_id)
+    crud_supabase.delete_saved_report(clinic_id=current_user.clinic_id, report_id=report_id)
     return {"message": "Report deleted successfully"}
 
 # ===== CUSTOM DASHBOARDS ENDPOINTS =====
@@ -2846,12 +2938,10 @@ def delete_saved_report(
 def get_custom_dashboards(
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Listar dashboards personalizados"""
-    dashboards = crud.get_custom_dashboards(
-        db=db, 
+    dashboards = crud_supabase.get_custom_dashboards(
         clinic_id=current_user.clinic_id,
         user_id=current_user.id if current_user.role not in ["admin", "manager"] else None,
         skip=skip, 
@@ -2862,11 +2952,10 @@ def get_custom_dashboards(
 @app.get("/dashboards/{dashboard_id}", response_model=schemas.CustomDashboard)
 def get_custom_dashboard(
     dashboard_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Obter dashboard específico"""
-    dashboard = crud.get_custom_dashboard(db=db, dashboard_id=dashboard_id)
+    dashboard = crud_supabase.get_custom_dashboard(clinic_id=current_user.clinic_id, dashboard_id=dashboard_id)
     if not dashboard:
         raise HTTPException(status_code=404, detail="Dashboard not found")
     
@@ -2882,12 +2971,10 @@ def get_custom_dashboard(
 @app.post("/dashboards", response_model=schemas.CustomDashboard)
 def create_custom_dashboard(
     dashboard: schemas.CustomDashboardCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Criar novo dashboard personalizado"""
-    return crud.create_custom_dashboard(
-        db=db, 
+    return crud_supabase.create_custom_dashboard(
         dashboard=dashboard, 
         clinic_id=current_user.clinic_id,
         user_id=current_user.id
@@ -2897,11 +2984,10 @@ def create_custom_dashboard(
 def update_custom_dashboard(
     dashboard_id: int,
     dashboard: schemas.CustomDashboardUpdate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Atualizar dashboard personalizado"""
-    db_dashboard = crud.get_custom_dashboard(db=db, dashboard_id=dashboard_id)
+    db_dashboard = crud_supabase.get_custom_dashboard(clinic_id=current_user.clinic_id, dashboard_id=dashboard_id)
     if not db_dashboard:
         raise HTTPException(status_code=404, detail="Dashboard not found")
     
@@ -2912,16 +2998,15 @@ def update_custom_dashboard(
     if db_dashboard.user_id != current_user.id and current_user.role not in ["admin", "manager"]:
         raise HTTPException(status_code=403, detail="Access denied")
     
-    return crud.update_custom_dashboard(db=db, dashboard_id=dashboard_id, dashboard=dashboard)
+    return crud_supabase.update_custom_dashboard(clinic_id=current_user.clinic_id, dashboard_id=dashboard_id, dashboard=dashboard)
 
 @app.delete("/dashboards/{dashboard_id}")
 def delete_custom_dashboard(
     dashboard_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Deletar dashboard personalizado"""
-    db_dashboard = crud.get_custom_dashboard(db=db, dashboard_id=dashboard_id)
+    db_dashboard = crud_supabase.get_custom_dashboard(clinic_id=current_user.clinic_id, dashboard_id=dashboard_id)
     if not db_dashboard:
         raise HTTPException(status_code=404, detail="Dashboard not found")
     
@@ -2932,7 +3017,7 @@ def delete_custom_dashboard(
     if db_dashboard.user_id != current_user.id and current_user.role not in ["admin", "manager"]:
         raise HTTPException(status_code=403, detail="Access denied")
     
-    crud.delete_custom_dashboard(db=db, dashboard_id=dashboard_id)
+    crud_supabase.delete_custom_dashboard(clinic_id=current_user.clinic_id, dashboard_id=dashboard_id)
     return {"message": "Dashboard deleted successfully"}
 
 # ===== DASHBOARD WIDGETS ENDPOINTS =====
@@ -2942,12 +3027,11 @@ def get_dashboard_widgets(
     dashboard_id: Optional[int] = None,
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Listar widgets de dashboard"""
-    widgets = crud.get_dashboard_widgets(
-        db=db, 
+    widgets = crud_supabase.get_dashboard_widgets(
+        clinic_id=current_user.clinic_id,
         dashboard_id=dashboard_id,
         skip=skip, 
         limit=limit
@@ -2957,11 +3041,10 @@ def get_dashboard_widgets(
 @app.get("/dashboard-widgets/{widget_id}", response_model=schemas.DashboardWidget)
 def get_dashboard_widget(
     widget_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Obter widget específico"""
-    widget = crud.get_dashboard_widget(db=db, widget_id=widget_id)
+    widget = crud_supabase.get_dashboard_widget(clinic_id=current_user.clinic_id, widget_id=widget_id)
     if not widget:
         raise HTTPException(status_code=404, detail="Widget not found")
     
@@ -2970,38 +3053,35 @@ def get_dashboard_widget(
 @app.post("/dashboard-widgets", response_model=schemas.DashboardWidget)
 def create_dashboard_widget(
     widget: schemas.DashboardWidgetCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Criar novo widget de dashboard"""
-    return crud.create_dashboard_widget(db=db, widget=widget)
+    return crud_supabase.create_dashboard_widget(clinic_id=current_user.clinic_id, widget=widget)
 
 @app.put("/dashboard-widgets/{widget_id}", response_model=schemas.DashboardWidget)
 def update_dashboard_widget(
     widget_id: int,
     widget: schemas.DashboardWidgetUpdate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Atualizar widget de dashboard"""
-    db_widget = crud.get_dashboard_widget(db=db, widget_id=widget_id)
+    db_widget = crud_supabase.get_dashboard_widget(clinic_id=current_user.clinic_id, widget_id=widget_id)
     if not db_widget:
         raise HTTPException(status_code=404, detail="Widget not found")
     
-    return crud.update_dashboard_widget(db=db, widget_id=widget_id, widget=widget)
+    return crud_supabase.update_dashboard_widget(clinic_id=current_user.clinic_id, widget_id=widget_id, widget=widget)
 
 @app.delete("/dashboard-widgets/{widget_id}")
 def delete_dashboard_widget(
     widget_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Deletar widget de dashboard"""
-    db_widget = crud.get_dashboard_widget(db=db, widget_id=widget_id)
+    db_widget = crud_supabase.get_dashboard_widget(clinic_id=current_user.clinic_id, widget_id=widget_id)
     if not db_widget:
         raise HTTPException(status_code=404, detail="Widget not found")
     
-    crud.delete_dashboard_widget(db=db, widget_id=widget_id)
+    crud_supabase.delete_dashboard_widget(clinic_id=current_user.clinic_id, widget_id=widget_id)
     return {"message": "Widget deleted successfully"}
 
 # ===== PERFORMANCE METRICS ENDPOINTS =====
@@ -3013,12 +3093,10 @@ def get_performance_metrics(
     end_date: Optional[str] = None,
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Listar métricas de performance"""
-    metrics = crud.get_performance_metrics(
-        db=db, 
+    metrics = crud_supabase.get_performance_metrics(
         clinic_id=current_user.clinic_id,
         metric_type=metric_type,
         start_date=start_date,
@@ -3031,11 +3109,10 @@ def get_performance_metrics(
 @app.get("/performance-metrics/{metric_id}", response_model=schemas.PerformanceMetric)
 def get_performance_metric(
     metric_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Obter métrica específica"""
-    metric = crud.get_performance_metric(db=db, metric_id=metric_id)
+    metric = crud_supabase.get_performance_metric(clinic_id=current_user.clinic_id, metric_id=metric_id)
     if not metric:
         raise HTTPException(status_code=404, detail="Metric not found")
     
@@ -3048,12 +3125,10 @@ def get_performance_metric(
 @app.post("/performance-metrics", response_model=schemas.PerformanceMetric)
 def create_performance_metric(
     metric: schemas.PerformanceMetricCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Criar nova métrica de performance"""
-    return crud.create_performance_metric(
-        db=db, 
+    return crud_supabase.create_performance_metric(
         metric=metric, 
         clinic_id=current_user.clinic_id
     )
@@ -3062,11 +3137,10 @@ def create_performance_metric(
 def update_performance_metric(
     metric_id: int,
     metric: schemas.PerformanceMetricUpdate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Atualizar métrica de performance"""
-    db_metric = crud.get_performance_metric(db=db, metric_id=metric_id)
+    db_metric = crud_supabase.get_performance_metric(clinic_id=current_user.clinic_id, metric_id=metric_id)
     if not db_metric:
         raise HTTPException(status_code=404, detail="Metric not found")
     
@@ -3074,16 +3148,15 @@ def update_performance_metric(
     if db_metric.clinic_id != current_user.clinic_id:
         raise HTTPException(status_code=403, detail="Access denied")
     
-    return crud.update_performance_metric(db=db, metric_id=metric_id, metric=metric)
+    return crud_supabase.update_performance_metric(clinic_id=current_user.clinic_id, metric_id=metric_id, metric=metric)
 
 @app.delete("/performance-metrics/{metric_id}")
 def delete_performance_metric(
     metric_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Deletar métrica de performance"""
-    db_metric = crud.get_performance_metric(db=db, metric_id=metric_id)
+    db_metric = crud_supabase.get_performance_metric(clinic_id=current_user.clinic_id, metric_id=metric_id)
     if not db_metric:
         raise HTTPException(status_code=404, detail="Metric not found")
     
@@ -3091,7 +3164,7 @@ def delete_performance_metric(
     if db_metric.clinic_id != current_user.clinic_id:
         raise HTTPException(status_code=403, detail="Access denied")
     
-    crud.delete_performance_metric(db=db, metric_id=metric_id)
+    crud_supabase.delete_performance_metric(clinic_id=current_user.clinic_id, metric_id=metric_id)
     return {"message": "Metric deleted successfully"}
 
 # ===== BI ALERTS ENDPOINTS =====
@@ -3102,12 +3175,10 @@ def get_bi_alerts(
     is_active: Optional[bool] = None,
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Listar alertas de BI"""
-    alerts = crud.get_bi_alerts(
-        db=db, 
+    alerts = crud_supabase.get_bi_alerts(
         clinic_id=current_user.clinic_id,
         alert_type=alert_type,
         is_active=is_active,
@@ -3119,11 +3190,10 @@ def get_bi_alerts(
 @app.get("/bi-alerts/{alert_id}", response_model=schemas.BIAlert)
 def get_bi_alert(
     alert_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Obter alerta específico"""
-    alert = crud.get_bi_alert(db=db, alert_id=alert_id)
+    alert = crud_supabase.get_bi_alert(clinic_id=current_user.clinic_id, alert_id=alert_id)
     if not alert:
         raise HTTPException(status_code=404, detail="Alert not found")
     
@@ -3136,25 +3206,19 @@ def get_bi_alert(
 @app.post("/bi-alerts", response_model=schemas.BIAlert)
 def create_bi_alert(
     alert: schemas.BIAlertCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Criar novo alerta de BI"""
-    return crud.create_bi_alert(
-        db=db, 
-        alert=alert, 
-        clinic_id=current_user.clinic_id
-    )
+    return crud_supabase.create_bi_alert(clinic_id=current_user.clinic_id, alert=alert)
 
 @app.put("/bi-alerts/{alert_id}", response_model=schemas.BIAlert)
 def update_bi_alert(
     alert_id: int,
     alert: schemas.BIAlertUpdate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Atualizar alerta de BI"""
-    db_alert = crud.get_bi_alert(db=db, alert_id=alert_id)
+    db_alert = crud_supabase.get_bi_alert(clinic_id=current_user.clinic_id, alert_id=alert_id)
     if not db_alert:
         raise HTTPException(status_code=404, detail="Alert not found")
     
@@ -3162,16 +3226,15 @@ def update_bi_alert(
     if db_alert.clinic_id != current_user.clinic_id:
         raise HTTPException(status_code=403, detail="Access denied")
     
-    return crud.update_bi_alert(db=db, alert_id=alert_id, alert=alert)
+    return crud_supabase.update_bi_alert(clinic_id=current_user.clinic_id, alert_id=alert_id, alert=alert)
 
 @app.delete("/bi-alerts/{alert_id}")
 def delete_bi_alert(
     alert_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Deletar alerta de BI"""
-    db_alert = crud.get_bi_alert(db=db, alert_id=alert_id)
+    db_alert = crud_supabase.get_bi_alert(clinic_id=current_user.clinic_id, alert_id=alert_id)
     if not db_alert:
         raise HTTPException(status_code=404, detail="Alert not found")
     
@@ -3179,7 +3242,7 @@ def delete_bi_alert(
     if db_alert.clinic_id != current_user.clinic_id:
         raise HTTPException(status_code=403, detail="Access denied")
     
-    crud.delete_bi_alert(db=db, alert_id=alert_id)
+    crud_supabase.delete_bi_alert(clinic_id=current_user.clinic_id, alert_id=alert_id)
     return {"message": "Alert deleted successfully"}
 
 # ===== ALERT CONFIGURATIONS ENDPOINTS =====
@@ -3190,12 +3253,10 @@ def get_alert_configurations(
     is_active: Optional[bool] = None,
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Listar configurações de alertas"""
-    configs = crud.get_alert_configurations(
-        db=db, 
+    configs = crud_supabase.get_alert_configurations(
         clinic_id=current_user.clinic_id,
         user_id=current_user.id if current_user.role not in ["admin", "manager"] else None,
         metric_type=metric_type,
@@ -3207,11 +3268,10 @@ def get_alert_configurations(
 @app.get("/alert-configurations/{config_id}", response_model=schemas.AlertConfiguration)
 def get_alert_configuration(
     config_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Obter configuração específica"""
-    config = crud.get_alert_configuration(db=db, config_id=config_id)
+    config = crud_supabase.get_alert_configuration(clinic_id=current_user.clinic_id, config_id=config_id)
     if not config:
         raise HTTPException(status_code=404, detail="Configuration not found")
     
@@ -3224,14 +3284,12 @@ def get_alert_configuration(
 @app.post("/alert-configurations", response_model=schemas.AlertConfiguration)
 def create_alert_configuration(
     config: schemas.AlertConfigurationCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Criar nova configuração de alerta"""
-    return crud.create_alert_configuration(
-        db=db, 
-        config=config, 
+    return crud_supabase.create_alert_configuration(
         clinic_id=current_user.clinic_id,
+        config=config, 
         user_id=current_user.id
     )
 
@@ -3239,11 +3297,10 @@ def create_alert_configuration(
 def update_alert_configuration(
     config_id: int,
     config: schemas.AlertConfigurationUpdate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Atualizar configuração de alerta"""
-    db_config = crud.get_alert_configuration(db=db, config_id=config_id)
+    db_config = crud_supabase.get_alert_configuration(clinic_id=current_user.clinic_id, config_id=config_id)
     if not db_config:
         raise HTTPException(status_code=404, detail="Configuration not found")
     
@@ -3251,16 +3308,15 @@ def update_alert_configuration(
     if db_config.clinic_id != current_user.clinic_id:
         raise HTTPException(status_code=403, detail="Access denied")
     
-    return crud.update_alert_configuration(db=db, config_id=config_id, config=config)
+    return crud_supabase.update_alert_configuration(clinic_id=current_user.clinic_id, config_id=config_id, config=config)
 
 @app.delete("/alert-configurations/{config_id}")
 def delete_alert_configuration(
     config_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Deletar configuração de alerta"""
-    db_config = crud.get_alert_configuration(db=db, config_id=config_id)
+    db_config = crud_supabase.get_alert_configuration(clinic_id=current_user.clinic_id, config_id=config_id)
     if not db_config:
         raise HTTPException(status_code=404, detail="Configuration not found")
     
@@ -3268,7 +3324,7 @@ def delete_alert_configuration(
     if db_config.clinic_id != current_user.clinic_id:
         raise HTTPException(status_code=403, detail="Access denied")
     
-    crud.delete_alert_configuration(db=db, config_id=config_id)
+    crud_supabase.delete_alert_configuration(clinic_id=current_user.clinic_id, config_id=config_id)
     return {"message": "Configuration deleted successfully"}
 
 # ===== REPORT EXECUTIONS ENDPOINTS =====
@@ -3279,12 +3335,10 @@ def get_report_executions(
     status: Optional[str] = None,
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Listar execuções de relatórios"""
-    executions = crud.get_report_executions(
-        db=db, 
+    executions = crud_supabase.get_report_executions(
         clinic_id=current_user.clinic_id,
         report_id=report_id,
         status=status,
@@ -3296,29 +3350,22 @@ def get_report_executions(
 @app.get("/report-executions/{execution_id}", response_model=schemas.ReportExecution)
 def get_report_execution(
     execution_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Obter execução específica"""
-    execution = crud.get_report_execution(db=db, execution_id=execution_id)
+    execution = crud_supabase.get_report_execution(execution_id=execution_id, clinic_id=current_user.clinic_id)
     if not execution:
         raise HTTPException(status_code=404, detail="Execution not found")
-    
-    # Verificar permissões
-    if execution.clinic_id != current_user.clinic_id:
-        raise HTTPException(status_code=403, detail="Access denied")
     
     return execution
 
 @app.post("/report-executions", response_model=schemas.ReportExecution)
 def create_report_execution(
     execution: schemas.ReportExecutionCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Criar nova execução de relatório"""
-    return crud.create_report_execution(
-        db=db, 
+    return crud_supabase.create_report_execution(
         execution=execution, 
         clinic_id=current_user.clinic_id,
         user_id=current_user.id
@@ -3328,36 +3375,26 @@ def create_report_execution(
 def update_report_execution(
     execution_id: int,
     execution: schemas.ReportExecutionUpdate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Atualizar execução de relatório"""
-    db_execution = crud.get_report_execution(db=db, execution_id=execution_id)
+    db_execution = crud_supabase.get_report_execution(execution_id=execution_id, clinic_id=current_user.clinic_id)
     if not db_execution:
         raise HTTPException(status_code=404, detail="Execution not found")
     
-    # Verificar permissões
-    if db_execution.clinic_id != current_user.clinic_id:
-        raise HTTPException(status_code=403, detail="Access denied")
-    
-    return crud.update_report_execution(db=db, execution_id=execution_id, execution=execution)
+    return crud_supabase.update_report_execution(execution_id=execution_id, execution=execution, clinic_id=current_user.clinic_id)
 
 @app.delete("/report-executions/{execution_id}")
 def delete_report_execution(
     execution_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Deletar execução de relatório"""
-    db_execution = crud.get_report_execution(db=db, execution_id=execution_id)
+    db_execution = crud_supabase.get_report_execution(execution_id=execution_id, clinic_id=current_user.clinic_id)
     if not db_execution:
         raise HTTPException(status_code=404, detail="Execution not found")
     
-    # Verificar permissões
-    if db_execution.clinic_id != current_user.clinic_id:
-        raise HTTPException(status_code=403, detail="Access denied")
-    
-    crud.delete_report_execution(db=db, execution_id=execution_id)
+    crud_supabase.delete_report_execution(execution_id=execution_id, clinic_id=current_user.clinic_id)
     return {"message": "Execution deleted successfully"}
 
 # ============================================================================
@@ -3368,12 +3405,10 @@ def delete_report_execution(
 @app.post("/pharmacy/inventories/", response_model=schemas.StockInventory)
 def create_stock_inventory(
     inventory: schemas.StockInventoryCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Criar novo inventário de estoque"""
-    return crud.create_stock_inventory(
-        db=db, 
+    return crud_supabase.create_stock_inventory(
         inventory=inventory, 
         clinic_id=current_user.clinic_id,
         user_id=current_user.id
@@ -3384,12 +3419,10 @@ def get_stock_inventories(
     status: Optional[str] = None,
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Listar inventários de estoque"""
-    return crud.get_stock_inventories(
-        db=db, 
+    return crud_supabase.get_stock_inventories(
         clinic_id=current_user.clinic_id,
         status=status,
         skip=skip, 
@@ -3399,16 +3432,12 @@ def get_stock_inventories(
 @app.get("/pharmacy/inventories/{inventory_id}", response_model=schemas.StockInventory)
 def get_stock_inventory(
     inventory_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Obter inventário específico"""
-    inventory = crud.get_stock_inventory(db=db, inventory_id=inventory_id)
+    inventory = crud_supabase.get_stock_inventory(inventory_id=inventory_id, clinic_id=current_user.clinic_id)
     if not inventory:
         raise HTTPException(status_code=404, detail="Inventory not found")
-    
-    if inventory.clinic_id != current_user.clinic_id:
-        raise HTTPException(status_code=403, detail="Access denied")
     
     return inventory
 
@@ -3416,31 +3445,26 @@ def get_stock_inventory(
 def update_stock_inventory(
     inventory_id: int,
     inventory: schemas.StockInventoryUpdate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Atualizar inventário de estoque"""
-    db_inventory = crud.get_stock_inventory(db=db, inventory_id=inventory_id)
+    db_inventory = crud_supabase.get_stock_inventory(inventory_id=inventory_id, clinic_id=current_user.clinic_id)
     if not db_inventory:
         raise HTTPException(status_code=404, detail="Inventory not found")
     
-    if db_inventory.clinic_id != current_user.clinic_id:
-        raise HTTPException(status_code=403, detail="Access denied")
-    
-    return crud.update_stock_inventory(db=db, inventory_id=inventory_id, inventory=inventory)
+    return crud_supabase.update_stock_inventory(inventory_id=inventory_id, inventory=inventory, clinic_id=current_user.clinic_id)
 
 # Inventory Count endpoints
 @app.post("/pharmacy/inventory-counts/", response_model=schemas.InventoryCount)
 def create_inventory_count(
     count: schemas.InventoryCountCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Registrar contagem de inventário"""
-    return crud.create_inventory_count(
-        db=db, 
+    return crud_supabase.create_inventory_count(
         count=count,
-        user_id=current_user.id
+        user_id=current_user.id,
+        clinic_id=current_user.clinic_id
     )
 
 @app.get("/pharmacy/inventory-counts/", response_model=List[schemas.InventoryCount])
@@ -3449,12 +3473,10 @@ def get_inventory_counts(
     product_id: Optional[int] = None,
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Listar contagens de inventário"""
-    return crud.get_inventory_counts(
-        db=db,
+    return crud_supabase.get_inventory_counts(
         clinic_id=current_user.clinic_id,
         inventory_id=inventory_id,
         product_id=product_id,
@@ -3466,22 +3488,19 @@ def get_inventory_counts(
 def update_inventory_count(
     count_id: int,
     count: schemas.InventoryCountUpdate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Atualizar contagem de inventário"""
-    return crud.update_inventory_count(db=db, count_id=count_id, count=count)
+    return crud_supabase.update_inventory_count(count_id=count_id, count=count, clinic_id=current_user.clinic_id)
 
 # Stock Alert endpoints
 @app.post("/pharmacy/stock-alerts/", response_model=schemas.StockAlert)
 def create_stock_alert(
     alert: schemas.StockAlertCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Criar alerta de estoque"""
-    return crud.create_stock_alert(
-        db=db, 
+    return crud_supabase.create_stock_alert(
         alert=alert, 
         clinic_id=current_user.clinic_id
     )
@@ -3493,12 +3512,10 @@ def get_stock_alerts(
     is_active: Optional[bool] = True,
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Listar alertas de estoque"""
-    return crud.get_stock_alerts(
-        db=db,
+    return crud_supabase.get_stock_alerts(
         clinic_id=current_user.clinic_id,
         alert_type=alert_type,
         severity=severity,
@@ -3511,29 +3528,23 @@ def get_stock_alerts(
 def update_stock_alert(
     alert_id: int,
     alert: schemas.StockAlertUpdate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Atualizar/resolver alerta de estoque"""
-    db_alert = crud.get_stock_alert(db=db, alert_id=alert_id)
+    db_alert = crud_supabase.get_stock_alert(alert_id=alert_id, clinic_id=current_user.clinic_id)
     if not db_alert:
         raise HTTPException(status_code=404, detail="Alert not found")
     
-    if db_alert.clinic_id != current_user.clinic_id:
-        raise HTTPException(status_code=403, detail="Access denied")
-    
-    return crud.update_stock_alert(db=db, alert_id=alert_id, alert=alert, user_id=current_user.id)
+    return crud_supabase.update_stock_alert(alert_id=alert_id, alert=alert, user_id=current_user.id, clinic_id=current_user.clinic_id)
 
 # Stock Transfer endpoints
 @app.post("/pharmacy/stock-transfers/", response_model=schemas.StockTransfer)
 def create_stock_transfer(
     transfer: schemas.StockTransferCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Criar transferência de estoque"""
-    return crud.create_stock_transfer(
-        db=db, 
+    return crud_supabase.create_stock_transfer(
         transfer=transfer, 
         clinic_id=current_user.clinic_id,
         user_id=current_user.id
@@ -3546,12 +3557,10 @@ def get_stock_transfers(
     to_location: Optional[str] = None,
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Listar transferências de estoque"""
-    return crud.get_stock_transfers(
-        db=db,
+    return crud_supabase.get_stock_transfers(
         clinic_id=current_user.clinic_id,
         status=status,
         from_location=from_location,
@@ -3563,16 +3572,12 @@ def get_stock_transfers(
 @app.get("/pharmacy/stock-transfers/{transfer_id}", response_model=schemas.StockTransfer)
 def get_stock_transfer(
     transfer_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Obter transferência específica"""
-    transfer = crud.get_stock_transfer(db=db, transfer_id=transfer_id)
+    transfer = crud_supabase.get_stock_transfer(transfer_id=transfer_id, clinic_id=current_user.clinic_id)
     if not transfer:
         raise HTTPException(status_code=404, detail="Transfer not found")
-    
-    if transfer.clinic_id != current_user.clinic_id:
-        raise HTTPException(status_code=403, detail="Access denied")
     
     return transfer
 
@@ -3580,28 +3585,23 @@ def get_stock_transfer(
 def update_stock_transfer(
     transfer_id: int,
     transfer: schemas.StockTransferUpdate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Atualizar transferência de estoque"""
-    db_transfer = crud.get_stock_transfer(db=db, transfer_id=transfer_id)
+    db_transfer = crud_supabase.get_stock_transfer(transfer_id=transfer_id, clinic_id=current_user.clinic_id)
     if not db_transfer:
         raise HTTPException(status_code=404, detail="Transfer not found")
     
-    if db_transfer.clinic_id != current_user.clinic_id:
-        raise HTTPException(status_code=403, detail="Access denied")
-    
-    return crud.update_stock_transfer(db=db, transfer_id=transfer_id, transfer=transfer, user_id=current_user.id)
+    return crud_supabase.update_stock_transfer(transfer_id=transfer_id, transfer=transfer, user_id=current_user.id, clinic_id=current_user.clinic_id)
 
 # Stock Transfer Item endpoints
 @app.post("/pharmacy/stock-transfer-items/", response_model=schemas.StockTransferItem)
 def create_stock_transfer_item(
     item: schemas.StockTransferItemCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Adicionar item à transferência"""
-    return crud.create_stock_transfer_item(db=db, item=item)
+    return crud_supabase.create_stock_transfer_item(item=item, clinic_id=current_user.clinic_id)
 
 @app.get("/pharmacy/stock-transfer-items/", response_model=List[schemas.StockTransferItem])
 def get_stock_transfer_items(
@@ -3609,12 +3609,11 @@ def get_stock_transfer_items(
     product_id: Optional[int] = None,
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Listar itens de transferência"""
-    return crud.get_stock_transfer_items(
-        db=db,
+    return crud_supabase.get_stock_transfer_items(
+        clinic_id=current_user.clinic_id,
         transfer_id=transfer_id,
         product_id=product_id,
         skip=skip,
@@ -3625,22 +3624,19 @@ def get_stock_transfer_items(
 def update_stock_transfer_item(
     item_id: int,
     item: schemas.StockTransferItemUpdate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Atualizar item de transferência"""
-    return crud.update_stock_transfer_item(db=db, item_id=item_id, item=item)
+    return crud_supabase.update_stock_transfer_item(item_id=item_id, item=item, clinic_id=current_user.clinic_id)
 
 # Stock Adjustment endpoints
 @app.post("/pharmacy/stock-adjustments/", response_model=schemas.StockAdjustment)
 def create_stock_adjustment(
     adjustment: schemas.StockAdjustmentCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Criar ajuste de estoque"""
-    return crud.create_stock_adjustment(
-        db=db, 
+    return crud_supabase.create_stock_adjustment(
         adjustment=adjustment, 
         clinic_id=current_user.clinic_id,
         user_id=current_user.id
@@ -3653,12 +3649,10 @@ def get_stock_adjustments(
     reason: Optional[str] = None,
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Listar ajustes de estoque"""
-    return crud.get_stock_adjustments(
-        db=db,
+    return crud_supabase.get_stock_adjustments(
         clinic_id=current_user.clinic_id,
         product_id=product_id,
         adjustment_type=adjustment_type,
@@ -3670,16 +3664,12 @@ def get_stock_adjustments(
 @app.get("/pharmacy/stock-adjustments/{adjustment_id}", response_model=schemas.StockAdjustment)
 def get_stock_adjustment(
     adjustment_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Obter ajuste específico"""
-    adjustment = crud.get_stock_adjustment(db=db, adjustment_id=adjustment_id)
+    adjustment = crud_supabase.get_stock_adjustment(adjustment_id=adjustment_id, clinic_id=current_user.clinic_id)
     if not adjustment:
         raise HTTPException(status_code=404, detail="Adjustment not found")
-    
-    if adjustment.clinic_id != current_user.clinic_id:
-        raise HTTPException(status_code=403, detail="Access denied")
     
     return adjustment
 
@@ -3687,35 +3677,27 @@ def get_stock_adjustment(
 def update_stock_adjustment(
     adjustment_id: int,
     adjustment: schemas.StockAdjustmentUpdate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Atualizar ajuste de estoque"""
-    db_adjustment = crud.get_stock_adjustment(db=db, adjustment_id=adjustment_id)
+    db_adjustment = crud_supabase.get_stock_adjustment(adjustment_id=adjustment_id, clinic_id=current_user.clinic_id)
     if not db_adjustment:
         raise HTTPException(status_code=404, detail="Adjustment not found")
     
-    if db_adjustment.clinic_id != current_user.clinic_id:
-        raise HTTPException(status_code=403, detail="Access denied")
-    
-    return crud.update_stock_adjustment(db=db, adjustment_id=adjustment_id, adjustment=adjustment)
+    return crud_supabase.update_stock_adjustment(adjustment_id=adjustment_id, adjustment=adjustment, clinic_id=current_user.clinic_id)
 
 # Stock Reports endpoints
 @app.get("/pharmacy/reports/inventory-report/{inventory_id}")
 def get_inventory_report(
     inventory_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Relatório de inventário específico"""
-    inventory = crud.get_stock_inventory(db=db, inventory_id=inventory_id)
+    inventory = crud_supabase.get_stock_inventory(inventory_id=inventory_id, clinic_id=current_user.clinic_id)
     if not inventory:
         raise HTTPException(status_code=404, detail="Inventory not found")
     
-    if inventory.clinic_id != current_user.clinic_id:
-        raise HTTPException(status_code=403, detail="Access denied")
-    
-    counts = crud.get_inventory_counts(db=db, clinic_id=current_user.clinic_id, inventory_id=inventory_id)
+    counts = crud_supabase.get_inventory_counts(clinic_id=current_user.clinic_id, inventory_id=inventory_id)
     
     total_products = len(counts)
     total_counted = len([c for c in counts if c.counted_quantity is not None])
@@ -3739,12 +3721,10 @@ def get_stock_movement_report(
     start_date: date,
     end_date: date,
     product_id: Optional[int] = None,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Relatório de movimentações de estoque"""
-    movements = crud.get_product_stock_movements(
-        db=db,
+    movements = crud_supabase.get_product_stock_movements(
         clinic_id=current_user.clinic_id,
         product_id=product_id,
         start_date=start_date,
@@ -3797,11 +3777,10 @@ def get_stock_movement_report(
 
 @app.get("/pharmacy/reports/stock-alerts-summary")
 def get_stock_alerts_summary(
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Resumo de alertas de estoque"""
-    alerts = crud.get_stock_alerts(db=db, clinic_id=current_user.clinic_id, limit=1000)
+    alerts = crud_supabase.get_stock_alerts(clinic_id=current_user.clinic_id, limit=1000)
     
     total_alerts = len(alerts)
     active_alerts = len([a for a in alerts if a.is_active])
@@ -3839,13 +3818,11 @@ def get_stock_alerts_summary(
 @app.post("/departments/", response_model=schemas.Department)
 def create_department(
     department: schemas.DepartmentCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "manager"]))
+    current_user: models.User = Depends(auth.check_permission_supabase(["admin", "manager"]))
 ):
     """Criar novo departamento"""
     # Verificar se já existe departamento com o mesmo código
-    existing_department = crud.get_department_by_code(
-        db=db, 
+    existing_department = crud_supabase.get_department_by_code(
         clinic_id=current_user.clinic_id, 
         code=department.code
     )
@@ -3855,8 +3832,7 @@ def create_department(
             detail="Já existe um departamento com este código"
         )
     
-    return crud.create_department(
-        db=db, 
+    return crud_supabase.create_department(
         department=department, 
         clinic_id=current_user.clinic_id
     )
@@ -3866,12 +3842,10 @@ def get_departments(
     is_active: Optional[bool] = None,
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Listar departamentos da clínica"""
-    return crud.get_departments(
-        db=db,
+    return crud_supabase.get_departments(
         clinic_id=current_user.clinic_id,
         is_active=is_active,
         skip=skip,
@@ -3881,16 +3855,12 @@ def get_departments(
 @app.get("/departments/{department_id}", response_model=schemas.Department)
 def get_department(
     department_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Obter departamento específico"""
-    department = crud.get_department(db=db, department_id=department_id)
+    department = crud_supabase.get_department(department_id=department_id, clinic_id=current_user.clinic_id)
     if not department:
         raise HTTPException(status_code=404, detail="Departamento não encontrado")
-    
-    if department.clinic_id != current_user.clinic_id:
-        raise HTTPException(status_code=403, detail="Acesso negado")
     
     return department
 
@@ -3898,21 +3868,16 @@ def get_department(
 def update_department(
     department_id: int,
     department: schemas.DepartmentUpdate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "manager"]))
+    current_user: models.User = Depends(auth.check_permission_supabase(["admin", "manager"]))
 ):
     """Atualizar departamento"""
-    db_department = crud.get_department(db=db, department_id=department_id)
+    db_department = crud_supabase.get_department(department_id=department_id, clinic_id=current_user.clinic_id)
     if not db_department:
         raise HTTPException(status_code=404, detail="Departamento não encontrado")
     
-    if db_department.clinic_id != current_user.clinic_id:
-        raise HTTPException(status_code=403, detail="Acesso negado")
-    
     # Verificar se o código não está sendo usado por outro departamento
     if department.code and department.code != db_department.code:
-        existing_department = crud.get_department_by_code(
-            db=db, 
+        existing_department = crud_supabase.get_department_by_code(
             clinic_id=current_user.clinic_id, 
             code=department.code
         )
@@ -3922,27 +3887,23 @@ def update_department(
                 detail="Já existe um departamento com este código"
             )
     
-    return crud.update_department(
-        db=db, 
+    return crud_supabase.update_department(
         department_id=department_id, 
-        department=department
+        department=department,
+        clinic_id=current_user.clinic_id
     )
 
 @app.delete("/departments/{department_id}")
 def delete_department(
     department_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin"]))
+    current_user: models.User = Depends(auth.check_permission_supabase(["admin"]))
 ):
     """Desativar departamento (soft delete)"""
-    db_department = crud.get_department(db=db, department_id=department_id)
+    db_department = crud_supabase.get_department(department_id=department_id, clinic_id=current_user.clinic_id)
     if not db_department:
         raise HTTPException(status_code=404, detail="Departamento não encontrado")
     
-    if db_department.clinic_id != current_user.clinic_id:
-        raise HTTPException(status_code=403, detail="Acesso negado")
-    
-    crud.delete_department(db=db, department_id=department_id)
+    crud_supabase.delete_department(department_id=department_id, clinic_id=current_user.clinic_id)
     
     return {"message": "Departamento desativado com sucesso"}
 
@@ -3951,20 +3912,16 @@ def get_department_statistics(
     department_id: int,
     start_date: Optional[date] = None,
     end_date: Optional[date] = None,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Obter estatísticas de um departamento"""
-    department = crud.get_department(db=db, department_id=department_id)
+    department = crud_supabase.get_department(department_id=department_id, clinic_id=current_user.clinic_id)
     if not department:
         raise HTTPException(status_code=404, detail="Departamento não encontrado")
     
-    if department.clinic_id != current_user.clinic_id:
-        raise HTTPException(status_code=403, detail="Acesso negado")
-    
-    statistics = crud.get_department_statistics(
-        db=db,
+    statistics = crud_supabase.get_department_statistics(
         department_id=department_id,
+        clinic_id=current_user.clinic_id,
         start_date=start_date,
         end_date=end_date
     )
@@ -3977,12 +3934,10 @@ def get_department_statistics(
 @app.get("/departments/by-code/{department_code}", response_model=schemas.Department)
 def get_department_by_code(
     department_code: str,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Obter departamento por código"""
-    department = crud.get_department_by_code(
-        db=db, 
+    department = crud_supabase.get_department_by_code(
         clinic_id=current_user.clinic_id, 
         code=department_code
     )
@@ -3999,11 +3954,10 @@ def get_department_by_code(
 @app.post("/pharmacy/supplier-prices/", response_model=schemas.SupplierProductPrice)
 def create_supplier_product_price(
     price: schemas.SupplierProductPriceCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Criar preço de produto por fornecedor"""
-    return crud.create_supplier_product_price(db=db, price=price)
+    return crud_supabase.create_supplier_product_price(clinic_id=current_user.clinic_id, price=price)
 
 @app.get("/pharmacy/supplier-prices/", response_model=List[schemas.SupplierProductPrice])
 def get_supplier_product_prices(
@@ -4011,12 +3965,11 @@ def get_supplier_product_prices(
     supplier_id: Optional[int] = None,
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Listar preços de produtos por fornecedor"""
-    return crud.get_supplier_product_prices(
-        db=db,
+    return crud_supabase.get_supplier_product_prices(
+        clinic_id=current_user.clinic_id,
         product_id=product_id,
         supplier_id=supplier_id,
         skip=skip,
@@ -4026,11 +3979,10 @@ def get_supplier_product_prices(
 @app.get("/pharmacy/products/{product_id}/price-comparison")
 def get_product_price_comparison(
     product_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Comparar preços de um produto entre fornecedores"""
-    prices = crud.get_supplier_product_prices(db=db, product_id=product_id)
+    prices = crud_supabase.get_supplier_product_prices(clinic_id=current_user.clinic_id, product_id=product_id)
     
     if not prices:
         raise HTTPException(status_code=404, detail="Nenhum preço encontrado para este produto")
@@ -4051,11 +4003,10 @@ def get_product_price_comparison(
 @app.post("/pharmacy/department-stock/", response_model=schemas.DepartmentStockLevel)
 def create_department_stock_level(
     stock: schemas.DepartmentStockLevelCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Criar nível de estoque por departamento"""
-    return crud.create_department_stock_level(db=db, stock=stock)
+    return crud_supabase.create_department_stock_level(clinic_id=current_user.clinic_id, stock=stock)
 
 @app.get("/pharmacy/department-stock/", response_model=List[schemas.DepartmentStockLevel])
 def get_department_stock_levels(
@@ -4064,12 +4015,11 @@ def get_department_stock_levels(
     low_stock: Optional[bool] = None,
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Listar níveis de estoque por departamento"""
-    return crud.get_department_stock_levels(
-        db=db,
+    return crud_supabase.get_department_stock_levels(
+        clinic_id=current_user.clinic_id,
         department_id=department_id,
         product_id=product_id,
         low_stock=low_stock,
@@ -4081,14 +4031,12 @@ def get_department_stock_levels(
 @app.post("/pharmacy/category-alerts/", response_model=schemas.CategoryAlert)
 def create_category_alert(
     alert: schemas.CategoryAlertCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Criar alerta por categoria"""
-    return crud.create_category_alert(
-        db=db, 
-        alert=alert, 
-        clinic_id=current_user.clinic_id
+    return crud_supabase.create_category_alert(
+        clinic_id=current_user.clinic_id,
+        alert=alert
     )
 
 @app.get("/pharmacy/category-alerts/", response_model=List[schemas.CategoryAlert])
@@ -4097,12 +4045,10 @@ def get_category_alerts(
     is_active: Optional[bool] = True,
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Listar alertas por categoria"""
-    return crud.get_category_alerts(
-        db=db,
+    return crud_supabase.get_category_alerts(
         clinic_id=current_user.clinic_id,
         category_id=category_id,
         is_active=is_active,
@@ -4114,14 +4060,12 @@ def get_category_alerts(
 @app.post("/pharmacy/automatic-reorders/", response_model=schemas.AutomaticReorder)
 def create_automatic_reorder(
     reorder: schemas.AutomaticReorderCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Criar regra de reposição automática"""
-    return crud.create_automatic_reorder(
-        db=db, 
-        reorder=reorder, 
-        clinic_id=current_user.clinic_id
+    return crud_supabase.create_automatic_reorder(
+        clinic_id=current_user.clinic_id,
+        reorder=reorder
     )
 
 @app.get("/pharmacy/automatic-reorders/", response_model=List[schemas.AutomaticReorder])
@@ -4130,12 +4074,10 @@ def get_automatic_reorders(
     is_enabled: Optional[bool] = None,
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Listar regras de reposição automática"""
-    return crud.get_automatic_reorders(
-        db=db,
+    return crud_supabase.get_automatic_reorders(
         clinic_id=current_user.clinic_id,
         product_id=product_id,
         is_enabled=is_enabled,
@@ -4145,12 +4087,10 @@ def get_automatic_reorders(
 
 @app.post("/pharmacy/automatic-reorders/process")
 def process_automatic_reorders(
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "pharmacy"]))
+    current_user: models.User = Depends(auth.check_permission_supabase(["admin", "pharmacy"]))
 ):
     """Processar reposições automáticas"""
-    processed_orders = crud.process_automatic_reorders(
-        db=db, 
+    processed_orders = crud_supabase.process_automatic_reorders(
         clinic_id=current_user.clinic_id
     )
     
@@ -4167,11 +4107,10 @@ def process_automatic_reorders(
 @app.post("/supplier-product-prices/", response_model=schemas.SupplierProductPrice)
 def create_supplier_product_price_alias(
     price: schemas.SupplierProductPriceCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Alias para criar preço de produto por fornecedor"""
-    return crud.create_supplier_product_price(db=db, price=price)
+    return crud_supabase.create_supplier_product_price(clinic_id=current_user.clinic_id, price=price)
 
 @app.get("/supplier-product-prices/", response_model=List[schemas.SupplierProductPrice])
 def get_supplier_product_prices_alias(
@@ -4179,12 +4118,11 @@ def get_supplier_product_prices_alias(
     supplier_id: Optional[int] = None,
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Alias para listar preços de produtos por fornecedor"""
-    return crud.get_supplier_product_prices(
-        db=db,
+    return crud_supabase.get_supplier_product_prices(
+        clinic_id=current_user.clinic_id,
         product_id=product_id,
         supplier_id=supplier_id,
         skip=skip,
@@ -4195,11 +4133,10 @@ def get_supplier_product_prices_alias(
 @app.post("/department-stock-levels/", response_model=schemas.DepartmentStockLevel)
 def create_department_stock_level_alias(
     stock: schemas.DepartmentStockLevelCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Alias para criar nível de estoque por departamento"""
-    return crud.create_department_stock_level(db=db, stock=stock)
+    return crud_supabase.create_department_stock_level(clinic_id=current_user.clinic_id, stock=stock)
 
 @app.get("/department-stock-levels/", response_model=List[schemas.DepartmentStockLevel])
 def get_department_stock_levels_alias(
@@ -4208,12 +4145,11 @@ def get_department_stock_levels_alias(
     low_stock: Optional[bool] = None,
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Alias para listar níveis de estoque por departamento"""
-    return crud.get_department_stock_levels(
-        db=db,
+    return crud_supabase.get_department_stock_levels(
+        clinic_id=current_user.clinic_id,
         department_id=department_id,
         product_id=product_id,
         low_stock=low_stock,
@@ -4225,14 +4161,12 @@ def get_department_stock_levels_alias(
 @app.post("/category-alerts/", response_model=schemas.CategoryAlert)
 def create_category_alert_alias(
     alert: schemas.CategoryAlertCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Alias para criar alerta por categoria"""
-    return crud.create_category_alert(
-        db=db, 
-        alert=alert, 
-        clinic_id=current_user.clinic_id
+    return crud_supabase.create_category_alert(
+        clinic_id=current_user.clinic_id,
+        alert=alert
     )
 
 @app.get("/category-alerts/", response_model=List[schemas.CategoryAlert])
@@ -4241,12 +4175,10 @@ def get_category_alerts_alias(
     is_active: Optional[bool] = True,
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Alias para listar alertas por categoria"""
-    return crud.get_category_alerts(
-        db=db,
+    return crud_supabase.get_category_alerts(
         clinic_id=current_user.clinic_id,
         category_id=category_id,
         is_active=is_active,
@@ -4258,14 +4190,12 @@ def get_category_alerts_alias(
 @app.post("/automatic-reorders/", response_model=schemas.AutomaticReorder)
 def create_automatic_reorder_alias(
     reorder: schemas.AutomaticReorderCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Alias para criar regra de reposição automática"""
-    return crud.create_automatic_reorder(
-        db=db, 
-        reorder=reorder, 
-        clinic_id=current_user.clinic_id
+    return crud_supabase.create_automatic_reorder(
+        clinic_id=current_user.clinic_id,
+        reorder=reorder
     )
 
 @app.get("/automatic-reorders/", response_model=List[schemas.AutomaticReorder])
@@ -4274,12 +4204,10 @@ def get_automatic_reorders_alias(
     is_enabled: Optional[bool] = None,
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Alias para listar regras de reposição automática"""
-    return crud.get_automatic_reorders(
-        db=db,
+    return crud_supabase.get_automatic_reorders(
         clinic_id=current_user.clinic_id,
         product_id=product_id,
         is_enabled=is_enabled,
@@ -4290,14 +4218,12 @@ def get_automatic_reorders_alias(
 @app.post("/automatic-reorders/{reorder_id}/process")
 def process_single_automatic_reorder(
     reorder_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "pharmacy"]))
+    current_user: models.User = Depends(auth.check_permission_supabase(["admin", "pharmacy"]))
 ):
     """Processar uma reposição automática específica"""
-    processed_order = crud.process_single_automatic_reorder(
-        db=db, 
-        reorder_id=reorder_id,
-        clinic_id=current_user.clinic_id
+    processed_order = crud_supabase.process_single_automatic_reorder(
+        clinic_id=current_user.clinic_id,
+        reorder_id=reorder_id
     )
     
     if not processed_order:
@@ -4315,8 +4241,7 @@ def process_single_automatic_reorder(
 # Two Factor Auth endpoints
 @app.post("/auth/2fa/setup")
 def setup_2fa(
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Configurar autenticação de dois fatores"""
     import pyotp
@@ -4325,7 +4250,7 @@ def setup_2fa(
     import base64
     
     # Verificar se já existe configuração 2FA
-    existing_2fa = crud.get_user_2fa(db=db, user_id=current_user.id)
+    existing_2fa = crud_supabase.get_user_2fa(user_id=current_user.id, clinic_id=current_user.clinic_id)
     if existing_2fa and existing_2fa.is_enabled:
         raise HTTPException(status_code=400, detail="2FA já está habilitado")
     
@@ -4334,9 +4259,9 @@ def setup_2fa(
     
     # Criar ou atualizar registro 2FA
     if existing_2fa:
-        crud.update_user_2fa(db=db, user_id=current_user.id, secret_key=secret_key)
+        crud_supabase.update_user_2fa(user_id=current_user.id, secret_key=secret_key, clinic_id=current_user.clinic_id)
     else:
-        crud.create_user_2fa(db=db, user_id=current_user.id, secret_key=secret_key)
+        crud_supabase.create_user_2fa(user_id=current_user.id, secret_key=secret_key, clinic_id=current_user.clinic_id)
     
     # Gerar QR Code
     totp_uri = pyotp.totp.TOTP(secret_key).provisioning_uri(
@@ -4362,13 +4287,12 @@ def setup_2fa(
 @app.post("/auth/2fa/verify")
 def verify_2fa(
     token: str,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Verificar e ativar 2FA"""
     import pyotp
     
-    user_2fa = crud.get_user_2fa(db=db, user_id=current_user.id)
+    user_2fa = crud_supabase.get_user_2fa(user_id=current_user.id, clinic_id=current_user.clinic_id)
     if not user_2fa or not user_2fa.secret_key:
         raise HTTPException(status_code=400, detail="2FA não configurado")
     
@@ -4378,56 +4302,52 @@ def verify_2fa(
         raise HTTPException(status_code=400, detail="Token inválido")
     
     # Ativar 2FA
-    crud.enable_user_2fa(db=db, user_id=current_user.id)
+    crud_supabase.enable_user_2fa(user_id=current_user.id, clinic_id=current_user.clinic_id)
     
     return {"message": "2FA ativado com sucesso"}
 
 @app.post("/auth/2fa/disable")
 def disable_2fa(
     password: str,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Desativar 2FA"""
     # Verificar senha atual
     if not auth.verify_password(password, current_user.hashed_password):
         raise HTTPException(status_code=400, detail="Senha incorreta")
     
-    crud.disable_user_2fa(db=db, user_id=current_user.id)
+    crud_supabase.disable_user_2fa(user_id=current_user.id, clinic_id=current_user.clinic_id)
     
     return {"message": "2FA desativado com sucesso"}
 
 # User Session endpoints
 @app.get("/auth/sessions", response_model=List[schemas.UserSession])
 def get_user_sessions(
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Listar sessões ativas do usuário"""
-    return crud.get_user_sessions(db=db, user_id=current_user.id)
+    return crud_supabase.get_user_sessions(user_id=current_user.id, clinic_id=current_user.clinic_id)
 
 @app.delete("/auth/sessions/{session_id}")
 def revoke_session(
     session_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Revogar sessão específica"""
-    session = crud.get_user_session(db=db, session_id=session_id)
+    session = crud_supabase.get_user_session(session_id=session_id, clinic_id=current_user.clinic_id)
     if not session or session.user_id != current_user.id:
         raise HTTPException(status_code=404, detail="Sessão não encontrada")
     
-    crud.revoke_user_session(db=db, session_id=session_id)
+    crud_supabase.revoke_user_session(session_id=session_id, clinic_id=current_user.clinic_id)
     
     return {"message": "Sessão revogada com sucesso"}
 
 @app.delete("/auth/sessions")
 def revoke_all_sessions(
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Revogar todas as sessões do usuário"""
-    crud.revoke_all_user_sessions(db=db, user_id=current_user.id)
+    crud_supabase.revoke_all_user_sessions(user_id=current_user.id, clinic_id=current_user.clinic_id)
     
     return {"message": "Todas as sessões foram revogadas"}
 
@@ -4440,12 +4360,10 @@ def get_security_events(
     end_date: Optional[datetime] = None,
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin", "security"]))
+    current_user: models.User = Depends(auth.check_permission_supabase(["admin", "security"]))
 ):
     """Listar eventos de segurança"""
-    return crud.get_security_events(
-        db=db,
+    return crud_supabase.get_security_events(
         clinic_id=current_user.clinic_id,
         event_type=event_type,
         severity=severity,
@@ -4459,12 +4377,10 @@ def get_security_events(
 @app.post("/security/access-control/", response_model=schemas.AccessControl)
 def create_access_control(
     access: schemas.AccessControlCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin"]))
+    current_user: models.User = Depends(auth.check_permission_supabase(["admin"]))
 ):
     """Criar controle de acesso"""
-    return crud.create_access_control(
-        db=db, 
+    return crud_supabase.create_access_control(
         access=access, 
         clinic_id=current_user.clinic_id
     )
@@ -4475,12 +4391,10 @@ def get_access_controls(
     resource_type: Optional[str] = None,
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin"]))
+    current_user: models.User = Depends(auth.check_permission_supabase(["admin"]))
 ):
     """Listar controles de acesso"""
-    return crud.get_access_controls(
-        db=db,
+    return crud_supabase.get_access_controls(
         clinic_id=current_user.clinic_id,
         user_id=user_id,
         resource_type=resource_type,
@@ -4492,12 +4406,10 @@ def get_access_controls(
 @app.post("/auth/api-keys/", response_model=schemas.ApiKey)
 def create_api_key(
     api_key: schemas.ApiKeyCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Criar chave de API"""
-    return crud.create_api_key(
-        db=db, 
+    return crud_supabase.create_api_key(
         api_key=api_key, 
         clinic_id=current_user.clinic_id
     )
@@ -4506,13 +4418,12 @@ def create_api_key(
 def get_api_keys(
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Listar chaves de API do usuário"""
-    return crud.get_user_api_keys(
-        db=db,
+    return crud_supabase.get_user_api_keys(
         user_id=current_user.id,
+        clinic_id=current_user.clinic_id,
         skip=skip,
         limit=limit
     )
@@ -4525,12 +4436,10 @@ def get_api_keys(
 @app.post("/integrations/", response_model=schemas.ExternalIntegration)
 def create_external_integration(
     integration: schemas.ExternalIntegrationCreate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin"]))
+    current_user: models.User = Depends(auth.check_permission_supabase(["admin"]))
 ):
     """Criar integração externa"""
-    return crud.create_external_integration(
-        db=db, 
+    return crud_supabase.create_external_integration(
         integration=integration, 
         clinic_id=current_user.clinic_id
     )
@@ -4541,12 +4450,10 @@ def get_external_integrations(
     is_active: Optional[bool] = None,
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Listar integrações externas"""
-    return crud.get_external_integrations(
-        db=db,
+    return crud_supabase.get_external_integrations(
         clinic_id=current_user.clinic_id,
         integration_type=integration_type,
         is_active=is_active,
@@ -4558,19 +4465,18 @@ def get_external_integrations(
 def sync_external_integration(
     integration_id: int,
     sync_type: str = "bidirectional",
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin"]))
+    current_user: models.User = Depends(auth.check_permission_supabase(["admin"]))
 ):
     """Sincronizar integração externa"""
-    integration = crud.get_external_integration(db=db, integration_id=integration_id)
+    integration = crud_supabase.get_external_integration(integration_id=integration_id, clinic_id=current_user.clinic_id)
     if not integration or integration.clinic_id != current_user.clinic_id:
         raise HTTPException(status_code=404, detail="Integração não encontrada")
     
     # Iniciar processo de sincronização
-    sync_log = crud.start_integration_sync(
-        db=db,
+    sync_log = crud_supabase.start_integration_sync(
         integration_id=integration_id,
-        sync_type=sync_type
+        sync_type=sync_type,
+        clinic_id=current_user.clinic_id
     )
     
     return {
@@ -4581,15 +4487,13 @@ def sync_external_integration(
 # Tenant Configuration endpoints
 @app.get("/tenant/configuration", response_model=schemas.TenantConfiguration)
 def get_tenant_configuration(
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Obter configuração do tenant"""
-    config = crud.get_tenant_configuration(db=db, clinic_id=current_user.clinic_id)
+    config = crud_supabase.get_tenant_configuration(clinic_id=current_user.clinic_id)
     if not config:
         # Criar configuração padrão se não existir
-        config = crud.create_default_tenant_configuration(
-            db=db, 
+        config = crud_supabase.create_default_tenant_configuration(
             clinic_id=current_user.clinic_id
         )
     
@@ -4598,12 +4502,10 @@ def get_tenant_configuration(
 @app.put("/tenant/configuration", response_model=schemas.TenantConfiguration)
 def update_tenant_configuration(
     config: schemas.TenantConfigurationUpdate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin"]))
+    current_user: models.User = Depends(auth.check_permission_supabase(["admin"]))
 ):
     """Atualizar configuração do tenant"""
-    return crud.update_tenant_configuration(
-        db=db,
+    return crud_supabase.update_tenant_configuration(
         clinic_id=current_user.clinic_id,
         config=config
     )
@@ -4615,12 +4517,10 @@ def get_system_notifications(
     priority: Optional[str] = None,
     skip: int = 0,
     limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Listar notificações do sistema"""
-    return crud.get_system_notifications(
-        db=db,
+    return crud_supabase.get_system_notifications(
         clinic_id=current_user.clinic_id,
         user_id=current_user.id,
         is_read=is_read,
@@ -4632,23 +4532,20 @@ def get_system_notifications(
 @app.put("/notifications/{notification_id}/read")
 def mark_notification_as_read(
     notification_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Marcar notificação como lida"""
-    crud.mark_notification_as_read(db=db, notification_id=notification_id)
+    crud_supabase.mark_notification_as_read(notification_id=notification_id, clinic_id=current_user.clinic_id)
     
     return {"message": "Notificação marcada como lida"}
 
 # Feature Flag endpoints
 @app.get("/features/flags", response_model=List[schemas.FeatureFlag])
 def get_feature_flags(
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Listar feature flags ativas para o usuário/clínica"""
-    return crud.get_active_feature_flags(
-        db=db,
+    return crud_supabase.get_active_feature_flags(
         clinic_id=current_user.clinic_id,
         user_id=current_user.id
     )
@@ -4656,12 +4553,10 @@ def get_feature_flags(
 @app.get("/features/flags/{flag_name}/enabled")
 def is_feature_enabled(
     flag_name: str,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    current_user: models.User = Depends(auth.get_current_active_user_supabase)
 ):
     """Verificar se uma feature está habilitada"""
-    enabled = crud.is_feature_enabled(
-        db=db,
+    enabled = crud_supabase.is_feature_enabled(
         flag_name=flag_name,
         clinic_id=current_user.clinic_id,
         user_id=current_user.id
@@ -4676,12 +4571,11 @@ def get_system_metrics(
     end_date: Optional[date] = None,
     skip: int = 0,
     limit: int = 30,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin"]))
+    current_user: models.User = Depends(auth.check_permission_supabase(["admin"]))
 ):
     """Obter métricas do sistema (apenas admins)"""
-    return crud.get_system_metrics(
-        db=db,
+    return crud_supabase.get_system_metrics(
+        clinic_id=current_user.clinic_id,
         start_date=start_date,
         end_date=end_date,
         skip=skip,
@@ -4690,11 +4584,10 @@ def get_system_metrics(
 
 @app.get("/admin/metrics/dashboard")
 def get_metrics_dashboard(
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.check_permission(["admin"]))
+    current_user: models.User = Depends(auth.check_permission_supabase(["admin"]))
 ):
     """Dashboard de métricas do sistema"""
-    today_metrics = crud.get_latest_system_metrics(db=db)
+    today_metrics = crud_supabase.get_latest_system_metrics(clinic_id=current_user.clinic_id)
     
     if not today_metrics:
         return {
@@ -4704,6 +4597,6 @@ def get_metrics_dashboard(
     
     return {
         "current_metrics": today_metrics,
-        "trends": crud.get_metrics_trends(db=db, days=30),
-        "alerts": crud.get_metrics_alerts(db=db)
+        "trends": crud_supabase.get_metrics_trends(clinic_id=current_user.clinic_id, days=30),
+        "alerts": crud_supabase.get_metrics_alerts(clinic_id=current_user.clinic_id)
     }

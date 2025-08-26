@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, Text, Boolean, ForeignKey, Date, Numeric, JSON, Time
+from sqlalchemy import Column, Integer, String, DateTime, Text, Boolean, ForeignKey, Date, Numeric, JSON, Time, UniqueConstraint
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from datetime import datetime
@@ -956,30 +956,7 @@ class BillingBatch(Base):
     items = relationship("BillingItem", back_populates="batch")
     glosses = relationship("BillingGloss", back_populates="batch")
 
-class BillingItem(Base):
-    __tablename__ = "billing_items"
-    
-    id = Column(Integer, primary_key=True, index=True)
-    batch_id = Column(Integer, ForeignKey("billing_batches.id"))
-    appointment_id = Column(Integer, ForeignKey("appointments.id"))
-    procedure_id = Column(Integer, ForeignKey("tuss_procedures.id"))
-    patient_id = Column(Integer, ForeignKey("patients.id"))
-    doctor_id = Column(Integer, ForeignKey("doctors.id"))
-    service_date = Column(Date)
-    quantity = Column(Integer, default=1)
-    unit_price = Column(Numeric(10, 2))
-    total_amount = Column(Numeric(10, 2))
-    authorization_number = Column(String)
-    guide_number = Column(String)
-    status = Column(String, default="pending")  # pending, approved, rejected, glossed
-    rejection_reason = Column(Text)
-    
-    # Relacionamentos
-    batch = relationship("BillingBatch", back_populates="items")
-    appointment = relationship("Appointment")
-    procedure = relationship("TussProcedure", back_populates="billing_items")
-    patient = relationship("Patient")
-    doctor = relationship("Doctor")
+# BillingItem removido - definição duplicada, mantida apenas a versão para internação
 
 class BillingGloss(Base):
     __tablename__ = "billing_glosses"
@@ -1253,6 +1230,328 @@ class AuditLog(Base):
     # Relacionamentos
     clinic = relationship("Clinic")
     user = relationship("User")
+
+# ============================================================================
+# SISTEMA DE PERMISSÕES GRANULARES
+# ============================================================================
+
+class UserRole(Base):
+    __tablename__ = "user_roles"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    clinic_id = Column(Integer, ForeignKey("clinics.id"), nullable=False)
+    name = Column(String(100), nullable=False)  # Admin, Médico, Enfermeiro, Recepcionista, etc.
+    code = Column(String(50), nullable=False)  # ADMIN, DOCTOR, NURSE, RECEPTIONIST
+    description = Column(Text)
+    is_system_role = Column(Boolean, default=False)  # Roles do sistema não podem ser deletadas
+    is_active = Column(Boolean, default=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # Relacionamentos
+    clinic = relationship("Clinic")
+    permissions = relationship("RolePermission", back_populates="role")
+    user_assignments = relationship("UserRoleAssignment", back_populates="role")
+
+class Module(Base):
+    __tablename__ = "modules"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(100), nullable=False, unique=True)  # Pacientes, Agendamentos, Financeiro, etc.
+    code = Column(String(50), nullable=False, unique=True)  # PATIENTS, APPOINTMENTS, FINANCIAL
+    description = Column(Text)
+    parent_module_id = Column(Integer, ForeignKey("modules.id"))  # Para submódulos
+    icon = Column(String(100))  # Ícone do módulo
+    route = Column(String(255))  # Rota no frontend
+    is_active = Column(Boolean, default=True)
+    sort_order = Column(Integer, default=0)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    
+    # Relacionamentos
+    parent_module = relationship("Module", remote_side=[id])
+    submodules = relationship("Module")
+    permissions = relationship("RolePermission", back_populates="module")
+
+class RolePermission(Base):
+    __tablename__ = "role_permissions"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    role_id = Column(Integer, ForeignKey("user_roles.id"), nullable=False)
+    module_id = Column(Integer, ForeignKey("modules.id"), nullable=False)
+    can_view = Column(Boolean, default=False)
+    can_create = Column(Boolean, default=False)
+    can_edit = Column(Boolean, default=False)
+    can_delete = Column(Boolean, default=False)
+    can_export = Column(Boolean, default=False)
+    can_import = Column(Boolean, default=False)
+    custom_permissions = Column(JSON)  # Permissões específicas do módulo
+    created_at = Column(DateTime, default=datetime.utcnow)
+    
+    # Relacionamentos
+    role = relationship("UserRole", back_populates="permissions")
+    module = relationship("Module", back_populates="permissions")
+    
+    # Índice único para evitar duplicatas
+    __table_args__ = (UniqueConstraint('role_id', 'module_id', name='_role_module_uc'),)
+
+class UserRoleAssignment(Base):
+    __tablename__ = "user_role_assignments"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    role_id = Column(Integer, ForeignKey("user_roles.id"), nullable=False)
+    assigned_by = Column(Integer, ForeignKey("users.id"), nullable=False)
+    assigned_at = Column(DateTime, default=datetime.utcnow)
+    expires_at = Column(DateTime)  # Data de expiração da atribuição
+    is_active = Column(Boolean, default=True)
+    
+    # Relacionamentos
+    user = relationship("User", foreign_keys=[user_id])
+    role = relationship("UserRole", back_populates="user_assignments")
+    assigner = relationship("User", foreign_keys=[assigned_by])
+    
+    # Índice único para evitar duplicatas
+    __table_args__ = (UniqueConstraint('user_id', 'role_id', name='_user_role_uc'),)
+
+# ============================================================================
+# SISTEMA DE LEITOS E QUARTOS
+# ============================================================================
+
+class Room(Base):
+    __tablename__ = "rooms"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    clinic_id = Column(Integer, ForeignKey("clinics.id"), nullable=False)
+    department_id = Column(Integer, ForeignKey("departments.id"), nullable=False)
+    room_number = Column(String(20), nullable=False)  # Número do quarto
+    room_name = Column(String(100))  # Nome do quarto
+    room_type = Column(String(50), nullable=False)  # individual, duplo, enfermaria, isolamento
+    gender_restriction = Column(String(20))  # masculino, feminino, misto
+    capacity = Column(Integer, nullable=False, default=1)  # Capacidade máxima de leitos
+    floor = Column(String(20))  # Andar
+    wing = Column(String(50))  # Ala do hospital
+    has_bathroom = Column(Boolean, default=True)
+    has_air_conditioning = Column(Boolean, default=False)
+    has_tv = Column(Boolean, default=False)
+    has_wifi = Column(Boolean, default=False)
+    accessibility_features = Column(JSON)  # Recursos de acessibilidade
+    daily_rate = Column(Numeric(10, 2))  # Diária base do quarto
+    is_active = Column(Boolean, default=True)
+    notes = Column(Text)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # Relacionamentos
+    clinic = relationship("Clinic")
+    department = relationship("Department")
+    beds = relationship("Bed", back_populates="room")
+    
+    # Índice único para número do quarto por clínica
+    __table_args__ = (UniqueConstraint('clinic_id', 'room_number', name='_clinic_room_number_uc'),)
+
+class Bed(Base):
+    __tablename__ = "beds"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    clinic_id = Column(Integer, ForeignKey("clinics.id"), nullable=False)
+    room_id = Column(Integer, ForeignKey("rooms.id"), nullable=False)
+    bed_number = Column(String(20), nullable=False)  # Número do leito
+    bed_name = Column(String(100))  # Nome/identificação do leito
+    bed_type = Column(String(50), default="standard")  # standard, uti, semi_uti, isolamento
+    status = Column(String(50), default="available")  # available, occupied, maintenance, blocked, cleaning
+    is_active = Column(Boolean, default=True)
+    equipment = Column(JSON)  # Equipamentos disponíveis no leito
+    notes = Column(Text)
+    last_maintenance = Column(DateTime)
+    next_maintenance = Column(DateTime)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # Relacionamentos
+    clinic = relationship("Clinic")
+    room = relationship("Room", back_populates="beds")
+    status_history = relationship("BedStatusHistory", back_populates="bed")
+    admissions = relationship("PatientAdmission", back_populates="bed")
+    transfers = relationship("BedTransfer", back_populates="bed")
+    
+    # Índice único para número do leito por quarto
+    __table_args__ = (UniqueConstraint('room_id', 'bed_number', name='_room_bed_number_uc'),)
+
+class BedStatusHistory(Base):
+    __tablename__ = "bed_status_history"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    bed_id = Column(Integer, ForeignKey("beds.id"), nullable=False)
+    previous_status = Column(String(50))
+    new_status = Column(String(50), nullable=False)
+    changed_by = Column(Integer, ForeignKey("users.id"), nullable=False)
+    change_reason = Column(String(255))
+    notes = Column(Text)
+    changed_at = Column(DateTime, default=datetime.utcnow)
+    
+    # Relacionamentos
+    bed = relationship("Bed", back_populates="status_history")
+    user = relationship("User")
+
+# ============================================================================
+# SISTEMA DE INTERNAÇÃO
+# ============================================================================
+
+class PatientAdmission(Base):
+    __tablename__ = "patient_admissions"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    clinic_id = Column(Integer, ForeignKey("clinics.id"), nullable=False)
+    patient_id = Column(Integer, ForeignKey("patients.id"), nullable=False)
+    bed_id = Column(Integer, ForeignKey("beds.id"), nullable=False)
+    admission_number = Column(String(50), unique=True, index=True, nullable=False)
+    
+    # Datas da internação
+    admission_date = Column(DateTime, nullable=False)
+    expected_discharge_date = Column(DateTime)
+    actual_discharge_date = Column(DateTime)
+    
+    # Informações médicas
+    admission_reason = Column(Text, nullable=False)
+    admission_diagnosis = Column(Text)
+    discharge_diagnosis = Column(Text)
+    treatment_plan = Column(Text)
+    discharge_summary = Column(Text)
+    
+    # Status da internação
+    status = Column(String(50), default="active")  # active, discharged, transferred, deceased
+    admission_type = Column(String(50), nullable=False)  # emergency, elective, transfer
+    discharge_type = Column(String(50))  # medical_discharge, transfer, death, evasion
+    
+    # Responsáveis
+    admitting_doctor_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    attending_doctor_id = Column(Integer, ForeignKey("users.id"))
+    discharging_doctor_id = Column(Integer, ForeignKey("users.id"))
+    
+    # Informações financeiras
+    insurance_plan_id = Column(Integer, ForeignKey("insurance_plans.id"))
+    payment_method = Column(String(50))  # particular, convenio, sus
+    estimated_cost = Column(Numeric(15, 2))
+    total_cost = Column(Numeric(15, 2))
+    
+    # Observações
+    notes = Column(Text)
+    family_contact = Column(JSON)  # Informações de contato da família
+    
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # Relacionamentos
+    clinic = relationship("Clinic")
+    patient = relationship("Patient")
+    bed = relationship("Bed", back_populates="admissions")
+    admitting_doctor = relationship("User", foreign_keys=[admitting_doctor_id])
+    attending_doctor = relationship("User", foreign_keys=[attending_doctor_id])
+    discharging_doctor = relationship("User", foreign_keys=[discharging_doctor_id])
+    insurance_plan = relationship("InsurancePlan")
+    transfers = relationship("BedTransfer", back_populates="admission")
+    billing = relationship("AdmissionBilling", back_populates="admission")
+
+class BedTransfer(Base):
+    __tablename__ = "bed_transfers"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    admission_id = Column(Integer, ForeignKey("patient_admissions.id"), nullable=False)
+    from_bed_id = Column(Integer, ForeignKey("beds.id"), nullable=False)
+    to_bed_id = Column(Integer, ForeignKey("beds.id"), nullable=False)
+    transfer_date = Column(DateTime, default=datetime.utcnow)
+    transfer_reason = Column(String(255), nullable=False)
+    notes = Column(Text)
+    authorized_by = Column(Integer, ForeignKey("users.id"), nullable=False)
+    
+    # Relacionamentos
+    admission = relationship("PatientAdmission", back_populates="transfers")
+    from_bed = relationship("Bed", foreign_keys=[from_bed_id])
+    bed = relationship("Bed", back_populates="transfers", foreign_keys=[to_bed_id])
+    authorizer = relationship("User")
+
+class DailyRateConfig(Base):
+    __tablename__ = "daily_rate_configs"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    clinic_id = Column(Integer, ForeignKey("clinics.id"), nullable=False)
+    name = Column(String(100), nullable=False)  # Nome da configuração
+    description = Column(Text)
+    room_type = Column(String(50))  # Tipo de quarto aplicável
+    payment_method = Column(String(50))  # Método de pagamento aplicável
+    is_active = Column(Boolean, default=True)
+    effective_date = Column(Date, nullable=False)
+    expiry_date = Column(Date)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # Relacionamentos
+    clinic = relationship("Clinic")
+    rate_tiers = relationship("DailyRateTier", back_populates="config")
+
+class DailyRateTier(Base):
+    __tablename__ = "daily_rate_tiers"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    config_id = Column(Integer, ForeignKey("daily_rate_configs.id"), nullable=False)
+    tier_name = Column(String(100), nullable=False)  # Primeira semana, Segunda semana, etc.
+    day_from = Column(Integer, nullable=False)  # Dia inicial (1, 8, 15, etc.)
+    day_to = Column(Integer)  # Dia final (7, 14, null para ilimitado)
+    daily_rate = Column(Numeric(10, 2), nullable=False)  # Valor da diária
+    is_weekend_rate = Column(Boolean, default=False)  # Taxa diferenciada para fins de semana
+    weekend_rate = Column(Numeric(10, 2))  # Valor da diária no fim de semana
+    
+    # Relacionamentos
+    config = relationship("DailyRateConfig", back_populates="rate_tiers")
+
+class AdmissionBilling(Base):
+    __tablename__ = "admission_billing"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    admission_id = Column(Integer, ForeignKey("patient_admissions.id"), nullable=False)
+    billing_date = Column(Date, nullable=False)
+    
+    # Valores calculados
+    total_days = Column(Integer, nullable=False)
+    daily_rate_amount = Column(Numeric(15, 2), default=0)
+    procedures_amount = Column(Numeric(15, 2), default=0)
+    medications_amount = Column(Numeric(15, 2), default=0)
+    exams_amount = Column(Numeric(15, 2), default=0)
+    other_charges = Column(Numeric(15, 2), default=0)
+    discounts = Column(Numeric(15, 2), default=0)
+    total_amount = Column(Numeric(15, 2), nullable=False)
+    
+    # Status do faturamento
+    status = Column(String(50), default="pending")  # pending, sent, paid, cancelled
+    sent_date = Column(Date)
+    payment_date = Column(Date)
+    
+    # Observações
+    notes = Column(Text)
+    billing_details = Column(JSON)  # Detalhamento dos itens cobrados
+    
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # Relacionamentos
+    admission = relationship("PatientAdmission", back_populates="billing")
+    billing_items = relationship("BillingItem", back_populates="billing")
+
+class BillingItem(Base):
+    __tablename__ = "billing_items"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    billing_id = Column(Integer, ForeignKey("admission_billing.id"), nullable=False)
+    item_type = Column(String(50), nullable=False)  # daily_rate, procedure, medication, exam, other
+    item_code = Column(String(50))  # Código do item (TUSS, CBHPM, etc.)
+    item_description = Column(String(255), nullable=False)
+    quantity = Column(Numeric(10, 3), default=1)
+    unit_price = Column(Numeric(10, 2), nullable=False)
+    total_price = Column(Numeric(15, 2), nullable=False)
+    service_date = Column(Date, nullable=False)
+    
+    # Relacionamentos
+    billing = relationship("AdmissionBilling", back_populates="billing_items")
 
 # ============================================================================
 # ETAPA 2.4 - GESTÃO DE ACOMPANHANTES E VISITANTES
@@ -2134,10 +2433,11 @@ class Department(Base):
     # Relacionamentos
     clinic = relationship("Clinic")
     manager = relationship("User")
-    stock_movements = relationship("ProductStockMovement", foreign_keys="ProductStockMovement.department")
-    requisitions = relationship("StockRequisition", back_populates="requesting_department")
-    transfers_from = relationship("StockTransfer", foreign_keys="StockTransfer.from_department")
-    transfers_to = relationship("StockTransfer", foreign_keys="StockTransfer.to_department")
+    # Relacionamentos removidos pois os campos são String, não FK:
+    # stock_movements = relationship("ProductStockMovement", foreign_keys="ProductStockMovement.department")
+    # requisitions = relationship("StockRequisition", back_populates="requesting_department")
+    # transfers_from = relationship("StockTransfer", foreign_keys="StockTransfer.from_department")
+    # transfers_to = relationship("StockTransfer", foreign_keys="StockTransfer.to_department")
 
 # ============================================================================
 # ETAPA 6 - RELATÓRIOS E BI

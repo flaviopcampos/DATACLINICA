@@ -29,9 +29,9 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
 
 
 # Importações locais
-from database import SessionLocal, engine
-from models_simple import Base, User
-from schemas import Token, UserResponse
+from database_simple import SessionLocal, engine
+from models_simple import Base, User, Clinic
+from schemas import Token, UserResponse, AuthenticationResponse
 
 # Rate Limiting
 from slowapi import Limiter, _rate_limit_exceeded_handler
@@ -134,7 +134,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = De
 
 # Endpoints
 @limiter.limit("5/minute")
-@app.post("/token", response_model=Token)
+@app.post("/token", response_model=AuthenticationResponse)
 async def login_for_access_token(request: Request, form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     user = authenticate_user(db, form_data.username, form_data.password)
     if not user:
@@ -147,7 +147,24 @@ async def login_for_access_token(request: Request, form_data: OAuth2PasswordRequ
     access_token = create_access_token(
         data={"sub": user.email}, expires_delta=access_token_expires
     )
-    return {"access_token": access_token, "token_type": "bearer"}
+    
+    # Buscar dados da clínica se o usuário tiver uma
+    clinic_name = "Sem Clínica"
+    clinic_id = 0
+    if user.clinic_id:
+        clinic = db.query(Clinic).filter(Clinic.id == user.clinic_id).first()
+        if clinic:
+            clinic_name = clinic.name
+            clinic_id = clinic.id
+    
+    return {
+        "access_token": access_token, 
+        "token_type": "bearer",
+        "user_id": user.id,
+        "user_name": user.full_name,
+        "clinic_id": clinic_id,
+        "clinic_name": clinic_name
+    }
 
 @limiter.limit("30/minute")
 @app.get("/users/me", response_model=UserResponse)

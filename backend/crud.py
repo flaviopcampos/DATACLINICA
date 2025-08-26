@@ -3304,3 +3304,528 @@ def update_prescription_medication(db: Session, medication_id: int, medication: 
         db.commit()
         db.refresh(db_medication)
     return db_medication
+
+# ============================================================================
+# CRUD PARA SISTEMA DE PERMISSÕES GRANULARES
+# ============================================================================
+
+# UserRole CRUD
+def get_user_role(db: Session, role_id: int):
+    return db.query(models.UserRole).filter(models.UserRole.id == role_id).first()
+
+def get_user_role_by_code(db: Session, code: str, clinic_id: int):
+    return db.query(models.UserRole).filter(
+        models.UserRole.code == code,
+        models.UserRole.clinic_id == clinic_id
+    ).first()
+
+def get_user_roles(db: Session, clinic_id: int, skip: int = 0, limit: int = 100):
+    return db.query(models.UserRole).filter(
+        models.UserRole.clinic_id == clinic_id,
+        models.UserRole.is_active == True
+    ).offset(skip).limit(limit).all()
+
+def create_user_role(db: Session, role: schemas.UserRoleCreate):
+    db_role = models.UserRole(**role.dict())
+    db.add(db_role)
+    db.commit()
+    db.refresh(db_role)
+    return db_role
+
+def update_user_role(db: Session, role_id: int, role: schemas.UserRoleUpdate):
+    db_role = db.query(models.UserRole).filter(models.UserRole.id == role_id).first()
+    if db_role:
+        update_data = role.dict(exclude_unset=True)
+        for field, value in update_data.items():
+            setattr(db_role, field, value)
+        db_role.updated_at = datetime.utcnow()
+        db.commit()
+        db.refresh(db_role)
+    return db_role
+
+def delete_user_role(db: Session, role_id: int):
+    db_role = db.query(models.UserRole).filter(models.UserRole.id == role_id).first()
+    if db_role:
+        db_role.is_active = False
+        db.commit()
+        db.refresh(db_role)
+    return db_role
+
+# Module CRUD
+def get_module(db: Session, module_id: int):
+    return db.query(models.Module).filter(models.Module.id == module_id).first()
+
+def get_module_by_code(db: Session, code: str):
+    return db.query(models.Module).filter(models.Module.code == code).first()
+
+def get_modules(db: Session, skip: int = 0, limit: int = 100, parent_id: Optional[int] = None):
+    query = db.query(models.Module).filter(models.Module.is_active == True)
+    if parent_id is not None:
+        query = query.filter(models.Module.parent_module_id == parent_id)
+    return query.order_by(models.Module.sort_order).offset(skip).limit(limit).all()
+
+def create_module(db: Session, module: schemas.ModuleCreate):
+    db_module = models.Module(**module.dict())
+    db.add(db_module)
+    db.commit()
+    db.refresh(db_module)
+    return db_module
+
+def update_module(db: Session, module_id: int, module: schemas.ModuleUpdate):
+    db_module = db.query(models.Module).filter(models.Module.id == module_id).first()
+    if db_module:
+        update_data = module.dict(exclude_unset=True)
+        for field, value in update_data.items():
+            setattr(db_module, field, value)
+        db.commit()
+        db.refresh(db_module)
+    return db_module
+
+def delete_module(db: Session, module_id: int):
+    db_module = db.query(models.Module).filter(models.Module.id == module_id).first()
+    if db_module:
+        db_module.is_active = False
+        db.commit()
+        db.refresh(db_module)
+    return db_module
+
+# RolePermission CRUD
+def get_role_permission(db: Session, permission_id: int):
+    return db.query(models.RolePermission).filter(models.RolePermission.id == permission_id).first()
+
+def get_role_permissions(db: Session, role_id: int):
+    return db.query(models.RolePermission).filter(models.RolePermission.role_id == role_id).all()
+
+def get_role_module_permission(db: Session, role_id: int, module_id: int):
+    return db.query(models.RolePermission).filter(
+        models.RolePermission.role_id == role_id,
+        models.RolePermission.module_id == module_id
+    ).first()
+
+def create_role_permission(db: Session, permission: schemas.RolePermissionCreate):
+    db_permission = models.RolePermission(**permission.dict())
+    db.add(db_permission)
+    db.commit()
+    db.refresh(db_permission)
+    return db_permission
+
+def update_role_permission(db: Session, permission_id: int, permission: schemas.RolePermissionUpdate):
+    db_permission = db.query(models.RolePermission).filter(models.RolePermission.id == permission_id).first()
+    if db_permission:
+        update_data = permission.dict(exclude_unset=True)
+        for field, value in update_data.items():
+            setattr(db_permission, field, value)
+        db.commit()
+        db.refresh(db_permission)
+    return db_permission
+
+def delete_role_permission(db: Session, permission_id: int):
+    db_permission = db.query(models.RolePermission).filter(models.RolePermission.id == permission_id).first()
+    if db_permission:
+        db.delete(db_permission)
+        db.commit()
+    return db_permission
+
+# UserRoleAssignment CRUD
+def get_user_role_assignment(db: Session, assignment_id: int):
+    return db.query(models.UserRoleAssignment).filter(models.UserRoleAssignment.id == assignment_id).first()
+
+def get_user_role_assignments(db: Session, user_id: int):
+    return db.query(models.UserRoleAssignment).filter(
+        models.UserRoleAssignment.user_id == user_id,
+        models.UserRoleAssignment.is_active == True
+    ).all()
+
+def create_user_role_assignment(db: Session, assignment: schemas.UserRoleAssignmentCreate):
+    db_assignment = models.UserRoleAssignment(**assignment.dict())
+    db.add(db_assignment)
+    db.commit()
+    db.refresh(db_assignment)
+    return db_assignment
+
+def update_user_role_assignment(db: Session, assignment_id: int, assignment: schemas.UserRoleAssignmentUpdate):
+    db_assignment = db.query(models.UserRoleAssignment).filter(models.UserRoleAssignment.id == assignment_id).first()
+    if db_assignment:
+        update_data = assignment.dict(exclude_unset=True)
+        for field, value in update_data.items():
+            setattr(db_assignment, field, value)
+        db.commit()
+        db.refresh(db_assignment)
+    return db_assignment
+
+def deactivate_user_role_assignment(db: Session, assignment_id: int):
+    db_assignment = db.query(models.UserRoleAssignment).filter(models.UserRoleAssignment.id == assignment_id).first()
+    if db_assignment:
+        db_assignment.is_active = False
+        db.commit()
+        db.refresh(db_assignment)
+    return db_assignment
+
+# ============================================================================
+# CRUD PARA SISTEMA DE LEITOS E QUARTOS
+# ============================================================================
+
+# Room CRUD
+def get_room(db: Session, room_id: int):
+    return db.query(models.Room).filter(models.Room.id == room_id).first()
+
+def get_room_by_number(db: Session, room_number: str, clinic_id: int):
+    return db.query(models.Room).filter(
+        models.Room.room_number == room_number,
+        models.Room.clinic_id == clinic_id
+    ).first()
+
+def get_rooms(db: Session, clinic_id: int, department_id: Optional[int] = None, skip: int = 0, limit: int = 100):
+    query = db.query(models.Room).filter(
+        models.Room.clinic_id == clinic_id,
+        models.Room.is_active == True
+    )
+    if department_id:
+        query = query.filter(models.Room.department_id == department_id)
+    return query.offset(skip).limit(limit).all()
+
+def create_room(db: Session, room: schemas.RoomCreate):
+    db_room = models.Room(**room.dict())
+    db.add(db_room)
+    db.commit()
+    db.refresh(db_room)
+    return db_room
+
+def update_room(db: Session, room_id: int, room: schemas.RoomUpdate):
+    db_room = db.query(models.Room).filter(models.Room.id == room_id).first()
+    if db_room:
+        update_data = room.dict(exclude_unset=True)
+        for field, value in update_data.items():
+            setattr(db_room, field, value)
+        db_room.updated_at = datetime.utcnow()
+        db.commit()
+        db.refresh(db_room)
+    return db_room
+
+def delete_room(db: Session, room_id: int):
+    db_room = db.query(models.Room).filter(models.Room.id == room_id).first()
+    if db_room:
+        db_room.is_active = False
+        db.commit()
+        db.refresh(db_room)
+    return db_room
+
+# Bed CRUD
+def get_bed(db: Session, bed_id: int):
+    return db.query(models.Bed).filter(models.Bed.id == bed_id).first()
+
+def get_bed_by_number(db: Session, bed_number: str, room_id: int):
+    return db.query(models.Bed).filter(
+        models.Bed.bed_number == bed_number,
+        models.Bed.room_id == room_id
+    ).first()
+
+def get_beds(db: Session, clinic_id: int, room_id: Optional[int] = None, status: Optional[str] = None, skip: int = 0, limit: int = 100):
+    query = db.query(models.Bed).filter(
+        models.Bed.clinic_id == clinic_id,
+        models.Bed.is_active == True
+    )
+    if room_id:
+        query = query.filter(models.Bed.room_id == room_id)
+    if status:
+        query = query.filter(models.Bed.status == status)
+    return query.offset(skip).limit(limit).all()
+
+def get_available_beds(db: Session, clinic_id: int, room_type: Optional[str] = None):
+    query = db.query(models.Bed).join(models.Room).filter(
+        models.Bed.clinic_id == clinic_id,
+        models.Bed.status == "available",
+        models.Bed.is_active == True,
+        models.Room.is_active == True
+    )
+    if room_type:
+        query = query.filter(models.Room.room_type == room_type)
+    return query.all()
+
+def create_bed(db: Session, bed: schemas.BedCreate):
+    db_bed = models.Bed(**bed.dict())
+    db.add(db_bed)
+    db.commit()
+    db.refresh(db_bed)
+    return db_bed
+
+def update_bed(db: Session, bed_id: int, bed: schemas.BedUpdate):
+    db_bed = db.query(models.Bed).filter(models.Bed.id == bed_id).first()
+    if db_bed:
+        # Registrar mudança de status se necessário
+        old_status = db_bed.status
+        update_data = bed.dict(exclude_unset=True)
+        
+        for field, value in update_data.items():
+            setattr(db_bed, field, value)
+        
+        db_bed.updated_at = datetime.utcnow()
+        db.commit()
+        db.refresh(db_bed)
+        
+        # Se o status mudou, criar histórico
+        if 'status' in update_data and old_status != update_data['status']:
+            create_bed_status_history(db, schemas.BedStatusHistoryCreate(
+                bed_id=bed_id,
+                previous_status=old_status,
+                new_status=update_data['status'],
+                change_reason="Status atualizado via API",
+                changed_by=1  # TODO: Pegar do contexto do usuário
+            ))
+    return db_bed
+
+def delete_bed(db: Session, bed_id: int):
+    db_bed = db.query(models.Bed).filter(models.Bed.id == bed_id).first()
+    if db_bed:
+        db_bed.is_active = False
+        db.commit()
+        db.refresh(db_bed)
+    return db_bed
+
+# BedStatusHistory CRUD
+def get_bed_status_history(db: Session, bed_id: int, skip: int = 0, limit: int = 100):
+    return db.query(models.BedStatusHistory).filter(
+        models.BedStatusHistory.bed_id == bed_id
+    ).order_by(models.BedStatusHistory.changed_at.desc()).offset(skip).limit(limit).all()
+
+def create_bed_status_history(db: Session, history: schemas.BedStatusHistoryCreate):
+    db_history = models.BedStatusHistory(**history.dict())
+    db.add(db_history)
+    db.commit()
+    db.refresh(db_history)
+    return db_history
+
+# ============================================================================
+# CRUD PARA SISTEMA DE INTERNAÇÃO
+# ============================================================================
+
+# PatientAdmission CRUD
+def get_patient_admission(db: Session, admission_id: int):
+    return db.query(models.PatientAdmission).filter(models.PatientAdmission.id == admission_id).first()
+
+def get_patient_admission_by_number(db: Session, admission_number: str, clinic_id: int):
+    return db.query(models.PatientAdmission).filter(
+        models.PatientAdmission.admission_number == admission_number,
+        models.PatientAdmission.clinic_id == clinic_id
+    ).first()
+
+def get_patient_admissions(db: Session, clinic_id: int, patient_id: Optional[int] = None, status: Optional[str] = None, skip: int = 0, limit: int = 100):
+    query = db.query(models.PatientAdmission).filter(models.PatientAdmission.clinic_id == clinic_id)
+    if patient_id:
+        query = query.filter(models.PatientAdmission.patient_id == patient_id)
+    if status:
+        query = query.filter(models.PatientAdmission.status == status)
+    return query.order_by(models.PatientAdmission.admission_date.desc()).offset(skip).limit(limit).all()
+
+def get_active_admissions(db: Session, clinic_id: int):
+    return db.query(models.PatientAdmission).filter(
+        models.PatientAdmission.clinic_id == clinic_id,
+        models.PatientAdmission.status == "active"
+    ).all()
+
+def create_patient_admission(db: Session, admission: schemas.PatientAdmissionCreate):
+    # Marcar leito como ocupado
+    bed = db.query(models.Bed).filter(models.Bed.id == admission.bed_id).first()
+    if bed:
+        bed.status = "occupied"
+        
+        # Criar histórico de mudança de status do leito
+        create_bed_status_history(db, schemas.BedStatusHistoryCreate(
+            bed_id=admission.bed_id,
+            previous_status="available",
+            new_status="occupied",
+            change_reason="Paciente internado",
+            changed_by=admission.admitting_doctor_id
+        ))
+    
+    db_admission = models.PatientAdmission(**admission.dict())
+    db.add(db_admission)
+    db.commit()
+    db.refresh(db_admission)
+    return db_admission
+
+def update_patient_admission(db: Session, admission_id: int, admission: schemas.PatientAdmissionUpdate):
+    db_admission = db.query(models.PatientAdmission).filter(models.PatientAdmission.id == admission_id).first()
+    if db_admission:
+        update_data = admission.dict(exclude_unset=True)
+        
+        # Se está sendo dado alta, liberar o leito
+        if 'status' in update_data and update_data['status'] in ['discharged', 'transferred', 'deceased']:
+            bed = db.query(models.Bed).filter(models.Bed.id == db_admission.bed_id).first()
+            if bed:
+                bed.status = "cleaning"  # Leito precisa ser limpo antes de ficar disponível
+                create_bed_status_history(db, schemas.BedStatusHistoryCreate(
+                    bed_id=db_admission.bed_id,
+                    previous_status="occupied",
+                    new_status="cleaning",
+                    change_reason=f"Paciente {update_data['status']}",
+                    changed_by=1  # TODO: Pegar do contexto do usuário
+                ))
+        
+        for field, value in update_data.items():
+            setattr(db_admission, field, value)
+        
+        db_admission.updated_at = datetime.utcnow()
+        db.commit()
+        db.refresh(db_admission)
+    return db_admission
+
+# BedTransfer CRUD
+def get_bed_transfers(db: Session, admission_id: int):
+    return db.query(models.BedTransfer).filter(
+        models.BedTransfer.admission_id == admission_id
+    ).order_by(models.BedTransfer.transfer_date.desc()).all()
+
+def create_bed_transfer(db: Session, transfer: schemas.BedTransferCreate):
+    # Liberar leito anterior
+    from_bed = db.query(models.Bed).filter(models.Bed.id == transfer.from_bed_id).first()
+    if from_bed:
+        from_bed.status = "cleaning"
+        create_bed_status_history(db, schemas.BedStatusHistoryCreate(
+            bed_id=transfer.from_bed_id,
+            previous_status="occupied",
+            new_status="cleaning",
+            change_reason="Transferência de paciente",
+            changed_by=transfer.authorized_by
+        ))
+    
+    # Ocupar novo leito
+    to_bed = db.query(models.Bed).filter(models.Bed.id == transfer.to_bed_id).first()
+    if to_bed:
+        to_bed.status = "occupied"
+        create_bed_status_history(db, schemas.BedStatusHistoryCreate(
+            bed_id=transfer.to_bed_id,
+            previous_status="available",
+            new_status="occupied",
+            change_reason="Recebimento de paciente transferido",
+            changed_by=transfer.authorized_by
+        ))
+    
+    # Atualizar internação com novo leito
+    admission = db.query(models.PatientAdmission).filter(models.PatientAdmission.id == transfer.admission_id).first()
+    if admission:
+        admission.bed_id = transfer.to_bed_id
+    
+    # Criar registro de transferência
+    transfer_data = transfer.dict()
+    if not transfer_data.get('transfer_date'):
+        transfer_data['transfer_date'] = datetime.utcnow()
+    
+    db_transfer = models.BedTransfer(**transfer_data)
+    db.add(db_transfer)
+    db.commit()
+    db.refresh(db_transfer)
+    return db_transfer
+
+# DailyRateConfig CRUD
+def get_daily_rate_config(db: Session, config_id: int):
+    return db.query(models.DailyRateConfig).filter(models.DailyRateConfig.id == config_id).first()
+
+def get_daily_rate_configs(db: Session, clinic_id: int, is_active: bool = True, skip: int = 0, limit: int = 100):
+    query = db.query(models.DailyRateConfig).filter(models.DailyRateConfig.clinic_id == clinic_id)
+    if is_active is not None:
+        query = query.filter(models.DailyRateConfig.is_active == is_active)
+    return query.offset(skip).limit(limit).all()
+
+def create_daily_rate_config(db: Session, config: schemas.DailyRateConfigCreate):
+    db_config = models.DailyRateConfig(**config.dict())
+    db.add(db_config)
+    db.commit()
+    db.refresh(db_config)
+    return db_config
+
+def update_daily_rate_config(db: Session, config_id: int, config: schemas.DailyRateConfigUpdate):
+    db_config = db.query(models.DailyRateConfig).filter(models.DailyRateConfig.id == config_id).first()
+    if db_config:
+        update_data = config.dict(exclude_unset=True)
+        for field, value in update_data.items():
+            setattr(db_config, field, value)
+        db_config.updated_at = datetime.utcnow()
+        db.commit()
+        db.refresh(db_config)
+    return db_config
+
+# DailyRateTier CRUD
+def get_daily_rate_tiers(db: Session, config_id: int):
+    return db.query(models.DailyRateTier).filter(
+        models.DailyRateTier.config_id == config_id
+    ).order_by(models.DailyRateTier.day_from).all()
+
+def create_daily_rate_tier(db: Session, tier: schemas.DailyRateTierCreate):
+    db_tier = models.DailyRateTier(**tier.dict())
+    db.add(db_tier)
+    db.commit()
+    db.refresh(db_tier)
+    return db_tier
+
+def update_daily_rate_tier(db: Session, tier_id: int, tier: schemas.DailyRateTierUpdate):
+    db_tier = db.query(models.DailyRateTier).filter(models.DailyRateTier.id == tier_id).first()
+    if db_tier:
+        update_data = tier.dict(exclude_unset=True)
+        for field, value in update_data.items():
+            setattr(db_tier, field, value)
+        db.commit()
+        db.refresh(db_tier)
+    return db_tier
+
+def delete_daily_rate_tier(db: Session, tier_id: int):
+    db_tier = db.query(models.DailyRateTier).filter(models.DailyRateTier.id == tier_id).first()
+    if db_tier:
+        db.delete(db_tier)
+        db.commit()
+    return db_tier
+
+# AdmissionBilling CRUD
+def get_admission_billing(db: Session, billing_id: int):
+    return db.query(models.AdmissionBilling).filter(models.AdmissionBilling.id == billing_id).first()
+
+def get_admission_billings(db: Session, admission_id: int):
+    return db.query(models.AdmissionBilling).filter(
+        models.AdmissionBilling.admission_id == admission_id
+    ).order_by(models.AdmissionBilling.billing_date.desc()).all()
+
+def create_admission_billing(db: Session, billing: schemas.AdmissionBillingCreate):
+    db_billing = models.AdmissionBilling(**billing.dict())
+    db.add(db_billing)
+    db.commit()
+    db.refresh(db_billing)
+    return db_billing
+
+def update_admission_billing(db: Session, billing_id: int, billing: schemas.AdmissionBillingUpdate):
+    db_billing = db.query(models.AdmissionBilling).filter(models.AdmissionBilling.id == billing_id).first()
+    if db_billing:
+        update_data = billing.dict(exclude_unset=True)
+        for field, value in update_data.items():
+            setattr(db_billing, field, value)
+        db_billing.updated_at = datetime.utcnow()
+        db.commit()
+        db.refresh(db_billing)
+    return db_billing
+
+# BillingItem CRUD
+def get_billing_items(db: Session, billing_id: int):
+    return db.query(models.BillingItem).filter(models.BillingItem.billing_id == billing_id).all()
+
+def create_billing_item(db: Session, item: schemas.BillingItemCreate):
+    db_item = models.BillingItem(**item.dict())
+    db.add(db_item)
+    db.commit()
+    db.refresh(db_item)
+    return db_item
+
+def update_billing_item(db: Session, item_id: int, item: schemas.BillingItemUpdate):
+    db_item = db.query(models.BillingItem).filter(models.BillingItem.id == item_id).first()
+    if db_item:
+        update_data = item.dict(exclude_unset=True)
+        for field, value in update_data.items():
+            setattr(db_item, field, value)
+        db.commit()
+        db.refresh(db_item)
+    return db_item
+
+def delete_billing_item(db: Session, item_id: int):
+    db_item = db.query(models.BillingItem).filter(models.BillingItem.id == item_id).first()
+    if db_item:
+        db.delete(db_item)
+        db.commit()
+    return db_item
