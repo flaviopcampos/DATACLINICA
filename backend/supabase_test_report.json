@@ -1,0 +1,24 @@
+{
+  "timestamp": "2025-08-14T11:08:44.300905",
+  "success_rate": 100.0,
+  "total_tests": 6,
+  "passed_tests": 6,
+  "test_results": {
+    "connection": true,
+    "crud_operations": true,
+    "rls_policies": true,
+    "relationships": true,
+    "data_isolation": true,
+    "permissions": true
+  },
+  "test_data_ids": {
+    "clinic1_id": 8,
+    "clinic2_id": 9,
+    "user1_id": 3,
+    "user2_id": 4,
+    "patient1_id": 3,
+    "patient2_id": 4,
+    "doctor1_id": 2,
+    "appointment1_id": 3
+  }
+}

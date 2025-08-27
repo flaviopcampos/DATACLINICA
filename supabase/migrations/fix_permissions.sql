@@ -1,0 +1,12 @@
+GRANT SELECT ON users TO anon;
+GRANT ALL PRIVILEGES ON users TO authenticated;
+GRANT SELECT ON clinics TO anon;
+GRANT ALL PRIVILEGES ON clinics TO authenticated;
+GRANT SELECT ON patients TO anon;
+GRANT ALL PRIVILEGES ON patients TO authenticated;
+GRANT SELECT ON doctors TO anon;
+GRANT ALL PRIVILEGES ON doctors TO authenticated;
+GRANT SELECT ON appointments TO anon;
+GRANT ALL PRIVILEGES ON appointments TO authenticated;
+GRANT SELECT ON medical_records TO anon;
+GRANT ALL PRIVILEGES ON medical_records TO authenticated;

@@ -1,0 +1,12 @@
+{
+  "timestamp": "20250814_110441",
+  "results": {
+    "connection": true,
+    "crud_operations": false,
+    "rls_policies": true,
+    "authentication": true,
+    "errors": [
+      "Erro nas operações CRUD: {'message': 'new row violates row-level security policy for table \"clinics\"', 'code': '42501', 'hint': None, 'details': None}"
+    ]
+  }
+}

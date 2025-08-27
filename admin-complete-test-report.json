@@ -1,0 +1,69 @@
+{
+  "timestamp": "2025-08-27T08:33:39.688Z",
+  "tests": {
+    "clientCreation": {
+      "success": true,
+      "message": "Cliente Supabase criado com sucesso"
+    },
+    "adminLogin": {
+      "success": true,
+      "message": "Login do admin realizado com sucesso",
+      "user": {
+        "id": "9bdbd826-62d2-40b9-86cc-d4259efca6a1",
+        "email": "admin@dataclinica.com.br",
+        "role": "admin"
+      }
+    },
+    "tableAccess": {
+      "clinics": {
+        "success": true,
+        "message": "Acesso bem-sucedido. 2 registros encontrados",
+        "count": 2
+      },
+      "patients": {
+        "success": true,
+        "message": "Acesso bem-sucedido. 1 registros encontrados",
+        "count": 1
+      },
+      "doctors": {
+        "success": true,
+        "message": "Acesso bem-sucedido. 1 registros encontrados",
+        "count": 1
+      },
+      "appointments": {
+        "success": true,
+        "message": "Acesso bem-sucedido. 1 registros encontrados",
+        "count": 1
+      },
+      "medical_records": {
+        "success": true,
+        "message": "Acesso bem-sucedido. 0 registros encontrados",
+        "count": 0
+      }
+    },
+    "crudOperations": {
+      "create": {
+        "success": true,
+        "message": "Registro criado com sucesso"
+      },
+      "read": {
+        "success": true,
+        "message": "Registro lido com sucesso"
+      },
+      "update": {
+        "success": true,
+        "message": "Registro atualizado com sucesso"
+      },
+      "delete": {
+        "success": true,
+        "message": "Registro excluído com sucesso"
+      }
+    }
+  },
+  "summary": {
+    "totalTests": 11,
+    "passedTests": 11,
+    "failedTests": 0,
+    "successRate": 100
+  }
+}

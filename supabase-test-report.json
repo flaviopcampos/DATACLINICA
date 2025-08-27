@@ -1,0 +1,50 @@
+{
+  "timestamp": "2025-08-26T20:20:27.500Z",
+  "tests": {
+    "clientCreation": {
+      "status": "PASSOU",
+      "message": "Cliente criado com sucesso"
+    },
+    "basicConnection": {
+      "status": "FALHOU",
+      "error": "operator does not exist: integer = uuid",
+      "code": "42883"
+    },
+    "adminUser": {
+      "status": "FALHOU",
+      "error": "operator does not exist: integer = uuid"
+    },
+    "tableAccess": {
+      "status": "PASSOU",
+      "accessibleTables": 1,
+      "totalTables": 5,
+      "details": {
+        "clinics": {
+          "status": "ERRO",
+          "error": "operator does not exist: integer = uuid"
+        },
+        "patients": {
+          "status": "ERRO",
+          "error": "operator does not exist: integer = uuid"
+        },
+        "doctors": {
+          "status": "ERRO",
+          "error": "operator does not exist: integer = uuid"
+        },
+        "appointments": {
+          "status": "ERRO",
+          "error": "operator does not exist: integer = uuid"
+        },
+        "medical_records": {
+          "status": "OK",
+          "count": 0
+        }
+      }
+    }
+  },
+  "summary": {
+    "total": 3,
+    "passed": 2,
+    "failed": 2
+  }
+}

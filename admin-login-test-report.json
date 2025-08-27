@@ -1,0 +1,19 @@
+{
+  "timestamp": "2025-08-26T20:22:28.576Z",
+  "tests": {
+    "clientCreation": {
+      "status": "PASSOU",
+      "message": "Cliente criado com sucesso"
+    },
+    "adminLogin": {
+      "status": "FALHOU",
+      "error": "Invalid login credentials",
+      "code": 400
+    }
+  },
+  "summary": {
+    "total": 2,
+    "passed": 1,
+    "failed": 1
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "app\\auth\\forgot-password\\page.tsx -> @/lib/supabase": {
+    "id": 33168,
+    "files": [
+      "static/chunks/5954-90d7a187e89b2ae1.js",
+      "static/chunks/2354-4a2c2c650fd1204d.js",
+      "static/chunks/3168.c2cc7a7bb082597f.js"
+    ]
+  },
+  "app\\auth\\reset-password\\page.tsx -> @/lib/supabase": {
+    "id": 33168,
+    "files": [
+      "static/chunks/5954-90d7a187e89b2ae1.js",
+      "static/chunks/2354-4a2c2c650fd1204d.js",
+      "static/chunks/3168.c2cc7a7bb082597f.js"
+    ]
+  },
+  "node_modules\\@supabase\\auth-js\\dist\\module\\lib\\helpers.js -> @supabase/node-fetch": {
+    "id": 92410,
+    "files": []
+  },
+  "node_modules\\@supabase\\functions-js\\dist\\module\\helper.js -> @supabase/node-fetch": {
+    "id": 92410,
+    "files": []
+  },
+  "node_modules\\@supabase\\realtime-js\\dist\\module\\RealtimeClient.js -> @supabase/node-fetch": {
+    "id": 92410,
+    "files": []
+  },
+  "node_modules\\@supabase\\storage-js\\dist\\module\\lib\\helpers.js -> @supabase/node-fetch": {
+    "id": 92410,
+    "files": []
+  },
+  "node_modules\\jspdf\\dist\\jspdf.es.min.js -> canvg": {
+    "id": 34137,
+    "files": [
+      "static/chunks/bc98253f.eda89940a145bae7.js",
+      "static/chunks/2121.629bb7ff3943445e.js"
+    ]
+  },
+  "node_modules\\jspdf\\dist\\jspdf.es.min.js -> dompurify": {
+    "id": 32831,
+    "files": [
+      "static/chunks/2831.60fdfa0acf3f5cbf.js"
+    ]
+  },
+  "node_modules\\jspdf\\dist\\jspdf.es.min.js -> html2canvas": {
+    "id": 52699,
+    "files": [
+      "static/chunks/ad2866b8.d24ec0a5e084098f.js"
+    ]
+  },
+  "node_modules\\next\\dist\\client\\index.js -> ../pages/_app": {
+    "id": 90472,
+    "files": [
+      "static/chunks/472.2c08b965bd9148e2.js"
+    ]
+  },
+  "node_modules\\next\\dist\\client\\index.js -> ../pages/_error": {
+    "id": 99341,
+    "files": [
+      "static/chunks/9341.8181fde8cccea77c.js"
+    ]
+  },
+  "src\\utils\\exportUtils.ts -> html2canvas": {
+    "id": 52699,
+    "files": [
+      "static/chunks/ad2866b8.d24ec0a5e084098f.js"
+    ]
+  }
+}
