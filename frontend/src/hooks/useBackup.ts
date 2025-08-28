@@ -124,7 +124,7 @@ export function useStorageUsage() {
 }
 
 // Hook principal para operações de backup
-export function useBackup() {
+export function useBackupOperations() {
   const queryClient = useQueryClient()
   const [activeBackups, setActiveBackups] = useState<Set<string>>(new Set())
   const [backupProgress, setBackupProgress] = useState<Record<string, BackupProgress>>({})
